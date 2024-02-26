@@ -1,0 +1,81 @@
+import 'package:dio/dio.dart';
+
+class CustomDioException implements Exception {
+  late String errorMessage;
+
+  CustomDioException.fromDioError(DioError dioError) {
+    switch (dioError.type) {
+      case DioExceptionType.cancel:
+        errorMessage = "Request to server was canceled";
+        break;
+      case DioExceptionType.connectionTimeout:
+        errorMessage = "Connection timeout";
+        break;
+      case DioExceptionType.receiveTimeout:
+        errorMessage = "Receiving request timeout";
+        break;
+      case DioExceptionType.sendTimeout:
+        errorMessage = "Sending request timeout";
+        break;
+      case DioExceptionType.badResponse:
+        errorMessage = _handleBadResponse(dioError.response);
+        break;
+      case DioExceptionType.unknown:
+        if (dioError.message!.contains("SocketException")) {
+          errorMessage = "No internet connection";
+          break;
+        }
+        errorMessage = 'Unexpected error occurred.';
+        break;
+      default:
+        errorMessage = 'Something went wrong';
+        break;
+    }
+  }
+
+  // String _handleBadResponse(int? statusCode) {
+  //   switch (statusCode) {
+  //     case 400:
+  //       return 'Bad request';
+  //     case 401:
+  //       return 'Unauthorized';
+  //     case 403:
+  //       return 'The authenticated user is not allowed to access the specified API endpoint';
+  //     case 404:
+  //       return 'The requested resource does not exist';
+  //     case 500:
+  //       return 'Internal server error';
+  //     default:
+  //       return 'Oops something went wrong!';
+  //   }
+  // }
+
+  String _handleBadResponse(Response? response) {
+    if (response != null) {
+      // Check if the response has data and an 'error' key
+      if (response.data != null &&
+          response.data is Map<String, dynamic> &&
+          response.data.containsKey('error')) {
+        // Check if 'error' is true and there's an 'errorMessage' array
+        if (response.data['error'] == true &&
+            response.data.containsKey('errorMessage') &&
+            response.data['errorMessage'] is List<dynamic> &&
+            response.data['errorMessage'].isNotEmpty) {
+          // Get the first error message from the array
+          var firstErrorMessage = response.data['errorMessage'][0];
+          if (firstErrorMessage is Map<String, dynamic> &&
+              firstErrorMessage.containsKey('message')) {
+            return firstErrorMessage['message'];
+          }
+        }
+      }
+    }
+
+    // Default message for bad response
+    return 'Oops! Something went wrong!';
+  }
+
+  @override
+  String toString()=> errorMessage;
+
+}

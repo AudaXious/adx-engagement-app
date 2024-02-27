@@ -34,16 +34,11 @@ class HomeScreen extends HookConsumerWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               itemCount: dummyFeeds.length,
               itemBuilder: (context, index) {
-                final feed = dummyFeeds[index];
+                final singleFeed = dummyFeeds[index];
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Post(
-                      id: feed['id'],
-                      authorProfile: feed['author_profile'],
-                      title: feed['title'],
-                      descriptions: feed['description'],
-                      points: feed['points'],
-                      reward: feed['reward']
+                    post: singleFeed,
                   ),
                 );
               }

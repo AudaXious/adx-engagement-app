@@ -4,9 +4,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-class Post extends StatelessWidget {
+class CompletePost extends StatelessWidget {
   Map<String, dynamic> post;
-   Post({
+  
+   CompletePost({
     super.key,
     required this.post
   });
@@ -75,30 +76,32 @@ class Post extends StatelessWidget {
                 ),
               ],
             ),
+            const Gap(10),
+            const Divider(color: Color(0xFF1D3050), thickness: 0.5,),
             const Gap(20),
             Row(
               children: [
-                ClipOval(
-                  child: CachedNetworkImage(
-                    fit: BoxFit.fill,
-                    imageUrl: post['author_profile'] ?? "",
-                    placeholder: (context, url) => const CircularProgressIndicator(
-                      color: Color(0xFF79C4EC),
-                      strokeWidth: 2,
-                    ),
-                    width: 50,
-                    height: 50,
-                  ),
-                ),
-                const Gap(20),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
+                          ClipOval(
+                            child: CachedNetworkImage(
+                              fit: BoxFit.fill,
+                              imageUrl: post['author_profile'] ?? "",
+                              placeholder: (context, url) => const CircularProgressIndicator(
+                                color: Color(0xFF79C4EC),
+                                strokeWidth: 2,
+                              ),
+                              width: 35,
+                              height: 35,
+                            ),
+                          ),
+                          const Gap(5),
                           Text(
-                            shortenString(post['title'] ?? "", 20),
+                            post['title'] ?? "",
                             style: const TextStyle(fontWeight: FontWeight.w600),
                           ),
                           const Spacer(),
@@ -109,8 +112,8 @@ class Post extends StatelessWidget {
                           )
                         ],
                       ),
-                      const Gap(5),
-                      Text(shortenString(post['description'] ?? "", 70)),
+                      const Gap(10),
+                      Text(post['description'] ?? ""),
                     ],
                   ),
                 )

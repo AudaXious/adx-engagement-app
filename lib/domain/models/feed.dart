@@ -5,6 +5,7 @@ class Feed {
   String? reward;
   Map<String, String>? tasks;
   String? title;
+  String? authorProfile;
 
   Feed({
     this.description,
@@ -13,6 +14,7 @@ class Feed {
     this.reward,
     this.tasks,
     this.title,
+    this.authorProfile,
   });
 
   factory Feed.fromJson(Map<String, dynamic> json) {
@@ -23,6 +25,7 @@ class Feed {
       reward: json['reward'],
       tasks: Map<String, String>.from(json['tasks']),
       title: json['title'],
+      authorProfile: json['author_profile'],
     );
   }
 
@@ -34,6 +37,7 @@ class Feed {
       'reward': reward,
       'tasks': tasks,
       'title': title,
+      'author_profile': authorProfile,
     };
   }
 }

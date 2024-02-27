@@ -1,22 +1,53 @@
+import 'package:audaxious/data/dummy_data.dart';
+import 'package:audaxious/domain/enums/view_state.dart';
+import 'package:audaxious/presentation/viewmodels/home/home_viewmodel.dart';
+import 'package:audaxious/presentation/widgets/post.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 @RoutePage()
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends HookConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final notifier = ref.watch(HomeViewModel.notifier);
 
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Home"),
+        title: const Text("AudaXious Engage"),
+        backgroundColor: const Color(0xFF060B12),
+        centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: (){},
+              icon: const Icon(Icons.notifications)
+          )
+        ],
       ),
-      body: const Center(child: Text("Home Screen")),
+      body: notifier.viewState.isLoading 
+          ? const Center(child: CircularProgressIndicator(strokeWidth: 3)) 
+          : !notifier.viewState.isError
+          ? Center(child: Text(notifier.error)) 
+          : ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              itemCount: dummyFeeds.length,
+              itemBuilder: (context, index) {
+                final feed = dummyFeeds[index];
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Post(
+                      id: feed['id'],
+                      authorProfile: feed['author_profile'],
+                      title: feed['title'],
+                      descriptions: feed['description'],
+                      points: feed['points'],
+                      reward: feed['reward']
+                  ),
+                );
+              }
+      ),
     );
   }
 }

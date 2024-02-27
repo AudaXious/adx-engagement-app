@@ -11,6 +11,7 @@ class FeedsRepositoryImpl extends FeedsRepository {
     try {
       final response = await DioClient.instance.get(
         feedsEndpoint,
+        requiresAuthorization: false
       );
 
       return response;
@@ -18,7 +19,6 @@ class FeedsRepositoryImpl extends FeedsRepository {
       var error = CustomDioException.fromDioError(e);
       throw error.errorMessage;
     }
-
   }
 
 }

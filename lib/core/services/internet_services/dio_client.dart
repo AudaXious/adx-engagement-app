@@ -38,6 +38,7 @@ class DioClient {
       );
 
       if (response.statusCode == 200) {
+        print("Feeds: ${response.data}");
         return response.data;
       }
 

@@ -21,11 +21,29 @@ class PostDetailsScreen extends HookConsumerWidget {
     final notifier = ref.watch(PostsViewModel.notifier);
     final feeds = dummyFeeds;
     final currentIndex = useState(postIndex);
+    final slideInRight = useState(true);
+
+    final animationController = useAnimationController(
+        duration: const Duration(milliseconds: 500)
+    );
+    final slideInLeftAnimation = useMemoized(() => Tween<Offset>(
+        begin: const Offset(1.0, 0.0), end: Offset.zero
+    ).animate(animationController));
+    final slideInRightAnimation = useMemoized(() => Tween<Offset>(
+        begin: const Offset(-1.0, 0.0), end: Offset.zero
+    ).animate(animationController));
 
     useEffect(() {
       currentIndex.value = postIndex;
-      return () {};
+      return () {
+        animationController.dispose();
+      };
     }, [postIndex]);
+
+    useEffect(() {
+      animationController.reset();
+      animationController.forward();
+    }, [currentIndex.value]);
 
     return Scaffold(
       appBar: AppBar(
@@ -34,43 +52,49 @@ class PostDetailsScreen extends HookConsumerWidget {
       ),
       body: Column(
         children: [
-          SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CompletePost(post: feeds[currentIndex.value]),
-                const Gap(70),
-                Visibility(
-                  visible: feeds[currentIndex.value]['tasks']['follow'] != null,
-                  child: TaskButton(
-                    buttonText: 'Follow',
-                    taskIcon: "assets/images/x.png",
-                    onPressed: () {},
-                  )
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: SlideTransition(
+                position: slideInRight.value
+                    ? slideInLeftAnimation
+                    : slideInRightAnimation,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CompletePost(post: feeds[currentIndex.value]),
+                    const Gap(70),
+                    Visibility(
+                      visible: feeds[currentIndex.value]['tasks']['follow'] != null,
+                      child: TaskButton(
+                        buttonText: 'Follow',
+                        taskIcon: "assets/images/x.png",
+                        onPressed: () {},
+                      ),
+                    ),
+                    const Gap(15),
+                    Visibility(
+                      visible: feeds[currentIndex.value]['tasks']['like'] != null,
+                      child: TaskButton(
+                        buttonText: 'Like',
+                        taskIcon: "assets/images/un_like.png",
+                        onPressed: () {},
+                      ),
+                    ),
+                    const Gap(15),
+                    Visibility(
+                      visible: feeds[currentIndex.value]['tasks']['repost'] != null,
+                      child: TaskButton(
+                        buttonText: 'Repost',
+                        taskIcon: "assets/images/repost.png",
+                        onPressed: () {},
+                      ),
+                    ),
+                  ],
                 ),
-                const Gap(15),
-                Visibility(
-                    visible: feeds[currentIndex.value]['tasks']['like'] != null,
-                    child: TaskButton(
-                    buttonText: 'Like',
-                      taskIcon: "assets/images/un_like.png",
-                      onPressed: () {},
-                  )
-                ),
-                const Gap(15),
-                Visibility(
-                    visible: feeds[currentIndex.value]['tasks']['repost'] != null,
-                  child: TaskButton(
-                    buttonText: 'Repost',
-                    taskIcon: "assets/images/repost.png",
-                    onPressed: () {},
-                  )
-                )
-              ],
+              ),
             ),
           ),
-          const Spacer(),
           Container(
             margin: const EdgeInsets.only(bottom: 20, left: 10, right: 10),
             child: !notifier.viewState.isError
@@ -79,30 +103,31 @@ class PostDetailsScreen extends HookConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextButton(
-                    onPressed: () {
-                      if (currentIndex.value > 0) {
-                        currentIndex.value--;
-                      }else if (currentIndex.value == 0) {
-                        currentIndex.value = feeds.length - 1;
-                      }
-                    },
-                    child: const Text("Prev", style: TextStyle(color: Color(0xFF79C4EC)))
+                  onPressed: () {
+                    slideInRight.value = false;
+                    if (currentIndex.value > 0) {
+                      currentIndex.value--;
+                    } else if (currentIndex.value == 0) {
+                      currentIndex.value = feeds.length - 1;
+                    }
+                  },
+                  child: const Text("Prev", style: TextStyle(color: Color(0xFF79C4EC))),
                 ),
                 TextButton(
-                    onPressed: () {
-                      currentIndex.value++;
-                      if (currentIndex.value == feeds.length) {
-                        currentIndex.value = 0;
-                      }
-                    },
-                    child: const Text("Next", style: TextStyle(color: Color(0xFF79C4EC)))
-                )
+                  onPressed: () {
+                    slideInRight.value = true;
+                    currentIndex.value++;
+                    if (currentIndex.value == feeds.length) {
+                      currentIndex.value = 0;
+                    }
+                  },
+                  child: const Text("Next", style: TextStyle(color: Color(0xFF79C4EC))),
+                ),
               ],
             ),
-          )
-        ] ,
+          ),
+        ],
       ),
-
     );
   }
 }

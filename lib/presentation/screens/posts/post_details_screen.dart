@@ -20,10 +20,16 @@ class PostDetailsScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final notifier = ref.watch(PostsViewModel.notifier);
     final feeds = dummyFeeds;
+    final currentIndex = useState(postIndex);
+
+    useEffect(() {
+      currentIndex.value = postIndex;
+      return () {};
+    }, [postIndex]);
 
     return Scaffold(
       appBar: AppBar(
-        title:  Text(postIndex.toString()),
+        title: const Text("Post"),
         backgroundColor: const Color(0xFF060B12),
       ),
       body: Column(
@@ -33,10 +39,10 @@ class PostDetailsScreen extends HookConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CompletePost(post: feeds[postIndex]),
+                CompletePost(post: feeds[currentIndex.value]),
                 const Gap(70),
                 Visibility(
-                  visible: feeds[postIndex]['tasks']['follow'] != null,
+                  visible: feeds[currentIndex.value]['tasks']['follow'] != null,
                   child: TaskButton(
                     buttonText: 'Follow',
                     taskIcon: "assets/images/x.png",
@@ -45,7 +51,7 @@ class PostDetailsScreen extends HookConsumerWidget {
                 ),
                 const Gap(15),
                 Visibility(
-                    visible: feeds[postIndex]['tasks']['like'] != null,
+                    visible: feeds[currentIndex.value]['tasks']['like'] != null,
                     child: TaskButton(
                     buttonText: 'Like',
                       taskIcon: "assets/images/un_like.png",
@@ -54,7 +60,7 @@ class PostDetailsScreen extends HookConsumerWidget {
                 ),
                 const Gap(15),
                 Visibility(
-                    visible: feeds[postIndex]['tasks']['repost'] != null,
+                    visible: feeds[currentIndex.value]['tasks']['repost'] != null,
                   child: TaskButton(
                     buttonText: 'Repost',
                     taskIcon: "assets/images/repost.png",
@@ -74,19 +80,19 @@ class PostDetailsScreen extends HookConsumerWidget {
               children: [
                 TextButton(
                     onPressed: () {
-                      if (postIndex > 0) {
-                        postIndex--;
-                      }else if (postIndex == 0) {
-                        postIndex = feeds.length - 1;
+                      if (currentIndex.value > 0) {
+                        currentIndex.value--;
+                      }else if (currentIndex.value == 0) {
+                        currentIndex.value = feeds.length - 1;
                       }
                     },
                     child: const Text("Prev", style: TextStyle(color: Color(0xFF79C4EC)))
                 ),
                 TextButton(
                     onPressed: () {
-                      postIndex++;
-                      if (postIndex == feeds.length) {
-                        postIndex = 0;
+                      currentIndex.value++;
+                      if (currentIndex.value == feeds.length) {
+                        currentIndex.value = 0;
                       }
                     },
                     child: const Text("Next", style: TextStyle(color: Color(0xFF79C4EC)))

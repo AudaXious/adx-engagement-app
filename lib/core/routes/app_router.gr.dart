@@ -40,6 +40,7 @@ abstract class _$AppRouter extends RootStackRouter {
         child: PostDetailsScreen(
           key: args.key,
           post: args.post,
+          postIndex: args.postIndex,
         ),
       );
     },
@@ -94,12 +95,14 @@ class PostDetailsRoute extends PageRouteInfo<PostDetailsRouteArgs> {
   PostDetailsRoute({
     Key? key,
     required Map<String, dynamic> post,
+    required int postIndex,
     List<PageRouteInfo>? children,
   }) : super(
           PostDetailsRoute.name,
           args: PostDetailsRouteArgs(
             key: key,
             post: post,
+            postIndex: postIndex,
           ),
           initialChildren: children,
         );
@@ -114,14 +117,17 @@ class PostDetailsRouteArgs {
   const PostDetailsRouteArgs({
     this.key,
     required this.post,
+    required this.postIndex,
   });
 
   final Key? key;
 
   final Map<String, dynamic> post;
 
+  final int postIndex;
+
   @override
   String toString() {
-    return 'PostDetailsRouteArgs{key: $key, post: $post}';
+    return 'PostDetailsRouteArgs{key: $key, post: $post, postIndex: $postIndex}';
   }
 }

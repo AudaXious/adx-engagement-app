@@ -39,6 +39,7 @@ class HomeScreen extends HookConsumerWidget {
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Post(
                     post: singleFeed,
+                    postIndex: index,
                   ),
                 );
               }

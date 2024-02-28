@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 class Post extends StatelessWidget {
   Map<String, dynamic> post;
+  int postIndex;
    Post({
     super.key,
-    required this.post
+    required this.post,
+    required this.postIndex,
   });
 
   @override
@@ -16,10 +18,9 @@ class Post extends StatelessWidget {
     return InkWell(
       splashColor: const Color(0x0d021418),
       onTap: () {
-        context.router.navigate(PostDetailsRoute(post: post));
+        context.router.navigate(PostDetailsRoute(post: post, postIndex: postIndex));
       },
       child: Container(
-        // margin: const EdgeInsets.symmetric(vertical: 15),
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
         decoration: BoxDecoration(
           border: Border.all(width: 0.5, color: const Color(0xFF1D3050)),

@@ -4,9 +4,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+
+import '../../domain/models/feed.dart';
 class CompletePost extends StatelessWidget {
-  Map<String, dynamic> post;
-  
+  Feed post;
+
    CompletePost({
     super.key,
     required this.post
@@ -15,7 +17,6 @@ class CompletePost extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // margin: const EdgeInsets.symmetric(vertical: 15),
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
       decoration: BoxDecoration(
           border: Border.all(width: 0.5, color: const Color(0xFF1D3050)),
@@ -38,7 +39,7 @@ class CompletePost extends StatelessWidget {
                     const Icon(Icons.settings, color: Color(0xFF7AE7E7), size: 20,),
                     const Gap(3),
                     Text(
-                      "Tasks | 0/${post['tasks'].length.toString()}",
+                      "Tasks | 0/${post.tasks?.length}",
                       style: const TextStyle(
                           color: Color(0xFF7AE7E7),
                           fontSize: 12
@@ -85,7 +86,7 @@ class CompletePost extends StatelessWidget {
                         ClipOval(
                           child: CachedNetworkImage(
                             fit: BoxFit.fill,
-                            imageUrl: post['author_profile'] ?? "",
+                            imageUrl: post.authorProfile ?? "",
                             placeholder: (context, url) => const CircularProgressIndicator(
                               color: Color(0xFF79C4EC),
                               strokeWidth: 2,
@@ -96,7 +97,7 @@ class CompletePost extends StatelessWidget {
                         ),
                         const Gap(5),
                         Text(
-                          post['title'] ?? "",
+                          post.title ?? "",
                           style: const TextStyle(fontWeight: FontWeight.w600),
                         ),
                         const Spacer(),
@@ -108,7 +109,7 @@ class CompletePost extends StatelessWidget {
                       ],
                     ),
                     const Gap(10),
-                    Text(post['description'] ?? ""),
+                    Text(post.description ?? ""),
                   ],
                 ),
               )

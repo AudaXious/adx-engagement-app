@@ -94,7 +94,7 @@ class HomeRoute extends PageRouteInfo<void> {
 class PostDetailsRoute extends PageRouteInfo<PostDetailsRouteArgs> {
   PostDetailsRoute({
     Key? key,
-    required Map<String, dynamic> post,
+    required Feed post,
     required int postIndex,
     List<PageRouteInfo>? children,
   }) : super(
@@ -122,7 +122,7 @@ class PostDetailsRouteArgs {
 
   final Key? key;
 
-  final Map<String, dynamic> post;
+  final Feed post;
 
   final int postIndex;
 

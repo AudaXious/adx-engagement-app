@@ -1,7 +1,10 @@
 import 'package:audaxious/domain/repository/feeds_repository.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../data/providers/feeds_provider.dart';
 
 abstract class FeedsUseCase {
-  Future<Map<String, dynamic>> getFeeds();
+  Future<List<dynamic>> getFeeds();
 
 }
 class FeedsUseCaseImpl extends FeedsUseCase {
@@ -10,7 +13,11 @@ class FeedsUseCaseImpl extends FeedsUseCase {
   FeedsUseCaseImpl(this.feedsRepository);
 
   @override
-  Future<Map<String, dynamic>> getFeeds() async {
+  Future<List<dynamic>> getFeeds() async {
     return await feedsRepository.getFeeds();
   }
 }
+
+final feedsUseCaseProvider = Provider<FeedsUseCase>((ref) {
+  return FeedsUseCaseImpl(ref.read(feedsRepositoryProvider));
+});

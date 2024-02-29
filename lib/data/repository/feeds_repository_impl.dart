@@ -7,7 +7,7 @@ import '../../core/services/internet_services/endpoints.dart';
 
 class FeedsRepositoryImpl extends FeedsRepository {
   @override
-  Future<Map<String, dynamic>> getFeeds() async {
+  Future<List<dynamic>> getFeeds() async {
     try {
       final response = await DioClient.instance.get(
         feedsEndpoint,

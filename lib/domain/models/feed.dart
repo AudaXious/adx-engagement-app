@@ -1,9 +1,11 @@
+import 'package:audaxious/domain/models/tasks.dart';
+
 class Feed {
   String? description;
   int? id;
   int? points;
   String? reward;
-  Map<String, String>? tasks;
+  Tasks? tasks;
   String? title;
   String? authorProfile;
 
@@ -23,7 +25,7 @@ class Feed {
       id: json['id'],
       points: json['points'],
       reward: json['reward'],
-      tasks: Map<String, String>.from(json['tasks']),
+      tasks: json['tasks'] != null ? Tasks.fromJson(json['tasks']) : null,
       title: json['title'],
       authorProfile: json['author_profile'],
     );

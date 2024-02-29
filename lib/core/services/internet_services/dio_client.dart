@@ -14,7 +14,7 @@ class DioClient {
   ));
 
   //GET METHOD
-  Future<Map<String, dynamic>> get(
+  Future<dynamic> get(
       String path, {
         Map<String, dynamic>? queryParameters,
         Options? options,
@@ -49,7 +49,7 @@ class DioClient {
   }
 
   //POST METHOD
-  Future<Map<String, dynamic>> post(
+  Future<dynamic> post(
       String path, {
         data,
         Map<String, dynamic>? queryParameter,
@@ -85,7 +85,7 @@ class DioClient {
   }
 
   // PUT METHOD
-  Future<Map<String, dynamic>> put(
+  Future<dynamic> put(
       String path, {
         Map<String, dynamic>? queryParameters,
         data,
@@ -121,7 +121,7 @@ class DioClient {
   }
 
   // PUT METHOD
-  Future<Map<String, dynamic>> patch(
+  Future<dynamic> patch(
       String path, {
         Map<String, dynamic>? queryParameters,
         data,
@@ -157,7 +157,7 @@ class DioClient {
   }
 
   //DELETE METHOD
-  Future<Map<String, dynamic>> delete(
+  Future<dynamic> delete(
       String path, {
         data,
         Map<String, dynamic>? queryParameters,

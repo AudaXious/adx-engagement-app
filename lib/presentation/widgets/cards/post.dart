@@ -5,8 +5,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-import '../../core/routes/app_router.dart';
-import '../../domain/models/feed.dart';
+import '../../../core/routes/app_router.dart';
+import '../../../domain/models/feed.dart';
+
 class Post extends StatelessWidget {
   Feed post;
   int postIndex;
@@ -47,7 +48,7 @@ class Post extends StatelessWidget {
                       const Gap(3),
                       Text(
                         "Tasks | 0/${post.tasks?.length}",
-                        style: Theme.of(context).textTheme.bodyText2?.
+                        style: Theme.of(context).textTheme.bodyMedium?.
                         copyWith(color: lightTeal),
                       )
                     ],
@@ -65,7 +66,7 @@ class Post extends StatelessWidget {
                     children: [
                       Text(
                         "Engage to earn | 10 BNB",
-                        style: Theme.of(context).textTheme.bodyText2?.
+                        style: Theme.of(context).textTheme.bodyMedium?.
                         copyWith(color: lightGold),
                       ),
                       const Gap(3),
@@ -99,13 +100,13 @@ class Post extends StatelessWidget {
                         children: [
                           Text(
                             shortenString(post.title ?? "", 20),
-                            style: Theme.of(context).textTheme.headline1?.
+                            style: Theme.of(context).textTheme.displayLarge?.
                             copyWith(fontSize: 14),
                           ),
                           const Spacer(),
                           Expanded(child: Text(
                               "• 6 days",
-                            style: Theme.of(context).textTheme.bodyText2?.
+                            style: Theme.of(context).textTheme.bodyMedium?.
                             copyWith(fontSize: 12),
                           )
                           )
@@ -114,7 +115,7 @@ class Post extends StatelessWidget {
                       const Gap(5),
                       Text(
                           shortenString(post.description ?? "", 70),
-                          style: Theme.of(context).textTheme.bodyText1
+                          style: Theme.of(context).textTheme.bodyLarge
                       ),
                     ],
                   ),

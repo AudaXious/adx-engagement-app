@@ -1,9 +1,10 @@
 import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/presentation/viewmodels/home/home_viewmodel.dart';
-import 'package:audaxious/presentation/widgets/post.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../../widgets/cards/post.dart';
 
 @RoutePage()
 class HomeScreen extends HookConsumerWidget {
@@ -17,7 +18,7 @@ class HomeScreen extends HookConsumerWidget {
       appBar: AppBar(
         title: Text(
             "AudaXious Engage",
-          style: Theme.of(context).textTheme.headline3,
+          style: Theme.of(context).textTheme.displaySmall,
         ),
         centerTitle: true,
         actions: [

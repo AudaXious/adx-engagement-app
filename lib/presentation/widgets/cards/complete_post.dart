@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-import '../../core/utils/theme/dark_theme.dart';
-import '../../domain/models/feed.dart';
+import '../../../core/utils/theme/dark_theme.dart';
+import '../../../domain/models/feed.dart';
 class CompletePost extends StatelessWidget {
   Feed post;
 
@@ -38,7 +38,7 @@ class CompletePost extends StatelessWidget {
                     const Gap(3),
                     Text(
                       "Tasks | 0/${post.tasks?.length}",
-                      style: Theme.of(context).textTheme.bodyText2?.
+                      style: Theme.of(context).textTheme.bodyMedium?.
                       copyWith(color: lightTeal),
                     )
                   ],
@@ -56,7 +56,7 @@ class CompletePost extends StatelessWidget {
                   children: [
                     Text(
                       "Engage to earn | 10 BNB",
-                      style: Theme.of(context).textTheme.bodyText2?.
+                      style: Theme.of(context).textTheme.bodyMedium?.
                       copyWith(color: lightGold),
                     ),
                     const Gap(3),
@@ -90,13 +90,13 @@ class CompletePost extends StatelessWidget {
                       children: [
                         Text(
                           post.title ?? "",
-                          style: Theme.of(context).textTheme.headline1?.
+                          style: Theme.of(context).textTheme.displayLarge?.
                           copyWith(fontSize: 14),
                         ),
                         const Spacer(),
                         Expanded(child: Text(
                           "• 6 days",
-                          style: Theme.of(context).textTheme.bodyText2?.
+                          style: Theme.of(context).textTheme.bodyMedium?.
                           copyWith(fontSize: 12),
                         )
                         )
@@ -105,7 +105,7 @@ class CompletePost extends StatelessWidget {
                     const Gap(5),
                     Text(
                         post.description ?? "",
-                        style: Theme.of(context).textTheme.bodyText1
+                        style: Theme.of(context).textTheme.bodyLarge
                     ),
                   ],
                 ),

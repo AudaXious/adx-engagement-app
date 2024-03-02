@@ -13,12 +13,12 @@ Color textInputBorderColor = const Color(0xFF555656);
 
 final ThemeData darkTheme = ThemeData(
   textTheme: const TextTheme(
-    headline1: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600, fontFamily: 'Poppins'),
-    headline2: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500, fontFamily: 'Poppins'),
-    headline3: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w400, fontFamily: 'Poppins'),
-    headline4: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w300, fontFamily: 'Poppins'),
-    bodyText1: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w400, fontFamily: 'Poppins'),
-    bodyText2: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w300, fontFamily: 'Poppins'),
+    displayLarge: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600, fontFamily: 'Poppins'),
+    displayMedium: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500, fontFamily: 'Poppins'),
+    displaySmall: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w400, fontFamily: 'Poppins'),
+    headlineMedium: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w300, fontFamily: 'Poppins'),
+    bodyLarge: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w400, fontFamily: 'Poppins'),
+    bodyMedium: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w300, fontFamily: 'Poppins'),
   ),
   colorScheme: ColorScheme.fromSeed(
     seedColor: primaryColor,

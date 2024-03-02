@@ -1,6 +1,7 @@
 
 import 'package:audaxious/core/utils/view_utils.dart';
 import 'package:audaxious/presentation/widgets/buttons/custom_radio_group_tabs_horizontal.dart';
+import 'package:audaxious/presentation/widgets/cards/space_card.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -20,7 +21,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
       appBar: AppBar(
         title: Text(
           "Community",
-          style: Theme.of(context).textTheme.headline3,
+          style: Theme.of(context).textTheme.displaySmall,
         ),
         centerTitle: true,
         actions: [
@@ -56,18 +57,30 @@ class _CommunityScreenState extends State<CommunityScreen> {
             ),
           ),
           const Gap(20),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            child: TextField(
+              keyboardType: TextInputType.text,
+              cursorColor: Colors.white,
+              decoration: searchTextFieldDecoration(
+                labelText: "Type to search community",
+              ),
+            ),
+          ),
+          const Gap(20),
+          const Expanded(
             child: SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
-                  TextField(
-                    keyboardType: TextInputType.text,
-                    cursorColor: Colors.white,
-                    decoration: searchTextFieldDecoration(
-                      labelText: "Type to search community",
-                    ),
-                  )
+                  Gap(30),
+                  SpaceCard(),
+                  Gap(20),
+                  SpaceCard(),
+                  Gap(20),
+                  SpaceCard(),
+                  Gap(20),
+                  SpaceCard(),
                 ],
               ),
             ),

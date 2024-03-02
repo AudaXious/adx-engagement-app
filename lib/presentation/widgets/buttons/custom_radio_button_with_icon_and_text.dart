@@ -43,7 +43,7 @@ class CustomRadioButtonWithIconAndText extends StatelessWidget {
             const Gap(10),
             Text(
               title,
-              style: Theme.of(context).textTheme.bodyText1?.copyWith(
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 color: isActive ? blackTextColor : Colors.white
               ),
             )

@@ -1,3 +1,4 @@
+import 'package:audaxious/core/utils/theme/dark_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import '../../../core/utils/app_layout.dart';
@@ -46,11 +47,11 @@ class _TaskButtonState extends State<TaskButton> {
   Color _getButtonColor() {
     switch (widget.buttonState) {
       case ButtonState.active:
-        return const Color(0x0d51c7e1);
+        return cardColor;
       case ButtonState.loading:
-        return const Color(0x0d51c7e1).withOpacity(0.7);
+        return cardColor.withOpacity(0.7);
       case ButtonState.disabled:
-        return const Color(0x0d51c7e1).withOpacity(0.8);
+        return cardColor.withOpacity(0.8);
     }
   }
 

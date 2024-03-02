@@ -15,7 +15,10 @@ class HomeScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("AudaXious Engage"),
+        title: Text(
+            "AudaXious Engage",
+          style: Theme.of(context).textTheme.headline3,
+        ),
         centerTitle: true,
         actions: [
           IconButton(

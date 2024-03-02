@@ -1,3 +1,4 @@
+import 'package:audaxious/core/utils/theme/dark_theme.dart';
 import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/domain/models/feed.dart';
 import 'package:audaxious/presentation/widgets/buttons/task_button.dart';
@@ -48,11 +49,14 @@ class PostDetailsScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Post"),
+        title: Text(
+          "Post",
+          style: Theme.of(context).textTheme.headline3,
+        ),
         backgroundColor: const Color(0xFF060B12),
       ),
       body: notifier.viewState.isLoading
-          ? const Center(child: CircularProgressIndicator(strokeWidth: 3, color: Color(0xFF79C4EC),))
+          ? Center(child: CircularProgressIndicator(strokeWidth: 3, color: primaryColor))
           : notifier.viewState.isError ? Center(child: Text(notifier.error),)
           : Column(
               children: [
@@ -115,7 +119,11 @@ class PostDetailsScreen extends HookConsumerWidget {
                             currentIndex.value = feeds.length - 1;
                           }
                         },
-                        child: const Text("Prev", style: TextStyle(color: Color(0xFF79C4EC))),
+                          child: Text(
+                              "Prev",
+                              style: Theme.of(context).textTheme.headline1
+                                  ?.copyWith(color: primaryColor, fontSize: 14)
+                          )
                       ),
                       TextButton(
                         onPressed: () {
@@ -125,7 +133,11 @@ class PostDetailsScreen extends HookConsumerWidget {
                             currentIndex.value = 0;
                           }
                         },
-                        child: const Text("Next", style: TextStyle(color: Color(0xFF79C4EC))),
+                        child: Text(
+                            "Next",
+                            style: Theme.of(context).textTheme.headline1
+                                ?.copyWith(color: primaryColor, fontSize: 14)
+                        ),
                       ),
                     ],
                   ),

@@ -15,7 +15,10 @@ class _CommunityScreenState extends State<CommunityScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Community"),
+        title: Text(
+          "Community",
+          style: Theme.of(context).textTheme.headline3,
+        ),
         centerTitle: true,
         actions: [
           IconButton(

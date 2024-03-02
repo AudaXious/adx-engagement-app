@@ -1,4 +1,5 @@
 import 'package:audaxious/core/utils/app_utils.dart';
+import 'package:audaxious/core/utils/theme/dark_theme.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -25,9 +26,9 @@ class Post extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
         decoration: BoxDecoration(
-          border: Border.all(width: 0.5, color: const Color(0xFF1D3050)),
+          border: Border.all(width: 0.5, color: cardBorderColor),
           borderRadius: const BorderRadius.all(Radius.circular(15)),
-          color: const Color(0x0d51c7e1)
+          color: cardColor
         ),
         child: Column(
           children: [
@@ -36,20 +37,18 @@ class Post extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
                   decoration: BoxDecoration(
-                    border: Border.all(width: 0.5, color: const Color(0xFF51C7E1)),
+                    border: Border.all(width: 0.5, color: lightTeal),
                     borderRadius: const BorderRadius.all(Radius.circular(15)),
-                    color: const Color(0x1A51C7E1),
+                    color: lightTeal.withOpacity(0.2),
                   ),
                   child: Row(
                     children: [
-                      const Icon(Icons.settings, color: Color(0xFF7AE7E7), size: 20,),
+                      Icon(Icons.settings, color: lightTeal, size: 20,),
                       const Gap(3),
                       Text(
                         "Tasks | 0/${post.tasks?.length}",
-                        style: const TextStyle(
-                            color: Color(0xFF7AE7E7),
-                            fontSize: 12
-                        ),
+                        style: Theme.of(context).textTheme.bodyText2?.
+                        copyWith(color: lightTeal),
                       )
                     ],
                   ),
@@ -58,21 +57,19 @@ class Post extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                   decoration: BoxDecoration(
-                    border: Border.all(width: 0.5, color: const Color(0xFFE1D356)),
+                    border: Border.all(width: 0.5, color: lightGold),
                     borderRadius: const BorderRadius.all(Radius.circular(15)),
-                    color: const Color(0x1A51C7E1),
+                    color: lightGold.withOpacity(0.2),
                   ),
-                  child:  const Row(
+                  child: Row(
                     children: [
                       Text(
                         "Engage to earn | 10 BNB",
-                        style: TextStyle(
-                            color: Color(0xFFE1D356),
-                            fontSize: 12
-                        ),
+                        style: Theme.of(context).textTheme.bodyText2?.
+                        copyWith(color: lightGold),
                       ),
-                      Gap(3),
-                      Icon(Icons.currency_bitcoin, color: Color(0xFFE1D356), size: 20,),
+                      const Gap(3),
+                      Icon(Icons.currency_bitcoin, color: lightGold, size: 20,),
                     ],
                   ),
                 ),
@@ -102,18 +99,23 @@ class Post extends StatelessWidget {
                         children: [
                           Text(
                             shortenString(post.title ?? "", 20),
-                            style: const TextStyle(fontWeight: FontWeight.w600),
+                            style: Theme.of(context).textTheme.headline1?.
+                            copyWith(fontSize: 14),
                           ),
                           const Spacer(),
-                          const Expanded(child: Text(
+                          Expanded(child: Text(
                               "• 6 days",
-                            style: TextStyle(fontSize: 12),
+                            style: Theme.of(context).textTheme.bodyText2?.
+                            copyWith(fontSize: 12),
                           )
                           )
                         ],
                       ),
                       const Gap(5),
-                      Text(shortenString(post.description ?? "", 70)),
+                      Text(
+                          shortenString(post.description ?? "", 70),
+                          style: Theme.of(context).textTheme.bodyText1
+                      ),
                     ],
                   ),
                 )

@@ -1,6 +1,3 @@
-import 'package:audaxious/core/routes/app_router.dart';
-import 'package:audaxious/core/utils/app_utils.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';

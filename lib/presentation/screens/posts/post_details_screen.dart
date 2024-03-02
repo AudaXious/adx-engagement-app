@@ -43,6 +43,7 @@ class PostDetailsScreen extends HookConsumerWidget {
     useEffect(() {
       animationController.reset();
       animationController.forward();
+      return null;
     }, [currentIndex.value]);
 
     return Scaffold(

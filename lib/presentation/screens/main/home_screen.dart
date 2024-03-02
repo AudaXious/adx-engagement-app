@@ -1,4 +1,3 @@
-import 'package:audaxious/data/dummy_data.dart';
 import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/presentation/viewmodels/home/home_viewmodel.dart';
 import 'package:audaxious/presentation/widgets/post.dart';
@@ -17,7 +16,6 @@ class HomeScreen extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("AudaXious Engage"),
-        backgroundColor: const Color(0xFF060B12),
         centerTitle: true,
         actions: [
           IconButton(

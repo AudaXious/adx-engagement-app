@@ -16,6 +16,13 @@ class _CommunityScreenState extends State<CommunityScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Community"),
+        centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: (){},
+              icon: const Icon(Icons.add)
+          )
+        ]
       ),
       body: const Center(child: Text("Community")),
     );

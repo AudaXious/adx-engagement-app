@@ -1,7 +1,7 @@
 
 import 'package:audaxious/core/utils/view_utils.dart';
 import 'package:audaxious/presentation/widgets/buttons/custom_radio_group_tabs_horizontal.dart';
-import 'package:audaxious/presentation/widgets/cards/space_card.dart';
+import 'package:audaxious/presentation/widgets/cards/community_card.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -74,13 +74,14 @@ class _CommunityScreenState extends State<CommunityScreen> {
               child: Column(
                 children: [
                   Gap(30),
-                  SpaceCard(),
+                  CommunityCard(),
+                  Gap(30),
+                  CommunityCard(),
+                  Gap(30),
+                  CommunityCard(),
+                  Gap(30),
+                  CommunityCard(),
                   Gap(20),
-                  SpaceCard(),
-                  Gap(20),
-                  SpaceCard(),
-                  Gap(20),
-                  SpaceCard(),
                 ],
               ),
             ),

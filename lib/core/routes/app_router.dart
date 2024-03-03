@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../domain/models/feed.dart';
 import '../../presentation/screens/main/bottom_bar.dart';
-import '../../presentation/screens/main/community_screen.dart';
+import '../../presentation/screens/main/community/community_screen.dart';
 import '../../presentation/screens/main/home_screen.dart';
 import '../../presentation/screens/posts/post_details_screen.dart';
 

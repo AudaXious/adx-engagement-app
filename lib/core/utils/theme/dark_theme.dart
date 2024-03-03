@@ -10,6 +10,7 @@ Color lightTeal = const Color(0xFF7AE7E7);
 Color lightGold = const Color(0xFFE1D356);
 Color blackTextColor = const Color(0xFF060B12);
 Color textInputBorderColor = const Color(0xFF555656);
+Color fadedTextColor = const Color(0xFF757575);
 
 
 final ThemeData darkTheme = ThemeData(

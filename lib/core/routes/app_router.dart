@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import '../../domain/models/feed.dart';
 import '../../presentation/screens/main/bottom_bar.dart';
 import '../../presentation/screens/main/community/community_screen.dart';
+import '../../presentation/screens/main/community/create_community_screen.dart';
 import '../../presentation/screens/main/home_screen.dart';
 import '../../presentation/screens/posts/post_details_screen.dart';
 
@@ -23,6 +24,7 @@ class AppRouter extends _$AppRouter {
       ]
     ),
     
-    AutoRoute(page: PostDetailsRoute.page)
+    AutoRoute(page: PostDetailsRoute.page),
+    AutoRoute(page: CreateCommunityRoute.page),
   ];
 }

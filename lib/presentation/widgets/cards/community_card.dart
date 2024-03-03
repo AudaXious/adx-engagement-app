@@ -22,7 +22,7 @@ class CommunityCard extends StatelessWidget {
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
               image: DecorationImage(
-                fit: BoxFit.fitWidth,
+                fit: BoxFit.cover,
                   image: AssetImage("assets/images/dummy_cover_photo.png")
               )
             ),

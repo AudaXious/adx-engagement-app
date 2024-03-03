@@ -10,9 +10,9 @@ InputDecoration primaryTextFormFieldDecoration({
       borderSide: BorderSide(color: textInputBorderColor, width: 0.5),
       borderRadius: const BorderRadius.all(Radius.circular(5)),
     ),
-    focusedBorder: const OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.white, width: 0.5),
-      borderRadius: BorderRadius.all(Radius.circular(5)),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: textInputBorderColor, width: 0.5),
+      borderRadius: const BorderRadius.all(Radius.circular(5)),
     ),
     labelText: labelText,
     labelStyle: TextStyle(color: textInputBorderColor),
@@ -21,8 +21,9 @@ InputDecoration primaryTextFormFieldDecoration({
   );
 }
 
-InputDecoration searchTextFieldDecoration({
+InputDecoration primaryTextFieldWithPrefixIconDecoration({
   String labelText = '',
+  String prefixIcon = '',
 }) {
   return InputDecoration(
     contentPadding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
@@ -30,16 +31,16 @@ InputDecoration searchTextFieldDecoration({
       borderSide: BorderSide(color: textInputBorderColor, width: 0.5),
       borderRadius: const BorderRadius.all(Radius.circular(5)),
     ),
-    focusedBorder: const OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.white, width: 0.5),
-      borderRadius: BorderRadius.all(Radius.circular(5)),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: textInputBorderColor, width: 0.5),
+      borderRadius: const BorderRadius.all(Radius.circular(5)),
     ),
 
     labelText: labelText,
     labelStyle: TextStyle(color: textInputBorderColor),
     filled: true,
     fillColor: backgroundColor,
-    prefixIcon: Image.asset("assets/images/search.png", width: 24, height: 24)
+    prefixIcon: Image.asset(prefixIcon, width: 20, height: 20)
   );
 }
 

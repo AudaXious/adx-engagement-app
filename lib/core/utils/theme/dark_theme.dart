@@ -5,6 +5,7 @@ Color backgroundColor = const Color(0xFF060B12);
 Color cardColor = const Color(0x0d51c7e1);
 Color cardBorderColor = const Color(0xFF1D3050);
 Color bannerColor1 = const Color(0xFF162530);
+Color secondaryButtonColor = const Color(0xFFEBEDED);
 
 Color lightTeal = const Color(0xFF7AE7E7);
 Color lightGold = const Color(0xFFE1D356);

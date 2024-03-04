@@ -40,9 +40,21 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     LoginRoute.name: (routeData) {
+      final args = routeData.argsAs<LoginRouteArgs>(
+          orElse: () => const LoginRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const LoginScreen(),
+        child: LoginScreen(key: args.key),
+      );
+    },
+    OTPRoute.name: (routeData) {
+      final args = routeData.argsAs<OTPRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: OTPScreen(
+          key: args.key,
+          email: args.email,
+        ),
       );
     },
     OnBoardingRoute.name: (routeData) {
@@ -123,16 +135,67 @@ class HomeRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [LoginScreen]
-class LoginRoute extends PageRouteInfo<void> {
-  const LoginRoute({List<PageRouteInfo>? children})
-      : super(
+class LoginRoute extends PageRouteInfo<LoginRouteArgs> {
+  LoginRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
           LoginRoute.name,
+          args: LoginRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'LoginRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<LoginRouteArgs> page = PageInfo<LoginRouteArgs>(name);
+}
+
+class LoginRouteArgs {
+  const LoginRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'LoginRouteArgs{key: $key}';
+  }
+}
+
+/// generated route for
+/// [OTPScreen]
+class OTPRoute extends PageRouteInfo<OTPRouteArgs> {
+  OTPRoute({
+    Key? key,
+    required String email,
+    List<PageRouteInfo>? children,
+  }) : super(
+          OTPRoute.name,
+          args: OTPRouteArgs(
+            key: key,
+            email: email,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'OTPRoute';
+
+  static const PageInfo<OTPRouteArgs> page = PageInfo<OTPRouteArgs>(name);
+}
+
+class OTPRouteArgs {
+  const OTPRouteArgs({
+    this.key,
+    required this.email,
+  });
+
+  final Key? key;
+
+  final String email;
+
+  @override
+  String toString() {
+    return 'OTPRouteArgs{key: $key, email: $email}';
+  }
 }
 
 /// generated route for

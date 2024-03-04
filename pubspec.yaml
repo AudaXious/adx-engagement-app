@@ -46,6 +46,7 @@ dependencies:
   flutter_hooks: ^0.20.5
   gap: ^3.0.1
   chips_choice: ^3.0.1
+  pinput: ^2.2.21
 
 dev_dependencies:
   flutter_test:

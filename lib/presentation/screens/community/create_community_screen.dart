@@ -1,15 +1,14 @@
 import 'dart:typed_data';
 
 import 'package:audaxious/core/utils/theme/dark_theme.dart';
-import 'package:audaxious/presentation/screens/main/community/create_community_success_screen.dart';
 import 'package:audaxious/presentation/widgets/buttons/primary_button.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../core/utils/view_utils.dart';
+import 'create_community_success_screen.dart';
 
 @RoutePage()
 class CreateCommunityScreen extends StatefulWidget {

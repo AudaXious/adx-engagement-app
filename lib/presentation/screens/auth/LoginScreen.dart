@@ -1,6 +1,8 @@
+import 'package:audaxious/core/routes/app_router.dart';
 import 'package:audaxious/presentation/widgets/buttons/primary_button.dart';
 import 'package:audaxious/presentation/widgets/buttons/secondary_button.dart';
 import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -8,7 +10,9 @@ import '../../../core/utils/view_utils.dart';
 
 @RoutePage()
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  LoginScreen({super.key});
+
+  final TextEditingController _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -47,12 +51,16 @@ class LoginScreen extends StatelessWidget {
               "Email address",
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            const Gap(3),
             TextField(
+              controller: _emailController,
               decoration: primaryTextFormFieldDecoration(labelText: 'Enter email address'),
             ),
             const Gap(50),
             SecondaryButton(
-              onPressed: () {},
+              onPressed: () {
+                context.router.navigate(OTPRoute(email: _emailController.text));
+              },
               buttonText: "Sign In"
             )
 

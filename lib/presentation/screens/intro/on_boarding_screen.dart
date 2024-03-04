@@ -70,7 +70,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   child: PrimaryButton(
                     buttonText: "Login",
                     onPressed: () {
-                      context.router.replaceAll([const LoginRoute()]);
+                      context.router.replaceAll([LoginRoute()]);
                     },
                   )
                   ,

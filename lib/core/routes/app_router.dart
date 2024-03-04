@@ -3,10 +3,11 @@ import 'package:flutter/cupertino.dart';
 
 import '../../domain/models/feed.dart';
 import '../../presentation/screens/auth/LoginScreen.dart';
+import '../../presentation/screens/auth/otp_screen.dart';
+import '../../presentation/screens/community/create_community_screen.dart';
 import '../../presentation/screens/intro/on_boarding_screen.dart';
 import '../../presentation/screens/main/bottom_bar.dart';
-import '../../presentation/screens/main/community/community_screen.dart';
-import '../../presentation/screens/main/community/create_community_screen.dart';
+import '../../presentation/screens/main/community_screen.dart';
 import '../../presentation/screens/main/home_screen.dart';
 import '../../presentation/screens/posts/post_details_screen.dart';
 
@@ -18,11 +19,12 @@ class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
 
-    //Intro
+    //Onboarding
     AutoRoute(page: OnBoardingRoute.page, initial: true),
 
-    //Onboarding
+    //Auth
     AutoRoute(page: LoginRoute.page),
+    AutoRoute(page: OTPRoute.page),
 
     //Bottom nav
     AutoRoute(

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-Color primaryColor = const Color(0xFF79C4EC);
+Color secondaryColor = const Color(0xFF79C4EC);
+Color accentColor = const Color(0xFFEBEDED);
 Color backgroundColor = const Color(0xFF060B12);
 Color cardColor = const Color(0x0d51c7e1);
 Color cardBorderColor = const Color(0xFF1D3050);
 Color bannerColor1 = const Color(0xFF162530);
-Color secondaryButtonColor = const Color(0xFFEBEDED);
 
 Color lightTeal = const Color(0xFF7AE7E7);
 Color lightGold = const Color(0xFFE1D356);
@@ -24,7 +24,7 @@ final ThemeData darkTheme = ThemeData(
     bodyMedium: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w300, fontFamily: 'Poppins'),
   ),
   colorScheme: ColorScheme.fromSeed(
-    seedColor: primaryColor,
+    seedColor: secondaryColor,
     background: backgroundColor,
     brightness: Brightness.dark,
   ),

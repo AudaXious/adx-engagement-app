@@ -56,7 +56,7 @@ class PostDetailsScreen extends HookConsumerWidget {
         backgroundColor: const Color(0xFF060B12),
       ),
       body: notifier.viewState.isLoading
-          ? Center(child: CircularProgressIndicator(strokeWidth: 3, color: primaryColor))
+          ? Center(child: CircularProgressIndicator(strokeWidth: 3, color: secondaryColor))
           : notifier.viewState.isError ? Center(child: Text(notifier.error),)
           : Column(
               children: [
@@ -122,7 +122,7 @@ class PostDetailsScreen extends HookConsumerWidget {
                           child: Text(
                               "Prev",
                               style: Theme.of(context).textTheme.displayLarge
-                                  ?.copyWith(color: primaryColor, fontSize: 14)
+                                  ?.copyWith(color: secondaryColor, fontSize: 14)
                           )
                       ),
                       TextButton(
@@ -136,7 +136,7 @@ class PostDetailsScreen extends HookConsumerWidget {
                         child: Text(
                             "Next",
                             style: Theme.of(context).textTheme.displayLarge
-                                ?.copyWith(color: primaryColor, fontSize: 14)
+                                ?.copyWith(color: secondaryColor, fontSize: 14)
                         ),
                       ),
                     ],

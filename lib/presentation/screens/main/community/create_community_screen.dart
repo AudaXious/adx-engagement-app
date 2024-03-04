@@ -85,7 +85,7 @@ class _CreateCommunityScreenState extends State<CreateCommunityScreen> {
                       //   fit: BoxFit.cover,
                       //   image: AssetImage("assets/images/dummy_cover_photo.png")
                       // ),
-                      color: primaryColor.withOpacity(0.85)
+                      color: secondaryColor.withOpacity(0.85)
                     ),
                   ),
                   Positioned(

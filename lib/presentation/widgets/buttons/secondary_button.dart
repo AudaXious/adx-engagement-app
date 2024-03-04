@@ -42,11 +42,11 @@ class _SecondaryButtonState extends State<SecondaryButton> {
   Color _getButtonColor() {
     switch (widget.buttonState) {
       case ButtonState.active:
-        return secondaryButtonColor;
+        return accentColor;
       case ButtonState.loading:
-        return secondaryButtonColor.withOpacity(0.7);
+        return accentColor.withOpacity(0.7);
       case ButtonState.disabled:
-        return secondaryButtonColor.withOpacity(0.8);
+        return accentColor.withOpacity(0.8);
     }
   }
 

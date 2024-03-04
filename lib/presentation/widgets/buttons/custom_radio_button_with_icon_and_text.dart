@@ -27,10 +27,10 @@ class CustomRadioButtonWithIconAndText extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(8)),
             border: Border.all(
-              color: isActive ? primaryColor : cardBorderColor,
+              color: isActive ? secondaryColor : cardBorderColor,
               width: 1.0,
             ),
-            color: isActive ? primaryColor : backgroundColor
+            color: isActive ? secondaryColor : backgroundColor
         ),
         child: Row(
           children: [

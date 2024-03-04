@@ -74,6 +74,14 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    SetUsernameRoute.name: (routeData) {
+      final args = routeData.argsAs<SetUsernameRouteArgs>(
+          orElse: () => const SetUsernameRouteArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: SetUsernameScreen(key: args.key),
+      );
+    },
   };
 }
 
@@ -252,5 +260,34 @@ class PostDetailsRouteArgs {
   @override
   String toString() {
     return 'PostDetailsRouteArgs{key: $key, post: $post, postIndex: $postIndex}';
+  }
+}
+
+/// generated route for
+/// [SetUsernameScreen]
+class SetUsernameRoute extends PageRouteInfo<SetUsernameRouteArgs> {
+  SetUsernameRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          SetUsernameRoute.name,
+          args: SetUsernameRouteArgs(key: key),
+          initialChildren: children,
+        );
+
+  static const String name = 'SetUsernameRoute';
+
+  static const PageInfo<SetUsernameRouteArgs> page =
+      PageInfo<SetUsernameRouteArgs>(name);
+}
+
+class SetUsernameRouteArgs {
+  const SetUsernameRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'SetUsernameRouteArgs{key: $key}';
   }
 }

@@ -2,8 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../domain/models/feed.dart';
-import '../../presentation/screens/auth/LoginScreen.dart';
+import '../../presentation/screens/auth/login_screen.dart';
 import '../../presentation/screens/auth/otp_screen.dart';
+import '../../presentation/screens/auth/set_username_screen.dart';
 import '../../presentation/screens/community/create_community_screen.dart';
 import '../../presentation/screens/intro/on_boarding_screen.dart';
 import '../../presentation/screens/main/bottom_bar.dart';
@@ -25,6 +26,7 @@ class AppRouter extends _$AppRouter {
     //Auth
     AutoRoute(page: LoginRoute.page),
     AutoRoute(page: OTPRoute.page),
+    AutoRoute(page: SetUsernameRoute.page),
 
     //Bottom nav
     AutoRoute(

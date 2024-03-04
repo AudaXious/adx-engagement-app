@@ -1,3 +1,4 @@
+import 'package:audaxious/core/routes/app_router.dart';
 import 'package:audaxious/core/utils/theme/dark_theme.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -69,6 +70,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   child: PrimaryButton(
                     buttonText: "Login",
                     onPressed: () {
+                      context.router.replaceAll([const LoginRoute()]);
                     },
                   )
                   ,
@@ -79,6 +81,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   child: SecondaryButton(
                     buttonText: "Explore Audaxious",
                     onPressed: () {
+                      context.router.replaceAll([const BottomBarRoute()]);
                     },
                   )
                   ,

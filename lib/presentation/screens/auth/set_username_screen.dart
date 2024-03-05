@@ -17,25 +17,12 @@ class SetUsernameScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.only(left: 20, right: 20, top: 50),
+        padding: const EdgeInsets.only(left: 20, right: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Image.asset("assets/images/pink_star.png", height: 20, width: 20),
-                Image.asset("assets/images/telegram.png", height: 20, width: 20),
-              ],
-            ),
-            const Gap(20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset("assets/images/audaxious_name_logo.png", width: 120, height: 20),
-              ],
-            ),
             const Gap(50),
             Text(
               "Create username",

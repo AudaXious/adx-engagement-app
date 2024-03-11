@@ -1,8 +1,6 @@
 import 'package:audaxious/domain/repository/feeds_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../data/providers/feeds_provider.dart';
-
+import '../../../data/repository/feeds_repository_impl.dart';
 abstract class FeedsUseCase {
   Future<List<dynamic>> getFeeds();
 

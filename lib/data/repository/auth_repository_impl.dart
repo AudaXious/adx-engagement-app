@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:audaxious/domain/repository/auth_repository.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/services/internet_services/dio_client.dart';
 import '../../core/services/internet_services/dio_exception.dart';
 import '../../core/services/internet_services/endpoints.dart';
@@ -65,3 +66,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
   
 }
+
+final authRepositoryProvider = Provider<AuthRepository>((ref){
+  return AuthRepositoryImpl();
+});

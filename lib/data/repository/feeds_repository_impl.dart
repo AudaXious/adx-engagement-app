@@ -1,5 +1,6 @@
 import 'package:audaxious/domain/repository/feeds_repository.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/services/internet_services/dio_client.dart';
 import '../../core/services/internet_services/dio_exception.dart';
@@ -22,3 +23,8 @@ class FeedsRepositoryImpl extends FeedsRepository {
   }
 
 }
+
+final feedsRepositoryProvider = Provider<FeedsRepository>((ref) {
+  return FeedsRepositoryImpl();
+});
+

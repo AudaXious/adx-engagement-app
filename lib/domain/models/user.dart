@@ -7,7 +7,7 @@ class User {
   String? uuid;
   String? createdAt;
   String? updatedAt;
-  String? version;
+  int? version;
   String? username;
   String? token;
 

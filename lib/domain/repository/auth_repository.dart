@@ -1,5 +1,5 @@
 abstract class AuthRepository {
-  Future<Map<String, dynamic>> login(String email, String password);
+  Future<Map<String, dynamic>> login(String email);
   Future<Map<String, dynamic>> verifyOTPForSignIn(
     String email,
     String otp

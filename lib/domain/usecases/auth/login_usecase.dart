@@ -2,7 +2,7 @@ import 'package:audaxious/data/repository/auth_repository_impl.dart';
 import 'package:audaxious/domain/repository/auth_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 abstract class LoginUseCase {
-  Future<Map<String, dynamic>> login(email, password);
+  Future<Map<String, dynamic>> login(email);
 
 }
 class LoginUseCaseImpl extends LoginUseCase {
@@ -11,8 +11,8 @@ class LoginUseCaseImpl extends LoginUseCase {
   LoginUseCaseImpl(this.authRepository);
 
   @override
-  Future<Map<String, dynamic>> login(email, password) async {
-    return await authRepository.login(email, password);
+  Future<Map<String, dynamic>> login(email) async {
+    return await authRepository.login(email);
   }
 }
 

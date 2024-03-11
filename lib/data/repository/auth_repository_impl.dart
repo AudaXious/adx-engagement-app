@@ -10,7 +10,7 @@ import '../../domain/models/user.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   @override
-  Future<Map<String, dynamic>> login(String email, String password) async {
+  Future<Map<String, dynamic>> login(String email) async {
     try {
       final response = await DioClient.instance.post(
           loginEndpoint,

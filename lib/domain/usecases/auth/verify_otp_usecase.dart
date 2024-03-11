@@ -12,7 +12,7 @@ class VerifyOTPUseCaseImpl extends VerifyOTPUseCase {
 
   @override
   Future<Map<String, dynamic>> verifyOTP(email, otp) async {
-    return await authRepository.login(email, otp);
+    return await authRepository.verifyOTPForSignIn(email, otp);
   }
 }
 

@@ -1,21 +1,27 @@
 import 'package:audaxious/core/routes/app_router.dart';
-import 'package:audaxious/presentation/widgets/buttons/primary_button.dart';
+import 'package:audaxious/domain/enums/button_state.dart';
+import 'package:audaxious/domain/enums/view_state.dart';
+import 'package:audaxious/presentation/viewmodels/auth/login_viewmodel.dart';
 import 'package:audaxious/presentation/widgets/buttons/secondary_button.dart';
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/utils/view_utils.dart';
 
 @RoutePage()
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends HookConsumerWidget {
   LoginScreen({super.key});
 
   final TextEditingController _emailController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final reader = ref.read(LoginViewModel.notifier.notifier);
+    final notifier = ref.watch(LoginViewModel.notifier);
+
     return Scaffold(
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(left: 20, right: 20, top: 50),
@@ -58,10 +64,17 @@ class LoginScreen extends StatelessWidget {
             ),
             const Gap(50),
             SecondaryButton(
-              onPressed: () {
-                context.router.navigate(OTPRoute(email: _emailController.text));
+              onPressed: () async {
+                await reader.loginUser(_emailController.text);
+                // if (!notifier.viewState.isError) {
+                //   context.router.navigate(OTPRoute(email: _emailController.text));
+                //   print(notifier.user);
+                // }
               },
-              buttonText: "Sign In"
+              buttonText: "Sign In",
+              buttonState: notifier.viewState.isLoading
+                  ? ButtonState.loading
+                  : ButtonState.active,
             )
 
           ],

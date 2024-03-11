@@ -30,7 +30,6 @@ Future<void> loginUser(String email) async {
       final data = response['data'];
 
       if (data != null) {
-        print("data: $data");
         final user = User.fromJson(data);
         state = state.update(user: user);
       }

@@ -66,10 +66,12 @@ class LoginScreen extends HookConsumerWidget {
             SecondaryButton(
               onPressed: () async {
                 await reader.loginUser(_emailController.text);
-                // if (!notifier.viewState.isError) {
-                //   context.router.navigate(OTPRoute(email: _emailController.text));
-                //   print(notifier.user);
-                // }
+                if (!notifier.viewState.isError) {
+                  if (notifier.user?.email != null) {
+                    context.router.navigate(OTPRoute(email: notifier.user!.email!));
+                  }
+                  print(notifier.user);
+                }
               },
               buttonText: "Sign In",
               buttonState: notifier.viewState.isLoading

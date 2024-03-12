@@ -8,56 +8,63 @@ import '../../../domain/enums/view_state.dart';
 import '../../../domain/models/user.dart';
 import '../../widgets/custom_toast.dart';
 
-class VerifyOTPViewModel extends StateNotifier<OTPState> {
-  VerifyOTPUseCase verifyOTPUseCase;
+class VerifyOTPViewModel extends ChangeNotifier {
+  final ChangeNotifierProviderRef ref;
+  bool isLoading = false;
+  bool isSuccessful = false;
 
-  VerifyOTPViewModel({
-    required this.verifyOTPUseCase,
-  }) : super (OTPState.initial());
+  VerifyOTPViewModel({required this.ref});
 
-  static final notifier =
-  StateNotifierProvider<VerifyOTPViewModel, OTPState>((ref) => VerifyOTPViewModel(
-      verifyOTPUseCase: ref.read(verifyOTPUseCaseProvider),
-  ));
+  Future<void> verifyOTPForSignIn(BuildContext context, String email, String otp) async {
+    isLoading = true;
+    notifyListeners();
 
-Future<void> verifyUser(BuildContext context,String email, String otp) async {
-    state = state.update(viewState: ViewState.loading);
     try {
-      final response = await verifyOTPUseCase.verifyOTP(email, otp);
-      print(response);
-      final data = response['data'];
-      final error = response['error'];
+      final response = await ref
+          .watch(verifyOTPUseCaseProvider)
+          .verifyOTP(email, otp);
 
-      if(error != null) {
+      final data = response['data'];
+      final message = response['message'];
+
+      if (data != null) {
+        isSuccessful = true;
+      }
+
+      if (message != null) {
         CustomToast.show(
           context: context,
-          title: "Error",
-          description: error,
-          type: ToastificationType.error,
+          title: 'Success',
+          description: message,
+          type: ToastificationType.success,
         );
       }
 
-      if (data != null) {
-        final user = User.fromJson(data);
-        state = state.update(user: user);
-      }
-
-      state = state.update(viewState: ViewState.idle);
+      isLoading = false;
+      notifyListeners();
 
     } catch (e) {
-      state = state.update(viewState: ViewState.error);
-      state = state.update(error: e.toString());
+      isLoading = false;
+      notifyListeners();
+
       CustomToast.show(
         context: context,
-        title: "Error",
+        title: 'Error',
         description: e.toString(),
         type: ToastificationType.error,
       );
 
-      print("View model error: ${e.toString()}");
+      print(e);
+    } finally {
+      isLoading = false;
+      notifyListeners();
     }
   }
 
+
 }
 
+final verifyOTPViewModelProvider =
+ChangeNotifierProvider<VerifyOTPViewModel>(
+        (ref) => VerifyOTPViewModel(ref: ref));
 

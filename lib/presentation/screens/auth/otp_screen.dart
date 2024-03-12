@@ -9,19 +9,26 @@ import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pinput/pinput.dart';
 
+import '../../../core/routes/app_router.dart';
+
 
 
 @RoutePage()
-class OTPScreen extends HookConsumerWidget {
+
+class OTPScreen extends ConsumerStatefulWidget {
   String email;
   OTPScreen({super.key, required this.email});
 
+  @override
+  ConsumerState<OTPScreen> createState() => _OTPScreen();
+}
+class _OTPScreen extends ConsumerState<OTPScreen> {
+  late VerifyOTPViewModel provider;
   final pinController = TextEditingController();
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final reader = ref.read(VerifyOTPViewModel.notifier.notifier);
-    final notifier = ref.watch(VerifyOTPViewModel.notifier);
+  Widget build(BuildContext context) {
+    provider = ref.watch(verifyOTPViewModelProvider);
 
     final defaultPinTheme = PinTheme(
         width: 53,
@@ -57,7 +64,7 @@ class OTPScreen extends HookConsumerWidget {
               children: [
                 Expanded(
                   child: Text(
-                    "Enter the verification code sent to $email",
+                    "Enter the verification code sent to ${widget.email}",
                     style: Theme.of(context).textTheme.bodyLarge,
                     textAlign: TextAlign.center,
                   ),
@@ -77,21 +84,11 @@ class OTPScreen extends HookConsumerWidget {
                   )
               ),
               onCompleted: (pin) async {
-                reader.verifyUser(context, email, pin);
-                if (notifier.viewState.isError) {
-
-                  print(notifier.error);
-                  // CustomToast.show(
-                  //   context: context,
-                  //   title: "Error",
-                  //   description: notifier.error,
-                  //   type: ToastificationType.error,
-                  // );
-
-                }else {
-                  // context.router.navigate(SetUsernameRoute());
+                await provider.verifyOTPForSignIn(context, widget.email, pin);
+                if (provider.isSuccessful) {
+                  context.router.navigate(SetUsernameRoute());
                 }
-              },
+              }
             ),
             const Gap(40),
             Row(
@@ -116,7 +113,7 @@ class OTPScreen extends HookConsumerWidget {
                 context.popRoute();
               },
               buttonText: "Change email",
-              buttonState: notifier.viewState.isLoading
+              buttonState: provider.isLoading
                   ? ButtonState.loading
                   :ButtonState.active,
             ),

@@ -1,7 +1,5 @@
 import 'package:audaxious/core/routes/app_router.dart';
-import 'package:audaxious/presentation/widgets/buttons/primary_button.dart';
 import 'package:audaxious/presentation/widgets/buttons/secondary_button.dart';
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';

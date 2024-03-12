@@ -1,63 +1,52 @@
 
-import 'package:audaxious/domain/models/feed.dart';
 import 'package:audaxious/domain/usecases/auth/login_usecase.dart';
-import 'package:audaxious/domain/usecases/feeds/feeds_usecase.dart';
 import 'package:audaxious/presentation/screens/auth/login_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toastification/toastification.dart';
 import '../../../domain/enums/view_state.dart';
 import '../../../domain/models/user.dart';
-import '../../screens/main/home_state.dart';
 import '../../widgets/custom_toast.dart';
 
-class LoginViewModel extends ChangeNotifier {
-  final ChangeNotifierProviderRef ref;
-  bool isLoading = false;
-  bool isSuccessful = false;
-  late User? user;
-  final emailCtr = TextEditingController();
-  final passwordCtr = TextEditingController();
+class LoginViewModel extends StateNotifier<LoginState> {
+  LoginUseCase loginUseCase;
 
-  LoginViewModel({required this.ref});
+  LoginViewModel({
+    required this.loginUseCase,
+  }) : super (LoginState.initial());
 
-  Future<void> loginUser(BuildContext context) async {
-    isLoading = true;
-    notifyListeners();
+  static final notifier =
+  StateNotifierProvider<LoginViewModel, LoginState>((ref) => LoginViewModel(
+      loginUseCase: ref.read(loginUseCaseProvider),
+  ));
 
+Future<void> loginUser(BuildContext context, String email) async {
+    state = state.update(viewState: ViewState.loading);
     try {
-      final response = await ref
-          .watch(loginUseCaseProvider)
-          .login(emailCtr.text.toString());
-
+      final response = await loginUseCase.login(email);
+      // print(response);
       final data = response['data'];
-      final message = response['message'];
 
       if (data != null) {
-        user = User.fromJson(data);
-        isSuccessful = true;
+        final user = User.fromJson(data);
+        state = state.update(user: user);
       }
 
-      isLoading = false;
-      notifyListeners();
-    } catch (e) {
-      isLoading = false;
-      notifyListeners();
+      state = state.update(viewState: ViewState.idle);
 
+    } catch (e) {
+      state = state.update(viewState: ViewState.error);
+      state = state.update(error: e.toString());
+      print("View model error: ${e.toString()}");
       CustomToast.show(
         context: context,
-        title: 'Error',
+        title: "Error",
         description: e.toString(),
         type: ToastificationType.error,
       );
-      print(e);
-    } finally {
-      isLoading = false;
-      notifyListeners();
     }
   }
+
 }
 
-final loginViewModelProvider =
-ChangeNotifierProvider<LoginViewModel>((ref) => LoginViewModel(ref: ref));
 

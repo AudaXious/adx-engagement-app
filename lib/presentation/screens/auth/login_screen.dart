@@ -1,39 +1,29 @@
 import 'package:audaxious/core/routes/app_router.dart';
 import 'package:audaxious/domain/enums/button_state.dart';
+import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/presentation/viewmodels/auth/login_viewmodel.dart';
 import 'package:audaxious/presentation/widgets/buttons/secondary_button.dart';
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../../../core/utils/app_utils.dart';
 import '../../../core/utils/view_utils.dart';
 
 @RoutePage()
+class LoginScreen extends HookConsumerWidget {
+  LoginScreen({super.key});
 
-@RoutePage()
-class LoginScreen extends ConsumerStatefulWidget {
-  const LoginScreen({super.key});
-
-  @override
-  ConsumerState<LoginScreen> createState() => _LoginScreen();
-}
-
-class _LoginScreen extends ConsumerState<LoginScreen> {
-  late LoginViewModel provider;
-  bool isFormValidated = false;
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
-
-  void _validateForm() {
-    setState(() {
-      isFormValidated = loginFormKey.currentState?.validate() ?? false;
-    });
-  }
+  final TextEditingController _emailController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
-    provider = ref.watch(loginViewModelProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final reader = ref.read(LoginViewModel.notifier.notifier);
+    final notifier = ref.watch(LoginViewModel.notifier);
+    final isFormValidated = useState(false);
 
     return Scaffold(
       body: Form(
@@ -74,31 +64,30 @@ class _LoginScreen extends ConsumerState<LoginScreen> {
               ),
               const Gap(3),
               TextFormField(
-                controller: provider.emailCtr,
+                controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
-                obscureText: false,
-                decoration: primaryTextFormFieldDecoration(labelText: 'Email'),
+                decoration: primaryTextFormFieldDecoration(labelText: 'Enter email address'),
                 validator: emailValidator,
-                onChanged: (_) => _validateForm(),
+                onChanged: (_) {
+                  isFormValidated.value = loginFormKey.currentState?.validate() ?? false;
+                },
               ),
               const Gap(50),
               SecondaryButton(
-                buttonText: "Sign in",
                 onPressed: () async {
-                  if (isFormValidated) {
-                    await provider.loginUser(context);
-                    if (provider.isSuccessful && provider.user != null) {
-                      context.router.navigate(OTPRoute(email: provider.emailCtr.text));
-                    }
+                  await reader.loginUser(context, _emailController.text);
+                  if (!notifier.viewState.isError) {
+                    context.router.navigate(OTPRoute(email: _emailController.text));
                   }
                 },
-                buttonState: provider.isLoading
+                buttonText: "Sign In",
+                buttonState: notifier.viewState.isLoading
                     ? ButtonState.loading
-                    : (isFormValidated)
+                    : isFormValidated.value
                     ? ButtonState.active
                     : ButtonState.disabled,
-              ),
 
+              )
 
             ],
           ),

@@ -21,7 +21,7 @@ class CreateCommunityScreen extends StatefulWidget {
 class _CreateCommunityScreenState extends State<CreateCommunityScreen> {
   @override
   Widget build(BuildContext context) {
-    Uint8List? _image;
+    Uint8List? image;
     List<String> tags = [];
     List<String> options = [
       '#Defi', '#Games', '#NFT',
@@ -108,13 +108,13 @@ class _CreateCommunityScreenState extends State<CreateCommunityScreen> {
                     bottom: -30,
                       child: Stack(
                         children: [
-                          _image != null
+                          image != null
                               ? SizedBox(
                             height: 60,
                             width: 60,
                             child: CircleAvatar(
                               radius: 100,
-                              backgroundImage: MemoryImage(_image!),
+                              backgroundImage: MemoryImage(image),
                             ),
                           )
                               : const SizedBox(

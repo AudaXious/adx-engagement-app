@@ -1,16 +1,11 @@
 
-import 'package:audaxious/domain/models/feed.dart';
-import 'package:audaxious/domain/usecases/auth/login_usecase.dart';
 import 'package:audaxious/domain/usecases/auth/verify_otp_usecase.dart';
-import 'package:audaxious/domain/usecases/feeds/feeds_usecase.dart';
-import 'package:audaxious/presentation/screens/auth/login_state.dart';
 import 'package:audaxious/presentation/screens/auth/otp_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toastification/toastification.dart';
 import '../../../domain/enums/view_state.dart';
 import '../../../domain/models/user.dart';
-import '../../screens/main/home_state.dart';
 import '../../widgets/custom_toast.dart';
 
 class VerifyOTPViewModel extends StateNotifier<OTPState> {

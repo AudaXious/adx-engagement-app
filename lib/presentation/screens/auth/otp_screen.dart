@@ -85,8 +85,12 @@ class _OTPScreen extends ConsumerState<OTPScreen> {
               ),
               onCompleted: (pin) async {
                 await provider.verifyOTPForSignIn(context, widget.email, pin);
-                if (provider.isSuccessful) {
+                if (provider.isSuccessful && provider.user?.username == "") {
+                  print("Username exists");
                   context.router.navigate(SetUsernameRoute());
+                }else if (provider.isSuccessful) {
+                  print("Username doesn't exists");
+                  context.router.replaceAll([const BottomBarRoute()]);
                 }
               }
             ),

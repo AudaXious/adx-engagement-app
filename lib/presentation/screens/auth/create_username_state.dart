@@ -2,37 +2,32 @@ import 'package:audaxious/domain/models/user.dart';
 
 import '../../../domain/enums/view_state.dart';
 
-class OTPState {
-  factory OTPState.initial() => const OTPState._(
+class CreateUsernameState {
+  factory CreateUsernameState.initial() => const CreateUsernameState._(
     viewState: ViewState.idle,
     error: '',
-    user: null,
-    isSuccessful: null
+    user: null
   );
-  const OTPState._({
+  const CreateUsernameState._({
     required this.viewState,
     required this.error,
     required this.user,
-    required this.isSuccessful,
   });
 
   final ViewState viewState;
   final String error;
   final User? user;
-  final bool? isSuccessful;
 
-  OTPState update({
+  CreateUsernameState update({
     ViewState? viewState,
     String? error,
-    User? user,
-    bool? isSuccessful,
+    User? user
 
   }) =>
-      OTPState._(
+      CreateUsernameState._(
         viewState: viewState ?? this.viewState,
         error: error ?? this.error,
         user: user ?? this.user,
-        isSuccessful: isSuccessful ?? this.isSuccessful,
       );
 }
 

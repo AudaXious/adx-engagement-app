@@ -53,7 +53,6 @@ class AuthRepositoryImpl implements AuthRepository {
       final response = await DioClient.instance.post(
           createUsernameEndpoint,
           data: {'username': username},
-          requiresAuthorization: false
       );
       final data = response['data'];
       if (data != null) {

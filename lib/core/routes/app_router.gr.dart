@@ -79,7 +79,7 @@ abstract class _$AppRouter extends RootStackRouter {
           orElse: () => const SetUsernameRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: SetUsernameScreen(key: args.key),
+        child: CreateUsernameScreen(key: args.key),
       );
     },
   };
@@ -264,7 +264,7 @@ class PostDetailsRouteArgs {
 }
 
 /// generated route for
-/// [SetUsernameScreen]
+/// [CreateUsernameScreen]
 class SetUsernameRoute extends PageRouteInfo<SetUsernameRouteArgs> {
   SetUsernameRoute({
     Key? key,

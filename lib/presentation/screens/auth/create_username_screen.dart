@@ -1,7 +1,6 @@
 import 'package:audaxious/core/routes/app_router.dart';
-import 'package:audaxious/domain/enums/button_state.dart';
 import 'package:audaxious/domain/enums/view_state.dart';
-import 'package:audaxious/presentation/viewmodels/auth/login_viewmodel.dart';
+import 'package:audaxious/presentation/viewmodels/auth/create_username_viewmodel.dart';
 import 'package:audaxious/presentation/widgets/buttons/secondary_button.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -11,63 +10,50 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/utils/app_utils.dart';
 import '../../../core/utils/view_utils.dart';
+import '../../../domain/enums/button_state.dart';
 
 @RoutePage()
-class LoginScreen extends HookConsumerWidget {
-  LoginScreen({super.key});
+class CreateUsernameScreen extends HookConsumerWidget {
+  CreateUsernameScreen({super.key});
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final reader = ref.read(LoginViewModel.notifier.notifier);
-    final notifier = ref.watch(LoginViewModel.notifier);
+    final reader = ref.read(CreateUsernameViewModel.notifier.notifier);
+    final notifier = ref.watch(CreateUsernameViewModel.notifier);
     final isFormValidated = useState(false);
 
     return Scaffold(
+      appBar: AppBar(),
       body: Form(
         key: formKey,
         child: SingleChildScrollView(
-          padding: const EdgeInsets.only(left: 20, right: 20, top: 50),
+          padding: const EdgeInsets.only(left: 20, right: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Image.asset("assets/images/pink_star.png", height: 20, width: 20),
-                  Image.asset("assets/images/telegram.png", height: 20, width: 20),
-                ],
-              ),
-              const Gap(20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset("assets/images/audaxious_name_logo.png", width: 120, height: 20),
-                ],
-              ),
               const Gap(50),
               Text(
-                "Sign In",
+                "Create username",
                 style: Theme.of(context).textTheme.displayLarge,
               ),
               const Gap(5),
               Text(
-                "Multisend, Build communities, Market Products, Earn rewards",
+                "Create username to Build communities, Market Products, Earn rewards",
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               const Gap(20),
               Text(
-                "Email address",
+                "Username",
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               const Gap(3),
               TextFormField(
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: primaryTextFormFieldDecoration(labelText: 'Enter email address'),
-                validator: emailValidator,
+                controller: _usernameController,
+                decoration: primaryTextFormFieldDecoration(labelText: 'Enter user name'),
+                validator: requiredValidator,
                 onChanged: (_) {
                   isFormValidated.value = formKey.currentState?.validate() ?? false;
                 },
@@ -75,12 +61,12 @@ class LoginScreen extends HookConsumerWidget {
               const Gap(50),
               SecondaryButton(
                 onPressed: () async {
-                  await reader.loginUser(context, _emailController.text);
+                  await reader.createUsername(context, _usernameController.text);
                   if (!notifier.viewState.isError) {
-                    context.router.navigate(OTPRoute(email: _emailController.text));
+                    context.router.replaceAll([const BottomBarRoute()]);
                   }
                 },
-                buttonText: "Sign In",
+                buttonText: "Set username",
                 buttonState: notifier.viewState.isLoading
                     ? ButtonState.loading
                     : isFormValidated.value

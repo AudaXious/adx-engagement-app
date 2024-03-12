@@ -1,6 +1,5 @@
 
 import 'package:audaxious/domain/usecases/auth/verify_otp_usecase.dart';
-import 'package:audaxious/presentation/screens/auth/otp_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toastification/toastification.dart';
@@ -12,6 +11,7 @@ class VerifyOTPViewModel extends ChangeNotifier {
   final ChangeNotifierProviderRef ref;
   bool isLoading = false;
   bool isSuccessful = false;
+  late User? user;
 
   VerifyOTPViewModel({required this.ref});
 
@@ -28,7 +28,9 @@ class VerifyOTPViewModel extends ChangeNotifier {
       final message = response['message'];
 
       if (data != null) {
+        user = User.fromJson(data);
         isSuccessful = true;
+        print("username ${user?.username}");
       }
 
       if (message != null) {

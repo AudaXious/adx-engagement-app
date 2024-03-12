@@ -122,32 +122,28 @@ class _OTPScreen extends ConsumerState<OTPScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Visibility(
-                  visible: _showResendButton,
-                  child: TextButton(
-                      onPressed: () async{
+                TextButton(
+                    onPressed: () async{
+                      setState(() {
+                        _showResendButton = false; // Hide the button
+                      });
+
+                      _countdownTimer = CountdownTimer(duration: 120);
+                      _countdownTimer.startCountdown((formattedTime) {
                         setState(() {
-                          _showResendButton = false; // Hide the button
+                          _formattedTime = formattedTime;
+                          if (_countdownTimer.formatCountdown() ==
+                              '00:00') {
+                            _showResendButton = true; // Show the button when the timer reaches zero
+                          }
                         });
+                      });
 
-                        _countdownTimer = CountdownTimer(duration: 120);
-                        _countdownTimer.startCountdown((formattedTime) {
-                          setState(() {
-                            _formattedTime = formattedTime;
-                            if (_countdownTimer.formatCountdown() ==
-                                '00:00') {
-                              _showResendButton =
-                              true; // Show the button when the timer reaches zero
-                            }
-                          });
-                        });
-
-                      },
-                      child: Text(
-                        "Resend",
-                        style: Theme.of(context).textTheme.displaySmall?.copyWith(color: secondaryColor, fontSize: 16),
-                      )
-                  ),
+                    },
+                    child: Text(
+                      "Resend",
+                      style: Theme.of(context).textTheme.displaySmall?.copyWith(color: secondaryColor, fontSize: 16),
+                    )
                 ),
                 Text(
                   _formattedTime,

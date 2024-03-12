@@ -10,6 +10,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pinput/pinput.dart';
 
 import '../../../core/routes/app_router.dart';
+import '../../../core/utils/countdown_timer.dart';
 
 
 
@@ -25,6 +26,29 @@ class OTPScreen extends ConsumerStatefulWidget {
 class _OTPScreen extends ConsumerState<OTPScreen> {
   late VerifyOTPViewModel provider;
   final pinController = TextEditingController();
+  late CountdownTimer _countdownTimer;
+  String _formattedTime = "";
+  bool _showResendButton = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _countdownTimer = CountdownTimer(duration: 120);
+    _countdownTimer.startCountdown((formattedTime) {
+      setState(() {
+        _formattedTime = formattedTime;
+        if (_countdownTimer.formatCountdown() == '00:00') {
+          _showResendButton = true;
+        }
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _countdownTimer.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,15 +122,35 @@ class _OTPScreen extends ConsumerState<OTPScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Resend",
-                      style: Theme.of(context).textTheme.displaySmall?.copyWith(color: secondaryColor, fontSize: 16),
-                    )
+                Visibility(
+                  visible: _showResendButton,
+                  child: TextButton(
+                      onPressed: () async{
+                        setState(() {
+                          _showResendButton = false; // Hide the button
+                        });
+
+                        _countdownTimer = CountdownTimer(duration: 120);
+                        _countdownTimer.startCountdown((formattedTime) {
+                          setState(() {
+                            _formattedTime = formattedTime;
+                            if (_countdownTimer.formatCountdown() ==
+                                '00:00') {
+                              _showResendButton =
+                              true; // Show the button when the timer reaches zero
+                            }
+                          });
+                        });
+
+                      },
+                      child: Text(
+                        "Resend",
+                        style: Theme.of(context).textTheme.displaySmall?.copyWith(color: secondaryColor, fontSize: 16),
+                      )
+                  ),
                 ),
                 Text(
-                  "00:00",
+                  _formattedTime,
                   style: Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 16),
                 )
               ],

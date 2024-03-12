@@ -3,11 +3,13 @@ import 'package:audaxious/domain/enums/button_state.dart';
 import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/presentation/viewmodels/auth/login_viewmodel.dart';
 import 'package:audaxious/presentation/widgets/buttons/secondary_button.dart';
+import 'package:audaxious/presentation/widgets/custom_toast.dart';
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:toastification/toastification.dart';
 
 import '../../../core/utils/view_utils.dart';
 
@@ -66,11 +68,17 @@ class LoginScreen extends HookConsumerWidget {
             SecondaryButton(
               onPressed: () async {
                 await reader.loginUser(_emailController.text);
-                if (!notifier.viewState.isError) {
+                if (notifier.viewState.isError) {
+                  CustomToast.show(
+                      context: context,
+                      title: "Error",
+                      description: notifier.error,
+                      type: ToastificationType.error,
+                  );
+                }else {
                   if (notifier.user?.email != null) {
                     context.router.navigate(OTPRoute(email: notifier.user!.email!));
                   }
-                  print(notifier.user);
                 }
               },
               buttonText: "Sign In",

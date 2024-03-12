@@ -39,7 +39,6 @@ dependencies:
   auto_route: ^7.8.4
   cached_network_image: ^3.3.0
   shared_preferences: ^2.2.2
-  toastification: ^1.1.0
   dio: ^5.4.0
   flutter_riverpod: ^2.4.9
   hooks_riverpod: ^2.4.10
@@ -47,6 +46,7 @@ dependencies:
   gap: ^3.0.1
   chips_choice: ^3.0.1
   pinput: ^2.2.21
+  toastification: ^1.1.0
 
 dev_dependencies:
   flutter_test:

@@ -17,15 +17,6 @@ class AuthRepositoryImpl implements AuthRepository {
           data: {'email': email},
           requiresAuthorization: false
       );
-
-      final data = response['data'];
-      if (data != null) {
-        User user = User.fromJson(data);
-        await SharedPreferencesServices().saveCurrentUser("user", json.encode(user));
-        // await SharedPreferencesServices.saveIsLoggedIn(true);
-        // await SharedPreferencesServices.saveAccessToken(user.token!);
-      }
-
       return response;
     } on DioException catch (e) {
       var error = CustomDioException.fromDioError(e);
@@ -42,6 +33,13 @@ class AuthRepositoryImpl implements AuthRepository {
           requiresAuthorization: false
       );
 
+      final data = response['data'];
+      if (data != null) {
+        User user = User.fromJson(data);
+        await SharedPreferencesServices().saveCurrentUser("user", json.encode(user));
+        await SharedPreferencesServices.saveAccessToken(user.token!);
+      }
+
       return response;
     } on DioException catch (e) {
       var error = CustomDioException.fromDioError(e);
@@ -57,6 +55,13 @@ class AuthRepositoryImpl implements AuthRepository {
           data: {'username': username},
           requiresAuthorization: false
       );
+      final data = response['data'];
+      if (data != null) {
+        User user = User.fromJson(data);
+        await SharedPreferencesServices().saveCurrentUser("user", json.encode(user));
+        await SharedPreferencesServices.saveIsLoggedIn(true);
+        await SharedPreferencesServices.saveAccessToken(user.token!);
+      }
 
       return response;
     } on DioException catch (e) {

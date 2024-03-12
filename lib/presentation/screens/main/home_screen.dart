@@ -29,7 +29,7 @@ class HomeScreen extends HookConsumerWidget {
         ],
       ),
       body: notifier.viewState.isLoading
-          ? const Center(child: CircularProgressIndicator(strokeWidth: 3, color: Color(0xFF79C4EC),))
+          ? const Center(child: CircularProgressIndicator(strokeWidth: 3, color: Color(0xFF79C4EC)))
           : notifier.viewState.isError ? Center(child: Text(notifier.error))
           : ListView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 20),

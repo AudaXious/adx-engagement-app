@@ -52,27 +52,13 @@ class CustomDioException implements Exception {
 
   String _handleBadResponse(Response? response) {
     if (response != null) {
-      // Check if the response has data and an 'error' key
-      if (response.data != null &&
-          response.data is Map<String, dynamic> &&
-          response.data.containsKey('error')) {
-        // Check if 'error' is true and there's an 'errorMessage' array
-        if (response.data['error'] == true &&
-            response.data.containsKey('errorMessage') &&
-            response.data['errorMessage'] is List<dynamic> &&
-            response.data['errorMessage'].isNotEmpty) {
-          // Get the first error message from the array
-          var firstErrorMessage = response.data['errorMessage'][0];
-          if (firstErrorMessage is Map<String, dynamic> &&
-              firstErrorMessage.containsKey('message')) {
-            return firstErrorMessage['message'];
-          }
-        }
+      if (response.data != null && response.data.containsKey('error')) {
+        var errorValue = response.data['error'];
+        return errorValue;
       }
     }
 
-    // Default message for bad response
-    return 'Oops! Something went wrong!';
+    return 'No error message found!';
   }
 
   @override

@@ -1,6 +1,5 @@
 import 'package:audaxious/core/utils/theme/dark_theme.dart';
 import 'package:audaxious/domain/enums/button_state.dart';
-import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/presentation/viewmodels/auth/verify_otp_viewmodel.dart';
 import 'package:audaxious/presentation/widgets/buttons/primary_button.dart';
 import 'package:auto_route/auto_route.dart';
@@ -109,12 +108,14 @@ class _OTPScreen extends ConsumerState<OTPScreen> {
               ),
               onCompleted: (pin) async {
                 await provider.verifyOTPForSignIn(context, widget.email, pin);
-                if (provider.isSuccessful && provider.user?.username == "") {
-                  print("Username exists");
-                  context.router.navigate(SetUsernameRoute());
-                }else if (provider.isSuccessful) {
-                  print("Username doesn't exists");
-                  context.router.replaceAll([const BottomBarRoute()]);
+                if (provider.isSuccessful) {
+                  if (provider.username == null) {
+                    print("Username doesn't exists");
+                    context.router.navigate(SetUsernameRoute());
+                  }else {
+                    print("Username exists");
+                    context.router.replaceAll([const BottomBarRoute()]);
+                  }
                 }
               }
             ),
@@ -122,28 +123,31 @@ class _OTPScreen extends ConsumerState<OTPScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextButton(
-                    onPressed: () async{
-                      setState(() {
-                        _showResendButton = false; // Hide the button
-                      });
-
-                      _countdownTimer = CountdownTimer(duration: 120);
-                      _countdownTimer.startCountdown((formattedTime) {
+                Visibility(
+                  visible: _showResendButton,
+                  child: TextButton(
+                      onPressed: () async{
                         setState(() {
-                          _formattedTime = formattedTime;
-                          if (_countdownTimer.formatCountdown() ==
-                              '00:00') {
-                            _showResendButton = true; // Show the button when the timer reaches zero
-                          }
+                          _showResendButton = false; // Hide the button
                         });
-                      });
 
-                    },
-                    child: Text(
-                      "Resend",
-                      style: Theme.of(context).textTheme.displaySmall?.copyWith(color: secondaryColor, fontSize: 16),
-                    )
+                        _countdownTimer = CountdownTimer(duration: 120);
+                        _countdownTimer.startCountdown((formattedTime) {
+                          setState(() {
+                            _formattedTime = formattedTime;
+                            if (_countdownTimer.formatCountdown() ==
+                                '00:00') {
+                              _showResendButton = true; // Show the button when the timer reaches zero
+                            }
+                          });
+                        });
+
+                      },
+                      child: Text(
+                        "Resend",
+                        style: Theme.of(context).textTheme.displaySmall?.copyWith(color: secondaryColor, fontSize: 16),
+                      )
+                  ),
                 ),
                 Text(
                   _formattedTime,

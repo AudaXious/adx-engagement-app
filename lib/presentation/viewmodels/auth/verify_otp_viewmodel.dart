@@ -12,6 +12,7 @@ class VerifyOTPViewModel extends ChangeNotifier {
   bool isLoading = false;
   bool isSuccessful = false;
   late User? user;
+  late String? username;
 
   VerifyOTPViewModel({required this.ref});
 
@@ -29,8 +30,9 @@ class VerifyOTPViewModel extends ChangeNotifier {
 
       if (data != null) {
         user = User.fromJson(data);
+        username = user?.username;
+        print("view model username $username");
         isSuccessful = true;
-        print("username ${user?.username}");
       }
 
       if (message != null) {
@@ -47,6 +49,7 @@ class VerifyOTPViewModel extends ChangeNotifier {
 
     } catch (e) {
       isLoading = false;
+      isSuccessful = false;
       notifyListeners();
 
       CustomToast.show(
@@ -57,9 +60,6 @@ class VerifyOTPViewModel extends ChangeNotifier {
       );
 
       print(e);
-    } finally {
-      isLoading = false;
-      notifyListeners();
     }
   }
 

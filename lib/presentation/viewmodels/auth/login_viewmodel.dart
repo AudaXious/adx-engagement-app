@@ -24,8 +24,11 @@ Future<void> loginUser(BuildContext context, String email) async {
     state = state.update(viewState: ViewState.loading);
     try {
       final response = await loginUseCase.login(email);
-      // print(response);
+      final success = response['success'];
+      final error = response['error'];
       final data = response['data'];
+      print(error);
+      print(success);
 
       if (data != null) {
         final user = User.fromJson(data);
@@ -46,6 +49,10 @@ Future<void> loginUser(BuildContext context, String email) async {
       );
     }
   }
+
+  // Future<bool> login(BuildContext context, String email) async {
+  //
+  // }
 
 }
 

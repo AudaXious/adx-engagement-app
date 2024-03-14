@@ -8,20 +8,20 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 @RoutePage()
-class CommunityScreen extends StatefulWidget {
-  const CommunityScreen({super.key});
+class SpacesScreen extends StatefulWidget {
+  const SpacesScreen({super.key});
 
   @override
-  State<CommunityScreen> createState() => _CommunityScreenState();
+  State<SpacesScreen> createState() => _SpacesScreenState();
 }
 
-class _CommunityScreenState extends State<CommunityScreen> {
+class _SpacesScreenState extends State<SpacesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Community",
+          "Spaces",
           style: Theme.of(context).textTheme.displaySmall,
         ),
         centerTitle: true,

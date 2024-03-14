@@ -24,7 +24,7 @@ abstract class _$AppRouter extends RootStackRouter {
     CommunityRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const CommunityScreen(),
+        child: const SpacesScreen(),
       );
     },
     CreateCommunityRoute.name: (routeData) {
@@ -100,7 +100,7 @@ class BottomBarRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [CommunityScreen]
+/// [SpacesScreen]
 class CommunityRoute extends PageRouteInfo<void> {
   const CommunityRoute({List<PageRouteInfo>? children})
       : super(

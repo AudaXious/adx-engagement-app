@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
+import '../../../core/services/shared_preferences_services.dart';
 import '../../../core/utils/app_layout.dart';
 import '../../widgets/buttons/primary_button.dart';
 import '../../widgets/buttons/secondary_button.dart';
@@ -22,6 +23,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   void initState() {
     _pageController = PageController(initialPage: 0);
+    _checkLoginStatus();
     super.initState();
   }
 
@@ -29,6 +31,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   void dispose() {
     _pageController.dispose();
     super.dispose();
+  }
+
+  Future<void> _checkLoginStatus() async {
+    final isLoggedIn = await SharedPreferencesServices.getIsLoggedIn();
+    if (isLoggedIn) {
+      context.router.replaceAll([const BottomBarRoute()]);
+    }
   }
 
   @override

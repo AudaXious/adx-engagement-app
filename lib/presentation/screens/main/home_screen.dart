@@ -1,3 +1,4 @@
+import 'package:audaxious/core/utils/theme/dark_theme.dart';
 import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/presentation/viewmodels/home/home_viewmodel.dart';
 import 'package:auto_route/auto_route.dart';
@@ -29,8 +30,9 @@ class HomeScreen extends HookConsumerWidget {
         ],
       ),
       body: notifier.viewState.isLoading
-          ? const Center(child: CircularProgressIndicator(strokeWidth: 3, color: Color(0xFF79C4EC)))
-          : notifier.viewState.isError ? Center(child: Text(notifier.error))
+          ? Center(child: CircularProgressIndicator(strokeWidth: 3, color: accentColor))
+          : notifier.viewState.isError
+          ? Center(child: Text(notifier.error))
           : ListView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               itemCount: notifier.feeds?.length,

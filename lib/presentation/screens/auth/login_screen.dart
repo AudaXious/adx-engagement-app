@@ -8,9 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:toastification/toastification.dart';
 
 import '../../../core/utils/app_utils.dart';
 import '../../../core/utils/view_utils.dart';
+import '../../widgets/custom_toast.dart';
 
 @RoutePage()
 class LoginScreen extends HookConsumerWidget {
@@ -75,9 +77,16 @@ class LoginScreen extends HookConsumerWidget {
               const Gap(50),
               SecondaryButton(
                 onPressed: () async {
-                  await reader.loginUser(context, _emailController.text);
-                  if (!notifier.viewState.isError) {
+                  bool isLoginSuccessful = await reader.loginUser(_emailController.text);
+                  if (isLoginSuccessful) {
                     context.router.navigate(OTPRoute(email: _emailController.text));
+                  }else {
+                    CustomToast.show(
+                      context: context,
+                      title: "Error",
+                      description: notifier.error,
+                      type: ToastificationType.error,
+                    );
                   }
                 },
                 buttonText: "Sign In",

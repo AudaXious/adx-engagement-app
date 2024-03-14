@@ -22,32 +22,38 @@ class CreateUsernameViewModel extends StateNotifier<CreateUsernameState> {
       createUsernameUseCase: ref.read(createUsernameUseCaseProvider),
   ));
 
-Future<void> createUsername(BuildContext context, String username) async {
+  Future<bool> createUsername(BuildContext context, String username) async {
     state = state.update(viewState: ViewState.loading);
     try {
       final response = await createUsernameUseCase.createUsername(username);
+      final success = response['success'];
       final data = response['data'];
 
-      if (data != null) {
-        final user = User.fromJson(data);
-        state = state.update(user: user);
-      }
+      if (success != null && success == true) {
+        if (data != null) {
+          final user = User.fromJson(data);
+          state = state.update(user: user);
+        }
 
-      state = state.update(viewState: ViewState.idle);
+        state = state.update(viewState: ViewState.idle);
+        return true;
+      }
 
     } catch (e) {
       state = state.update(viewState: ViewState.error);
       state = state.update(error: e.toString());
-      print("View model error: ${e.toString()}");
       CustomToast.show(
         context: context,
         title: "Error",
         description: e.toString(),
         type: ToastificationType.error,
       );
+      print("View model error: ${e.toString()}");
+      return false;
     }
-  }
 
+    return false;
+  }
 }
 
 

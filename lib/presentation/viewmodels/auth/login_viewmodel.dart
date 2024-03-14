@@ -20,39 +20,32 @@ class LoginViewModel extends StateNotifier<LoginState> {
       loginUseCase: ref.read(loginUseCaseProvider),
   ));
 
-Future<void> loginUser(BuildContext context, String email) async {
+Future<bool> loginUser(String email) async {
     state = state.update(viewState: ViewState.loading);
     try {
       final response = await loginUseCase.login(email);
       final success = response['success'];
-      final error = response['error'];
       final data = response['data'];
-      print(error);
-      print(success);
 
-      if (data != null) {
-        final user = User.fromJson(data);
-        state = state.update(user: user);
+      if (success != null && success == true) {
+        if (data != null) {
+          final user = User.fromJson(data);
+          state = state.update(user: user);
+        }
+
+        state = state.update(viewState: ViewState.idle);
+        return true;
       }
-
-      state = state.update(viewState: ViewState.idle);
 
     } catch (e) {
       state = state.update(viewState: ViewState.error);
       state = state.update(error: e.toString());
       print("View model error: ${e.toString()}");
-      CustomToast.show(
-        context: context,
-        title: "Error",
-        description: e.toString(),
-        type: ToastificationType.error,
-      );
+      return false;
     }
-  }
 
-  // Future<bool> login(BuildContext context, String email) async {
-  //
-  // }
+    return false;
+  }
 
 }
 

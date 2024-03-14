@@ -7,10 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:toastification/toastification.dart';
 
 import '../../../core/utils/app_utils.dart';
 import '../../../core/utils/view_utils.dart';
 import '../../../domain/enums/button_state.dart';
+import '../../widgets/custom_toast.dart';
 
 @RoutePage()
 class CreateUsernameScreen extends HookConsumerWidget {
@@ -61,8 +63,9 @@ class CreateUsernameScreen extends HookConsumerWidget {
               const Gap(50),
               SecondaryButton(
                 onPressed: () async {
-                  await reader.createUsername(context, _usernameController.text);
-                  if (!notifier.viewState.isError) {
+                  bool isCreateUsernameSuccessful =
+                      await reader.createUsername(context, _usernameController.text);
+                  if (isCreateUsernameSuccessful) {
                     context.router.replaceAll([const BottomBarRoute()]);
                   }
                 },

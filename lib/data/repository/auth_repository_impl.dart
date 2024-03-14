@@ -59,7 +59,6 @@ class AuthRepositoryImpl implements AuthRepository {
         User user = User.fromJson(data);
         await SharedPreferencesServices().saveCurrentUser("user", json.encode(user));
         await SharedPreferencesServices.saveIsLoggedIn(true);
-        await SharedPreferencesServices.saveAccessToken(user.token!);
       }
 
       return response;

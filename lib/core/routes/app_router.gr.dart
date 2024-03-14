@@ -51,7 +51,7 @@ abstract class _$AppRouter extends RootStackRouter {
       final args = routeData.argsAs<OTPRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: OTPScreen(
+        child: VerifyOTPScreen(
           key: args.key,
           email: args.email,
         ),
@@ -170,7 +170,7 @@ class LoginRouteArgs {
 }
 
 /// generated route for
-/// [OTPScreen]
+/// [VerifyOTPScreen]
 class OTPRoute extends PageRouteInfo<OTPRouteArgs> {
   OTPRoute({
     Key? key,

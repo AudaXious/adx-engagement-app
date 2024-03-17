@@ -4,7 +4,7 @@ import 'package:audaxious/core/utils/view_utils.dart';
 import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/presentation/viewmodels/spaces/spaces_viewmodel.dart';
 import 'package:audaxious/presentation/widgets/buttons/custom_radio_group_tabs_horizontal.dart';
-import 'package:audaxious/presentation/widgets/cards/community_card.dart';
+import 'package:audaxious/presentation/widgets/cards/space_card.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -76,23 +76,15 @@ class SpacesScreen extends HookConsumerWidget {
                   ),
                 ),
                 const Gap(20),
-                const Expanded(
-                  child: SingleChildScrollView(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      children: [
-                        Gap(30),
-                        CommunityCard(),
-                        Gap(30),
-                        CommunityCard(),
-                        Gap(30),
-                        CommunityCard(),
-                        Gap(30),
-                        CommunityCard(),
-                        Gap(20),
-                      ],
-                    ),
-                  ),
+                ListView.builder(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  itemCount: notifier.spaces?.length,
+                  itemBuilder: (context, index) {
+                    final singleSpace = notifier.spaces?[index];
+                    return notifier.spaces!.isEmpty
+                        ? const Text("No space available")
+                        : SpaceCard(space: singleSpace!);
+                }
                 )
               ],
       )

@@ -12,7 +12,6 @@ class FeedsRepositoryImpl extends FeedsRepository {
     try {
       final response = await DioClient.instance.get(
         feedsEndpoint,
-        requiresAuthorization: false
       );
 
       return response;

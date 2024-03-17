@@ -1,11 +1,14 @@
+import 'package:audaxious/domain/models/space.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import '../../../core/utils/app_utils.dart';
 import '../../../core/utils/theme/dark_theme.dart';
-class CommunityCard extends StatelessWidget {
-  const CommunityCard({super.key});
+class SpaceCard extends StatelessWidget {
+  Space space;
+
+  SpaceCard({super.key, required this.space});
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +58,7 @@ class CommunityCard extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              "AudaXious Africa",
+                              space.title ?? "",
                               style: Theme.of(context).textTheme.displayLarge?.
                               copyWith(fontSize: 18),
                             ),
@@ -73,7 +76,7 @@ class CommunityCard extends StatelessWidget {
                       const Gap(10),
                       Text(
                           shortenStringWithReadMore(
-                              "Floxy Pay Wallet is a decentralized Self/Non-Custodian cryptocurrency, and \$FXY is our native token. Your One-Stop CRYPTO HUB! 🚀 Perfect for newcomers and experts. Buy, Sell, Trade, and Smart swap... Read more",
+                              space.description ?? "",
                               150
                           ),
                           style: Theme.of(context).textTheme.bodyLarge

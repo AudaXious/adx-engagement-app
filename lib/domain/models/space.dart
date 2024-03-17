@@ -1,23 +1,53 @@
 class Space {
-  String? name;
+  String? title;
   String? description;
+  String? creatorId;
+  List<String>? tags;
+  List<String>? links;
+  String? uuid;
+  String? coverURL;
+  String? profileURL;
+  String? createdAt;
+  String? updatedAt;
 
   Space({
-    this.name,
+    this.title,
     this.description,
+    this.creatorId,
+    this.tags,
+    this.links,
+    this.uuid,
+    this.profileURL,
+    this.coverURL,
+    this.createdAt,
+    this.updatedAt,
   });
 
   factory Space.fromJson(Map<String, dynamic> json) {
     return Space(
-      name: json['name'],
+      title: json['title'],
       description: json['description'],
+      creatorId: json['creator_id'],
+      tags: json['tags'],
+      links: json['links'],
+      uuid: json['uuid'],
+      coverURL: json['cover_url'],
+      profileURL: json['profile_url'],
+      createdAt: json['createdAt'],
+      updatedAt: json['updatedAt'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'name': name,
+      'title': title,
       'description': description,
+      'creator_id': creatorId,
+      'tags': tags,
+      'links': links,
+      'uuid': uuid,
+      'createdAt': createdAt,
+      'updatedAt': updatedAt,
     };
   }
 }

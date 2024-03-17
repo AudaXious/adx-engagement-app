@@ -37,71 +37,70 @@ class SpacesScreen extends HookConsumerWidget {
           )
         ]
       ),
-      body: notifier.viewState.isLoading
-          ? Center(child: CircularProgressIndicator(strokeWidth: 3, color: accentColor))
-          : notifier.viewState.isError
-          ? Center(child: Text(notifier.error))
-          : Column(
-              children: [
-                const Gap(20),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  child: CustomRadioGroupTabsHorizontal(
-                    onValueChanged: (value) {
-                      switch (value) {
-                        case "all_communities":
-                          print(value);
-                          break;
-                        case "my_communities":
-                          print(value);
-                          break;
-                        default:
-                          print("All communities");
-                      }
-                    },
-                    radioButtons: const [
-                      {
-                        'icon': 'assets/images/community.png',
-                        'title': 'All Communities',
-                        'value': 'all_communities'
-                      },
-                      {
-                        'icon': 'assets/images/discord.png',
-                        'title': 'My Communities',
-                        'value': 'my_communities'
-                      },
-                    ],
-                  ),
-                ),
-                const Gap(20),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  child: TextField(
-                    keyboardType: TextInputType.text,
-                    cursorColor: Colors.white,
-                    decoration: primaryTextFieldWithPrefixIconDecoration(
-                        labelText: "Type to search community",
-                        prefixIcon: "assets/images/search.png"
-                    ),
-                  ),
-                ),
-                const Gap(20),
-                Expanded(
-                  child: ListView.builder(
+      body: Column(
+        children: [
+          const Gap(20),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 10),
+            child: CustomRadioGroupTabsHorizontal(
+              onValueChanged: (value) {
+                switch (value) {
+                  case "all_spaces":
+                    print(value);
+                    reader.getSpaces();
+                    break;
+                  case "my_spaces":
+                    print(value);
+                    reader.getUserSpaces();
+                    break;
+                  default:
+                    print("All Spaces");
+                }
+              },
+              radioButtons: const [
+                {
+                  'icon': 'assets/images/community.png',
+                  'title': 'All Spaces',
+                  'value': 'all_spaces'
+                },
+                {
+                  'icon': 'assets/images/discord.png',
+                  'title': 'My Spaces',
+                  'value': 'my_spaces'
+                },
+              ],
+            ),
+          ),
+          const Gap(20),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            child: TextField(
+              keyboardType: TextInputType.text,
+              cursorColor: Colors.white,
+              decoration: primaryTextFieldWithPrefixIconDecoration(
+                  labelText: "Type to search community",
+                  prefixIcon: "assets/images/search.png"
+              ),
+            ),
+          ),
+          const Gap(20),
+          Expanded(
+              child: notifier.viewState.isLoading
+                  ? Center(child: CircularProgressIndicator(strokeWidth: 3, color: accentColor))
+                  : notifier.viewState.isError
+                  ? Center(child: Text(notifier.error))
+                  : ListView.builder(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       shrinkWrap: true,
                       itemCount: notifier.spaces?.length,
                       itemBuilder: (context, index) {
                         final singleSpace = notifier.spaces?[index];
-                        return notifier.spaces!.isEmpty
-                            ? const Text("No space available")
-                            : SpaceCard(space: singleSpace!);
+                        return SpaceCard(space: singleSpace!);
                       }
-                  ),
-                )
-              ],
+              )
+          )
+        ],
       )
-
     );
   }
 }

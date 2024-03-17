@@ -48,6 +48,16 @@ class SpacesScreen extends HookConsumerWidget {
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   child: CustomRadioGroupTabsHorizontal(
                     onValueChanged: (value) {
+                      switch (value) {
+                        case "all_communities":
+                          print(value);
+                          break;
+                        case "my_communities":
+                          print(value);
+                          break;
+                        default:
+                          print("All communities");
+                      }
                     },
                     radioButtons: const [
                       {
@@ -76,15 +86,18 @@ class SpacesScreen extends HookConsumerWidget {
                   ),
                 ),
                 const Gap(20),
-                ListView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  itemCount: notifier.spaces?.length,
-                  itemBuilder: (context, index) {
-                    final singleSpace = notifier.spaces?[index];
-                    return notifier.spaces!.isEmpty
-                        ? const Text("No space available")
-                        : SpaceCard(space: singleSpace!);
-                }
+                Expanded(
+                  child: ListView.builder(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      shrinkWrap: true,
+                      itemCount: notifier.spaces?.length,
+                      itemBuilder: (context, index) {
+                        final singleSpace = notifier.spaces?[index];
+                        return notifier.spaces!.isEmpty
+                            ? const Text("No space available")
+                            : SpaceCard(space: singleSpace!);
+                      }
+                  ),
                 )
               ],
       )

@@ -38,7 +38,7 @@ class BottomBarScreen extends StatelessWidget {
                 BottomNavigationBarItem(
                     icon: Icon(Icons.people_outline),
                     activeIcon: Icon(Icons.people),
-                    label: "Community"
+                    label: "Spaces"
                 ),
               ],
             )

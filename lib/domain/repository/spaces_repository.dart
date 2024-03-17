@@ -1,3 +1,3 @@
 abstract class SpacesRepository {
-  Future<List<dynamic>> getSpaces();
+  Future<dynamic> getSpaces();
 }

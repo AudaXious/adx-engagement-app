@@ -9,10 +9,10 @@ import '../../core/services/internet_services/endpoints.dart';
 
 class SpacesRepositoryImpl extends SpacesRepository {
   @override
-  Future<List<dynamic>> getSpaces() async {
+  Future<dynamic> getSpaces() async {
     try {
       final response = await DioClient.instance.get(
-        feedsEndpoint,
+        spacesEndpoint,
       );
 
       return response;
@@ -21,7 +21,6 @@ class SpacesRepositoryImpl extends SpacesRepository {
       throw error.errorMessage;
     }
   }
-
 }
 
 final spacesRepositoryProvider = Provider<SpacesRepository>((ref) {

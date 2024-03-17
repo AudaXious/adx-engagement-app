@@ -14,7 +14,7 @@ class SpacesViewModel extends StateNotifier<SpacesState> {
   SpacesViewModel({
     required this.spacesUseCase,
   }) : super (SpacesState.initial()) {
-    getFeeds();
+    getSpaces();
   }
 
   static final notifier =
@@ -22,16 +22,23 @@ class SpacesViewModel extends StateNotifier<SpacesState> {
       spacesUseCase: ref.read(spacesUseCaseProvider),
   ));
 
-Future<void> getFeeds() async {
+Future<void> getSpaces() async {
     state = state.update(viewState: ViewState.loading);
     try {
       final response = await spacesUseCase.getSpaces();
+      final data = response['data'];
 
-      final List<Map<String, dynamic>> dataList = response.cast<Map<String, dynamic>>();
-      final spaces = dataList
-          .map((spacesData) => Space.fromJson(spacesData))
-          .toList();
-      state = state.update(spaces: spaces);
+      if (data != null && data is List) {
+        final List dataList = data.cast<dynamic>();
+
+        final spaces = dataList.map((spacesData) => Space.fromJson(spacesData)).toList();
+        state = state.update(spaces: spaces);
+      }else {
+        print('Unexpected data format. Expected a list of spaces.');
+        state = state.update(viewState: ViewState.error);
+        state = state.update(error: "Unexpected data format. Expected a list of spaces");
+      }
+
       state = state.update(viewState: ViewState.idle);
 
     } catch (e) {

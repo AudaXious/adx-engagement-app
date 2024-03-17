@@ -5,3 +5,4 @@ String loginEndpoint = "/user/onboard";
 String verifyOTPEndpoint = "/user/verify?type=verify";
 String createUsernameEndpoint = "/profile/update-username";
 String feedsEndpoint = "/tweets.json";
+String spacesEndpoint = "/spaces/all";

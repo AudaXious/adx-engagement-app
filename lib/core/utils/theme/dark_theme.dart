@@ -18,7 +18,7 @@ Color fadedTextColor = const Color(0xFF757575);
 
 final ThemeData darkTheme = ThemeData(
   textTheme: const TextTheme(
-    displayLarge: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600, fontFamily: 'Poppins'),
+    displayLarge: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w800, fontFamily: 'Poppins'),
     displayMedium: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500, fontFamily: 'Poppins'),
     displaySmall: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w400, fontFamily: 'Poppins'),
     headlineMedium: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w300, fontFamily: 'Poppins'),

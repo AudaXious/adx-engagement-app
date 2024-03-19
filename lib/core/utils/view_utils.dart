@@ -11,6 +11,10 @@ InputDecoration primaryTextFormFieldDecoration({
       borderRadius: const BorderRadius.all(Radius.circular(5)),
     ),
     focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: secondaryColor, width: 0.5),
+      borderRadius: const BorderRadius.all(Radius.circular(5)),
+    ),
+    enabledBorder: OutlineInputBorder(
       borderSide: BorderSide(color: textInputBorderColor, width: 0.5),
       borderRadius: const BorderRadius.all(Radius.circular(5)),
     ),

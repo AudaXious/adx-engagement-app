@@ -1,7 +1,9 @@
 import 'package:audaxious/core/routes/app_router.dart';
+import 'package:audaxious/core/utils/theme/dark_theme.dart';
 import 'package:audaxious/domain/enums/button_state.dart';
 import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/presentation/viewmodels/auth/login_viewmodel.dart';
+import 'package:audaxious/presentation/widgets/buttons/primary_button.dart';
 import 'package:audaxious/presentation/widgets/buttons/secondary_button.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -33,38 +35,26 @@ class LoginScreen extends HookConsumerWidget {
         child: SingleChildScrollView(
           padding: const EdgeInsets.only(left: 20, right: 20, top: 50),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Image.asset("assets/images/pink_star.png", height: 20, width: 20),
-                  Image.asset("assets/images/telegram.png", height: 20, width: 20),
-                ],
-              ),
-              const Gap(20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset("assets/images/audaxious_name_logo.png", width: 120, height: 20),
+                  Image.asset("assets/images/audaxious_name_logo.png", width: 100, height: 16),
                 ],
               ),
-              const Gap(50),
+              const Gap(150),
               Text(
                 "Sign In",
                 style: Theme.of(context).textTheme.displayLarge,
               ),
-              const Gap(5),
+              const Gap(30),
               Text(
-                "Multisend, Build communities, Market Products, Earn rewards",
-                style: Theme.of(context).textTheme.bodyLarge,
+                "Create or Login account to Multisend, Build communities, Market Products, Earn rewards",
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: greyTextColor),
+                textAlign: TextAlign.center,
               ),
               const Gap(20),
-              Text(
-                "Email address",
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              const Gap(3),
               TextFormField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
@@ -75,7 +65,7 @@ class LoginScreen extends HookConsumerWidget {
                 },
               ),
               const Gap(50),
-              SecondaryButton(
+              PrimaryButton(
                 onPressed: () async {
                   bool isLoginSuccessful = await reader.loginUser(_emailController.text);
                   if (isLoginSuccessful) {

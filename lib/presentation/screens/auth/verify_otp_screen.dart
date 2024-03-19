@@ -3,6 +3,7 @@ import 'package:audaxious/domain/enums/button_state.dart';
 import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/presentation/viewmodels/auth/verify_otp_viewmodel.dart';
 import 'package:audaxious/presentation/widgets/buttons/primary_button.dart';
+import 'package:audaxious/presentation/widgets/buttons/primary_text_button.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -45,9 +46,9 @@ class VerifyOTPScreen extends HookConsumerWidget {
     // });
 
     final defaultPinTheme = PinTheme(
-        width: 53,
-        height: 46,
-        margin: const EdgeInsets.symmetric(horizontal: 5),
+        width: 55,
+        height: 50,
+        margin: const EdgeInsets.symmetric(horizontal: 2),
         textStyle: Theme.of(context).textTheme.displayLarge,
         decoration: BoxDecoration(
             color: cardColor,
@@ -56,17 +57,27 @@ class VerifyOTPScreen extends HookConsumerWidget {
         )
     );
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Image.asset("assets/images/audaxious_name_logo.png", width: 100, height: 16),
+        centerTitle: true,
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(left: 20, right: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     Image.asset("assets/images/audaxious_name_logo.png", width: 100, height: 16),
+            //   ],
+            // ),
+            const Gap(150),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Verify email",
+                  "Enter OTP",
                   style: Theme.of(context).textTheme.displayLarge,
                   textAlign: TextAlign.center,
                 )
@@ -77,10 +88,21 @@ class VerifyOTPScreen extends HookConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
-                  child: Text(
-                    "Enter the verification code sent to $email",
-                    style: Theme.of(context).textTheme.bodyLarge,
-                    textAlign: TextAlign.center,
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    child: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        text: 'Enter the OTP sent to the following email to sign-In ',
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: greyTextColor),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: email,
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -158,7 +180,7 @@ class VerifyOTPScreen extends HookConsumerWidget {
             //   ],
             // ),
             const Gap(50),
-            PrimaryButton(
+            PrimaryTextButton(
               onPressed: () {
                 context.popRoute();
               },
@@ -166,7 +188,18 @@ class VerifyOTPScreen extends HookConsumerWidget {
               buttonState: notifier.viewState.isLoading
                   ? ButtonState.loading
                   :ButtonState.active,
+              textColor: secondaryColor,
             ),
+
+            // PrimaryButton(
+            //   onPressed: () {
+            //     context.popRoute();
+            //   },
+            //   buttonText: "Change email",
+            //   buttonState: notifier.viewState.isLoading
+            //       ? ButtonState.loading
+            //       :ButtonState.active,
+            // ),
           ],
         ),
       ),

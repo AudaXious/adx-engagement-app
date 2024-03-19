@@ -33,25 +33,12 @@ class _PrimaryOutlineButtonState extends State<PrimaryOutlineButton> {
           side: BorderSide(
             color: secondaryColor
           ),
-          // backgroundColor: _getButtonColor(),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          elevation: 10,
         ),
         child: _buildButtonChild(),
       ),
     );
   }
-
-  // Color _getButtonColor() {
-  //   switch (widget.buttonState) {
-  //     case ButtonState.active:
-  //       return secondaryColor;
-  //     case ButtonState.loading:
-  //       return secondaryColor.withOpacity(0.7);
-  //     case ButtonState.disabled:
-  //       return secondaryColor.withOpacity(0.8);
-  //   }
-  // }
 
   Widget _buildButtonChild() {
     switch (widget.buttonState) {

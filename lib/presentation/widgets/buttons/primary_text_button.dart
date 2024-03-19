@@ -7,12 +7,14 @@ class PrimaryTextButton extends StatefulWidget {
   final VoidCallback? onPressed;
   final String buttonText;
   final ButtonState buttonState;
+  final Color? textColor;
 
   const PrimaryTextButton({
     Key? key,
     this.onPressed,
     required this.buttonText,
     this.buttonState = ButtonState.active,
+    this.textColor
   }) : super(key: key);
 
   @override
@@ -30,24 +32,11 @@ class _PrimaryTextButtonState extends State<PrimaryTextButton> {
         onPressed: _getOnPressed(),
         style: TextButton.styleFrom(
           primary: Colors.white,
-          backgroundColor: _getButtonColor(),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          elevation: 10,
         ),
         child: _buildButtonChild(),
       ),
     );
-  }
-
-  Color _getButtonColor() {
-    switch (widget.buttonState) {
-      case ButtonState.active:
-        return secondaryColor;
-      case ButtonState.loading:
-        return secondaryColor.withOpacity(0.7);
-      case ButtonState.disabled:
-        return secondaryColor.withOpacity(0.8);
-    }
   }
 
   Widget _buildButtonChild() {
@@ -55,7 +44,7 @@ class _PrimaryTextButtonState extends State<PrimaryTextButton> {
       case ButtonState.active:
         return Text(
           widget.buttonText,
-          style: Theme.of(context).textTheme.displaySmall?.copyWith(color: blackTextColor, fontSize: 16),
+          style: Theme.of(context).textTheme.displayMedium?.copyWith(color: widget.textColor ?? greyTextColor, fontSize: 14),
         );
       case ButtonState.loading:
         return Stack(
@@ -65,11 +54,11 @@ class _PrimaryTextButtonState extends State<PrimaryTextButton> {
               widget.buttonText,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.transparent),
             ),
-            const SizedBox(
+            SizedBox(
               width: 30,
               height: 30,
               child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                valueColor: AlwaysStoppedAnimation<Color>(widget.textColor ?? Colors.white),
               ),
             ),
           ],
@@ -77,7 +66,7 @@ class _PrimaryTextButtonState extends State<PrimaryTextButton> {
       case ButtonState.disabled:
         return Text(
           widget.buttonText,
-          style: Theme.of(context).textTheme.displaySmall?.copyWith(color: blackTextColor, fontSize: 16),
+          style: Theme.of(context).textTheme.displayMedium?.copyWith(color: widget.textColor ?? greyTextColor, fontSize: 14),
         );
     }
   }

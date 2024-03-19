@@ -3,12 +3,12 @@ import '../../../core/utils/app_layout.dart';
 import '../../../core/utils/theme/dark_theme.dart';
 import '../../../domain/enums/button_state.dart';
 
-class PrimaryButton extends StatefulWidget {
+class PrimaryOutlineButton extends StatefulWidget {
   final VoidCallback? onPressed;
   final String buttonText;
   final ButtonState buttonState;
 
-  const PrimaryButton({
+  const PrimaryOutlineButton({
     Key? key,
     this.onPressed,
     required this.buttonText,
@@ -16,21 +16,24 @@ class PrimaryButton extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<PrimaryButton> createState() => _PrimaryButtonState();
+  State<PrimaryOutlineButton> createState() => _PrimaryOutlineButtonState();
 }
 
-class _PrimaryButtonState extends State<PrimaryButton> {
+class _PrimaryOutlineButtonState extends State<PrimaryOutlineButton> {
   @override
   Widget build(BuildContext context) {
     final size = AppLayout.getSize(context);
     return SizedBox(
       height: 50,
       width: size.width,
-      child: ElevatedButton(
+      child: OutlinedButton(
         onPressed: _getOnPressed(),
-        style: ElevatedButton.styleFrom(
+        style: OutlinedButton.styleFrom(
           foregroundColor: Colors.white,
-          backgroundColor: _getButtonColor(),
+          side: BorderSide(
+            color: secondaryColor
+          ),
+          // backgroundColor: _getButtonColor(),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           elevation: 10,
         ),
@@ -39,23 +42,23 @@ class _PrimaryButtonState extends State<PrimaryButton> {
     );
   }
 
-  Color _getButtonColor() {
-    switch (widget.buttonState) {
-      case ButtonState.active:
-        return secondaryColor;
-      case ButtonState.loading:
-        return secondaryColor.withOpacity(0.7);
-      case ButtonState.disabled:
-        return secondaryColor.withOpacity(0.8);
-    }
-  }
+  // Color _getButtonColor() {
+  //   switch (widget.buttonState) {
+  //     case ButtonState.active:
+  //       return secondaryColor;
+  //     case ButtonState.loading:
+  //       return secondaryColor.withOpacity(0.7);
+  //     case ButtonState.disabled:
+  //       return secondaryColor.withOpacity(0.8);
+  //   }
+  // }
 
   Widget _buildButtonChild() {
     switch (widget.buttonState) {
       case ButtonState.active:
         return Text(
           widget.buttonText,
-          style: Theme.of(context).textTheme.displayMedium?.copyWith(color: blackTextColor, fontSize: 14),
+          style: Theme.of(context).textTheme.displayMedium?.copyWith(color: greyTextColor, fontSize: 14),
         );
       case ButtonState.loading:
         return Stack(
@@ -77,7 +80,7 @@ class _PrimaryButtonState extends State<PrimaryButton> {
       case ButtonState.disabled:
         return Text(
           widget.buttonText,
-          style: Theme.of(context).textTheme.displayMedium?.copyWith(color: blackTextColor, fontSize: 14),
+          style: Theme.of(context).textTheme.displayMedium?.copyWith(fontSize: 14),
         );
     }
   }

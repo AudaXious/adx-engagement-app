@@ -1,5 +1,6 @@
 import 'package:audaxious/core/routes/app_router.dart';
 import 'package:audaxious/core/utils/theme/dark_theme.dart';
+import 'package:audaxious/presentation/widgets/buttons/primary_text_button.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -7,6 +8,7 @@ import 'package:gap/gap.dart';
 import '../../../core/services/shared_preferences_services.dart';
 import '../../../core/utils/app_layout.dart';
 import '../../widgets/buttons/primary_button.dart';
+import '../../widgets/buttons/primary_outline_button.dart';
 import '../../widgets/buttons/secondary_button.dart';
 @RoutePage()
 class OnBoardingScreen extends StatefulWidget {
@@ -23,7 +25,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   void initState() {
     _pageController = PageController(initialPage: 0);
-    _checkLoginStatus();
+    // _checkLoginStatus();
     super.initState();
   }
 
@@ -43,12 +45,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.only(top: 30, bottom: 50),
+            padding: const EdgeInsets.only(top: 35, bottom: 20),
             child: Column(
               children: [
                 Image.asset("assets/images/audaxious_name_logo.png", width: 100, height: 16),
+                const Gap(20),
                 Expanded(
                     child: PageView.builder(
                         itemCount: onBoardingData.length,
@@ -73,7 +77,17 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     )),
                   ],
                 ),
-                const Gap(50),
+                const Gap(30),
+                Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    child: PrimaryOutlineButton(
+                      buttonText: "Explore Audaxious",
+                      onPressed: () {
+                        context.router.replaceAll([const BottomBarRoute()]);
+                      },
+                    )
+                ),
+                const Gap(30),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                   child: PrimaryButton(
@@ -82,19 +96,30 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       context.router.replaceAll([LoginRoute()]);
                     },
                   )
-                  ,
                 ),
-                const Gap(20),
+                const Gap(50),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 20),
-                  child: SecondaryButton(
-                    buttonText: "Explore Audaxious",
-                    onPressed: () {
-                      context.router.replaceAll([const BottomBarRoute()]);
-                    },
-                  )
-                  ,
-                ),
+                  child: TextButton(
+                    onPressed: () {},
+                    child: RichText(
+                      text: TextSpan(
+                        text: 'By continuing, you agree our ',
+                        style: Theme.of(context).textTheme.displaySmall?.copyWith(color: greyTextColor, fontSize: 12),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: 'Terms & Conditions',
+                            style: TextStyle(
+                              color: secondaryColor,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                    ,
+                  ),
+                )
               ],
             ),
           )
@@ -130,20 +155,15 @@ class OnBoard{
 
 final List<OnBoard> onBoardingData = [
   OnBoard(
-      image: "assets/images/x.png",
-      title: "Gateway To Web3 Tools & Features",
-      description: "Connecting millions of users to web3 applications via social networks "
+      image: "assets/images/on_boarding_bg.png",
+      title: "ADX Engage to Earn",
+      description: "Start earning, winning  rewards, and airdrops by engaging, creating quality contents, and contributing to web3 communities."
   ),
   OnBoard(
-      image: "assets/images/x.png",
-      title: "Gateway To Web3 Tools & Features",
-      description: "Connecting millions of users to web3 applications via social networks "
+      image: "assets/images/on_boarding_bg.png",
+      title: "ADX Engage to Earn",
+      description: "An easy to use Engage to Earn App that connects you to thousands of web3 projects where you can earn rewards and airdrops"
   ),
-  OnBoard(
-      image: "assets/images/x.png",
-      title: "Gateway To Web3 Tools & Features",
-      description: "Connecting millions of users to web3 applications via social networks "
-  )
 ];
 
 class OnBoardingContent extends StatelessWidget {
@@ -159,32 +179,80 @@ class OnBoardingContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = AppLayout.getSize(context);
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Spacer(),
-          Image.asset(
-            image,
-            width: size.width,
-            height: 350,
+    return Stack(
+      children: [
+        Image.asset(
+          'assets/images/on_boarding_bg.png',
+          // fit: BoxFit.cover,
+          width: double.infinity,
+          height: double.infinity,
+        ),
+        Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.bottomCenter,
+              end: Alignment.topCenter,
+              colors: [
+                Colors.black.withOpacity(0.9),
+                Colors.transparent,
+              ],
+            ),
           ),
-          const Spacer(),
-          Text(
-            title,
-            style: Theme.of(context).textTheme.displayLarge,
-            textAlign: TextAlign.center,
+        ),
+        Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.bottomCenter,
+              end: Alignment.topCenter,
+              colors: [
+                Colors.black.withOpacity(0.9),
+                Colors.transparent,
+              ],
+            ),
           ),
-          const SizedBox(height: 16),
-          Text(
-            description,
-            style: Theme.of(context).textTheme.bodyLarge,
-            textAlign: TextAlign.center,
+        ),
+        Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Colors.black.withOpacity(0.6),
+                Colors.transparent,
+              ],
+            ),
           ),
-          const Spacer(),
-        ],
-      ),
+        ),
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Spacer(),
+              const SizedBox(height: 150),
+              const Spacer(),
+              Text(
+                title,
+                style: Theme.of(context).textTheme.displayLarge,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                description,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: greyTextColor),
+                textAlign: TextAlign.center,
+              ),
+              const Spacer(),
+            ],
+          ),
+        )
+      ],
     );
   }
 }

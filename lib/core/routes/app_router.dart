@@ -25,15 +25,15 @@ class AppRouter extends _$AppRouter {
 
     //Auth
     AutoRoute(page: LoginRoute.page),
-    AutoRoute(page: OTPRoute.page),
-    AutoRoute(page: SetUsernameRoute.page),
+    AutoRoute(page: VerifyOTPRoute.page),
+    AutoRoute(page: CreateUsernameRoute.page),
 
     //Bottom nav
     AutoRoute(
       page: BottomBarRoute.page,
       children: [
         AutoRoute(page: HomeRoute.page),
-        AutoRoute(page: CommunityRoute.page),
+        AutoRoute(page: SpacesRoute.page),
       ]
     ),
 

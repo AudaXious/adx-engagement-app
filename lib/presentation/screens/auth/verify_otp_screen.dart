@@ -16,7 +16,14 @@ import '../../widgets/custom_toast.dart';
 @RoutePage()
 class VerifyOTPScreen extends HookConsumerWidget {
   String email;
-  VerifyOTPScreen({super.key, required this.email});
+  bool usernameExist;
+  String username;
+  VerifyOTPScreen({
+    super.key,
+    required this.email,
+    required this.usernameExist,
+    required this.username,
+  });
 
   final pinController = TextEditingController();
   // late CountdownTimer _countdownTimer;
@@ -27,6 +34,7 @@ class VerifyOTPScreen extends HookConsumerWidget {
     final reader = ref.read(VerifyOTPViewModel.notifier.notifier);
     final notifier = ref.watch(VerifyOTPViewModel.notifier);
     // final showResendButton = useState(false);
+    print("Email $email and Username: $usernameExist");
 
     // _countdownTimer = CountdownTimer(duration: 120);
     // _countdownTimer.startCountdown((formattedTime) {
@@ -102,10 +110,12 @@ class VerifyOTPScreen extends HookConsumerWidget {
                     type: ToastificationType.success,
                   );
 
-                  if (notifier.user?.username == null) {
-                    context.router.navigate(SetUsernameRoute());
+                  if (usernameExist) {
+                    print("User name exists $usernameExist");
+                    // context.router.replaceAll([const BottomBarRoute()]);
                   }else {
-                    context.router.replaceAll([const BottomBarRoute()]);
+                    print("User name exists does not $usernameExist");
+                    // context.router.navigate(CreateUsernameRoute());
                   }
                 }else {
                   CustomToast.show(

@@ -21,16 +21,18 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const BottomBarScreen(),
       );
     },
-    CommunityRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const SpacesScreen(),
-      );
-    },
     CreateCommunityRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const CreateCommunityScreen(),
+      );
+    },
+    CreateUsernameRoute.name: (routeData) {
+      final args = routeData.argsAs<CreateUsernameRouteArgs>(
+          orElse: () => const CreateUsernameRouteArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: CreateUsernameScreen(key: args.key),
       );
     },
     HomeRoute.name: (routeData) {
@@ -45,16 +47,6 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: LoginScreen(key: args.key),
-      );
-    },
-    OTPRoute.name: (routeData) {
-      final args = routeData.argsAs<OTPRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: VerifyOTPScreen(
-          key: args.key,
-          email: args.email,
-        ),
       );
     },
     OnBoardingRoute.name: (routeData) {
@@ -74,12 +66,22 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
-    SetUsernameRoute.name: (routeData) {
-      final args = routeData.argsAs<SetUsernameRouteArgs>(
-          orElse: () => const SetUsernameRouteArgs());
+    SpacesRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: CreateUsernameScreen(key: args.key),
+        child: const SpacesScreen(),
+      );
+    },
+    VerifyOTPRoute.name: (routeData) {
+      final args = routeData.argsAs<VerifyOTPRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: VerifyOTPScreen(
+          key: args.key,
+          email: args.email,
+          usernameExist: args.usernameExist,
+          username: args.username,
+        ),
       );
     },
   };
@@ -100,20 +102,6 @@ class BottomBarRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [SpacesScreen]
-class CommunityRoute extends PageRouteInfo<void> {
-  const CommunityRoute({List<PageRouteInfo>? children})
-      : super(
-          CommunityRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'CommunityRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
 /// [CreateCommunityScreen]
 class CreateCommunityRoute extends PageRouteInfo<void> {
   const CreateCommunityRoute({List<PageRouteInfo>? children})
@@ -125,6 +113,35 @@ class CreateCommunityRoute extends PageRouteInfo<void> {
   static const String name = 'CreateCommunityRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [CreateUsernameScreen]
+class CreateUsernameRoute extends PageRouteInfo<CreateUsernameRouteArgs> {
+  CreateUsernameRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CreateUsernameRoute.name,
+          args: CreateUsernameRouteArgs(key: key),
+          initialChildren: children,
+        );
+
+  static const String name = 'CreateUsernameRoute';
+
+  static const PageInfo<CreateUsernameRouteArgs> page =
+      PageInfo<CreateUsernameRouteArgs>(name);
+}
+
+class CreateUsernameRouteArgs {
+  const CreateUsernameRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'CreateUsernameRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for
@@ -166,43 +183,6 @@ class LoginRouteArgs {
   @override
   String toString() {
     return 'LoginRouteArgs{key: $key}';
-  }
-}
-
-/// generated route for
-/// [VerifyOTPScreen]
-class OTPRoute extends PageRouteInfo<OTPRouteArgs> {
-  OTPRoute({
-    Key? key,
-    required String email,
-    List<PageRouteInfo>? children,
-  }) : super(
-          OTPRoute.name,
-          args: OTPRouteArgs(
-            key: key,
-            email: email,
-          ),
-          initialChildren: children,
-        );
-
-  static const String name = 'OTPRoute';
-
-  static const PageInfo<OTPRouteArgs> page = PageInfo<OTPRouteArgs>(name);
-}
-
-class OTPRouteArgs {
-  const OTPRouteArgs({
-    this.key,
-    required this.email,
-  });
-
-  final Key? key;
-
-  final String email;
-
-  @override
-  String toString() {
-    return 'OTPRouteArgs{key: $key, email: $email}';
   }
 }
 
@@ -264,30 +244,63 @@ class PostDetailsRouteArgs {
 }
 
 /// generated route for
-/// [CreateUsernameScreen]
-class SetUsernameRoute extends PageRouteInfo<SetUsernameRouteArgs> {
-  SetUsernameRoute({
-    Key? key,
-    List<PageRouteInfo>? children,
-  }) : super(
-          SetUsernameRoute.name,
-          args: SetUsernameRouteArgs(key: key),
+/// [SpacesScreen]
+class SpacesRoute extends PageRouteInfo<void> {
+  const SpacesRoute({List<PageRouteInfo>? children})
+      : super(
+          SpacesRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'SetUsernameRoute';
+  static const String name = 'SpacesRoute';
 
-  static const PageInfo<SetUsernameRouteArgs> page =
-      PageInfo<SetUsernameRouteArgs>(name);
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
-class SetUsernameRouteArgs {
-  const SetUsernameRouteArgs({this.key});
+/// generated route for
+/// [VerifyOTPScreen]
+class VerifyOTPRoute extends PageRouteInfo<VerifyOTPRouteArgs> {
+  VerifyOTPRoute({
+    Key? key,
+    required String email,
+    required bool usernameExist,
+    required String username,
+    List<PageRouteInfo>? children,
+  }) : super(
+          VerifyOTPRoute.name,
+          args: VerifyOTPRouteArgs(
+            key: key,
+            email: email,
+            usernameExist: usernameExist,
+            username: username,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'VerifyOTPRoute';
+
+  static const PageInfo<VerifyOTPRouteArgs> page =
+      PageInfo<VerifyOTPRouteArgs>(name);
+}
+
+class VerifyOTPRouteArgs {
+  const VerifyOTPRouteArgs({
+    this.key,
+    required this.email,
+    required this.usernameExist,
+    required this.username,
+  });
 
   final Key? key;
 
+  final String email;
+
+  final bool usernameExist;
+
+  final String username;
+
   @override
   String toString() {
-    return 'SetUsernameRouteArgs{key: $key}';
+    return 'VerifyOTPRouteArgs{key: $key, email: $email, usernameExist: $usernameExist, username: $username}';
   }
 }

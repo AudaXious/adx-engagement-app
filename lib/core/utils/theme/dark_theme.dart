@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 Color secondaryColor = const Color(0xFF79C4EC);
 Color accentColor = const Color(0xFFEBEDED);
 Color backgroundColor = const Color(0xFF060B12);
+Color onBoardingBackgroundColor = const Color(0xFF13161E);
 Color cardColor = const Color(0x0d51c7e1);
 Color cardBorderColor = const Color(0xFF1D3050);
 Color bannerColor1 = const Color(0xFF162530);
@@ -10,6 +11,7 @@ Color bannerColor1 = const Color(0xFF162530);
 Color lightTeal = const Color(0xFF7AE7E7);
 Color lightGold = const Color(0xFFE1D356);
 Color blackTextColor = const Color(0xFF060B12);
+Color greyTextColor = const Color(0xFFCCCACA);
 Color textInputBorderColor = const Color(0xFF555656);
 Color fadedTextColor = const Color(0xFF757575);
 

@@ -29,12 +29,12 @@ class SpacesScreen extends HookConsumerWidget {
         ),
         centerTitle: true,
         actions: [
-          IconButton(
-              onPressed: (){
-                context.router.navigate(const CreateCommunityRoute());
-              },
-              icon: const Icon(Icons.add)
-          )
+          // IconButton(
+          //     onPressed: (){
+          //       context.router.navigate(const CreateCommunityRoute());
+          //     },
+          //     icon: const Icon(Icons.add)
+          // )
         ]
       ),
       body: Column(

@@ -79,7 +79,13 @@ class LoginScreen extends HookConsumerWidget {
                 onPressed: () async {
                   bool isLoginSuccessful = await reader.loginUser(_emailController.text);
                   if (isLoginSuccessful) {
-                    context.router.navigate(OTPRoute(email: _emailController.text));
+                    print(notifier.user?.username);
+
+                    // context.router.navigate(VerifyOTPRoute(
+                    //   email: _emailController.text,
+                    //   usernameExist: username != null ? true : false,
+                    //   username: username ,
+                    // ));
                   }else {
                     CustomToast.show(
                       context: context,

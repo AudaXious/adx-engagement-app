@@ -134,10 +134,10 @@ class VerifyOTPScreen extends HookConsumerWidget {
 
                   if (usernameExist) {
                     print("User name exists $usernameExist");
-                    // context.router.replaceAll([const BottomBarRoute()]);
+                    context.router.replaceAll([const BottomBarRoute()]);
                   }else {
                     print("User name exists does not $usernameExist");
-                    // context.router.navigate(CreateUsernameRoute());
+                    context.router.navigate(CreateUsernameRoute());
                   }
                 }else {
                   CustomToast.show(

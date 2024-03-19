@@ -48,6 +48,8 @@ dependencies:
   pinput: ^2.2.21
   toastification: ^1.1.0
   form_field_validator:
+  super_tooltip: ^2.0.7
+#  just_the_tooltip: ^0.0.12
 
 dev_dependencies:
   flutter_test:

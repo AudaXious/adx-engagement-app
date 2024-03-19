@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../domain/models/feed.dart';
 import '../../presentation/screens/auth/login_screen.dart';
+import '../../presentation/screens/auth/sign_in_screen.dart';
 import '../../presentation/screens/auth/verify_otp_screen.dart';
 import '../../presentation/screens/auth/create_username_screen.dart';
 import '../../presentation/screens/intro/on_boarding_screen.dart';
@@ -25,6 +26,7 @@ class AppRouter extends _$AppRouter {
 
     //Auth
     AutoRoute(page: LoginRoute.page),
+    AutoRoute(page: SignInRoute.page),
     AutoRoute(page: VerifyOTPRoute.page),
     AutoRoute(page: CreateUsernameRoute.page),
 

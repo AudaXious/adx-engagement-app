@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import '../../../core/utils/app_layout.dart';
 import '../../../core/utils/theme/dark_theme.dart';
 import '../../../domain/enums/button_state.dart';
@@ -7,12 +8,14 @@ class SecondaryButton extends StatefulWidget {
   final VoidCallback? onPressed;
   final String buttonText;
   final ButtonState buttonState;
+  final String? icon;
 
   const SecondaryButton({
     Key? key,
     this.onPressed,
     required this.buttonText,
     this.buttonState = ButtonState.active,
+    this.icon
   }) : super(key: key);
 
   @override
@@ -53,9 +56,21 @@ class _SecondaryButtonState extends State<SecondaryButton> {
   Widget _buildButtonChild() {
     switch (widget.buttonState) {
       case ButtonState.active:
-        return Text(
-          widget.buttonText,
-          style: Theme.of(context).textTheme.displaySmall?.copyWith(color: blackTextColor, fontSize: 16),
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Visibility(
+              visible: widget.icon != null ? true : false ,
+              child: Container(
+                margin: const EdgeInsets.only(right: 10),
+                child: Image.asset("${widget.icon}", width: 24, height: 24),
+              ),
+            ),
+            Text(
+              widget.buttonText,
+              style: Theme.of(context).textTheme.displaySmall?.copyWith(color: blackTextColor, fontSize: 16),
+            )
+          ],
         );
       case ButtonState.loading:
         return Stack(

@@ -4,6 +4,7 @@ import 'package:audaxious/presentation/widgets/buttons/primary_text_button.dart'
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/services/shared_preferences_services.dart';
 import '../../../core/utils/app_layout.dart';
@@ -11,21 +12,21 @@ import '../../widgets/buttons/primary_button.dart';
 import '../../widgets/buttons/primary_outline_button.dart';
 import '../../widgets/buttons/secondary_button.dart';
 @RoutePage()
-class OnBoardingScreen extends StatefulWidget {
-  const OnBoardingScreen({super.key});
+
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({super.key});
 
   @override
-  State<OnBoardingScreen> createState() => _OnBoardingScreenState();
+  State<SignInScreen> createState() => _SignInScreenState();
 }
+class _SignInScreenState extends State<SignInScreen> {
 
-class _OnBoardingScreenState extends State<OnBoardingScreen> {
   late PageController _pageController;
   int _pageIndex = 0;
 
   @override
   void initState() {
     _pageController = PageController(initialPage: 0);
-    // _checkLoginStatus();
     super.initState();
   }
 
@@ -35,15 +36,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     super.dispose();
   }
 
-  Future<void> _checkLoginStatus() async {
-    final isLoggedIn = await SharedPreferencesServices.getIsLoggedIn();
-    if (isLoggedIn) {
-      context.router.replaceAll([const BottomBarRoute()]);
-    }
-  }
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,) {
+    _pageController = PageController(initialPage: 0);
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
@@ -63,27 +59,28 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           });
                         },
                         itemBuilder: (context, index) => OnBoardingContent(
-                          image: onBoardingData[index].image,
                           title: onBoardingData[index].title,
-                          description: onBoardingData[index].description,
                         ))
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ...List.generate(onBoardingData.length, (index) => Padding(
-                      padding: const EdgeInsets.only(right: 4),
-                      child: DotIndicator(isActive: index == _pageIndex),
-                    )),
-                  ],
                 ),
                 const Gap(30),
                 Container(
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                     child: PrimaryButton(
-                      buttonText: "Sign In",
+                      buttonText: "Sign In with Email",
                       onPressed: () {
-                        context.router.navigate(SignInRoute());
+                        context.router.navigate(LoginRoute());
+                      },
+                    )
+                ),
+                const Gap(20),
+                const Text("Or"),
+                const Gap(20),
+                Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    child: SecondaryButton(
+                      buttonText: "Sign in with Google",
+                      icon: "assets/images/google.png",
+                      onPressed: () {
                       },
                     )
                 ),
@@ -91,13 +88,35 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 Container(
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                     child: SecondaryButton(
-                      buttonText: "Explore",
+                      buttonText: "Sign in with WalletConnect",
+                      icon: "assets/images/wallet_connect.png",
                       onPressed: () {
-                        context.router.replaceAll([const BottomBarRoute()]);
                       },
                     )
                 ),
                 const Gap(50),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  child: TextButton(
+                    onPressed: () {},
+                    child: RichText(
+                      text: TextSpan(
+                        text: 'By continuing, you agree our ',
+                        style: Theme.of(context).textTheme.displaySmall?.copyWith(color: greyTextColor, fontSize: 12),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: 'Terms & Conditions',
+                            style: TextStyle(
+                              color: secondaryColor,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                    ,
+                  ),
+                )
               ],
             ),
           )
@@ -127,32 +146,23 @@ class DotIndicator extends StatelessWidget {
 
 
 class OnBoard{
-  final String image, title, description;
-  OnBoard({required this.image, required this.title, required this.description});
+  final String title;
+  OnBoard({required this.title});
 }
 
 final List<OnBoard> onBoardingData = [
   OnBoard(
-      image: "assets/images/on_boarding_bg.png",
-      title: "ADX Engage to Earn",
-      description: "Start earning, winning  rewards, and airdrops by engaging, creating quality contents, and contributing to web3 communities."
-  ),
-  OnBoard(
-      image: "assets/images/on_boarding_bg.png",
-      title: "ADX Engage to Earn",
-      description: "An easy to use Engage to Earn App that connects you to thousands of web3 projects where you can earn rewards and airdrops"
+      title: "Sign In",
   ),
 ];
 
 class OnBoardingContent extends StatelessWidget {
   const OnBoardingContent({
     super.key,
-    required this.image,
     required this.title,
-    required this.description
   });
 
-  final String image, title, description;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -214,16 +224,15 @@ class OnBoardingContent extends StatelessWidget {
               const Spacer(),
               const SizedBox(height: 150),
               const Spacer(),
-              Text(
-                title,
-                style: Theme.of(context).textTheme.displayLarge,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 16),
-              Text(
-                description,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: greyTextColor),
-                textAlign: TextAlign.center,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    title,
+                    style: Theme.of(context).textTheme.displayLarge,
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
               const Spacer(),
             ],

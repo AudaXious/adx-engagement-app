@@ -32,16 +32,16 @@ InputDecoration primaryTextFieldWithPrefixIconDecoration({
   return InputDecoration(
     contentPadding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
     border: OutlineInputBorder(
-      borderSide: BorderSide(color: textInputBorderColor, width: 0.5),
-      borderRadius: const BorderRadius.all(Radius.circular(20)),
+      borderSide: BorderSide(color: textInputBorderColor, width: 0.3),
+      borderRadius: const BorderRadius.all(Radius.circular(30)),
     ),
     focusedBorder: OutlineInputBorder(
       borderSide: BorderSide(color: textInputBorderColor, width: 0.5),
-      borderRadius: const BorderRadius.all(Radius.circular(20)),
+      borderRadius: const BorderRadius.all(Radius.circular(30)),
     ),
     enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: textInputBorderColor, width: 0.5),
-      borderRadius: const BorderRadius.all(Radius.circular(20)),
+      borderSide: BorderSide(color: textInputBorderColor, width: 0.3),
+      borderRadius: const BorderRadius.all(Radius.circular(30)),
     ),
 
     labelText: labelText,

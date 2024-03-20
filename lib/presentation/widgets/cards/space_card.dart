@@ -18,7 +18,7 @@ class SpaceCard extends StatelessWidget {
       decoration: BoxDecoration(
           border: Border.all(width: 0.2, color: cardBorderColor.withOpacity(0.5)),
           borderRadius: const BorderRadius.all(Radius.circular(15)),
-          color: backgroundColor
+          color: spacesCardColor
       ),
       child: Column(
         children: [
@@ -36,22 +36,28 @@ class SpaceCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           ClipOval(
-                            child: CachedNetworkImage(
-                              fit: BoxFit.fill,
-                              imageUrl: space.profileURL ?? "",
-                              placeholder: (context, url) => const CircularProgressIndicator(
-                                color: Color(0xFF79C4EC),
-                                strokeWidth: 2,
-                              ),
-                              width: 35,
-                              height: 35,
+                            child: space.profileURL != null
+                                ? CachedNetworkImage(
+                                    fit: BoxFit.fill,
+                                    imageUrl: space.profileURL ?? "",
+                                    placeholder: (context, url) => const CircularProgressIndicator(
+                                      color: Color(0xFF79C4EC),
+                                      strokeWidth: 2,
+                                    ),
+                                    width: 35,
+                                    height: 35,
+                                )
+                                : Image.asset(
+                                "assets/images/dumm_profile.png",
+                                width: 35,
+                                height: 35,
                             ),
                           ),
-                          const Gap(10),
+                          const Gap(15),
                           Expanded(
                             child: Text(
                               space.title ?? "",
-                              style: Theme.of(context).textTheme.displayMedium?.
+                              style: Theme.of(context).textTheme.displaySmall?.
                               copyWith(fontSize: 18),
                             ),
                           ),

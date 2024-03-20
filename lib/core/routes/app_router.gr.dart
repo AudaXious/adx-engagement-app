@@ -75,7 +75,7 @@ abstract class _$AppRouter extends RootStackRouter {
     SpacesRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const SpacesScreen(),
+        child: SpacesScreen(),
       );
     },
     VerifyOTPRoute.name: (routeData) {

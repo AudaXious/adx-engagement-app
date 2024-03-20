@@ -5,6 +5,7 @@ Color accentColor = const Color(0xFFEBEDED);
 Color backgroundColor = const Color(0xFF060B12);
 Color onBoardingBackgroundColor = const Color(0xFF13161E);
 Color cardColor = const Color(0x0d51c7e1);
+Color spacesCardColor = const Color(0xB3080E17);
 Color cardBorderColor = const Color(0xFF1D3050);
 Color bannerColor1 = const Color(0xFF162530);
 

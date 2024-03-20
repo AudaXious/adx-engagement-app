@@ -1,4 +1,4 @@
-import 'package:audaxious/domain/models/feed.dart';
+import 'package:audaxious/domain/models/campaign.dart';
 
 import '../../../domain/enums/view_state.dart';
 import '../../../domain/models/user.dart';
@@ -7,32 +7,32 @@ class HomeState {
   factory HomeState.initial() => const HomeState._(
     viewState: ViewState.idle,
     error: '',
-    feeds: null,
+    campaigns: null,
     user: null,
   );
   const HomeState._({
     required this.viewState,
     required this.error,
-    required this.feeds,
+    required this.campaigns,
     required this.user,
   });
 
   final ViewState viewState;
   final String error;
-  final List<Campaign>? feeds;
+  final List<Campaign>? campaigns;
   final User? user;
 
   HomeState update({
     ViewState? viewState,
     String? error,
-    List<Campaign>? feeds,
+    List<Campaign>? campaigns,
     User? user
 
   }) =>
       HomeState._(
         viewState: viewState ?? this.viewState,
         error: error ?? this.error,
-        feeds: feeds ?? this.feeds,
+        campaigns: campaigns ?? this.campaigns,
         user: user ?? this.user,
       );
 }

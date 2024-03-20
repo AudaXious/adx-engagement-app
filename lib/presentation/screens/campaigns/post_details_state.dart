@@ -1,4 +1,4 @@
-import 'package:audaxious/domain/models/feed.dart';
+import 'package:audaxious/domain/models/campaign.dart';
 
 import '../../../domain/enums/view_state.dart';
 

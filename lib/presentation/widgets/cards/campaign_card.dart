@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import '../../../core/routes/app_router.dart';
-import '../../../domain/models/feed.dart';
+import '../../../domain/models/campaign.dart';
 
 class CampaignCard extends StatelessWidget {
   Campaign post;

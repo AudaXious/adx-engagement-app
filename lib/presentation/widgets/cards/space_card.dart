@@ -20,6 +20,7 @@ class SpaceCard extends StatelessWidget {
         context.router.navigate(SpaceDetailRoute(spaceId: space.uuid!));
       },
       child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
             border: Border.all(width: 0.2, color: cardBorderColor.withOpacity(0.5)),
             borderRadius: const BorderRadius.all(Radius.circular(15)),

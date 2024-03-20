@@ -2,19 +2,31 @@ import 'package:audaxious/core/utils/theme/dark_theme.dart';
 import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/presentation/viewmodels/home/home_viewmodel.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../core/utils/view_utils.dart';
 import '../../widgets/cards/campaign_card.dart';
+import '../../widgets/empty_message.dart';
 
 @RoutePage()
 class HomeScreen extends HookConsumerWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
+
+  final List<String> spacesCategories = [
+    'All',
+    'New',
+    'Old',
+  ];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final reader = ref.read(HomeViewModel.notifier.notifier);
     final notifier = ref.watch(HomeViewModel.notifier);
+    final selectedSpacesCategory = useState<String?>(null);
 
     return Scaffold(
       appBar: AppBar(
@@ -30,53 +42,111 @@ class HomeScreen extends HookConsumerWidget {
           )
         ],
       ),
-      body: notifier.viewState.isLoading
-          ? Center(child: CircularProgressIndicator(strokeWidth: 3, color: accentColor))
-          : notifier.viewState.isError
-          ? Center(
-            child: Container(
-              margin: const EdgeInsets.only(top: 70),
-              child: (
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                          "assets/images/empty_spaces_cards.png",
-                          width: 275,
-                          height: 115
+      body: Expanded(
+        child: Column(
+          children: [
+            const Gap(20),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              child: Expanded(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton2<String>(
+                          isExpanded: true,
+                          hint: Text(
+                              'All',
+                              style: Theme.of(context).textTheme.bodyLarge
+                          ),
+                          items: spacesCategories
+                              .map((String item) => DropdownMenuItem<String>(
+                            value: item,
+                            child: Text(
+                                item,
+                                style: Theme.of(context).textTheme.bodyLarge
+                            ),
+                          ))
+                              .toList(),
+                          value: selectedSpacesCategory.value,
+                          onChanged: (String? value) {
+                            selectedSpacesCategory.value = value;
+                            switch (selectedSpacesCategory.value) {
+                              case "All":
+                                reader.getCampaigns();
+                                break;
+                              case "New":
+                                reader.getCampaigns();
+                                break;
+                              case "Old":
+                                reader.getCampaigns();
+                                break;
+
+                              default:
+                                reader.getCampaigns();
+                                break;
+                            }
+
+                            print(selectedSpacesCategory.value);
+                          },
+                          buttonStyleData: const ButtonStyleData(
+                            padding: EdgeInsets.symmetric(horizontal: 16),
+                            height: 40,
+                            width: 120,
+                          ),
+                          menuItemStyleData: const MenuItemStyleData(
+                            height: 40,
+                          ),
+                        ),
                       ),
-                      const Gap(40),
-                      Text(
-                        "Coming soon",
-                        style: Theme.of(context).textTheme.displayLarge
-                            ?.copyWith(color: fadedTextColor, fontSize: 26),
+                    ),
+                    const Gap(10),
+                    Expanded(
+                      child: TextField(
+                        keyboardType: TextInputType.text,
+                        cursorColor: Colors.white,
+                        decoration: primaryTextFieldWithPrefixIconDecoration(
+                            labelText: "Search campaigns",
+                            prefixIcon: "assets/images/search.png"
+                        ),
                       ),
-                      const Gap(10),
-                      Text(
-                        "Still under development. Once available will display here",
-                        style: Theme.of(context).textTheme.bodyLarge
-                            ?.copyWith(color: fadedTextColor),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  )
+                    ),
+                  ],
+                ),
               ),
             ),
-          )
-          : ListView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              itemCount: notifier.feeds?.length,
-              itemBuilder: (context, index) {
-                final singleFeed = notifier.feeds?[index];
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: CampaignCard(
-                    post: singleFeed!,
-                    postIndex: index,
-                  ),
-                );
-              }
-      ),
+            const Gap(20),
+            Expanded(
+                child: notifier.viewState.isLoading
+                    ? Center(child: CircularProgressIndicator(strokeWidth: 3, color: accentColor))
+                    : notifier.viewState.isError
+                    ? Center(
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 50),
+                          child: Text(notifier.error, textAlign: TextAlign.center,),
+                          )
+                      )
+                    : notifier.campaigns!.isEmpty
+                    ? const EmptyMessage()
+                    : ListView.builder(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        itemCount: notifier.campaigns?.length,
+                        itemBuilder: (context, index) {
+                          final singleFeed = notifier.campaigns?[index];
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            child: CampaignCard(
+                              post: singleFeed!,
+                              postIndex: index,
+                            ),
+                          );
+                        }
+                ),
+
+            )
+          ],
+        ),
+      )
     );
   }
 }

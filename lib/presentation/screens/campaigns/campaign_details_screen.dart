@@ -1,6 +1,6 @@
 import 'package:audaxious/core/utils/theme/dark_theme.dart';
 import 'package:audaxious/domain/enums/view_state.dart';
-import 'package:audaxious/domain/models/feed.dart';
+import 'package:audaxious/domain/models/campaign.dart';
 import 'package:audaxious/presentation/viewmodels/campaigns/campaigns_viewmodel.dart';
 import 'package:audaxious/presentation/widgets/buttons/task_button.dart';
 import 'package:audaxious/presentation/widgets/cards/complete_campaign_card.dart';

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../domain/models/feed.dart';
+import '../../domain/models/campaign.dart';
 import '../../presentation/screens/auth/login_screen.dart';
 import '../../presentation/screens/auth/sign_in_screen.dart';
 import '../../presentation/screens/auth/verify_otp_screen.dart';

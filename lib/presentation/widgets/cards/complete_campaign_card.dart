@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import '../../../core/utils/theme/dark_theme.dart';
-import '../../../domain/models/feed.dart';
+import '../../../domain/models/campaign.dart';
 class CompleteCampaignCard extends StatelessWidget {
   Campaign post;
 

@@ -4,7 +4,7 @@ String audaxiousBaseURL = "https://audaxious-light-api-1a66249f6914.herokuapp.co
 String loginEndpoint = "/user/onboard";
 String verifyOTPEndpoint = "/user/verify?type=verify";
 String createUsernameEndpoint = "/profile/update-username";
-String feedsEndpoint = "/tweets.json";
+String campaignsEndpoint = "/campaign/all-campaigns";
 String spacesEndpoint = "/spaces/all";
 String spacesDetailEndpoint = "/spaces/s";
 String userSpacesEndpoint = "/spaces/user/all";

@@ -102,6 +102,7 @@ class SpaceDetailScreen extends HookConsumerWidget {
                   Container(
                     margin: const EdgeInsets.only(top: 60, left: 20, right: 20),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           children: [

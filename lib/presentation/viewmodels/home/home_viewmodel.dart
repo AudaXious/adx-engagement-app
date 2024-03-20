@@ -1,32 +1,40 @@
 
-import 'package:audaxious/domain/models/feed.dart';
-import 'package:audaxious/domain/usecases/feeds/feeds_usecase.dart';
+import 'package:audaxious/domain/models/campaign.dart';
+import 'package:audaxious/domain/usecases/campaigns/campaigns_usecase.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../domain/enums/view_state.dart';
 import '../../screens/main/home_state.dart';
 
 class HomeViewModel extends StateNotifier<HomeState> {
-  FeedsUseCase feedsUseCase;
+  CampaignsUseCase campaignsUseCase;
 
   HomeViewModel({
-    required this.feedsUseCase,
+    required this.campaignsUseCase,
   }) : super (HomeState.initial()) {
-    getFeeds();
+    getCampaigns();
   }
 
   static final notifier =
   StateNotifierProvider<HomeViewModel, HomeState>((ref) => HomeViewModel(
-      feedsUseCase: ref.read(feedsUseCaseProvider),
+      campaignsUseCase: ref.read(campaignsUseCaseProvider),
   ));
 
-Future<void> getFeeds() async {
+Future<void> getCampaigns() async {
     state = state.update(viewState: ViewState.loading);
     try {
-      final response = await feedsUseCase.getFeeds();
+      final response = await campaignsUseCase.getCampaigns();
+      final data = response['data'];
 
-      final List<Map<String, dynamic>> dataList = response.cast<Map<String, dynamic>>();
-      final feeds = dataList.map((feedsData) => Campaign.fromJson(feedsData)).toList();
-      state = state.update(feeds: feeds);
+      if (data != null && data is List) {
+        final List dataList = data.cast<dynamic>();
+
+        final campaigns = dataList.map((spacesData) => Campaign.fromJson(spacesData)).toList();
+        state = state.update(campaigns: []);
+      }else {
+        print('Unexpected data format. Expected a list of spaces.');
+        state = state.update(viewState: ViewState.error);
+        state = state.update(error: "Unexpected data format. Expected a list of spaces");
+      }
 
       state = state.update(viewState: ViewState.idle);
 

@@ -1,4 +1,4 @@
-import 'package:audaxious/domain/repository/feeds_repository.dart';
+import 'package:audaxious/domain/repository/campaigns_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -6,12 +6,12 @@ import '../../core/services/internet_services/dio_client.dart';
 import '../../core/services/internet_services/dio_exception.dart';
 import '../../core/services/internet_services/endpoints.dart';
 
-class FeedsRepositoryImpl extends FeedsRepository {
+class CampaignsRepositoryImpl extends CampaignsRepository {
   @override
-  Future<List<dynamic>> getFeeds() async {
+  Future<dynamic> getCampaigns() async {
     try {
       final response = await DioClient.instance.get(
-        feedsEndpoint,
+        campaignsEndpoint,
       );
 
       return response;
@@ -23,7 +23,7 @@ class FeedsRepositoryImpl extends FeedsRepository {
 
 }
 
-final feedsRepositoryProvider = Provider<FeedsRepository>((ref) {
-  return FeedsRepositoryImpl();
+final campaignsRepositoryProvider = Provider<CampaignsRepository>((ref) {
+  return CampaignsRepositoryImpl();
 });
 

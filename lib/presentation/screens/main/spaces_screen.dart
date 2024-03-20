@@ -11,6 +11,7 @@ import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/utils/theme/dark_theme.dart';
+import '../../widgets/empty_message.dart';
 
 @RoutePage()
 class SpacesScreen extends HookConsumerWidget {
@@ -109,41 +110,19 @@ class SpacesScreen extends HookConsumerWidget {
                 ),
               ),
             ),
-
             const Gap(20),
             Expanded(
                 child: notifier.viewState.isLoading
                     ? Center(child: CircularProgressIndicator(strokeWidth: 3, color: accentColor))
                     : notifier.viewState.isError
-                    ? Center(child: Text(notifier.error))
-                    : notifier.spaces!.isEmpty
-                    ? Container(
-                        margin: const EdgeInsets.only(top: 70),
-                        child: (
-                          Column(
-                            children: [
-                              Image.asset(
-                                "assets/images/empty_spaces_cards.png",
-                                width: 275,
-                                height: 115
-                              ),
-                              const Gap(40),
-                              Text(
-                                "No spaces to show",
-                                style: Theme.of(context).textTheme.displayLarge
-                                ?.copyWith(color: fadedTextColor, fontSize: 26),
-                              ),
-                              const Gap(10),
-                              Text(
-                                "Spaces you join or create will appear here",
-                                style: Theme.of(context).textTheme.bodyLarge
-                                ?.copyWith(color: fadedTextColor),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          )
-                        ),
+                    ? Center(
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 50),
+                          child: Text(notifier.error, textAlign: TextAlign.center,),
+                        )
                     )
+                    : notifier.spaces!.isEmpty
+                    ? const EmptyMessage()
                     : ListView.builder(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     shrinkWrap: true,

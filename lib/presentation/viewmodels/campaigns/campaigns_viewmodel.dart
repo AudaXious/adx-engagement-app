@@ -1,29 +1,29 @@
 
-import 'package:audaxious/domain/models/feed.dart';
-import 'package:audaxious/domain/usecases/feeds/feeds_usecase.dart';
+import 'package:audaxious/domain/models/campaign.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/enums/view_state.dart';
+import '../../../domain/usecases/campaigns/campaigns_usecase.dart';
 import '../../screens/campaigns/post_details_state.dart';
 
 class CampaignsViewModel extends StateNotifier<CampaignDetailsState> {
-  FeedsUseCase feedsUseCase;
+  CampaignsUseCase campaignsUseCase;
 
   CampaignsViewModel({
-    required this.feedsUseCase,
+    required this.campaignsUseCase,
   }) : super (CampaignDetailsState.initial()) {
-    getFeeds();
+    getCampaigns();
   }
 
   static final notifier =
   StateNotifierProvider<CampaignsViewModel, CampaignDetailsState>((ref) => CampaignsViewModel(
-      feedsUseCase: ref.read(feedsUseCaseProvider),
+      campaignsUseCase: ref.read(campaignsUseCaseProvider),
   ));
 
-  Future<void> getFeeds() async {
+  Future<void> getCampaigns() async {
     state = state.update(viewState: ViewState.loading);
     try {
-      final response = await feedsUseCase.getFeeds();
+      final response = await campaignsUseCase.getCampaigns();
 
       final List<Map<String, dynamic>> dataList = response.cast<Map<String, dynamic>>();
 

@@ -21,7 +21,7 @@ class SpacesScreen extends HookConsumerWidget {
   final List<String> spacesCategories = [
     'All spaces',
     'My spaces',
-    'Joined Spaces',
+    'Joined spaces',
   ];
   // String? selectedSpacesCategory = null;
 
@@ -42,95 +42,76 @@ class SpacesScreen extends HookConsumerWidget {
       body: Expanded(
         child: Column(
           children: [
-            // const Gap(20),
-            // Container(
-            //   margin: const EdgeInsets.symmetric(horizontal: 10),
-            //   child: CustomRadioGroupTabsHorizontal(
-            //     onValueChanged: (value) {
-            //       switch (value) {
-            //         case "all_spaces":
-            //           print(value);
-            //           reader.getSpaces();
-            //           break;
-            //         case "my_spaces":
-            //           print(value);
-            //           reader.getUserSpaces();
-            //           break;
-            //         default:
-            //           print("All Spaces");
-            //       }
-            //     },
-            //     radioButtons: const [
-            //       {
-            //         'icon': 'assets/images/community.png',
-            //         'title': 'All Spaces',
-            //         'value': 'all_spaces'
-            //       },
-            //       {
-            //         'icon': 'assets/images/discord.png',
-            //         'title': 'My Spaces',
-            //         'value': 'my_spaces'
-            //       },
-            //     ],
-            //   ),
-            // ),
             const Gap(20),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: [
-                  // IconButton(
-                  //     onPressed: () {},
-                  //     icon: const Icon(Icons.filter_list_rounded)
-                  // ),
-                  // Image.asset("assets/images/menu_filter.png", height: 20, width: 20,),
-                  Expanded(
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton2<String>(
-                        isExpanded: true,
-                        hint: Text(
-                          'All spaces',
-                          style: Theme.of(context).textTheme.bodyLarge
-                        ),
-                        items: spacesCategories
-                            .map((String item) => DropdownMenuItem<String>(
-                          value: item,
-                          child: Text(
-                            item,
+              child: Expanded(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton2<String>(
+                          isExpanded: true,
+                          hint: Text(
+                            'All spaces',
                             style: Theme.of(context).textTheme.bodyLarge
                           ),
-                        ))
-                            .toList(),
-                        value: selectedSpacesCategory.value,
-                        onChanged: (String? value) {
-                          selectedSpacesCategory.value = value;
-                        },
-                        buttonStyleData: const ButtonStyleData(
-                          padding: EdgeInsets.symmetric(horizontal: 16),
-                          height: 40,
-                          width: 120,
-                        ),
-                        menuItemStyleData: const MenuItemStyleData(
-                          height: 40,
+                          items: spacesCategories
+                              .map((String item) => DropdownMenuItem<String>(
+                            value: item,
+                            child: Text(
+                              item,
+                              style: Theme.of(context).textTheme.bodyLarge
+                            ),
+                          ))
+                              .toList(),
+                          value: selectedSpacesCategory.value,
+                          onChanged: (String? value) {
+                            selectedSpacesCategory.value = value;
+                            switch (selectedSpacesCategory.value) {
+                              case "All spaces":
+                                reader.getSpaces();
+                                break;
+                              case "My spaces":
+                                reader.getUserSpaces();
+                                break;
+                              case "Joined spaces":
+                                reader.getUserSpaces();
+                                break;
+
+                              default:
+                                reader.getSpaces();
+                                break;
+                            }
+
+                            print(selectedSpacesCategory.value);
+                          },
+                          buttonStyleData: const ButtonStyleData(
+                            padding: EdgeInsets.symmetric(horizontal: 16),
+                            height: 40,
+                            width: 120,
+                          ),
+                          menuItemStyleData: const MenuItemStyleData(
+                            height: 40,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  const Gap(10),
-                  Expanded(
-                    child: TextField(
-                      keyboardType: TextInputType.text,
-                      cursorColor: Colors.white,
-                      decoration: primaryTextFieldWithPrefixIconDecoration(
-                          labelText: "Search spaces",
-                          prefixIcon: "assets/images/search.png"
+                    const Gap(10),
+                    Expanded(
+                      child: TextField(
+                        keyboardType: TextInputType.text,
+                        cursorColor: Colors.white,
+                        decoration: primaryTextFieldWithPrefixIconDecoration(
+                            labelText: "Search spaces",
+                            prefixIcon: "assets/images/search.png"
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-        
 
             const Gap(20),
             Expanded(
@@ -138,15 +119,44 @@ class SpacesScreen extends HookConsumerWidget {
                     ? Center(child: CircularProgressIndicator(strokeWidth: 3, color: accentColor))
                     : notifier.viewState.isError
                     ? Center(child: Text(notifier.error))
+                    : notifier.spaces!.isEmpty
+                    ? Container(
+                        margin: const EdgeInsets.only(top: 70),
+                        child: (
+                          Column(
+                            children: [
+                              Image.asset(
+                                "assets/images/empty_spaces_cards.png",
+                                width: 275,
+                                height: 115
+                              ),
+                              const Gap(40),
+                              Text(
+                                "No spaces to show",
+                                style: Theme.of(context).textTheme.displayLarge
+                                ?.copyWith(color: fadedTextColor, fontSize: 26),
+                              ),
+                              const Gap(10),
+                              Text(
+                                "Spaces you join or create will appear here",
+                                style: Theme.of(context).textTheme.bodyLarge
+                                ?.copyWith(color: fadedTextColor),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          )
+                        ),
+                    )
                     : ListView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        shrinkWrap: true,
-                        itemCount: notifier.spaces?.length,
-                        itemBuilder: (context, index) {
-                          final singleSpace = notifier.spaces?[index];
-                          return SpaceCard(space: singleSpace!);
-                        }
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    shrinkWrap: true,
+                    itemCount: notifier.spaces?.length,
+                    itemBuilder: (context, index) {
+                      final singleSpace = notifier.spaces?[index];
+                      return SpaceCard(space: singleSpace!);
+                    }
                 )
+
             )
           ],
         ),

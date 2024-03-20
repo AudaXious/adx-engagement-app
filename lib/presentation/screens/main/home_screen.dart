@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../widgets/cards/post.dart';
+import '../../widgets/cards/campaign_card.dart';
 
 @RoutePage()
 class HomeScreen extends HookConsumerWidget {
@@ -70,7 +70,7 @@ class HomeScreen extends HookConsumerWidget {
                 final singleFeed = notifier.feeds?[index];
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Post(
+                  child: CampaignCard(
                     post: singleFeed!,
                     postIndex: index,
                   ),

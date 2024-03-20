@@ -4,10 +4,10 @@ import 'package:gap/gap.dart';
 
 import '../../../core/utils/theme/dark_theme.dart';
 import '../../../domain/models/feed.dart';
-class CompletePost extends StatelessWidget {
-  Feed post;
+class CompleteCampaignCard extends StatelessWidget {
+  Campaign post;
 
-   CompletePost({
+   CompleteCampaignCard({
     super.key,
     required this.post
   });

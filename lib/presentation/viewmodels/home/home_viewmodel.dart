@@ -25,7 +25,7 @@ Future<void> getFeeds() async {
       final response = await feedsUseCase.getFeeds();
 
       final List<Map<String, dynamic>> dataList = response.cast<Map<String, dynamic>>();
-      final feeds = dataList.map((feedsData) => Feed.fromJson(feedsData)).toList();
+      final feeds = dataList.map((feedsData) => Campaign.fromJson(feedsData)).toList();
       state = state.update(feeds: feeds);
 
       state = state.update(viewState: ViewState.idle);

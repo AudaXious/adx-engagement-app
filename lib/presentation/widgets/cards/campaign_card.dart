@@ -8,10 +8,10 @@ import 'package:gap/gap.dart';
 import '../../../core/routes/app_router.dart';
 import '../../../domain/models/feed.dart';
 
-class Post extends StatelessWidget {
-  Feed post;
+class CampaignCard extends StatelessWidget {
+  Campaign post;
   int postIndex;
-   Post({
+   CampaignCard({
     super.key,
     required this.post,
     required this.postIndex,
@@ -22,7 +22,7 @@ class Post extends StatelessWidget {
     return InkWell(
       splashColor: const Color(0x0d021418),
       onTap: () {
-        context.router.navigate(PostDetailsRoute(post: post, postIndex: postIndex));
+        context.router.navigate(CampaignDetailsRoute(post: post, postIndex: postIndex));
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),

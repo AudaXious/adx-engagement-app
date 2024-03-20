@@ -1,6 +1,6 @@
 import 'package:audaxious/domain/models/tasks.dart';
 
-class Feed {
+class Campaign {
   String? description;
   int? id;
   int? points;
@@ -9,7 +9,7 @@ class Feed {
   String? title;
   String? authorProfile;
 
-  Feed({
+  Campaign({
     this.description,
     this.id,
     this.points,
@@ -19,8 +19,8 @@ class Feed {
     this.authorProfile,
   });
 
-  factory Feed.fromJson(Map<String, dynamic> json) {
-    return Feed(
+  factory Campaign.fromJson(Map<String, dynamic> json) {
+    return Campaign(
       description: json['description'],
       id: json['id'],
       points: json['points'],

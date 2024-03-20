@@ -2,32 +2,32 @@ import 'package:audaxious/domain/models/feed.dart';
 
 import '../../../domain/enums/view_state.dart';
 
-class PostDetailsState {
-  factory PostDetailsState.initial() => const PostDetailsState._(
+class CampaignDetailsState {
+  factory CampaignDetailsState.initial() => const CampaignDetailsState._(
     viewState: ViewState.idle,
     error: '',
-    feeds: null
+    campaigns: null
   );
-  const PostDetailsState._({
+  const CampaignDetailsState._({
     required this.viewState,
     required this.error,
-    required this.feeds,
+    required this.campaigns,
   });
 
   final ViewState viewState;
   final String error;
-  final List<Feed>? feeds;
+  final List<Campaign>? campaigns;
 
-  PostDetailsState update({
+  CampaignDetailsState update({
     ViewState? viewState,
     String? error,
-    List<Feed>? feeds
+    List<Campaign>? campaigns
 
   }) =>
-      PostDetailsState._(
+      CampaignDetailsState._(
         viewState: viewState ?? this.viewState,
         error: error ?? this.error,
-        feeds: feeds ?? this.feeds,
+        campaigns: campaigns ?? this.campaigns,
       );
 }
 

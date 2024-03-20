@@ -19,13 +19,13 @@ class HomeState {
 
   final ViewState viewState;
   final String error;
-  final List<Feed>? feeds;
+  final List<Campaign>? feeds;
   final User? user;
 
   HomeState update({
     ViewState? viewState,
     String? error,
-    List<Feed>? feeds,
+    List<Campaign>? feeds,
     User? user
 
   }) =>

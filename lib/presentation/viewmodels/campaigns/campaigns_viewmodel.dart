@@ -4,19 +4,19 @@ import 'package:audaxious/domain/usecases/feeds/feeds_usecase.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/enums/view_state.dart';
-import '../../screens/posts/post_details_state.dart';
+import '../../screens/campaigns/post_details_state.dart';
 
-class PostsViewModel extends StateNotifier<PostDetailsState> {
+class CampaignsViewModel extends StateNotifier<CampaignDetailsState> {
   FeedsUseCase feedsUseCase;
 
-  PostsViewModel({
+  CampaignsViewModel({
     required this.feedsUseCase,
-  }) : super (PostDetailsState.initial()) {
+  }) : super (CampaignDetailsState.initial()) {
     getFeeds();
   }
 
   static final notifier =
-  StateNotifierProvider<PostsViewModel, PostDetailsState>((ref) => PostsViewModel(
+  StateNotifierProvider<CampaignsViewModel, CampaignDetailsState>((ref) => CampaignsViewModel(
       feedsUseCase: ref.read(feedsUseCaseProvider),
   ));
 
@@ -28,9 +28,9 @@ class PostsViewModel extends StateNotifier<PostDetailsState> {
       final List<Map<String, dynamic>> dataList = response.cast<Map<String, dynamic>>();
 
       final feeds = dataList
-          .map((feedsData) => Feed.fromJson(feedsData))
+          .map((feedsData) => Campaign.fromJson(feedsData))
           .toList();
-      state = state.update(feeds: feeds);
+      state = state.update(campaigns: feeds);
 
       state = state.update(viewState: ViewState.idle);
 

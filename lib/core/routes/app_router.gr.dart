@@ -21,6 +21,17 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const BottomBarScreen(),
       );
     },
+    CampaignDetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<CampaignDetailsRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: CampaignDetailsScreen(
+          key: args.key,
+          post: args.post,
+          postIndex: args.postIndex,
+        ),
+      );
+    },
     CreateCommunityRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -53,17 +64,6 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const OnBoardingScreen(),
-      );
-    },
-    PostDetailsRoute.name: (routeData) {
-      final args = routeData.argsAs<PostDetailsRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: PostDetailsScreen(
-          key: args.key,
-          post: args.post,
-          postIndex: args.postIndex,
-        ),
       );
     },
     SignInRoute.name: (routeData) {
@@ -117,6 +117,49 @@ class BottomBarRoute extends PageRouteInfo<void> {
   static const String name = 'BottomBarRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [CampaignDetailsScreen]
+class CampaignDetailsRoute extends PageRouteInfo<CampaignDetailsRouteArgs> {
+  CampaignDetailsRoute({
+    Key? key,
+    required Campaign post,
+    required int postIndex,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CampaignDetailsRoute.name,
+          args: CampaignDetailsRouteArgs(
+            key: key,
+            post: post,
+            postIndex: postIndex,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'CampaignDetailsRoute';
+
+  static const PageInfo<CampaignDetailsRouteArgs> page =
+      PageInfo<CampaignDetailsRouteArgs>(name);
+}
+
+class CampaignDetailsRouteArgs {
+  const CampaignDetailsRouteArgs({
+    this.key,
+    required this.post,
+    required this.postIndex,
+  });
+
+  final Key? key;
+
+  final Campaign post;
+
+  final int postIndex;
+
+  @override
+  String toString() {
+    return 'CampaignDetailsRouteArgs{key: $key, post: $post, postIndex: $postIndex}';
+  }
 }
 
 /// generated route for
@@ -216,49 +259,6 @@ class OnBoardingRoute extends PageRouteInfo<void> {
   static const String name = 'OnBoardingRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [PostDetailsScreen]
-class PostDetailsRoute extends PageRouteInfo<PostDetailsRouteArgs> {
-  PostDetailsRoute({
-    Key? key,
-    required Feed post,
-    required int postIndex,
-    List<PageRouteInfo>? children,
-  }) : super(
-          PostDetailsRoute.name,
-          args: PostDetailsRouteArgs(
-            key: key,
-            post: post,
-            postIndex: postIndex,
-          ),
-          initialChildren: children,
-        );
-
-  static const String name = 'PostDetailsRoute';
-
-  static const PageInfo<PostDetailsRouteArgs> page =
-      PageInfo<PostDetailsRouteArgs>(name);
-}
-
-class PostDetailsRouteArgs {
-  const PostDetailsRouteArgs({
-    this.key,
-    required this.post,
-    required this.postIndex,
-  });
-
-  final Key? key;
-
-  final Feed post;
-
-  final int postIndex;
-
-  @override
-  String toString() {
-    return 'PostDetailsRouteArgs{key: $key, post: $post, postIndex: $postIndex}';
-  }
 }
 
 /// generated route for

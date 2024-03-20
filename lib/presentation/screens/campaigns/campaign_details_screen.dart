@@ -1,26 +1,26 @@
 import 'package:audaxious/core/utils/theme/dark_theme.dart';
 import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/domain/models/feed.dart';
+import 'package:audaxious/presentation/viewmodels/campaigns/campaigns_viewmodel.dart';
 import 'package:audaxious/presentation/widgets/buttons/task_button.dart';
-import 'package:audaxious/presentation/widgets/cards/complete_post.dart';
+import 'package:audaxious/presentation/widgets/cards/complete_campaign_card.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../viewmodels/posts/posts_viewmodel.dart';
 
 @RoutePage()
-class PostDetailsScreen extends HookConsumerWidget {
-  Feed post;
+class CampaignDetailsScreen extends HookConsumerWidget {
+  Campaign post;
   int postIndex;
-  PostDetailsScreen({super.key, required this.post, required this.postIndex});
+  CampaignDetailsScreen({super.key, required this.post, required this.postIndex});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.watch(PostsViewModel.notifier);
-    final feeds = notifier.feeds;
+    final notifier = ref.watch(CampaignsViewModel.notifier);
+    final feeds = notifier.campaigns;
     final currentIndex = useState(postIndex);
     final slideInRight = useState(true);
 
@@ -70,7 +70,7 @@ class PostDetailsScreen extends HookConsumerWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CompletePost(post: feeds![currentIndex.value]),
+                          CompleteCampaignCard(post: feeds![currentIndex.value]),
                           const Gap(70),
                           Visibility(
                             visible: feeds[currentIndex.value].tasks?.follow != null,

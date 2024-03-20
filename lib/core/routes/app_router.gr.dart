@@ -73,9 +73,13 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     SpaceDetailRoute.name: (routeData) {
+      final args = routeData.argsAs<SpaceDetailRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const SpaceDetailScreen(),
+        child: SpaceDetailScreen(
+          key: args.key,
+          spaceId: args.spaceId,
+        ),
       );
     },
     SpacesRoute.name: (routeData) {
@@ -273,16 +277,40 @@ class SignInRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [SpaceDetailScreen]
-class SpaceDetailRoute extends PageRouteInfo<void> {
-  const SpaceDetailRoute({List<PageRouteInfo>? children})
-      : super(
+class SpaceDetailRoute extends PageRouteInfo<SpaceDetailRouteArgs> {
+  SpaceDetailRoute({
+    Key? key,
+    required String spaceId,
+    List<PageRouteInfo>? children,
+  }) : super(
           SpaceDetailRoute.name,
+          args: SpaceDetailRouteArgs(
+            key: key,
+            spaceId: spaceId,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'SpaceDetailRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<SpaceDetailRouteArgs> page =
+      PageInfo<SpaceDetailRouteArgs>(name);
+}
+
+class SpaceDetailRouteArgs {
+  const SpaceDetailRouteArgs({
+    this.key,
+    required this.spaceId,
+  });
+
+  final Key? key;
+
+  final String spaceId;
+
+  @override
+  String toString() {
+    return 'SpaceDetailRouteArgs{key: $key, spaceId: $spaceId}';
+  }
 }
 
 /// generated route for

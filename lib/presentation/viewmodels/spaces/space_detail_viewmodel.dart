@@ -11,16 +11,17 @@ import '../../screens/spaces/space_detail_state.dart';
 
 class SpacesDetailsViewModel extends StateNotifier<SpaceDetailState> {
   SpaceDetailUseCase spaceDetailUseCase;
-
+  // String spaceId;
   SpacesDetailsViewModel({
-    required this.spaceDetailUseCase
+    required this.spaceDetailUseCase,
+    // required this.spaceId
   }) : super (SpaceDetailState.initial()) {
     // getSpaceDetail(spaceId);
   }
 
   static final notifier =
   StateNotifierProvider<SpacesDetailsViewModel, SpaceDetailState>((ref) => SpacesDetailsViewModel(
-      spaceDetailUseCase: ref.read(spaceDetailsUseCaseProvider)
+      spaceDetailUseCase: ref.read(spaceDetailsUseCaseProvider),
   ));
 
 
@@ -29,10 +30,10 @@ class SpacesDetailsViewModel extends StateNotifier<SpaceDetailState> {
     try {
       final response = await spaceDetailUseCase.getSpaceDetails(spaceId);
       final data = response['data'];
-
+      print(data);
       final space = SpaceDetails.fromJson(data);
 
-      state = state.update(space: space);
+      state = state.update(spaceDetails: space);
       state = state.update(viewState: ViewState.idle);
 
     } catch (e) {

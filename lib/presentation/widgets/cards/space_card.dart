@@ -10,7 +10,6 @@ import '../../../core/utils/app_utils.dart';
 import '../../../core/utils/theme/dark_theme.dart';
 class SpaceCard extends StatelessWidget {
   Space space;
-
   SpaceCard({super.key, required this.space});
 
   @override
@@ -18,7 +17,7 @@ class SpaceCard extends StatelessWidget {
     return InkWell(
       splashColor: const Color(0x0d021418),
       onTap: () {
-        context.router.navigate(const SpaceDetailRoute());
+        context.router.navigate(SpaceDetailRoute(spaceId: space.uuid!));
       },
       child: Container(
         decoration: BoxDecoration(
@@ -42,8 +41,13 @@ class SpaceCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             ClipOval(
-                              child: space.profileURL != null
-                                  ? CachedNetworkImage(
+                              child: space.profileURL == null
+                                  ? Image.asset(
+                                      "assets/images/dumm_profile.png",
+                                      width: 35,
+                                      height: 35,
+                                  )
+                                  : CachedNetworkImage(
                                       fit: BoxFit.fill,
                                       imageUrl: space.profileURL ?? "",
                                       placeholder: (context, url) => const CircularProgressIndicator(
@@ -52,11 +56,6 @@ class SpaceCard extends StatelessWidget {
                                       ),
                                       width: 35,
                                       height: 35,
-                                  )
-                                  : Image.asset(
-                                  "assets/images/dumm_profile.png",
-                                  width: 35,
-                                  height: 35,
                               ),
                             ),
                             const Gap(15),

@@ -6,12 +6,14 @@ import '../../../domain/enums/button_state.dart';
 class PrimaryButton extends StatefulWidget {
   final VoidCallback? onPressed;
   final String buttonText;
+  final double? borderRadius;
   final ButtonState buttonState;
 
   const PrimaryButton({
     Key? key,
     this.onPressed,
     required this.buttonText,
+    this.borderRadius,
     this.buttonState = ButtonState.active,
   }) : super(key: key);
 
@@ -31,7 +33,7 @@ class _PrimaryButtonState extends State<PrimaryButton> {
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.white,
           backgroundColor: _getButtonColor(),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(widget.borderRadius ?? 8)),
           elevation: 10,
         ),
         child: _buildButtonChild(),

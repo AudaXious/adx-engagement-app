@@ -10,6 +10,7 @@ Color cardBorderColor = const Color(0xFF1D3050);
 Color bannerColor1 = const Color(0xFF162530);
 
 Color lightTeal = const Color(0xFF7AE7E7);
+Color lightGreen = const Color(0xFF6DE6AE);
 Color lightGold = const Color(0xFFE1D356);
 Color blackTextColor = const Color(0xFF060B12);
 Color greyTextColor = const Color(0xFFCCCACA);

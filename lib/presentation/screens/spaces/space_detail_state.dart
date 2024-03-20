@@ -7,28 +7,28 @@ class SpaceDetailState {
   factory SpaceDetailState.initial() => const SpaceDetailState._(
     viewState: ViewState.idle,
     error: '',
-    space: null
+    spaceDetails: null
   );
   const SpaceDetailState._({
     required this.viewState,
     required this.error,
-    required this.space,
+    required this.spaceDetails,
   });
 
   final ViewState viewState;
   final String error;
-  final SpaceDetails? space;
+  final SpaceDetails? spaceDetails;
 
   SpaceDetailState update({
     ViewState? viewState,
     String? error,
-    SpaceDetails? space
+    SpaceDetails? spaceDetails
 
   }) =>
       SpaceDetailState._(
         viewState: viewState ?? this.viewState,
         error: error ?? this.error,
-        space: space ?? this.space,
+        spaceDetails: spaceDetails ?? this.spaceDetails,
       );
 }
 

@@ -46,6 +46,8 @@ class SpaceDetails {
       // 'tags': tags,
       // 'links': links,
       'uuid': uuid,
+      'cover_url': coverURL,
+      'profile_url': profileURL,
       'createdAt': createdAt,
       'updatedAt': updatedAt,
     };

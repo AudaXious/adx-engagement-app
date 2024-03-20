@@ -3,6 +3,7 @@ import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/presentation/viewmodels/home/home_viewmodel.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../widgets/cards/post.dart';
@@ -32,7 +33,36 @@ class HomeScreen extends HookConsumerWidget {
       body: notifier.viewState.isLoading
           ? Center(child: CircularProgressIndicator(strokeWidth: 3, color: accentColor))
           : notifier.viewState.isError
-          ? Center(child: Text(notifier.error))
+          ? Center(
+            child: Container(
+              margin: const EdgeInsets.only(top: 70),
+              child: (
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                          "assets/images/empty_spaces_cards.png",
+                          width: 275,
+                          height: 115
+                      ),
+                      const Gap(40),
+                      Text(
+                        "Coming soon",
+                        style: Theme.of(context).textTheme.displayLarge
+                            ?.copyWith(color: fadedTextColor, fontSize: 26),
+                      ),
+                      const Gap(10),
+                      Text(
+                        "Still under development. Once available will display here",
+                        style: Theme.of(context).textTheme.bodyLarge
+                            ?.copyWith(color: fadedTextColor),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  )
+              ),
+            ),
+          )
           : ListView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               itemCount: notifier.feeds?.length,

@@ -10,7 +10,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/utils/view_utils.dart';
 import '../../widgets/cards/campaign_card.dart';
-import '../../widgets/empty_message.dart';
+import '../../widgets/empty_result_found_illustration.dart';
 
 @RoutePage()
 class HomeScreen extends HookConsumerWidget {
@@ -127,7 +127,11 @@ class HomeScreen extends HookConsumerWidget {
                           )
                       )
                     : notifier.campaigns!.isEmpty
-                    ? const EmptyMessage()
+                    ? NoResultFoundIllustration(
+                        title: "No campaigns to show",
+                        description: "Campaigns you join or create will appear here",
+                        illustration: "assets/images/empty_spaces_cards.png",
+                    )
                     : ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         itemCount: notifier.campaigns?.length,
@@ -136,7 +140,7 @@ class HomeScreen extends HookConsumerWidget {
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             child: CampaignCard(
-                              post: singleFeed!,
+                              campaign: singleFeed!,
                               postIndex: index,
                             ),
                           );

@@ -72,7 +72,7 @@ class CompleteCampaignCard extends StatelessWidget {
               ClipOval(
                 child: CachedNetworkImage(
                   fit: BoxFit.fill,
-                  imageUrl: post.authorProfile ?? "",
+                  imageUrl: post.spaceProfile ?? "",
                   placeholder: (context, url) => const CircularProgressIndicator(
                     color: Color(0xFF79C4EC),
                     strokeWidth: 2,

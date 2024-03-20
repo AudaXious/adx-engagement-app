@@ -11,7 +11,7 @@ import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/utils/theme/dark_theme.dart';
-import '../../widgets/empty_message.dart';
+import '../../widgets/empty_result_found_illustration.dart';
 
 @RoutePage()
 class SpacesScreen extends HookConsumerWidget {
@@ -122,7 +122,11 @@ class SpacesScreen extends HookConsumerWidget {
                         )
                     )
                     : notifier.spaces!.isEmpty
-                    ? const EmptyMessage()
+                    ? NoResultFoundIllustration(
+                        title: "No spaces to show",
+                        description: "Spaces you join or create will appear here",
+                        illustration: "assets/images/empty_spaces_cards.png",
+                     )
                     : ListView.builder(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     shrinkWrap: true,

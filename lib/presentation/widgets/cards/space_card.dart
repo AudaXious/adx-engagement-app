@@ -7,6 +7,7 @@ import 'package:gap/gap.dart';
 
 import '../../../core/routes/app_router.dart';
 import '../../../core/utils/app_utils.dart';
+import '../../../core/utils/constants.dart';
 import '../../../core/utils/theme/dark_theme.dart';
 class SpaceCard extends StatelessWidget {
   Space space;
@@ -45,8 +46,8 @@ class SpaceCard extends StatelessWidget {
                               child: space.profileURL == null
                                   ? Image.asset(
                                       "assets/images/dumm_profile.png",
-                                      width: 35,
-                                      height: 35,
+                                      width: spaceProfileWidth,
+                                      height: spaceProfileHeight,
                                   )
                                   : CachedNetworkImage(
                                       fit: BoxFit.fill,
@@ -55,16 +56,16 @@ class SpaceCard extends StatelessWidget {
                                         color: Color(0xFF79C4EC),
                                         strokeWidth: 2,
                                       ),
-                                      width: 35,
-                                      height: 35,
+                                      width: spaceProfileWidth,
+                                      height: spaceProfileHeight,
                               ),
                             ),
-                            const Gap(15),
+                            const Gap(8),
                             Expanded(
                               child: Text(
                                 space.title ?? "",
                                 style: Theme.of(context).textTheme.displaySmall?.
-                                copyWith(fontSize: 18),
+                                copyWith(fontSize: 18, color: greyTextColor),
                               ),
                             ),
                             const Gap(20),
@@ -88,7 +89,6 @@ class SpaceCard extends StatelessWidget {
                             ),
                             style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: greyTextColor)
                         ),
-                        const Gap(20),
                         Row(
                           children: [
                             Container(
@@ -100,12 +100,12 @@ class SpaceCard extends StatelessWidget {
                               ),
                               child: Row(
                                 children: [
-                                  Image.asset("assets/images/user_group.png", width: 16, height: 16,),
+                                  Image.asset("assets/images/user_group.png", width: 24, height: 24,),
                                   const Gap(5),
                                   Text(
                                     "2.6k",
                                     style: Theme.of(context).textTheme.bodyMedium?.
-                                    copyWith(color: secondaryColor.withOpacity(0.4)),
+                                    copyWith(color: secondaryColor.withOpacity(0.6)),
                                   ),
 
                                 ],
@@ -114,15 +114,15 @@ class SpaceCard extends StatelessWidget {
                             const Spacer(),
                             IconButton(
                               onPressed: () {},
-                              icon: Image.asset("assets/images/internet.png", width: 16, height: 16,),
+                              icon: Image.asset("assets/images/internet.png", width: 24, height: 24,),
                             ),
                             IconButton(
                               onPressed: () {},
-                              icon: Image.asset("assets/images/twitter.png", width: 16, height: 16,),
+                              icon: Image.asset("assets/images/twitter.png", width: 24, height: 24,),
                             ),
                             IconButton(
                               onPressed: () {},
-                              icon: Image.asset("assets/images/discord.png", width: 16, height: 16,),
+                              icon: Image.asset("assets/images/discord.png", width: 24, height: 24,),
                             ),
 
                           ],

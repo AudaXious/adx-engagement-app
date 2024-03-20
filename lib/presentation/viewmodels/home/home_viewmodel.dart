@@ -29,7 +29,7 @@ Future<void> getCampaigns() async {
         final List dataList = data.cast<dynamic>();
 
         final campaigns = dataList.map((spacesData) => Campaign.fromJson(spacesData)).toList();
-        state = state.update(campaigns: []);
+        state = state.update(campaigns: campaigns);
       }else {
         print('Unexpected data format. Expected a list of spaces.');
         state = state.update(viewState: ViewState.error);

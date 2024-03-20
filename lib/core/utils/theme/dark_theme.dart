@@ -8,6 +8,8 @@ Color cardColor = const Color(0x0d51c7e1);
 Color spacesCardColor = const Color(0xB3080E17);
 Color cardBorderColor = const Color(0xFF1D3050);
 Color bannerColor1 = const Color(0xFF162530);
+Color taskChipBorderColor = const Color(0xFFB2B3B6);
+Color dividerColor = const Color(0xFFB2B3B6);
 
 Color lightTeal = const Color(0xFF7AE7E7);
 Color lightGreen = const Color(0xFF6DE6AE);

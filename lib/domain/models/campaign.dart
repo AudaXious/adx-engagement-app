@@ -7,7 +7,7 @@ class Campaign {
   String? reward;
   Tasks? tasks;
   String? title;
-  String? authorProfile;
+  String? spaceProfile;
 
   Campaign({
     this.description,
@@ -16,7 +16,7 @@ class Campaign {
     this.reward,
     this.tasks,
     this.title,
-    this.authorProfile,
+    this.spaceProfile,
   });
 
   factory Campaign.fromJson(Map<String, dynamic> json) {
@@ -27,7 +27,7 @@ class Campaign {
       reward: json['reward'],
       tasks: json['tasks'] != null ? Tasks.fromJson(json['tasks']) : null,
       title: json['title'],
-      authorProfile: json['author_profile'],
+      spaceProfile: json['author_profile'],
     );
   }
 
@@ -39,7 +39,7 @@ class Campaign {
       'reward': reward,
       'tasks': tasks,
       'title': title,
-      'author_profile': authorProfile,
+      'author_profile': spaceProfile,
     };
   }
 }

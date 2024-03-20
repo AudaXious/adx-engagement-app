@@ -2,8 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import '../../core/utils/theme/dark_theme.dart';
-class EmptyMessage extends StatelessWidget {
-  const EmptyMessage({super.key});
+class NoResultFoundIllustration extends StatelessWidget {
+  String title;
+  String description;
+  String? illustration;
+  NoResultFoundIllustration({
+    super.key,
+    required this.title,
+    required this.description,
+    this.illustration
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -12,20 +20,25 @@ class EmptyMessage extends StatelessWidget {
       child: (
           Column(
             children: [
-              Image.asset(
-                  "assets/images/empty_spaces_cards.png",
-                  width: 275,
-                  height: 115
+              Visibility(
+                visible: illustration != null,
+                child: Container(
+                  margin: const EdgeInsets.only(bottom: 40),
+                  child: Image.asset(
+                      illustration ?? "",
+                      width: 275,
+                      height: 115
+                  ),
+                )
               ),
-              const Gap(40),
               Text(
-                "No spaces to show",
+                title,
                 style: Theme.of(context).textTheme.displayLarge
                     ?.copyWith(color: fadedTextColor, fontSize: 26),
               ),
               const Gap(10),
               Text(
-                "Spaces you join or create will appear here",
+                description,
                 style: Theme.of(context).textTheme.bodyLarge
                     ?.copyWith(color: fadedTextColor),
                 textAlign: TextAlign.center,

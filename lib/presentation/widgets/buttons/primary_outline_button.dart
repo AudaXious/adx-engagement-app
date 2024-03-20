@@ -7,12 +7,14 @@ class PrimaryOutlineButton extends StatefulWidget {
   final VoidCallback? onPressed;
   final String buttonText;
   final ButtonState buttonState;
+  final Color? borderColor;
 
   const PrimaryOutlineButton({
     Key? key,
     this.onPressed,
     required this.buttonText,
     this.buttonState = ButtonState.active,
+    this.borderColor
   }) : super(key: key);
 
   @override
@@ -31,9 +33,9 @@ class _PrimaryOutlineButtonState extends State<PrimaryOutlineButton> {
         style: OutlinedButton.styleFrom(
           foregroundColor: Colors.white,
           side: BorderSide(
-            color: secondaryColor
+            color: widget.borderColor ?? secondaryColor
           ),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         ),
         child: _buildButtonChild(),
       ),

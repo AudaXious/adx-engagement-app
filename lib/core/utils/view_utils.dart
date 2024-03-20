@@ -33,11 +33,15 @@ InputDecoration primaryTextFieldWithPrefixIconDecoration({
     contentPadding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
     border: OutlineInputBorder(
       borderSide: BorderSide(color: textInputBorderColor, width: 0.5),
-      borderRadius: const BorderRadius.all(Radius.circular(5)),
+      borderRadius: const BorderRadius.all(Radius.circular(20)),
     ),
     focusedBorder: OutlineInputBorder(
       borderSide: BorderSide(color: textInputBorderColor, width: 0.5),
-      borderRadius: const BorderRadius.all(Radius.circular(5)),
+      borderRadius: const BorderRadius.all(Radius.circular(20)),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: textInputBorderColor, width: 0.5),
+      borderRadius: const BorderRadius.all(Radius.circular(20)),
     ),
 
     labelText: labelText,

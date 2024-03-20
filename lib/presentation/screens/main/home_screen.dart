@@ -18,7 +18,7 @@ class HomeScreen extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            "AudaXious Engage",
+            "Campaigns",
           style: Theme.of(context).textTheme.displaySmall,
         ),
         centerTitle: true,

@@ -33,7 +33,7 @@ class BottomBarScreen extends StatelessWidget {
                 BottomNavigationBarItem(
                     icon: Icon(Icons.home_outlined),
                     activeIcon: Icon(Icons.home_filled),
-                    label: "Engage"
+                    label: "Campaigns"
                 ),
                 BottomNavigationBarItem(
                     icon: Icon(Icons.people_outline),

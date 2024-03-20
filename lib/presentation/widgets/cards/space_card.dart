@@ -1,4 +1,6 @@
 import 'package:audaxious/domain/models/space.dart';
+import 'package:audaxious/presentation/widgets/buttons/primary_outline_button.dart';
+import 'package:audaxious/presentation/widgets/buttons/task_button.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -14,40 +16,17 @@ class SpaceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          border: Border.all(width: 0.5, color: cardBorderColor),
+          border: Border.all(width: 0.2, color: cardBorderColor.withOpacity(0.5)),
           borderRadius: const BorderRadius.all(Radius.circular(15)),
-          color: cardColor
+          color: backgroundColor
       ),
       child: Column(
         children: [
-          Container(
-            height: 100,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                  image: AssetImage("assets/images/dummy_cover_photo.png")
-              )
-            ),
-          ),
           const Gap(20),
           Container(
-            margin: const EdgeInsets.only(left: 10, right: 10, bottom: 20),
+            margin: const EdgeInsets.only(left: 20, right: 20),
             child: Row(
               children: [
-                ClipOval(
-                  child: CachedNetworkImage(
-                    fit: BoxFit.fill,
-                    imageUrl: "https://pbs.twimg.com/profile_images/1727588800627404800/ZKZks_LF_400x400.jpg",
-                    placeholder: (context, url) => const CircularProgressIndicator(
-                      color: Color(0xFF79C4EC),
-                      strokeWidth: 2,
-                    ),
-                    width: 35,
-                    height: 35,
-                  ),
-                ),
-                const Gap(10),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,30 +35,85 @@ class SpaceCard extends StatelessWidget {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          ClipOval(
+                            child: CachedNetworkImage(
+                              fit: BoxFit.fill,
+                              imageUrl: space.profileURL ?? "",
+                              placeholder: (context, url) => const CircularProgressIndicator(
+                                color: Color(0xFF79C4EC),
+                                strokeWidth: 2,
+                              ),
+                              width: 35,
+                              height: 35,
+                            ),
+                          ),
+                          const Gap(10),
                           Expanded(
                             child: Text(
                               space.title ?? "",
-                              style: Theme.of(context).textTheme.displayLarge?.
+                              style: Theme.of(context).textTheme.displayMedium?.
                               copyWith(fontSize: 18),
                             ),
                           ),
                           const Gap(20),
-                          Image.asset("assets/images/community_filled.png", width: 20, height: 20,),
-                          const Gap(5),
-                          Text(
-                            "208",
-                            style: Theme.of(context).textTheme.bodyMedium?.
-                            copyWith(fontSize: 12),
-                          )
+                          SizedBox(
+                            width: 75,
+                            height: 25,
+                            child: PrimaryOutlineButton(
+                              onPressed: () {},
+                              buttonText: "Join",
+                              borderColor: secondaryColor.withOpacity(0.3),
+                            ),
+                          ),
+
                         ],
                       ),
-                      const Gap(10),
+                      const Gap(15),
                       Text(
                           shortenStringWithReadMore(
                               space.description ?? "",
                               150
                           ),
-                          style: Theme.of(context).textTheme.bodyLarge
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: greyTextColor)
+                      ),
+                      const Gap(20),
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+                            decoration: BoxDecoration(
+                              border: Border.all(width: 0.2, color: secondaryColor.withOpacity(0.1)),
+                              borderRadius: const BorderRadius.all(Radius.circular(15)),
+                              // color: lightTeal.withOpacity(0.2),
+                            ),
+                            child: Row(
+                              children: [
+                                Image.asset("assets/images/user_group.png", width: 16, height: 16,),
+                                const Gap(5),
+                                Text(
+                                  "2.6k",
+                                  style: Theme.of(context).textTheme.bodyMedium?.
+                                  copyWith(color: secondaryColor.withOpacity(0.4)),
+                                ),
+
+                              ],
+                            ),
+                          ),
+                          const Spacer(),
+                          IconButton(
+                            onPressed: () {},
+                            icon: Image.asset("assets/images/internet.png", width: 16, height: 16,),
+                          ),
+                          IconButton(
+                            onPressed: () {},
+                            icon: Image.asset("assets/images/twitter.png", width: 16, height: 16,),
+                          ),
+                          IconButton(
+                            onPressed: () {},
+                            icon: Image.asset("assets/images/discord.png", width: 16, height: 16,),
+                          ),
+
+                        ],
                       )
                     ],
                   ),

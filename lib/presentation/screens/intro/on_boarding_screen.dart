@@ -25,7 +25,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   void initState() {
     _pageController = PageController(initialPage: 0);
-    // _checkLoginStatus();
+    _checkLoginStatus();
     super.initState();
   }
 

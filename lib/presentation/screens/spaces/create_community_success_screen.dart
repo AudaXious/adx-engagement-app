@@ -80,7 +80,7 @@ class CreateCommunitySuccessScreen extends StatelessWidget {
               const Gap(50),
               PrimaryButton(
                 onPressed: (){
-                  context.router.replaceAll([const SpacesRoute()]);
+                  context.router.replaceAll([SpacesRoute()]);
                 },
                 buttonText: "My communities"
               ),

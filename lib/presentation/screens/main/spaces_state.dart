@@ -1,4 +1,3 @@
-import 'package:audaxious/domain/models/feed.dart';
 import 'package:audaxious/domain/models/space.dart';
 
 import '../../../domain/enums/view_state.dart';

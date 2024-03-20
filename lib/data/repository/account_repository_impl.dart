@@ -1,11 +1,6 @@
 import 'dart:convert';
 import 'package:audaxious/domain/repository/account_repository.dart';
-import 'package:audaxious/domain/repository/auth_repository.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../core/services/internet_services/dio_client.dart';
-import '../../core/services/internet_services/dio_exception.dart';
-import '../../core/services/internet_services/endpoints.dart';
 import '../../core/services/shared_preferences_services.dart';
 import '../../domain/models/user.dart';
 

@@ -1,8 +1,6 @@
 
 import 'package:audaxious/domain/usecases/auth/create_username_usecase.dart';
-import 'package:audaxious/domain/usecases/auth/login_usecase.dart';
 import 'package:audaxious/presentation/screens/auth/create_username_state.dart';
-import 'package:audaxious/presentation/screens/auth/login_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toastification/toastification.dart';

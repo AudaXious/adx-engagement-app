@@ -10,8 +10,8 @@ class BottomBarScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AutoTabsRouter(
-      routes: const [
-        HomeRoute(),
+      routes: [
+        const HomeRoute(),
         SpacesRoute(),
       ],
       builder: (context, child) {

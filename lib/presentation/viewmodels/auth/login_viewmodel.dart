@@ -1,12 +1,9 @@
 
 import 'package:audaxious/domain/usecases/auth/login_usecase.dart';
 import 'package:audaxious/presentation/screens/auth/login_state.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:toastification/toastification.dart';
 import '../../../domain/enums/view_state.dart';
 import '../../../domain/models/user.dart';
-import '../../widgets/custom_toast.dart';
 
 class LoginViewModel extends StateNotifier<LoginState> {
   LoginUseCase loginUseCase;

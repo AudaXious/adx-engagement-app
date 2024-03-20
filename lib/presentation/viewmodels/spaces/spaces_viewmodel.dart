@@ -1,13 +1,10 @@
 
-import 'package:audaxious/domain/models/feed.dart';
 import 'package:audaxious/domain/models/space.dart';
-import 'package:audaxious/domain/usecases/feeds/feeds_usecase.dart';
 import 'package:audaxious/domain/usecases/spaces/spaces_usecase.dart';
 import 'package:audaxious/presentation/screens/main/spaces_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../domain/enums/view_state.dart';
 import '../../../domain/usecases/spaces/user_spaces_usecase.dart';
-import '../../screens/main/home_state.dart';
 
 class SpacesViewModel extends StateNotifier<SpacesState> {
   SpacesUseCase spacesUseCase;

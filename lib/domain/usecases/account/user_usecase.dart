@@ -1,6 +1,4 @@
-import 'package:audaxious/data/repository/auth_repository_impl.dart';
 import 'package:audaxious/domain/repository/account_repository.dart';
-import 'package:audaxious/domain/repository/auth_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../data/repository/account_repository_impl.dart';

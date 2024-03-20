@@ -72,10 +72,18 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const SignInScreen(),
       );
     },
-    SpacesRoute.name: (routeData) {
+    SpaceDetailRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: SpacesScreen(),
+        child: const SpaceDetailScreen(),
+      );
+    },
+    SpacesRoute.name: (routeData) {
+      final args = routeData.argsAs<SpacesRouteArgs>(
+          orElse: () => const SpacesRouteArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: SpacesScreen(key: args.key),
       );
     },
     VerifyOTPRoute.name: (routeData) {
@@ -264,17 +272,45 @@ class SignInRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [SpacesScreen]
-class SpacesRoute extends PageRouteInfo<void> {
-  const SpacesRoute({List<PageRouteInfo>? children})
+/// [SpaceDetailScreen]
+class SpaceDetailRoute extends PageRouteInfo<void> {
+  const SpaceDetailRoute({List<PageRouteInfo>? children})
       : super(
+          SpaceDetailRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SpaceDetailRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [SpacesScreen]
+class SpacesRoute extends PageRouteInfo<SpacesRouteArgs> {
+  SpacesRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
           SpacesRoute.name,
+          args: SpacesRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'SpacesRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<SpacesRouteArgs> page = PageInfo<SpacesRouteArgs>(name);
+}
+
+class SpacesRouteArgs {
+  const SpacesRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'SpacesRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for

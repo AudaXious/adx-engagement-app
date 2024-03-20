@@ -1,15 +1,10 @@
 import 'package:audaxious/core/routes/app_router.dart';
 import 'package:audaxious/core/utils/theme/dark_theme.dart';
-import 'package:audaxious/presentation/widgets/buttons/primary_text_button.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../core/services/shared_preferences_services.dart';
-import '../../../core/utils/app_layout.dart';
 import '../../widgets/buttons/primary_button.dart';
-import '../../widgets/buttons/primary_outline_button.dart';
 import '../../widgets/buttons/secondary_button.dart';
 @RoutePage()
 

@@ -31,8 +31,7 @@ class _PrimaryTextButtonState extends State<PrimaryTextButton> {
       child: TextButton(
         onPressed: _getOnPressed(),
         style: TextButton.styleFrom(
-          primary: Colors.white,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          foregroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
         child: _buildButtonChild(),
       ),

@@ -1,9 +1,7 @@
 
-import 'package:audaxious/core/routes/app_router.dart';
 import 'package:audaxious/core/utils/view_utils.dart';
 import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/presentation/viewmodels/spaces/spaces_viewmodel.dart';
-import 'package:audaxious/presentation/widgets/buttons/custom_radio_group_tabs_horizontal.dart';
 import 'package:audaxious/presentation/widgets/cards/space_card.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -23,7 +21,6 @@ class SpacesScreen extends HookConsumerWidget {
     'My spaces',
     'Joined spaces',
   ];
-  // String? selectedSpacesCategory = null;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

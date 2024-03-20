@@ -6,4 +6,5 @@ String verifyOTPEndpoint = "/user/verify?type=verify";
 String createUsernameEndpoint = "/profile/update-username";
 String feedsEndpoint = "/tweets.json";
 String spacesEndpoint = "/spaces/all";
+String spacesDetailEndpoint = "/spaces/s";
 String userSpacesEndpoint = "/spaces/user/all";

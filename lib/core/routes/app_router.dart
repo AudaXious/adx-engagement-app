@@ -12,6 +12,7 @@ import '../../presentation/screens/main/spaces_screen.dart';
 import '../../presentation/screens/main/home_screen.dart';
 import '../../presentation/screens/posts/post_details_screen.dart';
 import '../../presentation/screens/spaces/create_community_screen.dart';
+import '../../presentation/screens/spaces/space_detail_screen.dart';
 
 part 'app_router.gr.dart';
 
@@ -25,8 +26,8 @@ class AppRouter extends _$AppRouter {
     AutoRoute(page: OnBoardingRoute.page, initial: true),
 
     //Auth
-    AutoRoute(page: LoginRoute.page),
     AutoRoute(page: SignInRoute.page),
+    AutoRoute(page: LoginRoute.page),
     AutoRoute(page: VerifyOTPRoute.page),
     AutoRoute(page: CreateUsernameRoute.page),
 
@@ -42,7 +43,8 @@ class AppRouter extends _$AppRouter {
     //Engage portal
     AutoRoute(page: PostDetailsRoute.page),
 
-    //Community
+    //Spaces
     AutoRoute(page: CreateCommunityRoute.page),
+    AutoRoute(page: SpaceDetailRoute.page),
   ];
 }

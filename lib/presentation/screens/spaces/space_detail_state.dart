@@ -1,33 +1,34 @@
 import 'package:audaxious/domain/models/space.dart';
 
 import '../../../domain/enums/view_state.dart';
+import '../../../domain/models/space_details.dart';
 
-class SpacesState {
-  factory SpacesState.initial() => const SpacesState._(
+class SpaceDetailState {
+  factory SpaceDetailState.initial() => const SpaceDetailState._(
     viewState: ViewState.idle,
     error: '',
-    spaces: null
+    space: null
   );
-  const SpacesState._({
+  const SpaceDetailState._({
     required this.viewState,
     required this.error,
-    required this.spaces,
+    required this.space,
   });
 
   final ViewState viewState;
   final String error;
-  final List<Space>? spaces;
+  final SpaceDetails? space;
 
-  SpacesState update({
+  SpaceDetailState update({
     ViewState? viewState,
     String? error,
-    List<Space>? spaces
+    SpaceDetails? space
 
   }) =>
-      SpacesState._(
+      SpaceDetailState._(
         viewState: viewState ?? this.viewState,
         error: error ?? this.error,
-        spaces: spaces ?? this.spaces,
+        space: space ?? this.space,
       );
 }
 

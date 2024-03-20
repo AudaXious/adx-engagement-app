@@ -1,7 +1,7 @@
-class Space {
+class SpaceDetails {
   String? title;
   String? description;
-  String? creatorId;
+  String? creatorUUID;
   // List<String>? tags;
   // List<String>? links;
   String? uuid;
@@ -10,10 +10,10 @@ class Space {
   String? createdAt;
   String? updatedAt;
 
-  Space({
+  SpaceDetails({
     this.title,
     this.description,
-    this.creatorId,
+    this.creatorUUID,
     // this.tags,
     // this.links,
     this.uuid,
@@ -23,11 +23,11 @@ class Space {
     this.updatedAt,
   });
 
-  factory Space.fromJson(Map<String, dynamic> json) {
-    return Space(
+  factory SpaceDetails.fromJson(Map<String, dynamic> json) {
+    return SpaceDetails(
       title: json['title'],
       description: json['description'],
-      creatorId: json['creator_id'],
+      creatorUUID: json['creator_uuid'],
       // tags: json['tags'],
       // links: json['links'],
       uuid: json['uuid'],
@@ -42,7 +42,7 @@ class Space {
     return {
       'title': title,
       'description': description,
-      'creator_id': creatorId,
+      'creator_id': creatorUUID,
       // 'tags': tags,
       // 'links': links,
       'uuid': uuid,

@@ -1,7 +1,7 @@
 class Space {
   String? title;
   String? description;
-  String? creatorId;
+  String? creatorUUID;
   // List<String>? tags;
   // List<String>? links;
   String? uuid;
@@ -13,7 +13,7 @@ class Space {
   Space({
     this.title,
     this.description,
-    this.creatorId,
+    this.creatorUUID,
     // this.tags,
     // this.links,
     this.uuid,
@@ -27,7 +27,7 @@ class Space {
     return Space(
       title: json['title'],
       description: json['description'],
-      creatorId: json['creator_id'],
+      creatorUUID: json['creator_uuid'],
       // tags: json['tags'],
       // links: json['links'],
       uuid: json['uuid'],
@@ -42,7 +42,7 @@ class Space {
     return {
       'title': title,
       'description': description,
-      'creator_id': creatorId,
+      'creator_uuid': creatorUUID,
       // 'tags': tags,
       // 'links': links,
       'uuid': uuid,

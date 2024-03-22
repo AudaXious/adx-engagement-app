@@ -14,6 +14,8 @@ class BottomBarScreen extends StatelessWidget {
       routes: [
         HomeRoute(),
         SpacesRoute(),
+        const RaffleRoute(),
+        const AccountRoute(),
       ],
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);

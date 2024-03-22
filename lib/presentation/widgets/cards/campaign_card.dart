@@ -24,7 +24,8 @@ class CampaignCard extends StatelessWidget {
     return InkWell(
       splashColor: const Color(0x0d021418),
       onTap: () {
-        context.router.navigate(CampaignDetailsRoute(post: campaign, postIndex: postIndex));
+        context.router.navigate(
+            CampaignDetailsRoute(campaign: campaign, campaignIndex: postIndex));
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 15),

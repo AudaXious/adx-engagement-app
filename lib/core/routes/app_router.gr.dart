@@ -15,6 +15,12 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    AccountRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const AccountScreen(),
+      );
+    },
     BottomBarRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -27,8 +33,8 @@ abstract class _$AppRouter extends RootStackRouter {
         routeData: routeData,
         child: CampaignDetailsScreen(
           key: args.key,
-          campaign: args.post,
-          campaignIndex: args.postIndex,
+          campaign: args.campaign,
+          campaignIndex: args.campaignIndex,
         ),
       );
     },
@@ -66,6 +72,12 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const OnBoardingScreen(),
+      );
+    },
+    RaffleRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const RaffleScreen(),
       );
     },
     SignInOptionsRoute.name: (routeData) {
@@ -108,6 +120,20 @@ abstract class _$AppRouter extends RootStackRouter {
 }
 
 /// generated route for
+/// [AccountScreen]
+class AccountRoute extends PageRouteInfo<void> {
+  const AccountRoute({List<PageRouteInfo>? children})
+      : super(
+          AccountRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AccountRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [BottomBarScreen]
 class BottomBarRoute extends PageRouteInfo<void> {
   const BottomBarRoute({List<PageRouteInfo>? children})
@@ -126,15 +152,15 @@ class BottomBarRoute extends PageRouteInfo<void> {
 class CampaignDetailsRoute extends PageRouteInfo<CampaignDetailsRouteArgs> {
   CampaignDetailsRoute({
     Key? key,
-    required Campaign post,
-    required int postIndex,
+    required Campaign campaign,
+    required int campaignIndex,
     List<PageRouteInfo>? children,
   }) : super(
           CampaignDetailsRoute.name,
           args: CampaignDetailsRouteArgs(
             key: key,
-            post: post,
-            postIndex: postIndex,
+            campaign: campaign,
+            campaignIndex: campaignIndex,
           ),
           initialChildren: children,
         );
@@ -148,19 +174,19 @@ class CampaignDetailsRoute extends PageRouteInfo<CampaignDetailsRouteArgs> {
 class CampaignDetailsRouteArgs {
   const CampaignDetailsRouteArgs({
     this.key,
-    required this.post,
-    required this.postIndex,
+    required this.campaign,
+    required this.campaignIndex,
   });
 
   final Key? key;
 
-  final Campaign post;
+  final Campaign campaign;
 
-  final int postIndex;
+  final int campaignIndex;
 
   @override
   String toString() {
-    return 'CampaignDetailsRouteArgs{key: $key, post: $post, postIndex: $postIndex}';
+    return 'CampaignDetailsRouteArgs{key: $key, campaign: $campaign, campaignIndex: $campaignIndex}';
   }
 }
 
@@ -273,6 +299,20 @@ class OnBoardingRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'OnBoardingRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [RaffleScreen]
+class RaffleRoute extends PageRouteInfo<void> {
+  const RaffleRoute({List<PageRouteInfo>? children})
+      : super(
+          RaffleRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'RaffleRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

@@ -42,114 +42,110 @@ class HomeScreen extends HookConsumerWidget {
           )
         ],
       ),
-      body: Expanded(
-        child: Column(
-          children: [
-            const Gap(20),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              child: Expanded(
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton2<String>(
-                          isExpanded: true,
-                          hint: Text(
-                              'All',
-                              style: Theme.of(context).textTheme.bodyLarge
-                          ),
-                          items: spacesCategories
-                              .map((String item) => DropdownMenuItem<String>(
-                            value: item,
-                            child: Text(
-                                item,
-                                style: Theme.of(context).textTheme.bodyLarge
-                            ),
-                          ))
-                              .toList(),
-                          value: selectedSpacesCategory.value,
-                          onChanged: (String? value) {
-                            selectedSpacesCategory.value = value;
-                            switch (selectedSpacesCategory.value) {
-                              case "All":
-                                reader.getCampaigns();
-                                break;
-                              case "New":
-                                reader.getCampaigns();
-                                break;
-                              case "Old":
-                                reader.getCampaigns();
-                                break;
-
-                              default:
-                                reader.getCampaigns();
-                                break;
-                            }
-
-                            print(selectedSpacesCategory.value);
-                          },
-                          buttonStyleData: const ButtonStyleData(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
-                            height: 40,
-                            width: 120,
-                          ),
-                          menuItemStyleData: const MenuItemStyleData(
-                            height: 40,
-                          ),
-                        ),
+      body: Column(
+        children: [
+          const Gap(20),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              children: [
+                Expanded(
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton2<String>(
+                      isExpanded: true,
+                      hint: Text(
+                          'All',
+                          style: Theme.of(context).textTheme.bodyLarge
                       ),
-                    ),
-                    const Gap(10),
-                    Expanded(
-                      child: TextField(
-                        keyboardType: TextInputType.text,
-                        cursorColor: Colors.white,
-                        decoration: primaryTextFieldWithPrefixIconDecoration(
-                            labelText: "Search campaigns",
-                            prefixIcon: "assets/images/search.png"
+                      items: spacesCategories
+                          .map((String item) => DropdownMenuItem<String>(
+                        value: item,
+                        child: Text(
+                            item,
+                            style: Theme.of(context).textTheme.bodyLarge
                         ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const Gap(20),
-            Expanded(
-                child: notifier.viewState.isLoading
-                    ? Center(child: CircularProgressIndicator(strokeWidth: 3, color: accentColor))
-                    : notifier.viewState.isError
-                    ? Center(
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 50),
-                          child: Text(notifier.error, textAlign: TextAlign.center,),
-                          )
-                      )
-                    : notifier.campaigns!.isEmpty
-                    ? NoResultFoundIllustration(
-                        title: "No campaigns to show",
-                        description: "Campaigns you join or create will appear here",
-                        illustration: "assets/images/empty_spaces_cards.png",
-                    )
-                    : ListView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        itemCount: notifier.campaigns?.length,
-                        itemBuilder: (context, index) {
-                          final singleFeed = notifier.campaigns?[index];
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            child: CampaignCard(
-                              campaign: singleFeed!,
-                              postIndex: index,
-                            ),
-                          );
+                      ))
+                          .toList(),
+                      value: selectedSpacesCategory.value,
+                      onChanged: (String? value) {
+                        selectedSpacesCategory.value = value;
+                        switch (selectedSpacesCategory.value) {
+                          case "All":
+                            reader.getCampaigns();
+                            break;
+                          case "New":
+                            reader.getCampaigns();
+                            break;
+                          case "Old":
+                            reader.getCampaigns();
+                            break;
+
+                          default:
+                            reader.getCampaigns();
+                            break;
                         }
-                ),
 
+                        print(selectedSpacesCategory.value);
+                      },
+                      buttonStyleData: const ButtonStyleData(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        height: 40,
+                        width: 120,
+                      ),
+                      menuItemStyleData: const MenuItemStyleData(
+                        height: 40,
+                      ),
+                    ),
+                  ),
+                ),
+                const Gap(10),
+                Expanded(
+                  child: TextField(
+                    keyboardType: TextInputType.text,
+                    cursorColor: Colors.white,
+                    decoration: primaryTextFieldWithPrefixIconDecoration(
+                        labelText: "Search campaigns",
+                        prefixIcon: "assets/images/search.png"
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Gap(20),
+          Expanded(
+            child: notifier.viewState.isLoading
+                ? Center(child: CircularProgressIndicator(strokeWidth: 3, color: accentColor))
+                : notifier.viewState.isError
+                ? Center(
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 50),
+                  child: Text(notifier.error, textAlign: TextAlign.center,),
+                )
             )
-          ],
-        ),
+                : notifier.campaigns!.isEmpty
+                ? NoResultFoundIllustration(
+              title: "No campaigns to show",
+              description: "Campaigns you join or create will appear here",
+              illustration: "assets/images/empty_spaces_cards.png",
+            )
+                : ListView.builder(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                itemCount: notifier.campaigns?.length,
+                itemBuilder: (context, index) {
+                  final singleFeed = notifier.campaigns?[index];
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: CampaignCard(
+                      campaign: singleFeed!,
+                      postIndex: index,
+                    ),
+                  );
+                }
+            ),
+
+          )
+        ],
       )
     );
   }

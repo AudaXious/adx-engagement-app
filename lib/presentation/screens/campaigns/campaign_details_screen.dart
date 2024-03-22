@@ -2,6 +2,7 @@ import 'package:audaxious/core/utils/theme/dark_theme.dart';
 import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/domain/models/campaign.dart';
 import 'package:audaxious/presentation/viewmodels/campaigns/campaigns_viewmodel.dart';
+import 'package:audaxious/presentation/widgets/buttons/primary_button.dart';
 import 'package:audaxious/presentation/widgets/buttons/task_button.dart';
 import 'package:audaxious/presentation/widgets/cards/complete_campaign_card.dart';
 import 'package:auto_route/auto_route.dart';
@@ -20,7 +21,7 @@ class CampaignDetailsScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final notifier = ref.watch(CampaignsViewModel.notifier);
-    final feeds = notifier.campaigns;
+    final campaigns = notifier.campaigns;
     final currentIndex = useState(postIndex);
     final slideInRight = useState(true);
 
@@ -50,7 +51,7 @@ class CampaignDetailsScreen extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Post",
+          "Engage with campaign",
           style: Theme.of(context).textTheme.displaySmall,
         ),
         backgroundColor: const Color(0xFF060B12),
@@ -70,10 +71,10 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CompleteCampaignCard(post: feeds![currentIndex.value]),
+                          CompleteCampaignCard(campaign: campaigns![currentIndex.value]),
                           const Gap(70),
                           Visibility(
-                            visible: feeds[currentIndex.value].tasks?.follow != null,
+                            visible: campaigns[currentIndex.value].tasks?.follow == null,
                             child: TaskButton(
                               buttonText: 'Follow',
                               taskIcon: "assets/images/x.png",
@@ -82,7 +83,7 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                           ),
                           const Gap(15),
                           Visibility(
-                            visible: feeds[currentIndex.value].tasks?.like != null,
+                            visible: campaigns[currentIndex.value].tasks?.like == null,
                             child: TaskButton(
                               buttonText: 'Like',
                               taskIcon: "assets/images/un_like.png",
@@ -91,13 +92,17 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                           ),
                           const Gap(15),
                           Visibility(
-                            visible: feeds[currentIndex.value].tasks?.repost != null,
+                            visible: campaigns[currentIndex.value].tasks?.repost == null,
                             child: TaskButton(
                               buttonText: 'Repost',
                               taskIcon: "assets/images/repost.png",
                               onPressed: () {},
                             ),
                           ),
+                          const Gap(50),
+                          const PrimaryButton(
+                            buttonText: "Claim reward"
+                          )
                         ],
                       ),
                     ),
@@ -110,35 +115,27 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                       : Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TextButton(
-                        onPressed: () {
-                          slideInRight.value = false;
-                          if (currentIndex.value > 0) {
-                            currentIndex.value--;
-                          } else if (currentIndex.value == 0) {
-                            currentIndex.value = feeds.length - 1;
-                          }
-                        },
-                          child: Text(
-                              "Prev",
-                              style: Theme.of(context).textTheme.displayLarge
-                                  ?.copyWith(color: secondaryColor, fontSize: 14)
-                          )
+                      IconButton(
+                          onPressed: () {
+                            slideInRight.value = false;
+                            if (currentIndex.value > 0) {
+                              currentIndex.value--;
+                            } else if (currentIndex.value == 0) {
+                              currentIndex.value = campaigns.length - 1;
+                            }
+                          },
+                          icon: Image.asset("assets/images/previous_campaign_btn.png", width: 40, height: 40,)
                       ),
-                      TextButton(
-                        onPressed: () {
-                          slideInRight.value = true;
-                          currentIndex.value++;
-                          if (currentIndex.value == feeds.length) {
-                            currentIndex.value = 0;
-                          }
-                        },
-                        child: Text(
-                            "Next",
-                            style: Theme.of(context).textTheme.displayLarge
-                                ?.copyWith(color: secondaryColor, fontSize: 14)
-                        ),
-                      ),
+                      IconButton(
+                          onPressed: (){
+                            slideInRight.value = true;
+                            currentIndex.value++;
+                            if (currentIndex.value == campaigns.length) {
+                              currentIndex.value = 0;
+                            }
+                          },
+                          icon: Image.asset("assets/images/next_campaign_btn.png", width: 40, height: 40,)
+                      )
                     ],
                   ),
                 ),

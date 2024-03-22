@@ -68,10 +68,10 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const OnBoardingScreen(),
       );
     },
-    SignInRoute.name: (routeData) {
+    SignInOptionsRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const SignInScreen(),
+        child: const SignInOptionsScreen(),
       );
     },
     SpaceDetailRoute.name: (routeData) {
@@ -278,15 +278,15 @@ class OnBoardingRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [SignInScreen]
-class SignInRoute extends PageRouteInfo<void> {
-  const SignInRoute({List<PageRouteInfo>? children})
+/// [SignInOptionsScreen]
+class SignInOptionsRoute extends PageRouteInfo<void> {
+  const SignInOptionsRoute({List<PageRouteInfo>? children})
       : super(
-          SignInRoute.name,
+          SignInOptionsRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'SignInRoute';
+  static const String name = 'SignInOptionsRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

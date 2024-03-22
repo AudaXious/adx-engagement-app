@@ -67,7 +67,7 @@ class CampaignCard extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        "Earn | 10 XP",
+                        "Earn | ${campaign.points} XP",
                         style: Theme.of(context).textTheme.bodyMedium?.
                         copyWith(color: lightGold.withOpacity(0.7)),
                       ),
@@ -114,10 +114,27 @@ class CampaignCard extends StatelessWidget {
                           ),
                           const Gap(8),
                           Expanded(
-                            child: Text(
-                              campaign.title ?? "",
-                              style: Theme.of(context).textTheme.displaySmall?.
-                              copyWith(fontSize: 18, color: greyTextColor),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  campaign.title ?? "",
+                                  style: Theme.of(context).textTheme.displaySmall?.
+                                  copyWith(fontSize: 18, color: greyTextColor),
+                                ),
+                                const Gap(5),
+                                Row(
+                                  children: [
+                                    Image.asset("assets/images/verification_tick.png", width: verificationBadgeSize, height: verificationBadgeSize,),
+                                    const Gap(3),
+                                    Text(
+                                      "AudaXious ",
+                                      style: Theme.of(context).textTheme.bodySmall?.
+                                      copyWith(color: greyTextColor),
+                                    )
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
                         ],

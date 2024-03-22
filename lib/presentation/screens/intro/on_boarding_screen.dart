@@ -1,4 +1,5 @@
 import 'package:audaxious/core/routes/app_router.dart';
+import 'package:audaxious/core/utils/app_layout.dart';
 import 'package:audaxious/core/utils/theme/dark_theme.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   void initState() {
     _pageController = PageController(initialPage: 0);
-    _checkLoginStatus();
+    // _checkLoginStatus();
     super.initState();
   }
 
@@ -44,59 +45,56 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 35, bottom: 20),
-            child: Column(
-              children: [
-                Image.asset("assets/images/audaxious_name_logo.png", width: 100, height: 16),
-                const Gap(20),
-                Expanded(
-                    child: PageView.builder(
-                        itemCount: onBoardingData.length,
-                        controller: _pageController,
-                        onPageChanged: (index) {
-                          setState(() {
-                            _pageIndex = index;
-                          });
-                        },
-                        itemBuilder: (context, index) => OnBoardingContent(
-                          image: onBoardingData[index].image,
-                          title: onBoardingData[index].title,
-                          description: onBoardingData[index].description,
-                        ))
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ...List.generate(onBoardingData.length, (index) => Padding(
-                      padding: const EdgeInsets.only(right: 4),
-                      child: DotIndicator(isActive: index == _pageIndex),
-                    )),
-                  ],
-                ),
-                const Gap(30),
-                Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 20),
-                    child: PrimaryButton(
-                      buttonText: "Sign In",
-                      onPressed: () {
-                        context.router.navigate(const SignInRoute());
+          child: Column(
+            children: [
+              const Gap(35),
+              Image.asset("assets/images/audaxious_name_logo.png", width: 100, height: 16),
+              Expanded(
+                  child: PageView.builder(
+                      itemCount: onBoardingData.length,
+                      controller: _pageController,
+                      onPageChanged: (index) {
+                        setState(() {
+                          _pageIndex = index;
+                        });
                       },
-                    )
-                ),
-                const Gap(20),
-                Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 20),
-                    child: SecondaryButton(
-                      buttonText: "Explore",
-                      onPressed: () {
-                        context.router.replaceAll([const BottomBarRoute()]);
-                      },
-                    )
-                ),
-                const Gap(50),
-              ],
-            ),
+                      itemBuilder: (context, index) => OnBoardingContent(
+                        image: onBoardingData[index].image,
+                        title: onBoardingData[index].title,
+                        description: onBoardingData[index].description,
+                      ))
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ...List.generate(onBoardingData.length, (index) => Padding(
+                    padding: const EdgeInsets.only(right: 4),
+                    child: DotIndicator(isActive: index == _pageIndex),
+                  )),
+                ],
+              ),
+              const Gap(30),
+              Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  child: PrimaryButton(
+                    buttonText: "Sign In",
+                    onPressed: () {
+                      context.router.navigate(const SignInOptionsRoute());
+                    },
+                  )
+              ),
+              const Gap(20),
+              Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  child: SecondaryButton(
+                    buttonText: "Explore",
+                    onPressed: () {
+                      context.router.replaceAll([const BottomBarRoute()]);
+                    },
+                  )
+              ),
+              const Gap(50),
+            ],
           )
       ),
     );
@@ -112,10 +110,10 @@ class DotIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
-      height: isActive ?  8 : 7,
+      height: isActive ?  4 : 3,
       width: isActive ? 23 : 7,
       decoration: BoxDecoration(
-          color: isActive ? secondaryColor : Colors.white,
+          color: isActive ? secondaryColor : Colors.grey,
           borderRadius: const BorderRadius.all(Radius.circular(12))
       ),
     );
@@ -153,12 +151,13 @@ class OnBoardingContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = AppLayout.getSize(context);
     return Stack(
+      alignment: Alignment.center,
       children: [
         Image.asset(
-          'assets/images/on_boarding_bg.png',
-          // fit: BoxFit.cover,
-          width: double.infinity,
+          'assets/images/on_boarding_bg2.png',
+          width: size.width*0.7,
           height: double.infinity,
         ),
         Container(

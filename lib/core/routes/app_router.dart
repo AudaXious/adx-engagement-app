@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../domain/models/campaign.dart';
 import '../../presentation/screens/auth/login_screen.dart';
-import '../../presentation/screens/auth/sign_in_screen.dart';
+import '../../presentation/screens/auth/sign_in_options_screen.dart';
 import '../../presentation/screens/auth/verify_otp_screen.dart';
 import '../../presentation/screens/auth/create_username_screen.dart';
 import '../../presentation/screens/campaigns/campaign_details_screen.dart';
@@ -26,7 +26,7 @@ class AppRouter extends _$AppRouter {
     AutoRoute(page: OnBoardingRoute.page, initial: true),
 
     //Auth
-    AutoRoute(page: SignInRoute.page),
+    AutoRoute(page: SignInOptionsRoute.page),
     AutoRoute(page: LoginRoute.page),
     AutoRoute(page: VerifyOTPRoute.page),
     AutoRoute(page: CreateUsernameRoute.page),

@@ -47,11 +47,11 @@ class _TaskButtonState extends State<TaskButton> {
   Color _getButtonColor() {
     switch (widget.buttonState) {
       case ButtonState.active:
-        return cardColor;
+        return Colors.transparent;
       case ButtonState.loading:
-        return cardColor.withOpacity(0.7);
+        return Colors.transparent.withOpacity(0.7);
       case ButtonState.disabled:
-        return cardColor.withOpacity(0.8);
+        return Colors.transparent.withOpacity(0.8);
     }
   }
 
@@ -67,7 +67,7 @@ class _TaskButtonState extends State<TaskButton> {
               style: const TextStyle(color: Colors.white),
             ),
             const Spacer(),
-            Icon(widget.isTaskCompleted ? Icons.done : Icons.pending_outlined)
+            Icon(widget.isTaskCompleted ? Icons.done : Icons.refresh)
           ],
         );
       case ButtonState.loading:

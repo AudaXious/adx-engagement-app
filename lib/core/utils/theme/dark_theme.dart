@@ -5,8 +5,9 @@ Color accentColor = const Color(0xFFEBEDED);
 Color backgroundColor = const Color(0xFF060B12);
 Color onBoardingBackgroundColor = const Color(0xFF13161E);
 Color cardColor = const Color(0x0d51c7e1);
-Color spacesCardColor = const Color(0xB3080E17);
-Color cardBorderColor = const Color(0xFF1D3050);
+Color cardColor2 = const Color(0xFF2A3C46);
+Color spacesCardColor = const Color(0xE6080E17);
+Color cardBorderColor = const Color(0xFF2A3C46);
 Color bannerColor1 = const Color(0xFF162530);
 Color taskChipBorderColor = const Color(0xFFB2B3B6);
 Color dividerColor = const Color(0xFFB2B3B6);
@@ -16,7 +17,10 @@ Color lightGreen = const Color(0xFF6DE6AE);
 Color lightGold = const Color(0xFFE1D356);
 Color blackTextColor = const Color(0xFF060B12);
 Color greyTextColor = const Color(0xFFCCCACA);
+Color cardTitleColor = const Color(0xFFE8E8E8);
+Color cardDescriptionColor = const Color(0xFFE8E8E8);
 Color textInputBorderColor = const Color(0xFF555656);
+Color searchTextInputBorderColor = const Color(0xFFE8E8E8);
 Color fadedTextColor = const Color(0xFF757575);
 
 

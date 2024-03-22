@@ -2,44 +2,56 @@ import 'package:audaxious/domain/models/tasks.dart';
 
 class Campaign {
   String? description;
-  int? id;
+  String? uuid;
   int? points;
   String? reward;
   Tasks? tasks;
   String? title;
   String? spaceProfile;
+  String? spaceTitle;
+  String? spaceUUID;
+  int? taskCount;
 
   Campaign({
     this.description,
-    this.id,
+    this.uuid,
     this.points,
     this.reward,
     this.tasks,
     this.title,
     this.spaceProfile,
+    this.spaceTitle,
+    this.spaceUUID,
+    this.taskCount,
   });
 
   factory Campaign.fromJson(Map<String, dynamic> json) {
     return Campaign(
       description: json['description'],
-      id: json['id'],
+      uuid: json['id'],
       points: json['points'],
       reward: json['reward'],
-      tasks: json['tasks'] != null ? Tasks.fromJson(json['tasks']) : null,
+      // tasks: json['tasks'] != null ? Tasks.fromJson(json['tasks']) : null,
       title: json['title'],
       spaceProfile: json['author_profile'],
+      spaceTitle: json['space_title'],
+      spaceUUID: json['space_uuid'],
+      taskCount: json['taskCount'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'description': description,
-      'id': id,
+      'id': uuid,
       'points': points,
       'reward': reward,
-      'tasks': tasks,
+      // 'tasks': tasks,
       'title': title,
       'author_profile': spaceProfile,
+      'space_title': spaceTitle,
+      'space_uuid': spaceUUID,
+      'taskCount': taskCount,
     };
   }
 }

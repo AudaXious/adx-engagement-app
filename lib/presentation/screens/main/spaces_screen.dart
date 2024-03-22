@@ -44,63 +44,73 @@ class SpacesScreen extends HookConsumerWidget {
             margin: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
               children: [
-                Expanded(
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton2<String>(
-                      isExpanded: true,
-                      hint: Text(
-                          'All spaces',
-                          style: Theme.of(context).textTheme.bodyLarge
-                      ),
-                      items: spacesCategories
-                          .map((String item) => DropdownMenuItem<String>(
-                        value: item,
-                        child: Text(
-                            item,
+                Row(
+                  children: [
+                    Image.asset("assets/images/menu_filter.png", width: 20, height: 20),
+                    DropdownButtonHideUnderline(
+                      child: DropdownButton2<String>(
+                        isExpanded: true,
+                        hint: Text(
+                            'All spaces',
                             style: Theme.of(context).textTheme.bodyLarge
                         ),
-                      ))
-                          .toList(),
-                      value: selectedSpacesCategory.value,
-                      onChanged: (String? value) {
-                        selectedSpacesCategory.value = value;
-                        switch (selectedSpacesCategory.value) {
-                          case "All spaces":
-                            reader.getSpaces();
-                            break;
-                          case "My spaces":
-                            reader.getUserSpaces();
-                            break;
-                          case "Joined spaces":
-                            reader.getUserSpaces();
-                            break;
+                        items: spacesCategories
+                            .map((String item) => DropdownMenuItem<String>(
+                          value: item,
+                          child: Text(
+                              item,
+                              style: Theme.of(context).textTheme.bodyLarge
+                          ),
+                        ))
+                            .toList(),
+                        value: selectedSpacesCategory.value,
+                        onChanged: (String? value) {
+                          selectedSpacesCategory.value = value;
+                          switch (selectedSpacesCategory.value) {
+                            case "All spaces":
+                              reader.getSpaces();
+                              break;
+                            case "My spaces":
+                              reader.getUserSpaces();
+                              break;
+                            case "Joined spaces":
+                              reader.getUserSpaces();
+                              break;
 
-                          default:
-                            reader.getSpaces();
-                            break;
-                        }
+                            default:
+                              reader.getSpaces();
+                              break;
+                          }
 
-                        print(selectedSpacesCategory.value);
-                      },
-                      buttonStyleData: const ButtonStyleData(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        height: 40,
-                        width: 120,
+                          print(selectedSpacesCategory.value);
+                        },
+                        buttonStyleData: const ButtonStyleData(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          height: 40,
+                          width: 145,
+                        ),
+                        menuItemStyleData: const MenuItemStyleData(
+                          height: 40,
+                        ),
+                        iconStyleData: IconStyleData(
+                            icon: Image.asset("assets/images/arrow_down.png")
+                        ),
+
                       ),
-                      menuItemStyleData: const MenuItemStyleData(
-                        height: 40,
-                      ),
-                    ),
-                  ),
+                    )
+                  ],
                 ),
                 const Gap(10),
                 Expanded(
-                  child: TextField(
-                    keyboardType: TextInputType.text,
-                    cursorColor: Colors.white,
-                    decoration: primaryTextFieldWithPrefixIconDecoration(
-                        labelText: "Search spaces",
-                        prefixIcon: "assets/images/search.png"
+                  child: SizedBox(
+                    height: 40,
+                    child: TextField(
+                      keyboardType: TextInputType.text,
+                      cursorColor: Colors.white,
+                      decoration: primaryTextFieldWithPrefixIconDecoration(
+                          hintText: "Search spaces",
+                          prefixIcon: "assets/images/search.png"
+                      ),
                     ),
                   ),
                 ),

@@ -124,7 +124,7 @@ class SpaceDetailScreen extends HookConsumerWidget {
                             ),
                             const Gap(50),
                             SizedBox(
-                              width: 120,
+                              width: 140,
                               height: 32,
                               child: PrimaryButton(
                                   onPressed: () {},

@@ -26,26 +26,26 @@ InputDecoration primaryTextFormFieldDecoration({
 }
 
 InputDecoration primaryTextFieldWithPrefixIconDecoration({
-  String labelText = '',
+  String hintText = '',
   String prefixIcon = '',
 }) {
   return InputDecoration(
-    contentPadding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+    contentPadding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
     border: OutlineInputBorder(
-      borderSide: BorderSide(color: textInputBorderColor, width: 0.3),
-      borderRadius: const BorderRadius.all(Radius.circular(30)),
+      borderSide: BorderSide(color: searchTextInputBorderColor, width: 0.3),
+      borderRadius: const BorderRadius.all(Radius.circular(45)),
     ),
     focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: textInputBorderColor, width: 0.5),
-      borderRadius: const BorderRadius.all(Radius.circular(30)),
+      borderSide: BorderSide(color: searchTextInputBorderColor, width: 0.5),
+      borderRadius: const BorderRadius.all(Radius.circular(45)),
     ),
     enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: textInputBorderColor, width: 0.3),
-      borderRadius: const BorderRadius.all(Radius.circular(30)),
+      borderSide: BorderSide(color: searchTextInputBorderColor, width: 0.3),
+      borderRadius: const BorderRadius.all(Radius.circular(45)),
     ),
 
-    labelText: labelText,
-    labelStyle: TextStyle(color: textInputBorderColor),
+    hintText: hintText,
+    hintStyle: TextStyle(color: textInputBorderColor),
     filled: true,
     fillColor: backgroundColor,
     prefixIcon: Image.asset(prefixIcon, width: 20, height: 20)

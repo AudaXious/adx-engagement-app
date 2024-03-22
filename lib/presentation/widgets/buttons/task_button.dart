@@ -47,11 +47,11 @@ class _TaskButtonState extends State<TaskButton> {
   Color _getButtonColor() {
     switch (widget.buttonState) {
       case ButtonState.active:
-        return Colors.transparent;
+        return spacesCardColor.withOpacity(0.7);
       case ButtonState.loading:
-        return Colors.transparent.withOpacity(0.7);
+        return spacesCardColor.withOpacity(0.4);
       case ButtonState.disabled:
-        return Colors.transparent.withOpacity(0.8);
+        return spacesCardColor.withOpacity(0.4);
     }
   }
 
@@ -62,12 +62,14 @@ class _TaskButtonState extends State<TaskButton> {
           children: [
             Image.asset(widget.taskIcon, width: 24, height: 24,),
             const Gap(10),
-            Text(
-              widget.buttonText,
-              style: const TextStyle(color: Colors.white),
+            Expanded(
+              child: Text(
+                widget.buttonText,
+                style: const TextStyle(color: Colors.white),
+              ),
             ),
             const Spacer(),
-            Icon(widget.isTaskCompleted ? Icons.done : Icons.refresh)
+            Icon(widget.isTaskCompleted ? Icons.done : Icons.refresh_outlined, size: 18, color: greyTextColor)
           ],
         );
       case ButtonState.loading:
@@ -88,9 +90,11 @@ class _TaskButtonState extends State<TaskButton> {
           ],
         );
       case ButtonState.disabled:
-        return Text(
-          widget.buttonText,
-          style: const TextStyle(color: Colors.white),
+        return Expanded(
+          child: Text(
+            widget.buttonText,
+            style: TextStyle(color: fadedTextColor),
+          ),
         );
     }
   }

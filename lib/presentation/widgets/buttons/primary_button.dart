@@ -79,7 +79,7 @@ class _PrimaryButtonState extends State<PrimaryButton> {
       case ButtonState.disabled:
         return Text(
           widget.buttonText,
-          style: Theme.of(context).textTheme.displayMedium?.copyWith(color: blackTextColor, fontSize: 14),
+          style: Theme.of(context).textTheme.displayMedium?.copyWith(color: fadedTextColor, fontSize: 14),
         );
     }
   }

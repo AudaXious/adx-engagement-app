@@ -27,8 +27,8 @@ abstract class _$AppRouter extends RootStackRouter {
         routeData: routeData,
         child: CampaignDetailsScreen(
           key: args.key,
-          post: args.post,
-          postIndex: args.postIndex,
+          campaign: args.post,
+          campaignIndex: args.postIndex,
         ),
       );
     },

@@ -37,8 +37,9 @@ class HomeScreen extends HookConsumerWidget {
         centerTitle: true,
         actions: [
           IconButton(
+              iconSize: 20,
               onPressed: (){},
-              icon: const Icon(Icons.notifications)
+              icon: const Icon(Icons.notifications_outlined)
           )
         ],
       ),
@@ -49,63 +50,70 @@ class HomeScreen extends HookConsumerWidget {
             margin: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
               children: [
-                Expanded(
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton2<String>(
-                      isExpanded: true,
-                      hint: Text(
-                          'All',
-                          style: Theme.of(context).textTheme.bodyLarge
-                      ),
-                      items: spacesCategories
-                          .map((String item) => DropdownMenuItem<String>(
-                        value: item,
-                        child: Text(
-                            item,
+                Row(
+                  children: [
+                    Image.asset("assets/images/menu_filter.png", width: 20, height: 20),
+                    DropdownButtonHideUnderline(
+                      child: DropdownButton2<String>(
+                        isExpanded: true,
+                        hint: Text(
+                            'All',
                             style: Theme.of(context).textTheme.bodyLarge
                         ),
-                      ))
-                          .toList(),
-                      value: selectedSpacesCategory.value,
-                      onChanged: (String? value) {
-                        selectedSpacesCategory.value = value;
-                        switch (selectedSpacesCategory.value) {
-                          case "All":
-                            reader.getCampaigns();
-                            break;
-                          case "New":
-                            reader.getCampaigns();
-                            break;
-                          case "Old":
-                            reader.getCampaigns();
-                            break;
+                        items: spacesCategories
+                            .map((String item) => DropdownMenuItem<String>(
+                          value: item,
+                          child: Text(
+                              item,
+                              style: Theme.of(context).textTheme.bodyLarge
+                          ),
+                        ))
+                            .toList(),
+                        value: selectedSpacesCategory.value,
+                        onChanged: (String? value) {
+                          selectedSpacesCategory.value = value;
+                          switch (selectedSpacesCategory.value) {
+                            case "All":
+                              reader.getCampaigns();
+                              break;
+                            case "New":
+                              reader.getCampaigns();
+                              break;
+                            case "Old":
+                              reader.getCampaigns();
+                              break;
 
-                          default:
-                            reader.getCampaigns();
-                            break;
-                        }
-
-                        print(selectedSpacesCategory.value);
-                      },
-                      buttonStyleData: const ButtonStyleData(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        height: 40,
-                        width: 120,
-                      ),
-                      menuItemStyleData: const MenuItemStyleData(
-                        height: 40,
+                            default:
+                              reader.getCampaigns();
+                              break;
+                          }
+                        },
+                        buttonStyleData: const ButtonStyleData(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          height: 40,
+                          width: 80,
+                        ),
+                        menuItemStyleData: const MenuItemStyleData(
+                          height: 40,
+                        ),
+                        iconStyleData: IconStyleData(
+                          icon: Image.asset("assets/images/arrow_down.png")
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
                 const Gap(10),
                 Expanded(
-                  child: TextField(
-                    keyboardType: TextInputType.text,
-                    cursorColor: Colors.white,
-                    decoration: primaryTextFieldWithPrefixIconDecoration(
-                        labelText: "Search campaigns",
-                        prefixIcon: "assets/images/search.png"
+                  child: SizedBox(
+                    height: 40,
+                    child: TextField(
+                      keyboardType: TextInputType.text,
+                      cursorColor: Colors.white,
+                      decoration: primaryTextFieldWithPrefixIconDecoration(
+                          hintText: "Search campaigns",
+                          prefixIcon: "assets/images/search.png"
+                      ),
                     ),
                   ),
                 ),

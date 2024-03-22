@@ -1,3 +1,4 @@
+import 'package:audaxious/core/utils/theme/dark_theme.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
@@ -25,21 +26,66 @@ class BottomBarScreen extends StatelessWidget {
               },
               type: BottomNavigationBarType.fixed,
               elevation: 5,
-              selectedItemColor: Colors.grey,
+              selectedItemColor: secondaryColor,
               unselectedItemColor: Colors.grey,
-              selectedFontSize: 14,
-              unselectedFontSize: 14,
-              items:  const [
+              selectedFontSize: 13,
+              unselectedFontSize: 13,
+              iconSize: 20,
+              items: const [
+
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.home_outlined),
+                    icon: Icon(Icons.home_filled),
                     activeIcon: Icon(Icons.home_filled),
                     label: "Campaigns"
                 ),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.people_outline),
-                    activeIcon: Icon(Icons.people),
+                    icon: Icon(Icons.groups),
+                    activeIcon: Icon(Icons.groups),
                     label: "Spaces"
                 ),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.shield_moon_outlined),
+                    activeIcon: Icon(Icons.shield_moon_outlined),
+                    label: "Raffles"
+                ),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.person),
+                    activeIcon: Icon(Icons.person),
+                    label: "Account"
+                ),
+
+
+                // BottomNavigationBarItem(
+                //     icon: Image.asset(
+                //       "assets/images/user_group.png",
+                //       width: 24,
+                //       height: 24,
+                //       color: Colors.white,
+                //     ),
+                //     activeIcon: Image.asset(
+                //       "assets/images/user_group.png",
+                //       width: 24,
+                //       height: 24,
+                //       color: secondaryColor,
+                //     ),
+                //     label: "Spaces"
+                // ),
+                // BottomNavigationBarItem(
+                //     icon: Image.asset(
+                //       "assets/images/account_unselected.png",
+                //       width: 24,
+                //       height: 24,
+                //       color: Colors.white,
+                //     ),
+                //     activeIcon: Image.asset(
+                //       "assets/images/account_unselected.png",
+                //       width: 24,
+                //       height: 24,
+                //       color: secondaryColor,
+                //     ),
+                //     label: "Account"
+                // ),
+
               ],
             )
         );

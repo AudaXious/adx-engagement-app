@@ -23,7 +23,7 @@ class SpaceCard extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
-            border: Border.all(width: 0.2, color: cardBorderColor.withOpacity(0.5)),
+            border: Border.all(width: 0.6, color: cardBorderColor),
             borderRadius: const BorderRadius.all(Radius.circular(15)),
             color: spacesCardColor
         ),
@@ -46,8 +46,8 @@ class SpaceCard extends StatelessWidget {
                               child: space.profileURL == null
                                   ? Image.asset(
                                       "assets/images/dumm_profile.png",
-                                      width: spaceProfileWidth,
-                                      height: spaceProfileHeight,
+                                      width: cardProfileWidth,
+                                      height: cardProfileHeight,
                                   )
                                   : CachedNetworkImage(
                                       fit: BoxFit.fill,
@@ -56,8 +56,8 @@ class SpaceCard extends StatelessWidget {
                                         color: Color(0xFF79C4EC),
                                         strokeWidth: 2,
                                       ),
-                                      width: spaceProfileWidth,
-                                      height: spaceProfileHeight,
+                                      width: cardProfileWidth,
+                                      height: cardProfileHeight,
                               ),
                             ),
                             const Gap(8),
@@ -65,13 +65,13 @@ class SpaceCard extends StatelessWidget {
                               child: Text(
                                 space.title ?? "",
                                 style: Theme.of(context).textTheme.displaySmall?.
-                                copyWith(fontSize: 18, color: greyTextColor),
+                                copyWith(fontSize: 16, color: cardTitleColor),
                               ),
                             ),
                             const Gap(20),
                             SizedBox(
-                              width: 75,
-                              height: 25,
+                              width: 90,
+                              height: 30,
                               child: PrimaryOutlineButton(
                                 onPressed: () {},
                                 buttonText: "Join",
@@ -94,7 +94,7 @@ class SpaceCard extends StatelessWidget {
                             Container(
                               padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
                               decoration: BoxDecoration(
-                                border: Border.all(width: 0.2, color: secondaryColor.withOpacity(0.1)),
+                                border: Border.all(width: 0.2, color: secondaryColor.withOpacity(0.4)),
                                 borderRadius: const BorderRadius.all(Radius.circular(15)),
                                 // color: lightTeal.withOpacity(0.2),
                               ),

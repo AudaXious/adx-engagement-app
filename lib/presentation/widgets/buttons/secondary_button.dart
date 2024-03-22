@@ -91,7 +91,7 @@ class _SecondaryButtonState extends State<SecondaryButton> {
       case ButtonState.disabled:
         return Text(
           widget.buttonText,
-          style: Theme.of(context).textTheme.displaySmall?.copyWith(color: blackTextColor, fontSize: 16),
+          style: Theme.of(context).textTheme.displaySmall?.copyWith(color: fadedTextColor, fontSize: 16),
         );
     }
   }

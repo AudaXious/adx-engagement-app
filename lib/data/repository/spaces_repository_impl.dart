@@ -62,6 +62,20 @@ class SpacesRepositoryImpl extends SpacesRepository {
       throw error.errorMessage;
     }
   }
+
+  @override
+  Future joinSpace(String spaceId) async {
+    try {
+      final response = await DioClient.instance.get(
+        "$joinSpaceEndpoint/$spaceId",
+      );
+
+      return response;
+    } on DioException catch (e) {
+      var error = CustomDioException.fromDioError(e);
+      throw error.errorMessage;
+    }
+  }
 }
 
 final spacesRepositoryProvider = Provider<SpacesRepository>((ref) {

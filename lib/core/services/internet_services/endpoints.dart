@@ -13,3 +13,4 @@ String campaignsBySpaceEndpoint = "/campaign";
 String spacesEndpoint = "/spaces/all";
 String spacesDetailEndpoint = "/spaces/s";
 String userSpacesEndpoint = "/spaces/user/all";
+String joinSpaceEndpoint = "/spaces/join";

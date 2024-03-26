@@ -1,4 +1,4 @@
-import 'package:audaxious/presentation/widgets/empty_result_found_illustration.dart';
+import 'package:audaxious/presentation/widgets/alerts/empty_result_found_illustration.dart';
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 

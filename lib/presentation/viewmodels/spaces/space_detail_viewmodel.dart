@@ -1,6 +1,5 @@
 
 import 'package:audaxious/domain/models/space.dart';
-import 'package:audaxious/domain/models/space_details.dart';
 import 'package:audaxious/domain/usecases/spaces/space_detail_usecase.dart';
 import 'package:audaxious/domain/usecases/spaces/spaces_usecase.dart';
 import 'package:audaxious/presentation/screens/main/spaces_state.dart';

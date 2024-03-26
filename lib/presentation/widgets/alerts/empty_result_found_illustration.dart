@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-import '../../core/utils/theme/dark_theme.dart';
+import '../../../core/utils/theme/dark_theme.dart';
 class NoResultFoundIllustration extends StatelessWidget {
   String title;
   String description;

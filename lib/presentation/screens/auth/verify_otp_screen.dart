@@ -11,7 +11,7 @@ import 'package:pinput/pinput.dart';
 import 'package:toastification/toastification.dart';
 
 import '../../../core/routes/app_router.dart';
-import '../../widgets/custom_toast.dart';
+import '../../widgets/alerts/custom_toast.dart';
 
 @RoutePage()
 class VerifyOTPScreen extends HookConsumerWidget {

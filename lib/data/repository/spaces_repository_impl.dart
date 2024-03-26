@@ -48,6 +48,20 @@ class SpacesRepositoryImpl extends SpacesRepository {
       throw error.errorMessage;
     }
   }
+
+  @override
+  Future getCampaignsBySpaceId(String spaceId) async {
+    try {
+      final response = await DioClient.instance.get(
+        "$campaignsBySpaceEndpoint/$spaceId/all",
+      );
+
+      return response;
+    } on DioException catch (e) {
+      var error = CustomDioException.fromDioError(e);
+      throw error.errorMessage;
+    }
+  }
 }
 
 final spacesRepositoryProvider = Provider<SpacesRepository>((ref) {

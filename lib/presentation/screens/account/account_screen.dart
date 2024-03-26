@@ -1,7 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 
-import '../../widgets/empty_result_found_illustration.dart';
+import '../../widgets/alerts/empty_result_found_illustration.dart';
 
 @RoutePage()
 class AccountScreen extends StatelessWidget {

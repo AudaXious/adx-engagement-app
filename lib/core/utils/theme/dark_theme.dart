@@ -22,6 +22,7 @@ Color cardDescriptionColor = const Color(0xFFE8E8E8);
 Color textInputBorderColor = const Color(0xFF555656);
 Color searchTextInputBorderColor = const Color(0xFFE8E8E8);
 Color fadedTextColor = const Color(0xFF757575);
+Color activeTabColor = const Color(0xFF13161E);
 
 
 final ThemeData darkTheme = ThemeData(

@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toastification/toastification.dart';
 import '../../../domain/enums/view_state.dart';
 import '../../../domain/models/user.dart';
-import '../../widgets/custom_toast.dart';
+import '../../widgets/alerts/custom_toast.dart';
 
 class CreateUsernameViewModel extends StateNotifier<CreateUsernameState> {
   CreateUsernameUseCase createUsernameUseCase;

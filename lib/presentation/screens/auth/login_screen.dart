@@ -13,7 +13,7 @@ import 'package:toastification/toastification.dart';
 
 import '../../../core/utils/app_utils.dart';
 import '../../../core/utils/view_utils.dart';
-import '../../widgets/custom_toast.dart';
+import '../../widgets/alerts/custom_toast.dart';
 
 @RoutePage()
 class LoginScreen extends HookConsumerWidget {

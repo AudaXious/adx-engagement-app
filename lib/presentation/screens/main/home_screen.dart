@@ -10,7 +10,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/utils/view_utils.dart';
 import '../../widgets/cards/campaign_card.dart';
-import '../../widgets/empty_result_found_illustration.dart';
+import '../../widgets/alerts/empty_result_found_illustration.dart';
 
 @RoutePage()
 class HomeScreen extends HookConsumerWidget {

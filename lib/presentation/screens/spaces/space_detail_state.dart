@@ -1,7 +1,6 @@
 import 'package:audaxious/domain/models/space.dart';
 
 import '../../../domain/enums/view_state.dart';
-import '../../../domain/models/space_details.dart';
 
 class SpaceDetailState {
   factory SpaceDetailState.initial() => const SpaceDetailState._(

@@ -1,6 +1,7 @@
 import 'package:audaxious/core/utils/app_layout.dart';
 import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/presentation/viewmodels/spaces/space_detail_viewmodel.dart';
+import 'package:audaxious/presentation/widgets/buttons/custom_radio_group_tabs_horizontal.dart';
 import 'package:audaxious/presentation/widgets/buttons/primary_button.dart';
 import 'package:audaxious/presentation/widgets/progressBars/circular_progress_bar.dart';
 import 'package:auto_route/annotations.dart';
@@ -13,6 +14,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../core/utils/constants.dart';
 import '../../../core/utils/theme/dark_theme.dart';
 import '../../../domain/models/space.dart';
+import '../../widgets/space_tag.dart';
 
 @RoutePage()
 class SpaceDetailScreen extends HookConsumerWidget {
@@ -22,10 +24,11 @@ class SpaceDetailScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final size = AppLayout.getSize(context);
     final reader = ref.read(SpacesDetailsViewModel.notifier.notifier);
     final notifier = ref.watch(SpacesDetailsViewModel.notifier);
 
-    final size = AppLayout.getSize(context);
+    final activeTab = useState<String?>(null);
 
     // final coverUrl = useState<String?>(null);
     // final profileUrl = useState<String?>(null);
@@ -191,6 +194,46 @@ class SpaceDetailScreen extends HookConsumerWidget {
                       )
                     ],
                   ),
+                ),
+                const Gap(20),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    children: space!.tags!.map((tag) => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: SpaceTag(tag: tag,))).toList()
+                  ),
+                ),
+                const Gap(40),
+                CustomRadioGroupTabsHorizontal(
+                  radioButtons: [
+                    {
+                      'title': 'Campaigns',
+                      'value': 'campaigns'
+                    },
+                    {
+                      'title': 'Leaderboard',
+                      'value': 'leaderboard'
+                    }
+                  ],
+                  onValueChanged: (value) {
+                    switch (value) {
+                      case "campaigns":
+                        activeTab.value = value;
+                        break;
+                      case "leaderboard":
+                        activeTab.value = value;
+                        break;
+                      default:
+                        break;
+                    }
+                  },
+                ),
+                const Gap(30),
+                Container(
+                  child: activeTab.value == "campaigns"
+                      ? SizedBox()
+                      : SizedBox(),
                 )
               ],
             )

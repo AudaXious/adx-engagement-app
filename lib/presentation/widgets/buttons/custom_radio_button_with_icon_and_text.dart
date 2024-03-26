@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 class CustomRadioButtonWithIconAndText extends StatelessWidget {
-  final String icon;
+  String? icon;
   final String title;
   final bool isActive;
   final VoidCallback onTap;
   final String value;
 
-  const CustomRadioButtonWithIconAndText({
+    CustomRadioButtonWithIconAndText({
     super.key,
-    required this.icon,
+    this.icon,
     required this.title,
     required this.isActive,
     required this.onTap,
@@ -23,28 +23,40 @@ class CustomRadioButtonWithIconAndText extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        padding: const EdgeInsets.only(top: 13),
         decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(8)),
-            border: Border.all(
-              color: isActive ? secondaryColor : cardBorderColor,
-              width: 1.0,
-            ),
-            color: isActive ? secondaryColor : backgroundColor
+          color: isActive ? activeTabColor : backgroundColor
         ),
-        child: Row(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Image.asset(
-              icon,
-              width: 24,
-              height: 24,
-                color: isActive ? blackTextColor : Colors.white
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Visibility(
+                    visible: icon != null,
+                    child: Image.asset(
+                        icon ?? "",
+                        width: 24,
+                        height: 24,
+                        color: isActive ? blackTextColor : Colors.white
+                    )
+                ),
+                Text(
+                  title,
+                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                      color: isActive ? secondaryColor : Colors.white,
+                      fontSize: 14
+                  ),
+                )
+              ],
             ),
             const Gap(10),
-            Text(
-              title,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: isActive ? blackTextColor : Colors.white
+            Container(
+              width: 400,
+              height: 5,
+              decoration: BoxDecoration(
+                color: isActive ? secondaryColor : backgroundColor,
               ),
             )
           ],

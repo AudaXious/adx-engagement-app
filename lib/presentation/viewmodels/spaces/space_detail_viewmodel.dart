@@ -5,14 +5,18 @@ import 'package:audaxious/domain/usecases/spaces/spaces_usecase.dart';
 import 'package:audaxious/presentation/screens/main/spaces_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../domain/enums/view_state.dart';
+import '../../../domain/models/campaign.dart';
+import '../../../domain/usecases/spaces/campaigns_by_space_id_usecase.dart';
 import '../../../domain/usecases/spaces/user_spaces_usecase.dart';
 import '../../screens/spaces/space_detail_state.dart';
 
 class SpacesDetailsViewModel extends StateNotifier<SpaceDetailState> {
   SpaceDetailUseCase spaceDetailUseCase;
+  CampaignsBySpaceIdUseCase campaignsBySpaceIdUseCase;
   // String spaceId;
   SpacesDetailsViewModel({
     required this.spaceDetailUseCase,
+    required this.campaignsBySpaceIdUseCase,
     // required this.spaceId
   }) : super (SpaceDetailState.initial()) {
     // getSpaceDetail(spaceId);
@@ -21,8 +25,8 @@ class SpacesDetailsViewModel extends StateNotifier<SpaceDetailState> {
   static final notifier =
   StateNotifierProvider<SpacesDetailsViewModel, SpaceDetailState>((ref) => SpacesDetailsViewModel(
       spaceDetailUseCase: ref.read(spaceDetailsUseCaseProvider),
+    campaignsBySpaceIdUseCase: ref.read(campaignsBySpaceIdRepositoryProvider),
   ));
-
 
   Future<void> getSpaceDetail(String spaceId) async {
     state = state.update(spaceInfoViewState: ViewState.loading);
@@ -37,6 +41,32 @@ class SpacesDetailsViewModel extends StateNotifier<SpaceDetailState> {
 
     } catch (e) {
       state = state.update(spaceInfoViewState: ViewState.error);
+      state = state.update(error: e.toString());
+      print("View model error: ${e.toString()}");
+    }
+  }
+
+  Future<void> getCampaignsBySpaceId(String spaceId) async {
+    state = state.update(spaceCampaignsViewState: ViewState.loading);
+    try {
+      final response = await campaignsBySpaceIdUseCase.getCampaignsBySpaceId(spaceId);
+      final data = response['data'];
+      print(data);
+      if (data != null && data is List) {
+        final List dataList = data.cast<dynamic>();
+
+        final campaigns = dataList.map((spacesData) => Campaign.fromJson(spacesData)).toList();
+        state = state.update(campaigns: campaigns);
+      }else {
+        print('Unexpected data format. Expected a list of spaces.');
+        state = state.update(spaceCampaignsViewState: ViewState.error);
+        state = state.update(error: "Unexpected data format. Expected a list of spaces");
+      }
+
+      state = state.update(spaceCampaignsViewState: ViewState.idle);
+
+    } catch (e) {
+      state = state.update(spaceCampaignsViewState: ViewState.error);
       state = state.update(error: e.toString());
       print("View model error: ${e.toString()}");
     }

@@ -16,7 +16,7 @@ class CustomRadioGroupTabsHorizontal extends StatefulWidget {
 }
 
 class _CustomRadioGroupTabsHorizontalState extends State<CustomRadioGroupTabsHorizontal> {
-  int? selectedIndex;
+  int? selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {

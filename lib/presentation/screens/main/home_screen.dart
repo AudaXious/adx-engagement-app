@@ -1,6 +1,7 @@
 import 'package:audaxious/core/utils/theme/dark_theme.dart';
 import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/presentation/viewmodels/home/home_viewmodel.dart';
+import 'package:audaxious/presentation/widgets/progressBars/circular_progress_bar.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -123,29 +124,29 @@ class HomeScreen extends HookConsumerWidget {
           const Gap(20),
           Expanded(
             child: notifier.viewState.isLoading
-                ? Center(child: CircularProgressIndicator(strokeWidth: 3))
+                ? Center(child: CircularProgressBar())
                 : notifier.viewState.isError
                 ? Center(
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 50),
                   child: Text(notifier.error, textAlign: TextAlign.center,),
                 )
-            )
+                )
                 : notifier.campaigns!.isEmpty
                 ? NoResultFoundIllustration(
-              title: "No campaigns to show",
-              description: "Campaigns you join or create will appear here",
+              title: "No campaign",
+              description: "All campaigns created will appear here.",
               illustration: "assets/images/empty_spaces_cards.png",
             )
                 : ListView.builder(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 itemCount: notifier.campaigns?.length,
                 itemBuilder: (context, index) {
-                  final singleFeed = notifier.campaigns?[index];
+                  final campaign = notifier.campaigns?[index];
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: CampaignCard(
-                      campaign: singleFeed!,
+                      campaign: campaign!,
                       postIndex: index,
                     ),
                   );

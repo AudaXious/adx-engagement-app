@@ -37,11 +37,14 @@ class NoResultFoundIllustration extends StatelessWidget {
                     ?.copyWith(color: fadedTextColor, fontSize: 26),
               ),
               const Gap(10),
-              Text(
-                description,
-                style: Theme.of(context).textTheme.bodyLarge
-                    ?.copyWith(color: fadedTextColor),
-                textAlign: TextAlign.center,
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 50),
+                child: Text(
+                  description,
+                  style: Theme.of(context).textTheme.bodyLarge
+                  ?.copyWith(color: fadedTextColor),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ],
           )

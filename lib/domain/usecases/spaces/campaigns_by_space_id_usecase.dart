@@ -16,6 +16,6 @@ class CampaignsBySpaceIdUseCaseImpl extends CampaignsBySpaceIdUseCase {
   }
 }
 
-final spaceDetailsUseCaseProvider = Provider<CampaignsBySpaceIdUseCase>((ref) {
+final campaignsBySpaceIdRepositoryProvider = Provider<CampaignsBySpaceIdUseCase>((ref) {
   return CampaignsBySpaceIdUseCaseImpl(ref.read(spacesRepositoryProvider));
 });

@@ -173,7 +173,7 @@ class CampaignCard extends StatelessWidget {
                                   Image.asset("assets/images/user_group.png", width: 24, height: 24,),
                                   const Gap(5),
                                   Text(
-                                    "2.6k",
+                                    campaign.participants.toString(),
                                     style: Theme.of(context).textTheme.bodyMedium?.
                                     copyWith(color: secondaryColor.withOpacity(0.6)),
                                   ),

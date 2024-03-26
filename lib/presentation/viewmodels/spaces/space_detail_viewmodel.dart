@@ -26,18 +26,18 @@ class SpacesDetailsViewModel extends StateNotifier<SpaceDetailState> {
 
 
   Future<void> getSpaceDetail(String spaceId) async {
-    state = state.update(viewState: ViewState.loading);
+    state = state.update(spaceInfoViewState: ViewState.loading);
     try {
       final response = await spaceDetailUseCase.getSpaceDetails(spaceId);
       final data = response['data'];
       print(data);
-      final space = SpaceDetails.fromJson(data);
+      final space = Space.fromJson(data);
 
-      state = state.update(spaceDetails: space);
-      state = state.update(viewState: ViewState.idle);
+      state = state.update(space: space);
+      state = state.update(spaceInfoViewState: ViewState.idle);
 
     } catch (e) {
-      state = state.update(viewState: ViewState.error);
+      state = state.update(spaceInfoViewState: ViewState.error);
       state = state.update(error: e.toString());
       print("View model error: ${e.toString()}");
     }

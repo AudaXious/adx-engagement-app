@@ -7,6 +7,7 @@ class SpaceDetails {
   String? uuid;
   String? coverURL;
   String? profileURL;
+  int? spaceMembersCount;
   String? createdAt;
   String? updatedAt;
 
@@ -19,6 +20,7 @@ class SpaceDetails {
     this.uuid,
     this.profileURL,
     this.coverURL,
+    this.spaceMembersCount,
     this.createdAt,
     this.updatedAt,
   });
@@ -33,6 +35,7 @@ class SpaceDetails {
       uuid: json['uuid'],
       coverURL: json['cover_url'],
       profileURL: json['profile_url'],
+      spaceMembersCount: json['spaceMembersCount'],
       createdAt: json['createdAt'],
       updatedAt: json['updatedAt'],
     );
@@ -48,6 +51,7 @@ class SpaceDetails {
       'uuid': uuid,
       'cover_url': coverURL,
       'profile_url': profileURL,
+      'spaceMembersCount': spaceMembersCount,
       'createdAt': createdAt,
       'updatedAt': updatedAt,
     };

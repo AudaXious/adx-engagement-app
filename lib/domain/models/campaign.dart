@@ -11,6 +11,7 @@ class Campaign {
   String? spaceTitle;
   String? spaceUUID;
   int? taskCount;
+  int? participants;
 
   Campaign({
     this.description,
@@ -23,6 +24,7 @@ class Campaign {
     this.spaceTitle,
     this.spaceUUID,
     this.taskCount,
+    this.participants,
   });
 
   factory Campaign.fromJson(Map<String, dynamic> json) {
@@ -37,6 +39,7 @@ class Campaign {
       spaceTitle: json['space_title'],
       spaceUUID: json['space_uuid'],
       taskCount: json['taskCount'],
+      participants: json['taskParticipantCount'],
     );
   }
 
@@ -52,6 +55,7 @@ class Campaign {
       'space_title': spaceTitle,
       'space_uuid': spaceUUID,
       'taskCount': taskCount,
+      'taskParticipantCount': participants,
     };
   }
 }

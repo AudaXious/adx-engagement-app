@@ -123,7 +123,7 @@ class HomeScreen extends HookConsumerWidget {
           const Gap(20),
           Expanded(
             child: notifier.viewState.isLoading
-                ? Center(child: CircularProgressIndicator(strokeWidth: 3, color: accentColor))
+                ? Center(child: CircularProgressIndicator(strokeWidth: 3))
                 : notifier.viewState.isError
                 ? Center(
                 child: Container(

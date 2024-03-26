@@ -117,7 +117,7 @@ class CompleteCampaignCard extends StatelessWidget {
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 16),
                       child: Text(
-                          demoText ?? "",
+                          campaign.description ?? "",
                           style: Theme.of(context).textTheme.bodyLarge?.
                           copyWith(color: greyTextColor)
                       ),
@@ -144,7 +144,7 @@ class CompleteCampaignCard extends StatelessWidget {
                                 Image.asset("assets/images/user_group.png", width: 24, height: 24,),
                                 const Gap(5),
                                 Text(
-                                  "2.6k",
+                                  campaign.participants.toString(),
                                   style: Theme.of(context).textTheme.bodyMedium?.
                                   copyWith(color: secondaryColor.withOpacity(0.6)),
                                 ),

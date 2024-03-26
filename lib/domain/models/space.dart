@@ -7,6 +7,7 @@ class Space {
   String? uuid;
   String? coverURL;
   String? profileURL;
+  int? spaceMembersCount;
   String? createdAt;
   String? updatedAt;
 
@@ -19,6 +20,7 @@ class Space {
     this.uuid,
     this.profileURL,
     this.coverURL,
+    this.spaceMembersCount,
     this.createdAt,
     this.updatedAt,
   });
@@ -33,6 +35,7 @@ class Space {
       uuid: json['uuid'],
       coverURL: json['cover_url'],
       profileURL: json['profile_url'],
+      spaceMembersCount: json['spaceMembersCount'],
       createdAt: json['createdAt'],
       updatedAt: json['updatedAt'],
     );
@@ -46,6 +49,7 @@ class Space {
       // 'tags': tags,
       // 'links': links,
       'uuid': uuid,
+      'spaceMembersCount': spaceMembersCount,
       'createdAt': createdAt,
       'updatedAt': updatedAt,
     };

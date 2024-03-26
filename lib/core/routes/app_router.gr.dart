@@ -93,6 +93,7 @@ abstract class _$AppRouter extends RootStackRouter {
         child: SpaceDetailScreen(
           key: args.key,
           spaceId: args.spaceId,
+          space: args.space,
         ),
       );
     },
@@ -337,12 +338,14 @@ class SpaceDetailRoute extends PageRouteInfo<SpaceDetailRouteArgs> {
   SpaceDetailRoute({
     Key? key,
     required String spaceId,
+    Space? space,
     List<PageRouteInfo>? children,
   }) : super(
           SpaceDetailRoute.name,
           args: SpaceDetailRouteArgs(
             key: key,
             spaceId: spaceId,
+            space: space,
           ),
           initialChildren: children,
         );
@@ -357,15 +360,18 @@ class SpaceDetailRouteArgs {
   const SpaceDetailRouteArgs({
     this.key,
     required this.spaceId,
+    this.space,
   });
 
   final Key? key;
 
   final String spaceId;
 
+  final Space? space;
+
   @override
   String toString() {
-    return 'SpaceDetailRouteArgs{key: $key, spaceId: $spaceId}';
+    return 'SpaceDetailRouteArgs{key: $key, spaceId: $spaceId, space: $space}';
   }
 }
 

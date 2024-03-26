@@ -1,38 +1,47 @@
-import 'dart:ffi';
-
+import 'package:audaxious/core/utils/app_layout.dart';
 import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/presentation/viewmodels/spaces/space_detail_viewmodel.dart';
 import 'package:audaxious/presentation/widgets/buttons/primary_button.dart';
+import 'package:audaxious/presentation/widgets/progressBars/circular_progress_bar.dart';
 import 'package:auto_route/annotations.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:toastification/toastification.dart';
 
 import '../../../core/utils/constants.dart';
 import '../../../core/utils/theme/dark_theme.dart';
+import '../../../domain/models/space.dart';
 
 @RoutePage()
 class SpaceDetailScreen extends HookConsumerWidget {
   String spaceId;
-  SpaceDetailScreen({super.key, required this.spaceId});
+  Space? space;
+  SpaceDetailScreen({super.key, required this.spaceId, this.space});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final reader = ref.read(SpacesDetailsViewModel.notifier.notifier);
     final notifier = ref.watch(SpacesDetailsViewModel.notifier);
 
-    final coverUrl = useState<String?>(null);
-    final profileUrl = useState<String?>(null);
-    final title = useState<String?>(null);
-    final description = useState<String?>(null);
+    final size = AppLayout.getSize(context);
 
-    coverUrl.value = notifier.spaceDetails?.coverURL;
-    profileUrl.value = notifier.spaceDetails?.profileURL;
-    title.value = notifier.spaceDetails?.title;
-    description.value = notifier.spaceDetails?.description;
+    // final coverUrl = useState<String?>(null);
+    // final profileUrl = useState<String?>(null);
+    // final title = useState<String?>(null);
+    // final description = useState<String?>(null);
+    // final spaceMemberCount = useState<int?>(null);
+    //
+    // coverUrl.value = notifier.space?.coverURL;
+    // profileUrl.value = notifier.space?.profileURL;
+    // title.value = notifier.space?.title;
+    // description.value = notifier.space?.description;
+    // spaceMemberCount.value = notifier.space?.spaceMembersCount;
+
+    if (notifier.space != null) {
+      space = notifier.space;
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -43,87 +52,90 @@ class SpaceDetailScreen extends HookConsumerWidget {
         actions: [
           IconButton(
               onPressed: () async {
-                reader.getSpaceDetail(spaceId);
+                reader.getSpaceDetail(spaceId ?? "");
               },
               icon: Icon(Icons.refresh)
           )
         ],
       ),
-      body: notifier.viewState.isLoading
-          ? Center(child: CircularProgressIndicator(strokeWidth: 3, color: accentColor))
-          : notifier.viewState.isError
-          ? Center(child: Text(notifier.error),)
-          : SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      Container(
-                        child: coverUrl.value == null
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Column(
+              children: [
+                Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Container(
+                      child: space?.coverURL == null
                           ? Container(
-                              width: double.infinity,
-                              height: coverImageHeight,
-                              color: Colors.grey,
-                            )
+                        width: double.infinity,
+                        height: coverImageHeight,
+                        color: Colors.grey,
+                      )
                           : CachedNetworkImage(
-                              fit: BoxFit.cover,
-                              imageUrl: coverUrl.value ?? "",
-                              width: double.infinity,
-                              height: coverImageHeight,
-                            ),
+                        fit: BoxFit.cover,
+                        imageUrl: space?.coverURL ?? "",
+                        width: double.infinity,
+                        height: coverImageHeight,
                       ),
-                      
-                      Positioned(
-                        top: coverImageHeight - profileImageHeight / 2,
-                        left: 20,
-                        child: Container(
-                          decoration: BoxDecoration(
+                    ),
+                    Positioned(
+                        left: size.width / 2,
+                        top: 10,
+                        child: notifier.spaceInfoViewState.isLoading
+                            ? CircularProgressBar(size: 20) : const SizedBox()
+                    ),
+                    Positioned(
+                      top: coverImageHeight - profileImageHeight / 2,
+                      left: 20,
+                      child: Container(
+                        decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border: Border.all(color: Colors.white, width: 2)
-                          ),
-                          child: CircleAvatar(
-                            backgroundColor: Colors.grey,
-                            radius: profileImageHeight/2,
-                            child: profileUrl.value == null
-                                ? Image.asset("assets/images/dumm_profile.png", width: profileImageHeight, height: profileImageHeight,)
-                                : CachedNetworkImage(
-                                    fit: BoxFit.cover,
-                                    imageUrl: profileUrl.value ?? "",
-                                    width: profileImageHeight,
-                                    height: profileImageHeight,
-                                  ),
+                        ),
+                        child: CircleAvatar(
+                          backgroundColor: Colors.grey,
+                          radius: profileImageHeight/2,
+                          child: space?.profileURL == null
+                              ? Image.asset("assets/images/dumm_profile.png", width: profileImageHeight, height: profileImageHeight,)
+                              : CachedNetworkImage(
+                            fit: BoxFit.cover,
+                            imageUrl: space?.profileURL ?? "",
+                            width: profileImageHeight,
+                            height: profileImageHeight,
                           ),
                         ),
-                      )
-                    ],
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 60, left: 20, right: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    title.value ?? "",
-                                    style: Theme.of(context).textTheme.displayMedium,
-                                  ),
-                                  const Gap(3),
-                                  Text(
-                                    "0 active campaign",
-                                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: lightGreen),
-                                  )
-                                ],
-                              ),
+                      ),
+                    )
+                  ],
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 60, left: 20, right: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  space?.title ?? "",
+                                  style: Theme.of(context).textTheme.displayMedium,
+                                ),
+                                const Gap(3),
+                                Text(
+                                  "0 active campaign",
+                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: lightGreen),
+                                )
+                              ],
                             ),
-                            const Gap(50),
-                            SizedBox(
+                          ),
+                          const Gap(50),
+                          SizedBox(
                               width: 140,
                               height: 32,
                               child: PrimaryButton(
@@ -131,19 +143,59 @@ class SpaceDetailScreen extends HookConsumerWidget {
                                   buttonText: "Join space",
                                   borderRadius: 30
                               )
-                            )
-                          ],
-                        ),
-                        const Gap(20),
-                        Text(
-                            description.value ?? "",
-                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: greyTextColor)
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
+                          )
+                        ],
+                      ),
+                      const Gap(20),
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+                            decoration: BoxDecoration(
+                              border: Border.all(width: 0.2, color: secondaryColor),
+                              borderRadius: const BorderRadius.all(Radius.circular(15)),
+                              // color: lightTeal.withOpacity(0.2),
+                            ),
+                            child: Row(
+                              children: [
+                                Image.asset("assets/images/user_group.png", width: 24, height: 24,),
+                                const Gap(5),
+                                Text(
+                                  space?.spaceMembersCount.toString() ?? "",
+                                  style: Theme.of(context).textTheme.bodyMedium?.
+                                  copyWith(color: secondaryColor.withOpacity(0.9)),
+                                ),
+
+                              ],
+                            ),
+                          ),
+                          const Gap(20),
+                          IconButton(
+                            onPressed: () {},
+                            icon: Image.asset("assets/images/internet.png", width: 24, height: 24,),
+                          ),
+                          IconButton(
+                            onPressed: () {},
+                            icon: Image.asset("assets/images/twitter.png", width: 24, height: 24,),
+                          ),
+                          IconButton(
+                            onPressed: () {},
+                            icon: Image.asset("assets/images/discord.png", width: 24, height: 24,),
+                          ),
+                        ],
+                      ),
+                      const Gap(20),
+                      Text(
+                          space?.description ?? "",
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: greyTextColor)
+                      )
+                    ],
+                  ),
+                )
+              ],
+            )
+          ],
+        ),
       )
     );
   }

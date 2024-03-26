@@ -66,7 +66,7 @@ class CampaignDetailsScreen extends HookConsumerWidget {
         backgroundColor: const Color(0xFF060B12),
       ),
       body: notifier.viewState.isLoading
-          ? Center(child: CircularProgressIndicator(strokeWidth: 3, color: secondaryColor))
+          ? const Center(child: CircularProgressIndicator(strokeWidth: 3))
           : notifier.viewState.isError ? Center(child: Text(notifier.error),)
           : Column(
               crossAxisAlignment: CrossAxisAlignment.start,

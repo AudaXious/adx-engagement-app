@@ -5,30 +5,40 @@ import '../../../domain/models/space_details.dart';
 
 class SpaceDetailState {
   factory SpaceDetailState.initial() => const SpaceDetailState._(
-    viewState: ViewState.idle,
+    spaceInfoViewState: ViewState.idle,
+    spaceCampaignsViewState: ViewState.idle,
+    spaceLeaderboardViewState: ViewState.idle,
     error: '',
-    spaceDetails: null
+    space: null
   );
   const SpaceDetailState._({
-    required this.viewState,
+    required this.spaceInfoViewState,
+    required this.spaceCampaignsViewState,
+    required this.spaceLeaderboardViewState,
     required this.error,
-    required this.spaceDetails,
+    required this.space,
   });
 
-  final ViewState viewState;
+  final ViewState spaceInfoViewState;
+  final ViewState spaceCampaignsViewState;
+  final ViewState spaceLeaderboardViewState;
   final String error;
-  final SpaceDetails? spaceDetails;
+  final Space? space;
 
   SpaceDetailState update({
-    ViewState? viewState,
+    ViewState? spaceInfoViewState,
+    ViewState? spaceCampaignsViewState,
+    ViewState? spaceLeaderboardViewState,
     String? error,
-    SpaceDetails? spaceDetails
+    Space? space
 
   }) =>
       SpaceDetailState._(
-        viewState: viewState ?? this.viewState,
+        spaceInfoViewState: spaceInfoViewState ?? this.spaceInfoViewState,
+        spaceCampaignsViewState: spaceCampaignsViewState ?? this.spaceCampaignsViewState,
+        spaceLeaderboardViewState: spaceLeaderboardViewState ?? this.spaceLeaderboardViewState,
         error: error ?? this.error,
-        spaceDetails: spaceDetails ?? this.spaceDetails,
+        space: space ?? this.space,
       );
 }
 

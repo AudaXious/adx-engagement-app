@@ -18,7 +18,7 @@ class SpaceCard extends StatelessWidget {
     return InkWell(
       splashColor: const Color(0x0d021418),
       onTap: () {
-        context.router.navigate(SpaceDetailRoute(spaceId: space.uuid!));
+        context.router.navigate(SpaceDetailRoute(spaceId: space.uuid!, space: space));
       },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10),
@@ -94,7 +94,7 @@ class SpaceCard extends StatelessWidget {
                             Container(
                               padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
                               decoration: BoxDecoration(
-                                border: Border.all(width: 0.2, color: secondaryColor.withOpacity(0.4)),
+                                border: Border.all(width: 0.2, color: secondaryColor.withOpacity(0.6)),
                                 borderRadius: const BorderRadius.all(Radius.circular(15)),
                                 // color: lightTeal.withOpacity(0.2),
                               ),
@@ -103,9 +103,9 @@ class SpaceCard extends StatelessWidget {
                                   Image.asset("assets/images/user_group.png", width: 24, height: 24,),
                                   const Gap(5),
                                   Text(
-                                    "2.6k",
+                                    space.spaceMembersCount.toString(),
                                     style: Theme.of(context).textTheme.bodyMedium?.
-                                    copyWith(color: secondaryColor.withOpacity(0.6)),
+                                    copyWith(color: secondaryColor.withOpacity(0.9)),
                                   ),
 
                                 ],

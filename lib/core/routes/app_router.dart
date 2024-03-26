@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../domain/models/campaign.dart';
+import '../../domain/models/space.dart';
 import '../../presentation/screens/account/account_screen.dart';
 import '../../presentation/screens/auth/login_screen.dart';
 import '../../presentation/screens/auth/sign_in_options_screen.dart';

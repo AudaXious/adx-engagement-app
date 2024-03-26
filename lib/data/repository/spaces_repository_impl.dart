@@ -50,7 +50,7 @@ class SpacesRepositoryImpl extends SpacesRepository {
   }
 
   @override
-  Future getCampaignsBySpaceId(String spaceId) async {
+  Future<dynamic> getCampaignsBySpaceId(String spaceId) async {
     try {
       final response = await DioClient.instance.get(
         "$campaignsBySpaceEndpoint/$spaceId/all",
@@ -64,9 +64,9 @@ class SpacesRepositoryImpl extends SpacesRepository {
   }
 
   @override
-  Future joinSpace(String spaceId) async {
+  Future<dynamic> joinSpace(String spaceId) async {
     try {
-      final response = await DioClient.instance.get(
+      final response = await DioClient.instance.post(
         "$joinSpaceEndpoint/$spaceId",
       );
 

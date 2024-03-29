@@ -8,7 +8,9 @@ class SpaceDetailState {
     spaceInfoViewState: ViewState.idle,
     spaceCampaignsViewState: ViewState.idle,
     spaceLeaderboardViewState: ViewState.idle,
+    joinSpaceViewState: ViewState.idle,
     error: '',
+    message: '',
     space: null,
     campaigns: null
   );
@@ -16,7 +18,9 @@ class SpaceDetailState {
     required this.spaceInfoViewState,
     required this.spaceCampaignsViewState,
     required this.spaceLeaderboardViewState,
+    required this.joinSpaceViewState,
     required this.error,
+    required this.message,
     required this.space,
     required this.campaigns,
   });
@@ -24,7 +28,9 @@ class SpaceDetailState {
   final ViewState spaceInfoViewState;
   final ViewState spaceCampaignsViewState;
   final ViewState spaceLeaderboardViewState;
+  final ViewState joinSpaceViewState;
   final String error;
+  final String message;
   final Space? space;
   final List<Campaign>? campaigns;
 
@@ -32,7 +38,9 @@ class SpaceDetailState {
     ViewState? spaceInfoViewState,
     ViewState? spaceCampaignsViewState,
     ViewState? spaceLeaderboardViewState,
+    ViewState? joinSpaceViewState,
     String? error,
+    String? message,
     Space? space,
     List<Campaign>? campaigns
 
@@ -41,7 +49,9 @@ class SpaceDetailState {
         spaceInfoViewState: spaceInfoViewState ?? this.spaceInfoViewState,
         spaceCampaignsViewState: spaceCampaignsViewState ?? this.spaceCampaignsViewState,
         spaceLeaderboardViewState: spaceLeaderboardViewState ?? this.spaceLeaderboardViewState,
+        joinSpaceViewState: joinSpaceViewState ?? this.joinSpaceViewState,
         error: error ?? this.error,
+        message: message ?? this.message,
         space: space ?? this.space,
         campaigns: campaigns ?? this.campaigns,
       );

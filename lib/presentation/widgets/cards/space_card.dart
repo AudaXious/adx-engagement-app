@@ -1,24 +1,33 @@
+import 'package:audaxious/domain/enums/button_state.dart';
+import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/domain/models/space.dart';
+import 'package:audaxious/presentation/widgets/alerts/custom_toast.dart';
 import 'package:audaxious/presentation/widgets/buttons/primary_outline_button.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:toastification/toastification.dart';
 
 import '../../../core/routes/app_router.dart';
 import '../../../core/utils/app_utils.dart';
 import '../../../core/utils/constants.dart';
 import '../../../core/utils/theme/dark_theme.dart';
-class SpaceCard extends StatelessWidget {
+import '../../viewmodels/spaces/spaces_viewmodel.dart';
+class SpaceCard extends HookConsumerWidget {
   Space space;
   SpaceCard({super.key, required this.space});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final reader = ref.read(SpacesViewModel.notifier.notifier);
+    final notifier = ref.watch(SpacesViewModel.notifier);
+
     return InkWell(
       splashColor: const Color(0x0d021418),
       onTap: () {
-        context.router.navigate(SpaceDetailRoute(spaceId: space.uuid!, space: space));
+        context.router.navigate(SpaceDetailRoute(spaceId: space.uuid ?? "", space: space));
       },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10),
@@ -73,9 +82,29 @@ class SpaceCard extends StatelessWidget {
                               width: 90,
                               height: 30,
                               child: PrimaryOutlineButton(
-                                onPressed: () {},
+                                onPressed: () async {
+                                  bool isSuccessful = await reader.joinSpace(space.uuid ?? "");
+                                  if (isSuccessful) {
+                                    CustomToast.show(
+                                      context: context,
+                                      title: "Success",
+                                      description: notifier.message,
+                                      type: ToastificationType.success,
+                                    );
+                                  }else {
+                                    CustomToast.show(
+                                      context: context,
+                                      title: "Error",
+                                      description: notifier.message,
+                                      type: ToastificationType.error,
+                                    );
+                                  }
+                                },
                                 buttonText: "Join",
                                 borderColor: secondaryColor.withOpacity(0.3),
+                                buttonState: notifier.joinSpaceViewState. isLoading
+                                    ? ButtonState.loading
+                                    : ButtonState.active,
                               ),
                             ),
 

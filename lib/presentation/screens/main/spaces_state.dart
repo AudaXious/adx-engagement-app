@@ -4,29 +4,39 @@ import '../../../domain/enums/view_state.dart';
 
 class SpacesState {
   factory SpacesState.initial() => const SpacesState._(
-    viewState: ViewState.idle,
+    spaceViewState: ViewState.idle,
+    joinSpaceViewState: ViewState.idle,
     error: '',
+    message: '',
     spaces: null
   );
   const SpacesState._({
-    required this.viewState,
+    required this.spaceViewState,
+    required this.joinSpaceViewState,
     required this.error,
+    required this.message,
     required this.spaces,
   });
 
-  final ViewState viewState;
+  final ViewState spaceViewState;
+  final ViewState joinSpaceViewState;
   final String error;
+  final String message;
   final List<Space>? spaces;
 
   SpacesState update({
-    ViewState? viewState,
+    ViewState? spaceViewState,
+    ViewState? joinSpaceViewState,
     String? error,
+    String? message,
     List<Space>? spaces
 
   }) =>
       SpacesState._(
-        viewState: viewState ?? this.viewState,
+        spaceViewState: spaceViewState ?? this.spaceViewState,
+        joinSpaceViewState: joinSpaceViewState ?? this.joinSpaceViewState,
         error: error ?? this.error,
+        message: message ?? this.message,
         spaces: spaces ?? this.spaces,
       );
 }

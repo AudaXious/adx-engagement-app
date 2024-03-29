@@ -33,7 +33,7 @@ class CustomDioException implements Exception {
     }
   }
 
-  // String _handleBadResponse(int? statusCode) {
+  // String _handleStatusCode(int? statusCode) {
   //   switch (statusCode) {
   //     case 400:
   //       return 'Bad request';
@@ -52,7 +52,9 @@ class CustomDioException implements Exception {
 
   String _handleBadResponse(Response? response) {
     if (response != null) {
-      if (response.data != null && response.data.containsKey('error')) {
+      if (response.statusCode == 500 || response.statusCode == 503) {
+        return "Oops. Something went wrong. It's not your fault.";
+      }else if (response.data != null && response.data.containsKey('error')) {
         var errorValue = response.data['error'];
         return errorValue;
       }

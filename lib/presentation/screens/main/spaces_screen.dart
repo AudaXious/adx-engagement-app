@@ -119,9 +119,9 @@ class SpacesScreen extends HookConsumerWidget {
           ),
           const Gap(20),
           Expanded(
-              child: notifier.viewState.isLoading
+              child: notifier.spaceViewState.isLoading
                   ? const Center(child: CircularProgressIndicator(strokeWidth: 3))
-                  : notifier.viewState.isError
+                  : notifier.spaceViewState.isError
                   ? Center(
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 50),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../core/utils/app_layout.dart';
 import '../../../core/utils/theme/dark_theme.dart';
 import '../../../domain/enums/button_state.dart';
+import '../progressBars/circular_progress_bar.dart';
 
 class PrimaryButton extends StatefulWidget {
   final VoidCallback? onPressed;
@@ -67,12 +68,10 @@ class _PrimaryButtonState extends State<PrimaryButton> {
               widget.buttonText,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.transparent),
             ),
-            const SizedBox(
-              width: 30,
-              height: 30,
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-              ),
+            SizedBox(
+              width: 20,
+              height: 20,
+              child: CircularProgressBar(color: accentColor, size: 20),
             ),
           ],
         );

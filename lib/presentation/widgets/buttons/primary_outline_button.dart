@@ -1,3 +1,4 @@
+import 'package:audaxious/presentation/widgets/progressBars/circular_progress_bar.dart';
 import 'package:flutter/material.dart';
 import '../../../core/utils/app_layout.dart';
 import '../../../core/utils/theme/dark_theme.dart';
@@ -8,13 +9,15 @@ class PrimaryOutlineButton extends StatefulWidget {
   final String buttonText;
   final ButtonState buttonState;
   final Color? borderColor;
+  double? progressBarSize;
 
-  const PrimaryOutlineButton({
+  PrimaryOutlineButton({
     Key? key,
     this.onPressed,
     required this.buttonText,
     this.buttonState = ButtonState.active,
-    this.borderColor
+    this.borderColor,
+    this.progressBarSize,
   }) : super(key: key);
 
   @override
@@ -57,12 +60,10 @@ class _PrimaryOutlineButtonState extends State<PrimaryOutlineButton> {
               widget.buttonText,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.transparent),
             ),
-            const SizedBox(
-              width: 30,
-              height: 30,
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-              ),
+            SizedBox(
+              width: 20,
+              height: 20,
+              child: CircularProgressBar(color: accentColor, size: 20,),
             ),
           ],
         );

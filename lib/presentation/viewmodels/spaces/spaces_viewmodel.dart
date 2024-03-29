@@ -1,5 +1,6 @@
 
 import 'package:audaxious/domain/models/space.dart';
+import 'package:audaxious/domain/usecases/spaces/join_space_usecase.dart';
 import 'package:audaxious/domain/usecases/spaces/space_detail_usecase.dart';
 import 'package:audaxious/domain/usecases/spaces/spaces_usecase.dart';
 import 'package:audaxious/presentation/screens/main/spaces_state.dart';
@@ -11,11 +12,13 @@ class SpacesViewModel extends StateNotifier<SpacesState> {
   SpacesUseCase spacesUseCase;
   SpaceDetailUseCase spaceDetailUseCase;
   UserSpacesUseCase userSpacesUseCase;
+  JoinSpaceUseCase joinSpacesUseCase;
 
   SpacesViewModel({
     required this.spacesUseCase,
     required this.userSpacesUseCase,
-    required this.spaceDetailUseCase
+    required this.spaceDetailUseCase,
+    required this.joinSpacesUseCase,
   }) : super (SpacesState.initial()) {
     getSpaces();
   }
@@ -24,11 +27,12 @@ class SpacesViewModel extends StateNotifier<SpacesState> {
   StateNotifierProvider<SpacesViewModel, SpacesState>((ref) => SpacesViewModel(
       spacesUseCase: ref.read(spacesUseCaseProvider),
       userSpacesUseCase: ref.read(userSpacesUseCaseProvider),
-      spaceDetailUseCase: ref.read(spaceDetailsUseCaseProvider)
+      spaceDetailUseCase: ref.read(spaceDetailsUseCaseProvider),
+      joinSpacesUseCase: ref.read(joinSpaceUseCaseProvider),
   ));
 
   Future<void> getSpaces() async {
-    state = state.update(viewState: ViewState.loading);
+    state = state.update(spaceViewState: ViewState.loading);
     try {
       final response = await spacesUseCase.getSpaces();
       final data = response['data'];
@@ -40,21 +44,21 @@ class SpacesViewModel extends StateNotifier<SpacesState> {
         state = state.update(spaces: spaces);
       }else {
         print('Unexpected data format. Expected a list of spaces.');
-        state = state.update(viewState: ViewState.error);
+        state = state.update(spaceViewState: ViewState.error);
         state = state.update(error: "Unexpected data format. Expected a list of spaces");
       }
 
-      state = state.update(viewState: ViewState.idle);
+      state = state.update(spaceViewState: ViewState.idle);
 
     } catch (e) {
-      state = state.update(viewState: ViewState.error);
+      state = state.update(spaceViewState: ViewState.error);
       state = state.update(error: e.toString());
       print("View model error: ${e.toString()}");
     }
   }
 
   Future<void> getUserSpaces() async {
-    state = state.update(viewState: ViewState.loading);
+    state = state.update(spaceViewState: ViewState.loading);
     try {
       final response = await userSpacesUseCase.getUserSpaces();
       final data = response['data'];
@@ -66,21 +70,21 @@ class SpacesViewModel extends StateNotifier<SpacesState> {
         state = state.update(spaces: spaces);
       }else {
         print('Unexpected data format. Expected a list of spaces.');
-        state = state.update(viewState: ViewState.error);
+        state = state.update(spaceViewState: ViewState.error);
         state = state.update(error: "Unexpected data format. Expected a list of spaces");
       }
 
-      state = state.update(viewState: ViewState.idle);
+      state = state.update(spaceViewState: ViewState.idle);
 
     } catch (e) {
-      state = state.update(viewState: ViewState.error);
+      state = state.update(spaceViewState: ViewState.error);
       state = state.update(error: e.toString());
       print("View model error: ${e.toString()}");
     }
   }
 
   Future<void> getSpaceDetail(String spaceId) async {
-    state = state.update(viewState: ViewState.loading);
+    state = state.update(spaceViewState: ViewState.loading);
     try {
       final response = await spaceDetailUseCase.getSpaceDetails(spaceId);
       final data = response['data'];
@@ -92,16 +96,37 @@ class SpacesViewModel extends StateNotifier<SpacesState> {
         state = state.update(spaces: spaces);
       }else {
         print('Unexpected data format. Expected a list of spaces.');
-        state = state.update(viewState: ViewState.error);
+        state = state.update(spaceViewState: ViewState.error);
         state = state.update(error: "Unexpected data format. Expected a list of spaces");
       }
 
-      state = state.update(viewState: ViewState.idle);
+      state = state.update(spaceViewState: ViewState.idle);
 
     } catch (e) {
-      state = state.update(viewState: ViewState.error);
+      state = state.update(spaceViewState: ViewState.error);
       state = state.update(error: e.toString());
       print("View model error: ${e.toString()}");
+    }
+  }
+
+  Future<bool> joinSpace(String spaceId) async {
+    state = state.update(joinSpaceViewState: ViewState.loading);
+    try {
+      final response = await joinSpacesUseCase.joinSpace(spaceId);
+      final data = response['data'];
+      final message = response['message'];
+      print(message);
+
+      state = state.update(joinSpaceViewState: ViewState.idle);
+      state = state.update(message: message);
+
+      return true;
+
+    } catch (e) {
+      state = state.update(joinSpaceViewState: ViewState.error);
+      state = state.update(error: e.toString());
+      print("View model error: ${e.toString()}");
+      return false;
     }
   }
 }

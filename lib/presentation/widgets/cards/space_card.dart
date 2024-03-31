@@ -7,6 +7,7 @@ import 'package:audaxious/presentation/widgets/progressBars/circular_progress_ba
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toastification/toastification.dart';
@@ -24,6 +25,7 @@ class SpaceCard extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final reader = ref.read(SpacesViewModel.notifier.notifier);
     final notifier = ref.watch(SpacesViewModel.notifier);
+    final joinLoadingState = useState(false);
 
     return InkWell(
       splashColor: const Color(0x0d021418),
@@ -80,8 +82,10 @@ class SpaceCard extends HookConsumerWidget {
                               width: 90,
                               height: 30,
                               child: PrimaryOutlineButton(
-                                onPressed: () async {
+                                onPressed: joinLoadingState.value ? null : () async {
+                                  joinLoadingState.value = true;
                                   bool isSuccessful = await reader.joinSpace(space.uuid ?? "");
+                                  joinLoadingState.value = false;
                                   if (isSuccessful) {
                                     CustomToast.show(
                                       context: context,
@@ -100,9 +104,10 @@ class SpaceCard extends HookConsumerWidget {
                                 },
                                 buttonText: "Join",
                                 borderColor: secondaryColor.withOpacity(0.3),
-                                buttonState: notifier.joinSpaceViewState. isLoading
+                                buttonState: joinLoadingState.value
                                     ? ButtonState.loading
                                     : ButtonState.active,
+
                               ),
                             ),
 

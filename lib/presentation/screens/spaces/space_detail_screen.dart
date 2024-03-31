@@ -38,7 +38,12 @@ class SpaceDetailScreen extends HookConsumerWidget {
 
     void callAPIs() async {
       await Future.delayed(const Duration(milliseconds: 200));
-      // reader.getSpaceDetail(spaceId);
+      if (space == null) {
+        reader.getSpaceDetail(spaceId);
+        if (notifier.space != null) {
+          space = notifier.space;
+        }
+      }
       reader.getCampaignsBySpaceId(spaceId);
     }
 
@@ -46,13 +51,10 @@ class SpaceDetailScreen extends HookConsumerWidget {
       callAPIs();
       return () {
         // Reset the state to initial values
+        space = null;
         activeTab.value = "campaigns";
       };
     }, []);
-
-    if (notifier.space != null) {
-      space = notifier.space;
-    }
 
     return Scaffold(
       appBar: AppBar(
@@ -219,9 +221,10 @@ class SpaceDetailScreen extends HookConsumerWidget {
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 15),
               child: Row(
-                  children: space!.tags!.map((tag) => Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: SpaceTag(tag: tag,))).toList()
+                children: space?.tags?.map((tag) => Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: SpaceTag(tag: tag),
+                )).toList() ?? [],
               ),
             ),
             const Gap(30),

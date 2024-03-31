@@ -22,7 +22,11 @@ import '../../../core/utils/constants.dart';
 class CampaignDetailsScreen extends HookConsumerWidget {
   Campaign campaign;
   int campaignIndex;
-  CampaignDetailsScreen({super.key, required this.campaign, required this.campaignIndex});
+  CampaignDetailsScreen({
+    super.key,
+    required this.campaign,
+    required this.campaignIndex
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

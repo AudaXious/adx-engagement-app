@@ -38,13 +38,16 @@ class SpaceDetailScreen extends HookConsumerWidget {
 
     void callAPIs() async {
       await Future.delayed(const Duration(milliseconds: 200));
-      reader.getSpaceDetail(spaceId);
+      // reader.getSpaceDetail(spaceId);
       reader.getCampaignsBySpaceId(spaceId);
     }
 
     useEffect(() {
       callAPIs();
-      return null;
+      return () {
+        // Reset the state to initial values
+        activeTab.value = "campaigns";
+      };
     }, []);
 
     if (notifier.space != null) {

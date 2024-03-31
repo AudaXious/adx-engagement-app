@@ -34,15 +34,22 @@ class SpaceDetailScreen extends HookConsumerWidget {
     final size = AppLayout.getSize(context);
     final reader = ref.read(SpacesDetailsViewModel.notifier.notifier);
     final notifier = ref.watch(SpacesDetailsViewModel.notifier);
-
     final activeTab = useState("campaigns");
+
+    void callAPIs() async {
+      await Future.delayed(const Duration(milliseconds: 200));
+      reader.getSpaceDetail(spaceId);
+      reader.getCampaignsBySpaceId(spaceId);
+    }
+
+    useEffect(() {
+      callAPIs();
+      return null;
+    }, []);
 
     if (notifier.space != null) {
       space = notifier.space;
     }
-
-    // reader.getSpaceDetail(spaceId);
-    // reader.getCampaignsBySpaceId(spaceId);
 
     return Scaffold(
       appBar: AppBar(
@@ -51,13 +58,13 @@ class SpaceDetailScreen extends HookConsumerWidget {
           style: Theme.of(context).textTheme.displaySmall,
         ),
         actions: [
-          IconButton(
-              onPressed: () async {
-                reader.getSpaceDetail(spaceId);
-                // reader.getCampaignsBySpaceId(spaceId);
-              },
-              icon: Icon(Icons.refresh)
-          )
+          // IconButton(
+          //     onPressed: () async {
+          //       reader.getSpaceDetail(spaceId);
+          //       // reader.getCampaignsBySpaceId(spaceId);
+          //     },
+          //     icon: Icon(Icons.refresh)
+          // )
         ],
       ),
       body: SingleChildScrollView(

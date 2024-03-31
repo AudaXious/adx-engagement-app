@@ -12,6 +12,7 @@ class Campaign {
   String? spaceUUID;
   int? taskCount;
   int? participants;
+  bool? isVerified;
 
   Campaign({
     this.description,
@@ -25,6 +26,7 @@ class Campaign {
     this.spaceUUID,
     this.taskCount,
     this.participants,
+    this.isVerified,
   });
 
   factory Campaign.fromJson(Map<String, dynamic> json) {
@@ -40,6 +42,7 @@ class Campaign {
       spaceUUID: json['space_uuid'],
       taskCount: json['taskCount'],
       participants: json['taskParticipantCount'],
+      isVerified: json['isVerified'],
     );
   }
 
@@ -56,6 +59,7 @@ class Campaign {
       'space_uuid': spaceUUID,
       'taskCount': taskCount,
       'taskParticipantCount': participants,
+      'isVerified': isVerified,
     };
   }
 }

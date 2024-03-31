@@ -131,12 +131,17 @@ class CampaignCard extends StatelessWidget {
                                   const Gap(5),
                                   Row(
                                     children: [
-                                      Image.asset(
-                                        "assets/images/verification_tick.png",
-                                        width: verificationBadgeSize,
-                                        height: verificationBadgeSize
+                                      Visibility(
+                                        visible: campaign.isVerified ?? false,
+                                        child: Container(
+                                          margin: const EdgeInsets.only(right: 3),
+                                          child: Image.asset(
+                                            "assets/images/verification_tick.png",
+                                            width: verificationBadgeSize,
+                                            height: verificationBadgeSize
+                                          ),
+                                        ),
                                       ),
-                                      const Gap(3),
                                       Text(
                                          campaign.spaceTitle ?? "",
                                         style: Theme.of(context).textTheme.bodySmall?.

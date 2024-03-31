@@ -190,7 +190,7 @@ class CampaignCard extends StatelessWidget {
                             Image.asset("assets/images/time_icon.png", width: 16, height: 16, color: taskChipBorderColor.withOpacity(0.6)),
                             const Gap(5),
                             Text(
-                              "2d : 2h : 38m Left",
+                              formatEndDate(campaign.endDate ?? ""),
                               style: Theme.of(context).textTheme.bodyMedium?.
                               copyWith(color: lightGold.withOpacity(0.7)),
                             ),

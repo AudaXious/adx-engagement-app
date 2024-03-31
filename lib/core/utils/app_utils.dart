@@ -37,4 +37,23 @@ String? matchPasswordValidator(String? password, String? confirmPassword) {
   return null;
 }
 
+String formatEndDate(String dateString) {
+  DateTime dateTime = DateTime.parse(dateString);
+  DateTime now = DateTime.now();
+
+  final bool isPast = dateTime.isBefore(now);
+
+  if (isPast) {
+    return "00:00";
+  }
+
+  Duration difference = now.difference(dateTime).abs();
+
+  int days = difference.inDays;
+  int hours = difference.inHours.remainder(24);
+  int minutes = difference.inMinutes.remainder(60);
+
+  return '${days}d : ${hours}h : ${minutes}m left';
+}
+
 

@@ -14,6 +14,7 @@ import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toastification/toastification.dart';
 
+import '../../../core/utils/app_utils.dart';
 import '../../../core/utils/constants.dart';
 
 
@@ -107,7 +108,7 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                 Image.asset("assets/images/time_icon.png", width: 16, height: 16, color: taskChipBorderColor.withOpacity(0.6)),
                                 const Gap(5),
                                 Text(
-                                  "2d : 2h : 38m Left",
+                                  formatEndDate(campaign.endDate ?? ""),
                                   style: Theme.of(context).textTheme.bodyMedium?.
                                   copyWith(color: lightGold.withOpacity(0.7)),
                                 ),

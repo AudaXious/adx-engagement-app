@@ -13,6 +13,7 @@ class Campaign {
   int? taskCount;
   int? participants;
   bool? isVerified;
+  String? endDate;
 
   Campaign({
     this.description,
@@ -27,6 +28,7 @@ class Campaign {
     this.taskCount,
     this.participants,
     this.isVerified,
+    this.endDate,
   });
 
   factory Campaign.fromJson(Map<String, dynamic> json) {
@@ -43,6 +45,7 @@ class Campaign {
       taskCount: json['taskCount'],
       participants: json['taskParticipantCount'],
       isVerified: json['isVerified'],
+      endDate: json['endDate'],
     );
   }
 

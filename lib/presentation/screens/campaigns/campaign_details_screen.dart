@@ -81,12 +81,17 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                           children: [
                             Row(
                               children: [
-                                Image.asset(
-                                    "assets/images/verification_tick.png",
-                                    width: verificationBadgeSize,
-                                    height: verificationBadgeSize
+                                Visibility(
+                                  visible: campaign.isVerified ?? false,
+                                  child: Container(
+                                    margin: const EdgeInsets.only(right: 3),
+                                    child: Image.asset(
+                                        "assets/images/verification_tick.png",
+                                        width: verificationBadgeSize,
+                                        height: verificationBadgeSize
+                                    ),
+                                  ),
                                 ),
-                                const Gap(3),
                                 Expanded(
                                   child: Text(
                                     spaceTitle.value ?? "",

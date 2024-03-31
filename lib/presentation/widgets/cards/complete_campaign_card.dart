@@ -39,8 +39,17 @@ class CompleteCampaignCard extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      Image.asset("assets/images/verified_gear.png", width: 16, height: 16,),
-                      const Gap(3),
+                      Visibility(
+                        visible: campaign.isVerified ?? false,
+                        child: Container(
+                          margin: const EdgeInsets.only(right: 3),
+                          child: Image.asset(
+                              "assets/images/verification_tick.png",
+                              width: verificationBadgeSize,
+                              height: verificationBadgeSize
+                          ),
+                        ),
+                      ),
                       Text(
                         "Tasks | 0/${campaign.taskCount}",
                         style: Theme.of(context).textTheme.bodyMedium?.

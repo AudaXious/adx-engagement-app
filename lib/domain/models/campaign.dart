@@ -37,7 +37,7 @@ class Campaign {
       reward: json['reward'],
       // tasks: json['tasks'] != null ? Tasks.fromJson(json['tasks']) : null,
       title: json['title'],
-      spaceProfile: json['author_profile'],
+      spaceProfile: json['iconUrl'],
       spaceTitle: json['space_title'],
       spaceUUID: json['space_uuid'],
       taskCount: json['taskCount'],

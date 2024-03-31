@@ -3,6 +3,7 @@ import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/domain/models/space.dart';
 import 'package:audaxious/presentation/widgets/alerts/custom_toast.dart';
 import 'package:audaxious/presentation/widgets/buttons/primary_outline_button.dart';
+import 'package:audaxious/presentation/widgets/progressBars/circular_progress_bar.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -61,10 +62,7 @@ class SpaceCard extends HookConsumerWidget {
                                   : CachedNetworkImage(
                                       fit: BoxFit.fill,
                                       imageUrl: space.profileURL ?? "",
-                                      placeholder: (context, url) => const CircularProgressIndicator(
-                                        color: Color(0xFF79C4EC),
-                                        strokeWidth: 2,
-                                      ),
+                                      placeholder: (context, url) => CircularProgressBar(),
                                       width: cardProfileWidth,
                                       height: cardProfileHeight,
                               ),

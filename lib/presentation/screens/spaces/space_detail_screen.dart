@@ -57,15 +57,6 @@ class SpaceDetailScreen extends HookConsumerWidget {
           "Space",
           style: Theme.of(context).textTheme.displaySmall,
         ),
-        actions: [
-          // IconButton(
-          //     onPressed: () async {
-          //       reader.getSpaceDetail(spaceId);
-          //       // reader.getCampaignsBySpaceId(spaceId);
-          //     },
-          //     icon: Icon(Icons.refresh)
-          // )
-        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -96,19 +87,22 @@ class SpaceDetailScreen extends HookConsumerWidget {
                 Positioned(
                   top: coverImageHeight - profileImageHeight / 2,
                   left: 20,
-                  child: Container(
+                  child:  Container(
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        border: Border.all(color: Colors.white, width: 2)
+                        border: Border.all(color: Colors.white, width: 1)
                     ),
-                    child: CircleAvatar(
-                      backgroundColor: Colors.grey,
-                      radius: profileImageHeight/2,
+                    child: ClipOval(
                       child: space?.profileURL == null
-                          ? Image.asset("assets/images/dumm_profile.png", width: profileImageHeight, height: profileImageHeight,)
+                          ? Image.asset(
+                        "assets/images/dumm_profile.png",
+                        width: profileImageHeight,
+                        height: profileImageHeight,
+                      )
                           : CachedNetworkImage(
-                        fit: BoxFit.cover,
+                        fit: BoxFit.fill,
                         imageUrl: space?.profileURL ?? "",
+                        placeholder: (context, url) => CircularProgressBar(),
                         width: profileImageHeight,
                         height: profileImageHeight,
                       ),

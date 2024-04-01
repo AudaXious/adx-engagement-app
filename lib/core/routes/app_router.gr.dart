@@ -112,8 +112,6 @@ abstract class _$AppRouter extends RootStackRouter {
         child: VerifyOTPScreen(
           key: args.key,
           email: args.email,
-          usernameExist: args.usernameExist,
-          username: args.username,
         ),
       );
     },
@@ -409,16 +407,12 @@ class VerifyOTPRoute extends PageRouteInfo<VerifyOTPRouteArgs> {
   VerifyOTPRoute({
     Key? key,
     required String email,
-    required bool usernameExist,
-    required String username,
     List<PageRouteInfo>? children,
   }) : super(
           VerifyOTPRoute.name,
           args: VerifyOTPRouteArgs(
             key: key,
             email: email,
-            usernameExist: usernameExist,
-            username: username,
           ),
           initialChildren: children,
         );
@@ -433,20 +427,14 @@ class VerifyOTPRouteArgs {
   const VerifyOTPRouteArgs({
     this.key,
     required this.email,
-    required this.usernameExist,
-    required this.username,
   });
 
   final Key? key;
 
   final String email;
 
-  final bool usernameExist;
-
-  final String username;
-
   @override
   String toString() {
-    return 'VerifyOTPRouteArgs{key: $key, email: $email, usernameExist: $usernameExist, username: $username}';
+    return 'VerifyOTPRouteArgs{key: $key, email: $email}';
   }
 }

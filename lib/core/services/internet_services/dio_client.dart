@@ -8,8 +8,8 @@ class DioClient {
   static final instance = DioClient._();
   final Dio _dio = Dio(BaseOptions(
     baseUrl: audaxiousBaseURL,
-    connectTimeout: const Duration(seconds: 20),
-    receiveTimeout: const Duration(seconds: 20),
+    connectTimeout: const Duration(seconds: 60),
+    receiveTimeout: const Duration(seconds: 60),
     responseType: ResponseType.json,
   ));
 

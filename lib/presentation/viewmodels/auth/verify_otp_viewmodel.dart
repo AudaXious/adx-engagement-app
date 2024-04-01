@@ -17,7 +17,7 @@ class VerifyOTPViewModel extends StateNotifier<VerifyOTPState> {
     verifyOTPUseCase: ref.read(verifyOTPUseCaseProvider),
   ));
 
-  Future<bool> verifyOTP(String email,String otp) async {
+  Future<User> verifyOTP(String email,String otp) async {
     state = state.update(viewState: ViewState.loading);
     try {
       final response = await verifyOTPUseCase.verifyOTP(email, otp);
@@ -32,20 +32,22 @@ class VerifyOTPViewModel extends StateNotifier<VerifyOTPState> {
           final user = User.fromJson(data);
           print(user.username);
           state = state.update(user: user);
+          state = state.update(viewState: ViewState.idle);
+          return user;
         }
 
         state = state.update(viewState: ViewState.idle);
-        return true;
+        return User();
       }
 
     } catch (e) {
       state = state.update(viewState: ViewState.error);
       state = state.update(error: e.toString());
       print("View model error: ${e.toString()}");
-      return false;
+      return User();
     }
 
-    return false;
+    return User();
   }
 }
 

@@ -1,10 +1,12 @@
 import 'package:audaxious/core/utils/theme/dark_theme.dart';
 import 'package:audaxious/domain/enums/button_state.dart';
 import 'package:audaxious/domain/enums/view_state.dart';
+import 'package:audaxious/domain/models/user.dart';
 import 'package:audaxious/presentation/viewmodels/auth/verify_otp_viewmodel.dart';
 import 'package:audaxious/presentation/widgets/buttons/primary_text_button.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pinput/pinput.dart';
@@ -16,33 +18,17 @@ import '../../widgets/alerts/custom_toast.dart';
 @RoutePage()
 class VerifyOTPScreen extends HookConsumerWidget {
   String email;
-  bool usernameExist;
-  String username;
   VerifyOTPScreen({
     super.key,
     required this.email,
-    required this.usernameExist,
-    required this.username,
   });
 
   final pinController = TextEditingController();
-  // late CountdownTimer _countdownTimer;
-  // String _formattedTime = "";
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final reader = ref.read(VerifyOTPViewModel.notifier.notifier);
     final notifier = ref.watch(VerifyOTPViewModel.notifier);
-    // final showResendButton = useState(false);
-    print("Email $email and Username: $usernameExist");
-
-    // _countdownTimer = CountdownTimer(duration: 120);
-    // _countdownTimer.startCountdown((formattedTime) {
-    //   _formattedTime = formattedTime;
-    //   if (_countdownTimer.formatCountdown() == '00:00') {
-    //     showResendButton.value = true;
-    //   }
-    // });
 
     final defaultPinTheme = PinTheme(
         width: 55,
@@ -65,12 +51,6 @@ class VerifyOTPScreen extends HookConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     Image.asset("assets/images/audaxious_name_logo.png", width: 100, height: 16),
-            //   ],
-            // ),
             const Gap(150),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -119,11 +99,16 @@ class VerifyOTPScreen extends HookConsumerWidget {
                   )
               ),
               onCompleted: (pin) async {
-                bool isVerifyOTPSuccessful = await reader.verifyOTP(email, pin);
-                if (isVerifyOTPSuccessful) {
-                  print("message ${notifier.message}");
-                  print(notifier.user?.username);
+                final user = await reader.verifyOTP(email, pin);
+                if (user == null) {
+                  CustomToast.show(
+                    context: context,
+                    title: "Error",
+                    description: notifier.error,
+                    type: ToastificationType.error,
+                  );
 
+                }else {
                   CustomToast.show(
                     context: context,
                     title: "Success",
@@ -131,53 +116,17 @@ class VerifyOTPScreen extends HookConsumerWidget {
                     type: ToastificationType.success,
                   );
 
-                  if (usernameExist) {
-                    print("User name exists $usernameExist");
-                    context.router.replaceAll([const BottomBarRoute()]);
-                  }else {
-                    print("User name exists does not $usernameExist");
+                  if (user.username == null) {
+                    print("User name does not exists ${user.username}");
                     context.router.navigate(CreateUsernameRoute());
+                  }else {
+                    print("User name exists ${user.username}");
+                    context.router.replaceAll([const BottomBarRoute()]);
                   }
-                }else {
-                  CustomToast.show(
-                    context: context,
-                    title: "Error",
-                    description: notifier.error,
-                    type: ToastificationType.error,
-                  );
                 }
               }
             ),
             const Gap(40),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     Visibility(
-            //       visible: showResendButton.value,
-            //       child: TextButton(
-            //           onPressed: () async{
-            //             showResendButton.value = false;
-            //             _countdownTimer = CountdownTimer(duration: 120);
-            //             _countdownTimer.startCountdown((formattedTime) {
-            //               _formattedTime = formattedTime;
-            //               if (_countdownTimer.formatCountdown() == '00:00') {
-            //                 showResendButton.value = true;
-            //               }
-            //             });
-            //
-            //           },
-            //           child: Text(
-            //             "Resend",
-            //             style: Theme.of(context).textTheme.displaySmall?.copyWith(color: secondaryColor, fontSize: 16),
-            //           )
-            //       ),
-            //     ),
-            //     Text(
-            //       _formattedTime,
-            //       style: Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 16),
-            //     )
-            //   ],
-            // ),
             const Gap(50),
             PrimaryTextButton(
               onPressed: () {
@@ -189,16 +138,6 @@ class VerifyOTPScreen extends HookConsumerWidget {
                   :ButtonState.active,
               textColor: secondaryColor,
             ),
-
-            // PrimaryButton(
-            //   onPressed: () {
-            //     context.popRoute();
-            //   },
-            //   buttonText: "Change email",
-            //   buttonState: notifier.viewState.isLoading
-            //       ? ButtonState.loading
-            //       :ButtonState.active,
-            // ),
           ],
         ),
       ),

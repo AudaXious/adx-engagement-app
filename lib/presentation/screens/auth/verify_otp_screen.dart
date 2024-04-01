@@ -104,7 +104,7 @@ class VerifyOTPScreen extends HookConsumerWidget {
                   CustomToast.show(
                     context: context,
                     title: "Error",
-                    description: notifier.error,
+                    description: "Failed to verify otp. Please try again!",
                     type: ToastificationType.error,
                   );
 
@@ -112,7 +112,7 @@ class VerifyOTPScreen extends HookConsumerWidget {
                   CustomToast.show(
                     context: context,
                     title: "Success",
-                    description: notifier.message,
+                    description: "You've been successfully verified",
                     type: ToastificationType.success,
                   );
 

@@ -5,7 +5,7 @@ class Campaign {
   String? uuid;
   int? points;
   String? reward;
-  Tasks? tasks;
+  List<dynamic>? tasks;
   String? title;
   String? spaceProfile;
   String? spaceTitle;
@@ -37,7 +37,7 @@ class Campaign {
       uuid: json['id'],
       points: json['points'],
       reward: json['reward'],
-      // tasks: json['tasks'] != null ? Tasks.fromJson(json['tasks']) : null,
+      tasks: json['tasks'],
       title: json['title'],
       spaceProfile: json['iconUrl'],
       spaceTitle: json['space_title'],
@@ -55,7 +55,7 @@ class Campaign {
       'id': uuid,
       'points': points,
       'reward': reward,
-      // 'tasks': tasks,
+      'tasks': tasks,
       'title': title,
       'author_profile': spaceProfile,
       'space_title': spaceTitle,

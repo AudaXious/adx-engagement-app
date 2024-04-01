@@ -16,6 +16,7 @@ import 'package:toastification/toastification.dart';
 
 import '../../../core/utils/app_utils.dart';
 import '../../../core/utils/constants.dart';
+import '../../widgets/space_tag.dart';
 
 
 @RoutePage()
@@ -205,41 +206,35 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                               ],
                             ),
                           ),
-                          const Gap(30),
-                          Visibility(
-                            visible: campaigns[currentIndex.value].tasks?.follow == null,
-                            child: TaskButton(
-                              buttonText: 'Join ${spaceTitle.value}',
-                              taskIcon: "assets/images/user_group.png",
-                              onPressed: () {},
-                            ),
-                          ),
-                          const Gap(15),
-                          Visibility(
-                            visible: campaigns[currentIndex.value].tasks?.follow == null,
-                            child: TaskButton(
-                              buttonText: 'Follow',
-                              taskIcon: "assets/images/x.png",
-                              onPressed: () {},
-                            ),
-                          ),
-                          const Gap(15),
-                          Visibility(
-                            visible: campaigns[currentIndex.value].tasks?.like == null,
-                            child: TaskButton(
-                              buttonText: 'Like',
-                              taskIcon: "assets/images/un_like.png",
-                              onPressed: () {},
-                            ),
-                          ),
-                          const Gap(15),
-                          Visibility(
-                            visible: campaigns[currentIndex.value].tasks?.repost == null,
-                            child: TaskButton(
-                              buttonText: 'Repost',
-                              taskIcon: "assets/images/repost.png",
-                              onPressed: () {},
-                            ),
+                          const Gap(20),
+                          Column(
+                            children: campaigns[currentIndex.value].tasks?.
+                            map((task) => Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: TaskButton(
+                                  buttonText: "${task['action']} ${task['action'] == "join" ? "${campaigns[currentIndex.value].spaceTitle}" : ""}",
+                                  taskIcon: "assets/images/user_group.png",
+                                  onPressed: () {
+                                    switch(task['action']) {
+                                      case "join":
+                                        print("join space");
+                                        break;
+                                      case "follow":
+                                        print("follow");
+                                        break;
+                                      case "like":
+                                        print("like");
+                                        break;
+                                      case "repost":
+                                        print("repost");
+                                        break;
+                                      default:
+                                        print("Unidentified taks");
+                                        break;
+                                    }
+                                  },
+                              ),
+                            )).toList() ?? [],
                           ),
                           const Gap(50),
                           const PrimaryButton(

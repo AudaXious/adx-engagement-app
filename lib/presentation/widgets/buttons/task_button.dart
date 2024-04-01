@@ -1,6 +1,9 @@
 import 'package:audaxious/core/utils/theme/dark_theme.dart';
+import 'package:audaxious/domain/enums/task_button_state.dart';
+import 'package:audaxious/presentation/widgets/progressBars/circular_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:toastification/toastification.dart';
 import '../../../core/utils/app_layout.dart';
 import '../../../domain/enums/button_state.dart';
 
@@ -9,7 +12,7 @@ class TaskButton extends StatefulWidget {
   final String buttonText;
   final String taskIcon;
   final bool isTaskCompleted;
-  final ButtonState buttonState;
+  final TaskButtonState buttonState;
 
   const TaskButton({
     Key? key,
@@ -17,7 +20,7 @@ class TaskButton extends StatefulWidget {
     required this.buttonText,
     required this.taskIcon,
     this.isTaskCompleted = false,
-    this.buttonState = ButtonState.active,
+    this.buttonState = TaskButtonState.active,
   }) : super(key: key);
 
   @override
@@ -46,18 +49,18 @@ class _TaskButtonState extends State<TaskButton> {
 
   Color _getButtonColor() {
     switch (widget.buttonState) {
-      case ButtonState.active:
+      case TaskButtonState.active:
         return spacesCardColor.withOpacity(0.7);
-      case ButtonState.loading:
+      case TaskButtonState.loading:
         return spacesCardColor.withOpacity(0.4);
-      case ButtonState.disabled:
+      case TaskButtonState.completed:
         return spacesCardColor.withOpacity(0.4);
     }
   }
 
   Widget _buildButtonChild() {
     switch (widget.buttonState) {
-      case ButtonState.active:
+      case TaskButtonState.active:
         return Row(
           children: [
             Image.asset(widget.taskIcon, width: 24, height: 24,),
@@ -69,10 +72,10 @@ class _TaskButtonState extends State<TaskButton> {
               ),
             ),
             const Spacer(),
-            Icon(widget.isTaskCompleted ? Icons.done : Icons.refresh_outlined, size: 18, color: greyTextColor)
+            Icon(Icons.refresh_outlined, size: 18, color: greyTextColor)
           ],
         );
-      case ButtonState.loading:
+      case TaskButtonState.loading:
         return Stack(
           alignment: Alignment.center,
           children: [
@@ -80,27 +83,33 @@ class _TaskButtonState extends State<TaskButton> {
               widget.buttonText,
               style: const TextStyle(color: Colors.transparent),
             ),
-            const SizedBox(
-              width: 30,
-              height: 30,
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-              ),
+            SizedBox(
+              width: 20,
+              height: 20,
+              child: CircularProgressBar(color: accentColor,),
             ),
           ],
         );
-      case ButtonState.disabled:
-        return Expanded(
-          child: Text(
-            widget.buttonText,
-            style: TextStyle(color: fadedTextColor),
-          ),
+      case TaskButtonState.completed:
+        return Row(
+          children: [
+            Image.asset(widget.taskIcon, width: 24, height: 24,),
+            const Gap(10),
+            Expanded(
+              child: Text(
+                widget.buttonText,
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
+            const Spacer(),
+            Image.asset("assets/images/checkmark_circle.png", width: 24, height: 24,)
+          ],
         );
     }
   }
 
   VoidCallback? _getOnPressed() {
-    return widget.buttonState == ButtonState.active
+    return widget.buttonState == TaskButtonState.active
         ? widget.onPressed
         : null;
   }

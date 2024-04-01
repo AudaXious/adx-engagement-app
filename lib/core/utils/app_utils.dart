@@ -14,6 +14,13 @@ String shortenStringWithReadMore(String input, int maxLength) {
   return '${input.substring(0, maxLength)}...Read more';
 }
 
+String capitalizeWord(String input) {
+  if (input.isEmpty) {
+    return input;
+  }
+  return input[0].toUpperCase() + input.substring(1);
+}
+
 final passwordValidator = MultiValidator([
   RequiredValidator(errorText: 'Required*'),
   MinLengthValidator(8, errorText: 'Password must be at least 8 digits long'),

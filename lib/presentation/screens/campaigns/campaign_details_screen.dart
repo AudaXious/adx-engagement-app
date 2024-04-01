@@ -1,9 +1,12 @@
+import 'dart:ffi';
+
 import 'package:audaxious/core/routes/app_router.dart';
 import 'package:audaxious/core/utils/theme/dark_theme.dart';
 import 'package:audaxious/domain/enums/button_state.dart';
 import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/domain/models/campaign.dart';
 import 'package:audaxious/presentation/viewmodels/campaigns/campaigns_viewmodel.dart';
+import 'package:audaxious/presentation/widgets/alerts/empty_result_found_illustration.dart';
 import 'package:audaxious/presentation/widgets/buttons/primary_button.dart';
 import 'package:audaxious/presentation/widgets/buttons/task_button.dart';
 import 'package:audaxious/presentation/widgets/cards/complete_campaign_card.dart';
@@ -16,6 +19,7 @@ import 'package:toastification/toastification.dart';
 
 import '../../../core/utils/app_utils.dart';
 import '../../../core/utils/constants.dart';
+import '../../../domain/enums/task_button_state.dart';
 import '../../widgets/space_tag.dart';
 
 
@@ -32,10 +36,16 @@ class CampaignDetailsScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final notifier = ref.watch(CampaignsViewModel.notifier);
+    final reader = ref.read(CampaignsViewModel.notifier.notifier);
     final campaigns = notifier.campaigns;
     final currentIndex = useState(campaignIndex);
     final slideInRight = useState(true);
     final spaceTitle = useState<String?>(null);
+    final isSpaceJoined = useState(false);
+    final isLiked = useState(false);
+    final isFollow = useState(false);
+    final isRepost = useState(false);
+
     spaceTitle.value = campaigns?[currentIndex.value].spaceTitle;
 
 
@@ -149,104 +159,129 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CompleteCampaignCard(campaign: campaigns![currentIndex.value]),
-                          Visibility(
-                            visible: campaigns[currentIndex.value].tasks!.isNotEmpty,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Gap(50),
-                                Text(
-                                  "Tasks",
-                                  style: Theme.of(context).textTheme.displaySmall,
-                                ),
-                                const Gap(3),
-                                Text(
-                                    "Complete each of the following tasks to claim rewards",
-                                    style: Theme.of(context).textTheme.bodyLarge?.
-                                    copyWith(color: fadedTextColor)
-                                ),
-                                const Gap(10),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                                  decoration: BoxDecoration(
-                                      borderRadius: const BorderRadius.all(Radius.circular(16)),
-                                      color: cardColor2.withOpacity(0.1)
-                                  ),
-                                  child: Row(
+                          Container(
+                            child: campaigns[currentIndex.value].tasks!.isNotEmpty
+                                ? Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Expanded(
-                                        child: Text(
-                                          "Points/Rewards",
-                                          style: Theme.of(context).textTheme.headlineMedium,
+                                      const Gap(50),
+                                      Text(
+                                        "Tasks",
+                                        style: Theme.of(context).textTheme.displaySmall,
+                                      ),
+                                      const Gap(3),
+                                      Text(
+                                          "Complete each of the following tasks to claim rewards",
+                                          style: Theme.of(context).textTheme.bodyLarge?.
+                                          copyWith(color: fadedTextColor)
+                                      ),
+                                      const Gap(10),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                                        decoration: BoxDecoration(
+                                            borderRadius: const BorderRadius.all(Radius.circular(16)),
+                                            color: cardColor2.withOpacity(0.1)
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                "Points/Rewards",
+                                                style: Theme.of(context).textTheme.headlineMedium,
+                                              ),
+                                            ),
+                                            const Gap(20),
+                                            Container(
+                                              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                                              decoration: BoxDecoration(
+                                                border: Border.all(width: 0.5, color: lightGold.withOpacity(0.5)),
+                                                borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                                color: lightGold.withOpacity(0.1),
+                                              ),
+                                              child: Text(
+                                                "${campaign.points} XP",
+                                                style: Theme.of(context).textTheme.bodyMedium?.
+                                                copyWith(color: lightGold.withOpacity(0.7)),
+                                              ),
+                                            ),
+                                            const Gap(8),
+                                            Container(
+                                              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                                              decoration: BoxDecoration(
+                                                border: Border.all(width: 0.5, color: successColor.withOpacity(0.5)),
+                                                borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                                color: successColor.withOpacity(0.1),
+                                              ),
+                                              child: Text(
+                                                "${campaign.points} USDT",
+                                                style: Theme.of(context).textTheme.bodyMedium?.
+                                                copyWith(color: successColor.withOpacity(0.7)),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                       const Gap(20),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                                        decoration: BoxDecoration(
-                                          border: Border.all(width: 0.5, color: lightGold.withOpacity(0.5)),
-                                          borderRadius: const BorderRadius.all(Radius.circular(15)),
-                                          color: lightGold.withOpacity(0.1),
-                                        ),
-                                        child: Text(
-                                          "${campaign.points} XP",
-                                          style: Theme.of(context).textTheme.bodyMedium?.
-                                          copyWith(color: lightGold.withOpacity(0.7)),
-                                        ),
+                                      Column(
+                                        children: campaigns[currentIndex.value].tasks?.map((task) {
+                                          TaskButtonState buttonState;
+                                          switch (task['action']) {
+                                            case "join":
+                                              buttonState = isSpaceJoined.value
+                                                  ? TaskButtonState.completed
+                                                  : (notifier.joinSpaceViewState.isLoading
+                                                  ? TaskButtonState.loading
+                                                  : TaskButtonState.active);
+                                              break;
+                                            default:
+                                              buttonState = TaskButtonState.active;
+                                          }
+
+                                          return Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 10),
+                                            child: TaskButton(
+                                              buttonText: "${capitalizeWord(task['action'])} ${task['action'] == "join" ? "${campaigns[currentIndex.value].spaceTitle}" : ""}",
+                                              taskIcon: "assets/images/user_group.png",
+                                              onPressed: () async {
+                                                switch (task['action']) {
+                                                  case "join":
+                                                    bool isSuccessfullyJoined = await reader.joinSpace(campaigns[currentIndex.value].spaceUUID ?? "");
+                                                    if (isSuccessfullyJoined) {
+                                                      isSpaceJoined.value = true;
+                                                    }else {
+                                                      isSpaceJoined.value = true;
+                                                    }
+                                                    break;
+                                                  case "follow":
+                                                    print("follow");
+                                                    break;
+                                                  case "like":
+                                                    print("like");
+                                                    break;
+                                                  case "repost":
+                                                    print("repost");
+                                                    break;
+                                                  default:
+                                                    print("Unidentified task");
+                                                    break;
+                                                }
+                                              },
+                                              buttonState: buttonState,
+                                            ),
+                                          );
+                                        }).toList() ?? [],
                                       ),
-                                      const Gap(8),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                                        decoration: BoxDecoration(
-                                          border: Border.all(width: 0.5, color: successColor.withOpacity(0.5)),
-                                          borderRadius: const BorderRadius.all(Radius.circular(15)),
-                                          color: successColor.withOpacity(0.1),
-                                        ),
-                                        child: Text(
-                                          "${campaign.points} USDT",
-                                          style: Theme.of(context).textTheme.bodyMedium?.
-                                          copyWith(color: successColor.withOpacity(0.7)),
-                                        ),
-                                      ),
+                                      const Gap(50),
+                                      const PrimaryButton(
+                                        buttonText: "Claim reward",
+                                        buttonState: ButtonState.disabled,
+                                      )
                                     ],
-                                  ),
-                                ),
-                                const Gap(20),
-                                Column(
-                                  children: campaigns[currentIndex.value].tasks?.
-                                  map((task) => Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 10),
-                                    child: TaskButton(
-                                      buttonText: "${task['action']} ${task['action'] == "join" ? "${campaigns[currentIndex.value].spaceTitle}" : ""}",
-                                      taskIcon: "assets/images/user_group.png",
-                                      onPressed: () {
-                                        switch(task['action']) {
-                                          case "join":
-                                            print("join space");
-                                            break;
-                                          case "follow":
-                                            print("follow");
-                                            break;
-                                          case "like":
-                                            print("like");
-                                            break;
-                                          case "repost":
-                                            print("repost");
-                                            break;
-                                          default:
-                                            print("Unidentified taks");
-                                            break;
-                                        }
-                                      },
-                                    ),
-                                  )).toList() ?? [],
-                                ),
-                                const Gap(50),
-                                const PrimaryButton(
-                                  buttonText: "Claim reward",
-                                  buttonState: ButtonState.disabled,
-                                )
-                              ],
+                                 )
+                                : NoResultFoundIllustration(
+                                    title: "No task yet!",
+                                    description: "No task has been added to this campaign. Check back again later.",
+                                    illustration: "assets/images/empty_spaces_cards.png",
                             ),
                           ),
                         ],

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ffi';
 
 import 'package:audaxious/core/routes/app_router.dart';
@@ -17,9 +18,12 @@ import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toastification/toastification.dart';
 
+import '../../../core/services/shared_preferences_services.dart';
 import '../../../core/utils/app_utils.dart';
 import '../../../core/utils/constants.dart';
 import '../../../domain/enums/task_button_state.dart';
+import '../../../domain/models/user.dart';
+import '../../widgets/alerts/verify_twitter_dialog.dart';
 import '../../widgets/space_tag.dart';
 
 
@@ -43,8 +47,8 @@ class CampaignDetailsScreen extends HookConsumerWidget {
     final spaceTitle = useState<String?>(null);
     final isSpaceJoined = useState(false);
     final isLiked = useState(false);
-    final isFollow = useState(false);
-    final isRepost = useState(false);
+    final isFollowed = useState(false);
+    final isReposted = useState(false);
 
     spaceTitle.value = campaigns?[currentIndex.value].spaceTitle;
 
@@ -233,6 +237,21 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                                   ? TaskButtonState.loading
                                                   : TaskButtonState.active);
                                               break;
+                                            case "like":
+                                              buttonState = isLiked.value
+                                                  ? TaskButtonState.completed
+                                                  : TaskButtonState.active;
+                                              break;
+                                            case "follow":
+                                              buttonState = isFollowed.value
+                                                  ? TaskButtonState.completed
+                                                  : TaskButtonState.active;
+                                              break;
+                                            case "repost":
+                                              buttonState = isReposted.value
+                                                  ? TaskButtonState.completed
+                                                  : TaskButtonState.active;
+                                              break;
                                             default:
                                               buttonState = TaskButtonState.active;
                                           }
@@ -243,28 +262,45 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                               buttonText: "${capitalizeWord(task['action'])} ${task['action'] == "join" ? "${campaigns[currentIndex.value].spaceTitle}" : ""}",
                                               taskIcon: "assets/images/user_group.png",
                                               onPressed: () async {
-                                                switch (task['action']) {
-                                                  case "join":
-                                                    bool isSuccessfullyJoined = await reader.joinSpace(campaigns[currentIndex.value].spaceUUID ?? "");
-                                                    if (isSuccessfullyJoined) {
-                                                      isSpaceJoined.value = true;
-                                                    }else {
-                                                      isSpaceJoined.value = true;
+                                                String? userJson = await SharedPreferencesServices().getCurrentSavedUser("user");
+                                                if (userJson != null) {
+                                                  dynamic userMap = json.decode(userJson);
+                                                  User user = User.fromJson(userMap);
+
+                                                  if (user.isVerified == false) {
+                                                    switch (task['action']) {
+                                                      case "join":
+                                                        bool isSuccessfullyJoined = await reader.joinSpace(campaigns[currentIndex.value].spaceUUID ?? "");
+                                                        if (isSuccessfullyJoined) {
+                                                          isSpaceJoined.value = true;
+                                                        }else {
+                                                          isSpaceJoined.value = true;
+                                                        }
+                                                        break;
+                                                      case "follow":
+                                                        print("follow");
+                                                        break;
+                                                      case "like":
+                                                        print("like");
+                                                        break;
+                                                      case "repost":
+                                                        print("repost");
+                                                        break;
+                                                      default:
+                                                        print("Unidentified task");
+                                                        break;
                                                     }
-                                                    break;
-                                                  case "follow":
-                                                    print("follow");
-                                                    break;
-                                                  case "like":
-                                                    print("like");
-                                                    break;
-                                                  case "repost":
-                                                    print("repost");
-                                                    break;
-                                                  default:
-                                                    print("Unidentified task");
-                                                    break;
+                                                  }else {
+                                                    showDialog(
+                                                      context: context,
+                                                      builder: (BuildContext context) {
+                                                        return VerifyTwitterDialog();
+                                                      },
+                                                    );
+                                                    print("User has not been verified");
+                                                  }
                                                 }
+
                                               },
                                               buttonState: buttonState,
                                             ),

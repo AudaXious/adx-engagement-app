@@ -8,7 +8,7 @@ import '../../../domain/enums/view_state.dart';
 import '../../../domain/models/campaign.dart';
 import '../../../domain/usecases/spaces/campaigns_by_space_id_usecase.dart';
 import '../../../domain/usecases/spaces/join_space_usecase.dart';
-import '../../../domain/usecases/spaces/user_spaces_usecase.dart';
+import '../../../domain/usecases/spaces/user_created_spaces_usecase.dart';
 import '../../screens/spaces/space_detail_state.dart';
 
 class SpacesDetailsViewModel extends StateNotifier<SpaceDetailState> {

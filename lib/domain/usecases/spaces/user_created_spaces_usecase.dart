@@ -1,14 +1,14 @@
 import 'package:audaxious/data/repository/spaces_repository_impl.dart';
 import 'package:audaxious/domain/repository/spaces_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-abstract class UserSpacesUseCase {
+abstract class UserCreatedSpacesUseCase {
   Future<dynamic> getUserCreatedSpaces();
 
 }
-class SpacesUseCaseImpl extends UserSpacesUseCase {
+class UserCreatedSpacesUseCaseImpl extends UserCreatedSpacesUseCase {
   final SpacesRepository spacesRepository;
 
-  SpacesUseCaseImpl(this.spacesRepository);
+  UserCreatedSpacesUseCaseImpl(this.spacesRepository);
 
   @override
   Future<dynamic> getUserCreatedSpaces() async {
@@ -16,6 +16,6 @@ class SpacesUseCaseImpl extends UserSpacesUseCase {
   }
 }
 
-final userCreatedSpacesUseCaseProvider = Provider<UserSpacesUseCase>((ref) {
-  return SpacesUseCaseImpl(ref.read(spacesRepositoryProvider));
+final userCreatedSpacesUseCaseProvider = Provider<UserCreatedSpacesUseCase>((ref) {
+  return UserCreatedSpacesUseCaseImpl(ref.read(spacesRepositoryProvider));
 });

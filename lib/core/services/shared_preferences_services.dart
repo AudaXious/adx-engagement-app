@@ -5,6 +5,7 @@ class SharedPreferencesServices {
   static const String isLoggedInKey = 'isLoggedIn';
   static const String refreshTokenKey = 'refreshToken';
   static const String accessTokenKey = 'accessToken';
+  static const String twitterVerificationStatusKey = 'twitterVerificationStatus';
 
   static Future<void> saveRefreshToken(String refreshToken) async {
     final prefs = await SharedPreferences.getInstance();
@@ -34,6 +35,16 @@ class SharedPreferencesServices {
   static Future<bool> getIsLoggedIn() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getBool(isLoggedInKey) ?? false;
+  }
+
+  static Future<void> saveTwitterVerificationStatus(bool isVerified) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(twitterVerificationStatusKey, isVerified);
+  }
+
+  static Future<bool> getTwitterVerificationStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(twitterVerificationStatusKey) ?? false;
   }
 
   Future<void> saveCurrentUser(String key, dynamic value) async {

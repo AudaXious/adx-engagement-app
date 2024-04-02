@@ -262,12 +262,13 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                               buttonText: "${capitalizeWord(task['action'])} ${task['action'] == "join" ? "${campaigns[currentIndex.value].spaceTitle}" : ""}",
                                               taskIcon: "assets/images/user_group.png",
                                               onPressed: () async {
+                                                bool isTwitterVerified = await SharedPreferencesServices.getTwitterVerificationStatus();
                                                 String? userJson = await SharedPreferencesServices().getCurrentSavedUser("user");
                                                 if (userJson != null) {
                                                   dynamic userMap = json.decode(userJson);
                                                   User user = User.fromJson(userMap);
 
-                                                  if (user.isVerified == false) {
+                                                  if (user.isVerified == true && isTwitterVerified == true) {
                                                     switch (task['action']) {
                                                       case "join":
                                                         bool isSuccessfullyJoined = await reader.joinSpace(campaigns[currentIndex.value].spaceUUID ?? "");
@@ -299,6 +300,7 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                                     );
                                                     print("User has not been verified");
                                                   }
+
                                                 }
 
                                               },

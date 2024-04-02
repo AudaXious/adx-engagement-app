@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:audaxious/core/utils/app_layout.dart';
 import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/presentation/widgets/buttons/primary_button.dart';
@@ -6,11 +8,14 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toastification/toastification.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import '../../../core/services/shared_preferences_services.dart';
 import '../../../core/utils/app_utils.dart';
 import '../../../core/utils/theme/dark_theme.dart';
 import '../../../core/utils/view_utils.dart';
 import '../../../domain/enums/button_state.dart';
+import '../../../domain/models/user.dart';
 import '../../viewmodels/auth/verify_twitter_viewmodel.dart';
 import 'custom_toast.dart';
 
@@ -119,7 +124,14 @@ class VerifyTwitterDialog extends HookConsumerWidget {
                     height: 45,
                     child: PrimaryButton(
                       buttonText: "Tweet authentication post",
-                      onPressed: () {},
+                      onPressed: () async {
+                        String? userJson = await SharedPreferencesServices().getCurrentSavedUser("user");
+                        if (userJson != null) {
+                          dynamic userMap = json.decode(userJson);
+                          User user = User.fromJson(userMap);
+                          _launchTweet(Uri.encodeComponent('Verifying my Twitter username for my #AudaXious Account aud-id=${user.uuid} https://www.audaxious.com/'));
+                        }
+                      },
           
                     ),
                   ),
@@ -191,6 +203,7 @@ class VerifyTwitterDialog extends HookConsumerWidget {
                       onPressed: () async {
                         bool isVerificationSuccessful = await reader.verifyTwitter(_tweetLinkController.text);
                         if (isVerificationSuccessful) {
+                          await SharedPreferencesServices.saveTwitterVerificationStatus(true);
                           Navigator.of(context).pop();
                           CustomToast.show(
                             context: context,
@@ -203,7 +216,8 @@ class VerifyTwitterDialog extends HookConsumerWidget {
                           CustomToast.show(
                             context: context,
                             title: "Error",
-                            description: "Failed to verify twiiter. Please try again!",
+                            // description: "Failed to verify twiiter. Please try again!",
+                            description: notifier.error,
                             type: ToastificationType.error,
                           );
                         }
@@ -222,5 +236,14 @@ class VerifyTwitterDialog extends HookConsumerWidget {
         ),
         ),
       );
+  }
+
+  void _launchTweet(String text) async {
+    final tweetUrl = 'https://twitter.com/intent/tweet?text=$text';
+    if (await canLaunch(tweetUrl)) {
+      await launch(tweetUrl);
+    } else {
+      throw 'Could not launch $tweetUrl';
+    }
   }
 }

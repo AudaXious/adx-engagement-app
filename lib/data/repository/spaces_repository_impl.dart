@@ -22,10 +22,10 @@ class SpacesRepositoryImpl extends SpacesRepository {
   }
 
   @override
-  Future<dynamic> getUserSpaces() async {
+  Future<dynamic> getUserCreatedSpaces() async {
     try {
       final response = await DioClient.instance.get(
-        userSpacesEndpoint,
+        userCreatedSpacesEndpoint,
       );
 
       return response;

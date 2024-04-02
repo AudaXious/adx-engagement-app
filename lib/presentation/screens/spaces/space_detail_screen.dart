@@ -179,11 +179,10 @@ class SpaceDetailScreen extends HookConsumerWidget {
                         decoration: BoxDecoration(
                           border: Border.all(width: 0.2, color: secondaryColor),
                           borderRadius: const BorderRadius.all(Radius.circular(15)),
-                          // color: lightTeal.withOpacity(0.2),
                         ),
                         child: Row(
                           children: [
-                            Image.asset("assets/images/user_group.png", width: 24, height: 24,),
+                            Image.asset("assets/images/user_group.png", width: 22, height: 22,),
                             const Gap(5),
                             Text(
                               space?.spaceMembersCount.toString() ?? "",
@@ -197,7 +196,7 @@ class SpaceDetailScreen extends HookConsumerWidget {
                       const Gap(20),
                       IconButton(
                         onPressed: () {},
-                        icon: Image.asset("assets/images/internet.png", width: 24, height: 24,),
+                        icon: Image.asset("assets/images/internet.png", width: 20, height: 20,),
                       ),
                       IconButton(
                         onPressed: () {},

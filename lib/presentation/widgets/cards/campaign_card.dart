@@ -175,7 +175,7 @@ class CampaignCard extends StatelessWidget {
                               ),
                               child: Row(
                                 children: [
-                                  Image.asset("assets/images/user_group.png", width: 24, height: 24,),
+                                  Image.asset("assets/images/user_group.png", width: 20, height: 20,),
                                   const Gap(5),
                                   Text(
                                     campaign.participants.toString(),

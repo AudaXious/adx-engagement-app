@@ -44,13 +44,13 @@ class CampaignDetailsScreen extends HookConsumerWidget {
     final campaigns = notifier.campaigns;
     final currentIndex = useState(campaignIndex);
     final slideInRight = useState(true);
-    final spaceTitle = useState<String?>(null);
+    // final spaceTitle = useState<String?>(null);
     final isSpaceJoined = useState(false);
     final isLiked = useState(false);
     final isFollowed = useState(false);
     final isReposted = useState(false);
 
-    spaceTitle.value = campaigns?[currentIndex.value].spaceTitle;
+    // spaceTitle.value = campaigns?[currentIndex.value].spaceTitle;
 
 
     final animationController = useAnimationController(
@@ -65,7 +65,7 @@ class CampaignDetailsScreen extends HookConsumerWidget {
 
     useEffect(() {
       currentIndex.value = campaignIndex;
-      spaceTitle.value = campaigns?[currentIndex.value].spaceTitle;
+      // spaceTitle.value = campaigns?[currentIndex.value].spaceTitle;
       return () {
         animationController.dispose();
       };
@@ -114,7 +114,7 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                 ),
                                 Expanded(
                                   child: Text(
-                                    spaceTitle.value ?? "",
+                                    campaigns?[currentIndex.value].spaceTitle ?? "",
                                     style: Theme.of(context).textTheme.headlineMedium?.
                                     copyWith(color: greyTextColor),
                                   ),
@@ -263,12 +263,8 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                               taskIcon: "assets/images/user_group.png",
                                               onPressed: () async {
                                                 bool isTwitterVerified = await SharedPreferencesServices.getTwitterVerificationStatus();
-                                                String? userJson = await SharedPreferencesServices().getCurrentSavedUser("user");
-                                                if (userJson != null) {
-                                                  dynamic userMap = json.decode(userJson);
-                                                  User user = User.fromJson(userMap);
 
-                                                  if (user.isVerified == true && isTwitterVerified == true) {
+                                                  if (isTwitterVerified == true) {
                                                     switch (task['action']) {
                                                       case "join":
                                                         bool isSuccessfullyJoined = await reader.joinSpace(campaigns[currentIndex.value].spaceUUID ?? "");
@@ -301,7 +297,6 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                                     print("User has not been verified");
                                                   }
 
-                                                }
 
                                               },
                                               buttonState: buttonState,

@@ -71,10 +71,10 @@ class SpacesScreen extends HookConsumerWidget {
                               reader.getSpaces();
                               break;
                             case "My spaces":
-                              reader.getUserSpaces();
+                              reader.getUserCreatedSpaces();
                               break;
                             case "Joined spaces":
-                              reader.getUserSpaces();
+                              reader.getUserCreatedSpaces();
                               break;
 
                             default:

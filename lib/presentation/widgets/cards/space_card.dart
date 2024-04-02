@@ -132,7 +132,7 @@ class SpaceCard extends HookConsumerWidget {
                               ),
                               child: Row(
                                 children: [
-                                  Image.asset("assets/images/user_group.png", width: 24, height: 24,),
+                                  Image.asset("assets/images/user_group.png", width: 20, height: 20,),
                                   const Gap(5),
                                   Text(
                                     space.spaceMembersCount.toString(),
@@ -146,15 +146,15 @@ class SpaceCard extends HookConsumerWidget {
                             const Spacer(),
                             IconButton(
                               onPressed: () {},
-                              icon: Image.asset("assets/images/internet.png", width: 24, height: 24,),
+                              icon: Image.asset("assets/images/internet.png", width: 17, height: 17,),
                             ),
                             IconButton(
                               onPressed: () {},
-                              icon: Image.asset("assets/images/twitter.png", width: 24, height: 24,),
+                              icon: Image.asset("assets/images/twitter.png", width: 20, height: 20,),
                             ),
                             IconButton(
                               onPressed: () {},
-                              icon: Image.asset("assets/images/discord.png", width: 24, height: 24,),
+                              icon: Image.asset("assets/images/discord.png", width: 20, height: 20,),
                             ),
 
                           ],

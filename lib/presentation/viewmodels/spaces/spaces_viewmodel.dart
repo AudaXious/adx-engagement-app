@@ -26,7 +26,7 @@ class SpacesViewModel extends StateNotifier<SpacesState> {
   static final notifier =
   StateNotifierProvider<SpacesViewModel, SpacesState>((ref) => SpacesViewModel(
       spacesUseCase: ref.read(spacesUseCaseProvider),
-      userSpacesUseCase: ref.read(userSpacesUseCaseProvider),
+      userSpacesUseCase: ref.read(userCreatedSpacesUseCaseProvider),
       spaceDetailUseCase: ref.read(spaceDetailsUseCaseProvider),
       joinSpacesUseCase: ref.read(joinSpaceUseCaseProvider),
   ));
@@ -57,10 +57,10 @@ class SpacesViewModel extends StateNotifier<SpacesState> {
     }
   }
 
-  Future<void> getUserSpaces() async {
+  Future<void> getUserCreatedSpaces() async {
     state = state.update(spaceViewState: ViewState.loading);
     try {
-      final response = await userSpacesUseCase.getUserSpaces();
+      final response = await userSpacesUseCase.getUserCreatedSpaces();
       final data = response['data'];
 
       if (data != null && data is List) {

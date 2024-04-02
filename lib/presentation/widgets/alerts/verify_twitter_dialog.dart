@@ -26,23 +26,40 @@ class VerifyTwitterDialog extends HookConsumerWidget {
       ),
       child: Form(
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 15),
+          // padding: const EdgeInsets.symmetric(vertical: 20),
           decoration: BoxDecoration(
               border: Border.all(width: 0.6, color: cardBorderColor),
               borderRadius: const BorderRadius.all(Radius.circular(15)),
               color: spacesCardColor
           ),
-          height: size.height * 0.8,
+          // height: size.height * 0.5,
           child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                      iconSize: 20,
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: const Icon(Icons.close)
+                    )
+                  ],
+                ),
                 Image.asset("assets/images/connect.png", width: 60, height: 60),
                 const Gap(20),
-                Text(
-                    "Twitter verification",
-                    style: Theme.of(context).textTheme.displayLarge
-                        ?.copyWith(fontSize: 26)
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                      "Twitter verification",
+                      style: Theme.of(context).textTheme.displayLarge
+                          ?.copyWith(fontSize: 26)
+                  ),
                 ),
                 const Gap(10),
                 Container(
@@ -89,7 +106,8 @@ class VerifyTwitterDialog extends HookConsumerWidget {
                   ],
                 ),
                 const Gap(20),
-                SizedBox(
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
                   height: 45,
                   child: PrimaryButton(
                     buttonText: "Tweet authentication post",
@@ -132,16 +150,33 @@ class VerifyTwitterDialog extends HookConsumerWidget {
                   ],
                 ),
                 const Gap(20),
-                TextFormField(
-                  controller: _tweetLinkController,
-                  decoration: primaryTextFormFieldDecoration(labelText: 'Copy and paste the link to the tweet'),
-                  validator: requiredValidator,
-                  onChanged: (_) {
-                    isFormValidated.value = formKey.currentState?.validate() ?? false;
-                  },
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Gap(16),
+                    Text(
+                      "Tweet link",
+                      style: Theme.of(context).textTheme.bodyLarge,
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                ),
+                const Gap(4),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  child: TextFormField(
+                    controller: _tweetLinkController,
+                    decoration: primaryTextFormFieldDecoration(labelText: 'Copy and paste the link to the tweet'),
+                    validator: requiredValidator,
+                    onChanged: (_) {
+                      isFormValidated.value = formKey.currentState?.validate() ?? false;
+                    },
+                  ),
                 ),
                 const Gap(20),
-                SizedBox(
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
                   height: 45,
                   child: PrimaryButton(
                     buttonText: "Verify twitter account",
@@ -149,7 +184,7 @@ class VerifyTwitterDialog extends HookConsumerWidget {
 
                   ),
                 ),
-
+                const Gap(20),
               ],
             ),
           ),

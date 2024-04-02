@@ -71,6 +71,21 @@ class AuthRepositoryImpl implements AuthRepository {
       throw error.errorMessage;
     }
   }
+
+  @override
+  Future<Map<String, dynamic>> verifyTwitter(String url) async {
+    try {
+      final response = await DioClient.instance.post(
+        verifyTwitterEndpoint,
+        data: {'url': url},
+      );
+
+      return response;
+    } on DioException catch (e) {
+      var error = CustomDioException.fromDioError(e);
+      throw error.errorMessage;
+    }
+  }
   
 }
 

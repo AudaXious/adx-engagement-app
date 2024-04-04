@@ -33,34 +33,29 @@ class CustomDioException implements Exception {
     }
   }
 
-  // String _handleStatusCode(int? statusCode) {
-  //   switch (statusCode) {
-  //     case 400:
-  //       return 'Bad request';
-  //     case 401:
-  //       return 'Unauthorized';
-  //     case 403:
-  //       return 'The authenticated user is not allowed to access the specified API endpoint';
-  //     case 404:
-  //       return 'The requested resource does not exist';
-  //     case 500:
-  //       return 'Internal server error';
-  //     default:
-  //       return 'Oops something went wrong!';
-  //   }
-  // }
-
   String _handleBadResponse(Response? response) {
-    if (response != null) {
-      if (response.statusCode == 500 || response.statusCode == 503) {
-        return "Oops. Something went wrong. It's not your fault.";
-      }else if (response.data != null && response.data.containsKey('error')) {
-        var errorValue = response.data['error'];
-        return errorValue;
-      }
+    if (response == null) {
+      return 'Unexpected error occurred';
     }
 
-    return 'No error message found!';
+    switch (response.statusCode) {
+      case 500:
+      case 503:
+        return "Oops. Something went wrong. It's not your fault.";
+      case 400:
+        return "Bad request";
+      case 401:
+        return "Unauthorized request";
+      case 403:
+        return "Access denied";
+      case 404:
+        return "Resource not found";
+      default:
+        if (response.data != null && response.data.containsKey('error')) {
+          return response.data['error'];
+        }
+        return 'Unexpected error occurred';
+    }
   }
 
   @override

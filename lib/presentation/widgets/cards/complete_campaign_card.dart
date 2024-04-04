@@ -155,7 +155,7 @@ class CompleteCampaignCard extends StatelessWidget {
                                 Text(
                                   campaign.participants.toString(),
                                   style: Theme.of(context).textTheme.bodyMedium?.
-                                  copyWith(color: secondaryColor.withOpacity(0.6)),
+                                  copyWith(color: secondaryColor.withOpacity(0.9)),
                                 ),
 
                               ],

@@ -82,26 +82,32 @@ class SpaceCard extends HookConsumerWidget {
                               width: 90,
                               height: 30,
                               child: PrimaryOutlineButton(
-                                onPressed: joinLoadingState.value ? null : () async {
+                                onPressed: joinLoadingState.value
+                                    ? null
+                                    : () async {
                                   joinLoadingState.value = true;
                                   bool isSuccessful = await reader.joinSpace(space.uuid ?? "");
-                                  joinLoadingState.value = false;
+
                                   if (isSuccessful) {
+                                    if (!context.mounted) return;
                                     CustomToast.show(
                                       context: context,
                                       title: "Success",
                                       description: notifier.message,
                                       type: ToastificationType.success,
                                     );
-                                  }else {
+                                  } else {
+                                    if (!context.mounted) return;
                                     CustomToast.show(
                                       context: context,
                                       title: "Error",
-                                      description: notifier.message,
+                                      description: notifier.error,
                                       type: ToastificationType.error,
                                     );
                                   }
+                                  joinLoadingState.value = false;
                                 },
+
                                 buttonText: "Join",
                                 borderColor: secondaryColor.withOpacity(0.3),
                                 buttonState: joinLoadingState.value

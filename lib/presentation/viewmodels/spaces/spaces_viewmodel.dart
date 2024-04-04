@@ -146,10 +146,9 @@ class SpacesViewModel extends StateNotifier<SpacesState> {
       final response = await joinSpacesUseCase.joinSpace(spaceId);
       final data = response['data'];
       final message = response['message'];
-      print(message);
 
-      state = state.update(joinSpaceViewState: ViewState.idle);
       state = state.update(message: message);
+      state = state.update(joinSpaceViewState: ViewState.idle);
 
       return true;
 

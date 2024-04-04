@@ -256,11 +256,29 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                               buttonState = TaskButtonState.active;
                                           }
 
+                                          String buttonIcon;
+                                          switch (task['action']) {
+                                            case "join":
+                                              buttonIcon = "assets/images/user_group.png";
+                                              break;
+                                            case "like":
+                                              buttonIcon = "assets/images/un_like.png";
+                                              break;
+                                            case "follow":
+                                              buttonIcon = "assets/images/twitter.png";
+                                              break;
+                                            case "repost":
+                                              buttonIcon = "assets/images/repost.png";
+                                              break;
+                                            default:
+                                              buttonIcon = "assets/images/user_group.png";
+                                          }
+
                                           return Padding(
                                             padding: const EdgeInsets.symmetric(vertical: 10),
                                             child: TaskButton(
                                               buttonText: "${capitalizeWord(task['action'])} ${task['action'] == "join" ? "${campaigns[currentIndex.value].spaceTitle}" : ""}",
-                                              taskIcon: "assets/images/user_group.png",
+                                              taskIcon: buttonIcon,
                                               onPressed: () async {
                                                 bool isTwitterVerified = await SharedPreferencesServices.getTwitterVerificationStatus();
 

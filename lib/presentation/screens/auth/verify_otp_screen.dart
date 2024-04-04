@@ -101,6 +101,7 @@ class VerifyOTPScreen extends HookConsumerWidget {
               onCompleted: (pin) async {
                 final user = await reader.verifyOTP(email, pin);
                 if (user == null) {
+                  if (!context.mounted) return;
                   CustomToast.show(
                     context: context,
                     title: "Error",
@@ -109,6 +110,7 @@ class VerifyOTPScreen extends HookConsumerWidget {
                   );
 
                 }else {
+                  if (!context.mounted) return;
                   CustomToast.show(
                     context: context,
                     title: "Success",

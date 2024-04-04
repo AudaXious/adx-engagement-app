@@ -96,6 +96,7 @@ class CreateUsernameScreen extends HookConsumerWidget {
                   bool isCreateUsernameSuccessful =
                       await reader.createUsername(context, _usernameController.text);
                   if (isCreateUsernameSuccessful) {
+                    if (!context.mounted) return;
                     CustomToast.show(
                       context: context,
                       title: "Success",
@@ -104,6 +105,7 @@ class CreateUsernameScreen extends HookConsumerWidget {
                     );
                     context.router.replaceAll([const BottomBarRoute()]);
                   }else {
+                    if (!context.mounted) return;
                     CustomToast.show(
                       context: context,
                       title: "Error",

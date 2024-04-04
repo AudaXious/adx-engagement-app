@@ -86,6 +86,12 @@ class AuthRepositoryImpl implements AuthRepository {
       throw error.errorMessage;
     }
   }
+
+  @override
+  Future<void> logoutUser() async {
+    // await SharedPreferencesServices().deleteCurrentSavedUser("user");
+    await SharedPreferencesServices.clearAll();
+  }
   
 }
 

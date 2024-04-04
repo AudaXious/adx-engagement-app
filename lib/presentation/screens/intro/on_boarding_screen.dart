@@ -36,6 +36,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   Future<void> _checkLoginStatus() async {
     final isLoggedIn = await SharedPreferencesServices.getIsLoggedIn();
     if (isLoggedIn) {
+      if (!context.mounted) return;
       context.router.replaceAll([const BottomBarRoute()]);
     }
   }

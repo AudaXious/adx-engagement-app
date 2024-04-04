@@ -1,4 +1,5 @@
 
+import 'package:audaxious/core/services/shared_preferences_services.dart';
 import 'package:audaxious/core/utils/view_utils.dart';
 import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/presentation/viewmodels/spaces/spaces_viewmodel.dart';
@@ -12,6 +13,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/utils/theme/dark_theme.dart';
 import '../../widgets/alerts/empty_result_found_illustration.dart';
+import '../../widgets/alerts/sign_in_dialog.dart';
+import '../../widgets/alerts/verify_twitter_dialog.dart';
 
 @RoutePage()
 class SpacesScreen extends HookConsumerWidget {
@@ -64,26 +67,46 @@ class SpacesScreen extends HookConsumerWidget {
                         ))
                             .toList(),
                         value: selectedSpacesCategory.value,
-                        onChanged: (String? value) {
+                        onChanged: (String? value) async {
+                          final isLoggedIn = await SharedPreferencesServices.getIsLoggedIn();
                           selectedSpacesCategory.value = value;
+
                           switch (selectedSpacesCategory.value) {
                             case "All spaces":
                               reader.getSpaces();
                               break;
                             case "My spaces":
-                              reader.getUserCreatedSpaces();
-                              break;
+                              if (isLoggedIn) {
+                                reader.getUserCreatedSpaces();
+                                break;
+                              }else {
+                                if (!context.mounted) return;
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return SignInDialog();
+                                  },
+                                );
+                              }
                             case "Joined spaces":
-                              reader.getUserJoinedSpaces();
-                              break;
+                              if (isLoggedIn) {
+                                reader.getUserJoinedSpaces();
+                                break;
+                              }else {
+                                if (!context.mounted) return;
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return SignInDialog();
+                                  },
+                                );
+                              }
 
                             default:
                               reader.getSpaces();
                               break;
                           }
-
-                          print(selectedSpacesCategory.value);
-                        },
+                          },
                         buttonStyleData: const ButtonStyleData(
                           padding: EdgeInsets.symmetric(horizontal: 16),
                           height: 40,

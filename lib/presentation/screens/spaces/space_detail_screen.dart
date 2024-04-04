@@ -12,6 +12,7 @@ import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toastification/toastification.dart';
 
+import '../../../core/services/shared_preferences_services.dart';
 import '../../../core/utils/constants.dart';
 import '../../../core/utils/theme/dark_theme.dart';
 import '../../../domain/enums/button_state.dart';
@@ -19,6 +20,7 @@ import '../../../domain/models/leader_board.dart';
 import '../../../domain/models/space.dart';
 import '../../widgets/alerts/custom_toast.dart';
 import '../../widgets/alerts/empty_result_found_illustration.dart';
+import '../../widgets/alerts/sign_in_dialog.dart';
 import '../../widgets/cards/campaign_card.dart';
 import '../../widgets/leader_board_item.dart';
 import '../../widgets/space_tag.dart';
@@ -145,22 +147,36 @@ class SpaceDetailScreen extends HookConsumerWidget {
                           height: 32,
                           child: PrimaryButton(
                               onPressed: () async {
-                                bool isSuccessful = await reader.joinSpace(space?.uuid ?? "");
-                                if (isSuccessful) {
-                                  CustomToast.show(
-                                    context: context,
-                                    title: "Success",
-                                    description: notifier.message,
-                                    type: ToastificationType.success,
-                                  );
+                                final isLoggedIn = await SharedPreferencesServices.getIsLoggedIn();
+                                if (isLoggedIn) {
+                                  bool isSuccessful = await reader.joinSpace(space?.uuid ?? "");
+                                  if (isSuccessful) {
+                                    if (!context.mounted) return;
+                                    CustomToast.show(
+                                      context: context,
+                                      title: "Success",
+                                      description: notifier.message,
+                                      type: ToastificationType.success,
+                                    );
+                                  }else {
+                                    if (!context.mounted) return;
+                                    CustomToast.show(
+                                      context: context,
+                                      title: "Error",
+                                      description: notifier.message,
+                                      type: ToastificationType.error,
+                                    );
+                                  }
                                 }else {
-                                  CustomToast.show(
+                                  if (!context.mounted) return;
+                                  showDialog(
                                     context: context,
-                                    title: "Error",
-                                    description: notifier.message,
-                                    type: ToastificationType.error,
+                                    builder: (BuildContext context) {
+                                      return SignInDialog();
+                                    },
                                   );
                                 }
+
                               },
                               buttonText: "Join space",
                               borderRadius: 30,

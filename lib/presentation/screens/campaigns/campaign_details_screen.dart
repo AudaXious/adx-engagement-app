@@ -23,6 +23,7 @@ import '../../../core/utils/app_utils.dart';
 import '../../../core/utils/constants.dart';
 import '../../../domain/enums/task_button_state.dart';
 import '../../../domain/models/user.dart';
+import '../../widgets/alerts/sign_in_dialog.dart';
 import '../../widgets/alerts/verify_twitter_dialog.dart';
 import '../../widgets/space_tag.dart';
 
@@ -280,9 +281,11 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                               buttonText: "${capitalizeWord(task['action'])} ${task['action'] == "join" ? "${campaigns[currentIndex.value].spaceTitle}" : ""}",
                                               taskIcon: buttonIcon,
                                               onPressed: () async {
-                                                bool isTwitterVerified = await SharedPreferencesServices.getTwitterVerificationStatus();
+                                                final isLoggedIn = await SharedPreferencesServices.getIsLoggedIn();
+                                                final isTwitterVerified = await SharedPreferencesServices.getTwitterVerificationStatus();
 
-                                                  if (isTwitterVerified == true) {
+                                                if (isLoggedIn) {
+                                                  if (isTwitterVerified) {
                                                     switch (task['action']) {
                                                       case "join":
                                                         bool isSuccessfullyJoined = await reader.joinSpace(campaigns[currentIndex.value].spaceUUID ?? "");
@@ -306,15 +309,23 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                                         break;
                                                     }
                                                   }else {
+                                                    if (!context.mounted) return;
                                                     showDialog(
                                                       context: context,
                                                       builder: (BuildContext context) {
                                                         return VerifyTwitterDialog();
                                                       },
                                                     );
-                                                    print("User has not been verified");
                                                   }
-
+                                                }else {
+                                                  if (!context.mounted) return;
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (BuildContext context) {
+                                                      return SignInDialog();
+                                                    },
+                                                  );
+                                                }
 
                                               },
                                               buttonState: buttonState,

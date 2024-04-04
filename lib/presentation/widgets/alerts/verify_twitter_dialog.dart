@@ -204,6 +204,7 @@ class VerifyTwitterDialog extends HookConsumerWidget {
                         bool isVerificationSuccessful = await reader.verifyTwitter(_tweetLinkController.text);
                         if (isVerificationSuccessful) {
                           await SharedPreferencesServices.saveTwitterVerificationStatus(true);
+                          if (!context.mounted) return;
                           Navigator.of(context).pop();
                           CustomToast.show(
                             context: context,
@@ -213,6 +214,7 @@ class VerifyTwitterDialog extends HookConsumerWidget {
                           );
 
                         }else {
+                          if (!context.mounted) return;
                           CustomToast.show(
                             context: context,
                             title: "Error",

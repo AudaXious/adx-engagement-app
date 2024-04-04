@@ -13,10 +13,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toastification/toastification.dart';
 
 import '../../../core/routes/app_router.dart';
+import '../../../core/services/shared_preferences_services.dart';
 import '../../../core/utils/app_utils.dart';
 import '../../../core/utils/constants.dart';
 import '../../../core/utils/theme/dark_theme.dart';
 import '../../viewmodels/spaces/spaces_viewmodel.dart';
+import '../alerts/sign_in_dialog.dart';
 class SpaceCard extends HookConsumerWidget {
   Space space;
   SpaceCard({super.key, required this.space});
@@ -82,30 +84,39 @@ class SpaceCard extends HookConsumerWidget {
                               width: 90,
                               height: 30,
                               child: PrimaryOutlineButton(
-                                onPressed: joinLoadingState.value
-                                    ? null
-                                    : () async {
-                                  joinLoadingState.value = true;
-                                  bool isSuccessful = await reader.joinSpace(space.uuid ?? "");
+                                onPressed: joinLoadingState.value ? null : () async {
+                                  final isLoggedIn = await SharedPreferencesServices.getIsLoggedIn();
+                                  if (isLoggedIn) {
+                                    joinLoadingState.value = true;
+                                    bool isSuccessful = await reader.joinSpace(space.uuid ?? "");
 
-                                  if (isSuccessful) {
+                                    if (isSuccessful) {
+                                      if (!context.mounted) return;
+                                      CustomToast.show(
+                                        context: context,
+                                        title: "Success",
+                                        description: notifier.message,
+                                        type: ToastificationType.success,
+                                      );
+                                    } else {
+                                      if (!context.mounted) return;
+                                      CustomToast.show(
+                                        context: context,
+                                        title: "Error",
+                                        description: notifier.error,
+                                        type: ToastificationType.error,
+                                      );
+                                    }
+                                    joinLoadingState.value = false;
+                                  }else {
                                     if (!context.mounted) return;
-                                    CustomToast.show(
+                                    showDialog(
                                       context: context,
-                                      title: "Success",
-                                      description: notifier.message,
-                                      type: ToastificationType.success,
-                                    );
-                                  } else {
-                                    if (!context.mounted) return;
-                                    CustomToast.show(
-                                      context: context,
-                                      title: "Error",
-                                      description: notifier.error,
-                                      type: ToastificationType.error,
+                                      builder: (BuildContext context) {
+                                        return SignInDialog();
+                                      },
                                     );
                                   }
-                                  joinLoadingState.value = false;
                                 },
 
                                 buttonText: "Join",

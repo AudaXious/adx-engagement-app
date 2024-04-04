@@ -159,6 +159,22 @@ class SpacesViewModel extends StateNotifier<SpacesState> {
       return false;
     }
   }
+
+  void filterSpacesByTitle(String query) {
+    if (query.isEmpty) {
+      state = state.update(filteredSpaces: state.spaces);
+    } else {
+      final filteredSpaces = state.spaces?.where((space) =>
+          space.title!.toLowerCase().contains(query.toLowerCase())).toList();
+
+      if (filteredSpaces != null && filteredSpaces.isNotEmpty) {
+        state = state.update(filteredSpaces: filteredSpaces);
+      } else {
+        state = state.update(filteredSpaces: []);
+      }
+    }
+  }
+
 }
 
 

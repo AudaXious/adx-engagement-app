@@ -12,6 +12,7 @@ import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/utils/theme/dark_theme.dart';
+import '../../../domain/models/space.dart';
 import '../../widgets/alerts/empty_result_found_illustration.dart';
 import '../../widgets/alerts/sign_in_dialog.dart';
 import '../../widgets/alerts/verify_twitter_dialog.dart';
@@ -31,6 +32,13 @@ class SpacesScreen extends HookConsumerWidget {
     final reader = ref.read(SpacesViewModel.notifier.notifier);
     final notifier = ref.watch(SpacesViewModel.notifier);
     final selectedSpacesCategory = useState<String?>(null);
+    final List<Space>? spaces = notifier.spaces;
+    final List<Space>? filteredSpaces = notifier.filteredSpaces;
+
+    final List<Space>? displayedSpaces =
+    filteredSpaces != null && filteredSpaces.isNotEmpty
+        ? filteredSpaces
+        : (filteredSpaces != null ? [] : spaces);
 
     return Scaffold(
       appBar: AppBar(
@@ -134,6 +142,9 @@ class SpacesScreen extends HookConsumerWidget {
                           hintText: "Search spaces",
                           prefixIcon: "assets/images/search.png"
                       ),
+                      onChanged: (query) {
+                        reader.filterSpacesByTitle(query);
+                      },
                     ),
                   ),
                 ),
@@ -151,7 +162,7 @@ class SpacesScreen extends HookConsumerWidget {
                     child: Text(notifier.error, textAlign: TextAlign.center,),
                   )
               )
-                  : notifier.spaces!.isEmpty
+                  : displayedSpaces!.isEmpty
                   ? NoResultFoundIllustration(
                 title: "No spaces to show",
                 description: "Spaces you join or create will appear here",
@@ -160,10 +171,10 @@ class SpacesScreen extends HookConsumerWidget {
                   : ListView.builder(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   shrinkWrap: true,
-                  itemCount: notifier.spaces?.length,
+                  itemCount: displayedSpaces.length,
                   itemBuilder: (context, index) {
-                    final singleSpace = notifier.spaces?[index];
-                    return SpaceCard(space: singleSpace!);
+                    final singleSpace = displayedSpaces[index];
+                    return SpaceCard(space: singleSpace);
                   }
               )
 

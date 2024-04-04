@@ -8,7 +8,8 @@ class SpacesState {
     joinSpaceViewState: ViewState.idle,
     error: '',
     message: '',
-    spaces: null
+    spaces: null,
+    filteredSpaces: null,
   );
   const SpacesState._({
     required this.spaceViewState,
@@ -16,6 +17,7 @@ class SpacesState {
     required this.error,
     required this.message,
     required this.spaces,
+    required this.filteredSpaces,
   });
 
   final ViewState spaceViewState;
@@ -23,13 +25,15 @@ class SpacesState {
   final String error;
   final String message;
   final List<Space>? spaces;
+  final List<Space>? filteredSpaces;
 
   SpacesState update({
     ViewState? spaceViewState,
     ViewState? joinSpaceViewState,
     String? error,
     String? message,
-    List<Space>? spaces
+    List<Space>? spaces,
+    List<Space>? filteredSpaces
 
   }) =>
       SpacesState._(
@@ -38,6 +42,7 @@ class SpacesState {
         error: error ?? this.error,
         message: message ?? this.message,
         spaces: spaces ?? this.spaces,
+        filteredSpaces: filteredSpaces ?? this.filteredSpaces,
       );
 }
 

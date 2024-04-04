@@ -29,7 +29,6 @@ class HomeScreen extends HookConsumerWidget {
     final reader = ref.read(HomeViewModel.notifier.notifier);
     final notifier = ref.watch(HomeViewModel.notifier);
     final selectedSpacesCategory = useState<String?>(null);
-    final searchController = useTextEditingController();
     final List<Campaign>? campaigns = notifier.campaigns;
     final List<Campaign>? filteredCampaigns = notifier.filteredCampaigns;
 
@@ -37,7 +36,6 @@ class HomeScreen extends HookConsumerWidget {
     filteredCampaigns != null && filteredCampaigns.isNotEmpty
         ? filteredCampaigns
         : (filteredCampaigns != null ? [] : campaigns);
-
 
     return Scaffold(
       appBar: AppBar(
@@ -126,8 +124,7 @@ class HomeScreen extends HookConsumerWidget {
                           prefixIcon: "assets/images/search.png"
                       ),
                       onChanged: (query) {
-                        reader.filterCampaignsBySpaceTitle(query);
-                        print(query);
+                        reader.filterCampaignsByTitle(query);
                       },
                     ),
                   ),

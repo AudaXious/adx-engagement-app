@@ -45,7 +45,7 @@ Future<void> getCampaigns() async {
     }
   }
 
-  void filterCampaignsBySpaceTitle(String query) {
+  void filterCampaignsByTitle(String query) {
     if (query.isEmpty) {
       state = state.update(filteredCampaigns: state.campaigns);
     } else {
@@ -53,30 +53,12 @@ Future<void> getCampaigns() async {
           campaign.title!.toLowerCase().contains(query.toLowerCase())).toList();
 
       if (filteredCampaigns != null && filteredCampaigns.isNotEmpty) {
-        // Print filtered campaigns
-        filteredCampaigns.forEach((campaign) {
-          print(campaign.title);
-        });
         state = state.update(filteredCampaigns: filteredCampaigns);
       } else {
-        // If no filtered campaigns found, set filteredCampaigns to an empty list
         state = state.update(filteredCampaigns: []);
       }
     }
   }
-
-// void filterCampaignsBySpaceTitle(String query) {
-  //   if (query.isEmpty) {
-  //     state = state.update(filteredCampaigns: state.campaigns);
-  //   } else {
-  //     state = state.update(
-  //         filteredCampaigns: state.campaigns
-  //             ?.where((campaign) =>
-  //             campaign.spaceTitle!.toLowerCase().contains(query.toLowerCase()))
-  //             .toList());
-  //   }
-  // }
-
 }
 
 

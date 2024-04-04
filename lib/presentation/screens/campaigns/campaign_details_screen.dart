@@ -285,38 +285,59 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                                 final isTwitterVerified = await SharedPreferencesServices.getTwitterVerificationStatus();
 
                                                 if (isLoggedIn) {
-                                                  if (isTwitterVerified) {
-                                                    switch (task['action']) {
-                                                      case "join":
-                                                        bool isSuccessfullyJoined = await reader.joinSpace(campaigns[currentIndex.value].spaceUUID ?? "");
-                                                        if (isSuccessfullyJoined) {
-                                                          isSpaceJoined.value = true;
-                                                        }else {
-                                                          isSpaceJoined.value = true;
-                                                        }
-                                                        break;
-                                                      case "follow":
+                                                  switch (task['action']) {
+                                                    case "join":
+                                                      bool isSuccessfullyJoined = await reader.joinSpace(campaigns[currentIndex.value].spaceUUID ?? "");
+                                                      if (isSuccessfullyJoined) {
+                                                        isSpaceJoined.value = true;
+                                                      }else {
+                                                        isSpaceJoined.value = false;
+                                                      }
+                                                      break;
+                                                    case "follow":
+                                                      if (isTwitterVerified) {
                                                         print("follow");
-                                                        break;
-                                                      case "like":
+                                                      }else {
+                                                        if (!context.mounted) return;
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (BuildContext context) {
+                                                            return VerifyTwitterDialog();
+                                                          },
+                                                        );
+                                                      }
+                                                      break;
+                                                    case "like":
+                                                      if (isTwitterVerified) {
                                                         print("like");
-                                                        break;
-                                                      case "repost":
+                                                      }else {
+                                                        if (!context.mounted) return;
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (BuildContext context) {
+                                                            return VerifyTwitterDialog();
+                                                          },
+                                                        );
+                                                      }
+                                                      break;
+                                                    case "repost":
+                                                      if (isTwitterVerified) {
                                                         print("repost");
-                                                        break;
-                                                      default:
-                                                        print("Unidentified task");
-                                                        break;
-                                                    }
-                                                  }else {
-                                                    if (!context.mounted) return;
-                                                    showDialog(
-                                                      context: context,
-                                                      builder: (BuildContext context) {
-                                                        return VerifyTwitterDialog();
-                                                      },
-                                                    );
+                                                      }else {
+                                                        if (!context.mounted) return;
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (BuildContext context) {
+                                                            return VerifyTwitterDialog();
+                                                          },
+                                                        );
+                                                      }
+                                                      break;
+                                                    default:
+                                                      print("Unidentified task");
+                                                      break;
                                                   }
+
                                                 }else {
                                                   if (!context.mounted) return;
                                                   showDialog(

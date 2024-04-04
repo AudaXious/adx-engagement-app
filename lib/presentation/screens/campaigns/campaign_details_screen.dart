@@ -45,14 +45,10 @@ class CampaignDetailsScreen extends HookConsumerWidget {
     final campaigns = notifier.campaigns;
     final currentIndex = useState(campaignIndex);
     final slideInRight = useState(true);
-    // final spaceTitle = useState<String?>(null);
     final isSpaceJoined = useState(false);
     final isLiked = useState(false);
     final isFollowed = useState(false);
     final isReposted = useState(false);
-
-    // spaceTitle.value = campaigns?[currentIndex.value].spaceTitle;
-
 
     final animationController = useAnimationController(
         duration: const Duration(milliseconds: 200)
@@ -66,7 +62,6 @@ class CampaignDetailsScreen extends HookConsumerWidget {
 
     useEffect(() {
       currentIndex.value = campaignIndex;
-      // spaceTitle.value = campaigns?[currentIndex.value].spaceTitle;
       return () {
         animationController.dispose();
       };
@@ -128,7 +123,7 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                 Image.asset("assets/images/time_icon.png", width: 16, height: 16, color: taskChipBorderColor.withOpacity(0.6)),
                                 const Gap(5),
                                 Text(
-                                  formatEndDate(campaign.endDate ?? ""),
+                                  formatEndDate(campaigns?[currentIndex.value].endDate ?? ""),
                                   style: Theme.of(context).textTheme.bodyMedium?.
                                   copyWith(color: lightGold.withOpacity(0.7)),
                                 ),

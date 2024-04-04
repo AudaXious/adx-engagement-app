@@ -29,64 +29,33 @@ class BottomBarScreen extends StatelessWidget {
               type: BottomNavigationBarType.fixed,
               elevation: 5,
               selectedItemColor: secondaryColor,
-              unselectedItemColor: Colors.grey,
+              unselectedItemColor: inActiveBottomBarColor,
               selectedFontSize: 13,
               unselectedFontSize: 13,
               iconSize: 20,
-              items: const [
-
+              // showSelectedLabels: false,
+              // showUnselectedLabels: false,
+              items: [
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.home_filled),
-                    activeIcon: Icon(Icons.home_filled),
+                    icon: Image.asset("assets/images/home.png", width: 21, height: 21),
+                    activeIcon: Image.asset("assets/images/home.png", width: 21, height: 21, color: secondaryColor),
                     label: "Campaigns"
                 ),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.groups),
-                    activeIcon: Icon(Icons.groups),
+                    icon: Image.asset("assets/images/spaces.png", width: 23, height: 23),
+                    activeIcon: Image.asset("assets/images/spaces.png", width: 23, height: 23, color: secondaryColor),
                     label: "Spaces"
                 ),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.shield_moon_outlined),
-                    activeIcon: Icon(Icons.shield_moon_outlined),
+                    icon: Image.asset("assets/images/raffles.png", width: 24, height: 24),
+                    activeIcon: Image.asset("assets/images/raffles.png", width: 24, height: 24, color: secondaryColor),
                     label: "Raffles"
                 ),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.person),
-                    activeIcon: Icon(Icons.person),
+                    icon: Image.asset("assets/images/account.png", width: 20, height: 19),
+                    activeIcon: Image.asset("assets/images/account.png", width: 20, height: 19, color: secondaryColor),
                     label: "Account"
                 ),
-
-
-                // BottomNavigationBarItem(
-                //     icon: Image.asset(
-                //       "assets/images/user_group.png",
-                //       width: 24,
-                //       height: 24,
-                //       color: Colors.white,
-                //     ),
-                //     activeIcon: Image.asset(
-                //       "assets/images/user_group.png",
-                //       width: 24,
-                //       height: 24,
-                //       color: secondaryColor,
-                //     ),
-                //     label: "Spaces"
-                // ),
-                // BottomNavigationBarItem(
-                //     icon: Image.asset(
-                //       "assets/images/account_unselected.png",
-                //       width: 24,
-                //       height: 24,
-                //       color: Colors.white,
-                //     ),
-                //     activeIcon: Image.asset(
-                //       "assets/images/account_unselected.png",
-                //       width: 24,
-                //       height: 24,
-                //       color: secondaryColor,
-                //     ),
-                //     label: "Account"
-                // ),
 
               ],
             )

@@ -23,6 +23,7 @@ Color textInputBorderColor = const Color(0xFF555656);
 Color searchTextInputBorderColor = const Color(0xFFE8E8E8);
 Color fadedTextColor = const Color(0xFF757575);
 Color activeTabColor = const Color(0xFF13161E);
+Color inActiveBottomBarColor = const Color(0xFFE5E5E5);
 
 
 final ThemeData darkTheme = ThemeData(

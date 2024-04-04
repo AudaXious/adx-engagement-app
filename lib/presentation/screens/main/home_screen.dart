@@ -10,6 +10,7 @@ import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/utils/view_utils.dart';
+import '../../../domain/models/campaign.dart';
 import '../../widgets/cards/campaign_card.dart';
 import '../../widgets/alerts/empty_result_found_illustration.dart';
 
@@ -28,6 +29,15 @@ class HomeScreen extends HookConsumerWidget {
     final reader = ref.read(HomeViewModel.notifier.notifier);
     final notifier = ref.watch(HomeViewModel.notifier);
     final selectedSpacesCategory = useState<String?>(null);
+    final searchController = useTextEditingController();
+    final List<Campaign>? campaigns = notifier.campaigns;
+    final List<Campaign>? filteredCampaigns = notifier.filteredCampaigns;
+
+    final List<Campaign>? displayedCampaigns =
+    filteredCampaigns != null && filteredCampaigns.isNotEmpty
+        ? filteredCampaigns
+        : (filteredCampaigns != null ? [] : campaigns);
+
 
     return Scaffold(
       appBar: AppBar(
@@ -115,6 +125,10 @@ class HomeScreen extends HookConsumerWidget {
                           hintText: "Search campaigns",
                           prefixIcon: "assets/images/search.png"
                       ),
+                      onChanged: (query) {
+                        reader.filterCampaignsBySpaceTitle(query);
+                        print(query);
+                      },
                     ),
                   ),
                 ),
@@ -132,7 +146,7 @@ class HomeScreen extends HookConsumerWidget {
                   child: Text(notifier.error, textAlign: TextAlign.center,),
                 )
                 )
-                : notifier.campaigns!.isEmpty
+                : displayedCampaigns!.isEmpty
                 ? NoResultFoundIllustration(
               title: "No campaign",
               description: "All campaigns created will appear here.",
@@ -140,13 +154,13 @@ class HomeScreen extends HookConsumerWidget {
             )
                 : ListView.builder(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                itemCount: notifier.campaigns?.length,
+                itemCount: displayedCampaigns.length,
                 itemBuilder: (context, index) {
-                  final campaign = notifier.campaigns?[index];
+                  final campaign = displayedCampaigns[index];
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: CampaignCard(
-                      campaign: campaign!,
+                      campaign: campaign,
                       postIndex: index,
                     ),
                   );

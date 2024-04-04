@@ -1,5 +1,3 @@
-import 'package:audaxious/domain/models/tasks.dart';
-
 class Campaign {
   String? description;
   String? uuid;

@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:audaxious/core/utils/app_layout.dart';
 import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/presentation/widgets/buttons/primary_button.dart';
 import 'package:flutter/material.dart';

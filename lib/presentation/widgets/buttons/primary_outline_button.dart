@@ -10,6 +10,7 @@ class PrimaryOutlineButton extends StatefulWidget {
   final ButtonState buttonState;
   final Color? borderColor;
   double? progressBarSize;
+  double? borderRadius;
 
   PrimaryOutlineButton({
     Key? key,
@@ -18,6 +19,7 @@ class PrimaryOutlineButton extends StatefulWidget {
     this.buttonState = ButtonState.active,
     this.borderColor,
     this.progressBarSize,
+    this.borderRadius,
   }) : super(key: key);
 
   @override
@@ -38,7 +40,7 @@ class _PrimaryOutlineButtonState extends State<PrimaryOutlineButton> {
           side: BorderSide(
             color: widget.borderColor ?? secondaryColor
           ),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(widget.borderRadius ?? 30)),
         ),
         child: _buildButtonChild(),
       ),

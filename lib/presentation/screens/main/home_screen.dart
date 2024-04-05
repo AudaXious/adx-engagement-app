@@ -1,4 +1,3 @@
-import 'package:audaxious/core/utils/theme/dark_theme.dart';
 import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/presentation/viewmodels/home/home_viewmodel.dart';
 import 'package:audaxious/presentation/widgets/progressBars/circular_progress_bar.dart';

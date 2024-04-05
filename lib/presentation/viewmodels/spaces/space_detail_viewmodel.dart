@@ -1,14 +1,11 @@
 
 import 'package:audaxious/domain/models/space.dart';
 import 'package:audaxious/domain/usecases/spaces/space_detail_usecase.dart';
-import 'package:audaxious/domain/usecases/spaces/spaces_usecase.dart';
-import 'package:audaxious/presentation/screens/main/spaces_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../domain/enums/view_state.dart';
 import '../../../domain/models/campaign.dart';
 import '../../../domain/usecases/spaces/campaigns_by_space_id_usecase.dart';
 import '../../../domain/usecases/spaces/join_space_usecase.dart';
-import '../../../domain/usecases/spaces/user_created_spaces_usecase.dart';
 import '../../screens/spaces/space_detail_state.dart';
 
 class SpacesDetailsViewModel extends StateNotifier<SpaceDetailState> {

@@ -11,11 +11,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../core/utils/theme/dark_theme.dart';
 import '../../../domain/models/space.dart';
 import '../../widgets/alerts/empty_result_found_illustration.dart';
 import '../../widgets/alerts/sign_in_dialog.dart';
-import '../../widgets/alerts/verify_twitter_dialog.dart';
 
 @RoutePage()
 class SpacesScreen extends HookConsumerWidget {

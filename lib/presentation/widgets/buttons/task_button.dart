@@ -3,9 +3,7 @@ import 'package:audaxious/domain/enums/task_button_state.dart';
 import 'package:audaxious/presentation/widgets/progressBars/circular_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:toastification/toastification.dart';
 import '../../../core/utils/app_layout.dart';
-import '../../../domain/enums/button_state.dart';
 
 class TaskButton extends StatefulWidget {
   final VoidCallback? onPressed;

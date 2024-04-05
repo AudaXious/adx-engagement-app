@@ -1,7 +1,5 @@
 
-import 'package:audaxious/domain/usecases/auth/login_usecase.dart';
 import 'package:audaxious/domain/usecases/auth/verify_twitter_usecase.dart';
-import 'package:audaxious/presentation/screens/auth/login_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../domain/enums/view_state.dart';
 import '../../../domain/models/user.dart';

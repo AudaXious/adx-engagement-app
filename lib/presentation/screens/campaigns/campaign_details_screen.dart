@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:audaxious/core/routes/app_router.dart';
 import 'package:audaxious/core/utils/theme/dark_theme.dart';
@@ -22,10 +20,8 @@ import '../../../core/services/shared_preferences_services.dart';
 import '../../../core/utils/app_utils.dart';
 import '../../../core/utils/constants.dart';
 import '../../../domain/enums/task_button_state.dart';
-import '../../../domain/models/user.dart';
 import '../../widgets/alerts/sign_in_dialog.dart';
 import '../../widgets/alerts/verify_twitter_dialog.dart';
-import '../../widgets/space_tag.dart';
 
 
 @RoutePage()

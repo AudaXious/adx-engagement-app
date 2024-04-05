@@ -1,5 +1,4 @@
 import 'package:audaxious/domain/enums/button_state.dart';
-import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/domain/models/space.dart';
 import 'package:audaxious/presentation/widgets/alerts/custom_toast.dart';
 import 'package:audaxious/presentation/widgets/buttons/primary_outline_button.dart';

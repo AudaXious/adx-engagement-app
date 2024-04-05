@@ -244,7 +244,7 @@ class SpaceDetailScreen extends HookConsumerWidget {
             ),
             const Gap(30),
             CustomRadioGroupTabsHorizontal(
-              radioButtons: [
+              radioButtons: const [
                 {
                   'title': 'Campaigns',
                   'value': 'campaigns'

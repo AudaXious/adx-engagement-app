@@ -1,6 +1,4 @@
-import 'dart:convert';
 
-import 'package:audaxious/core/utils/app_layout.dart';
 import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/presentation/viewmodels/auth/login_viewmodel.dart';
 import 'package:audaxious/presentation/widgets/buttons/primary_button.dart';
@@ -13,13 +11,10 @@ import 'package:toastification/toastification.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/routes/app_router.dart';
-import '../../../core/services/shared_preferences_services.dart';
 import '../../../core/utils/app_utils.dart';
 import '../../../core/utils/theme/dark_theme.dart';
 import '../../../core/utils/view_utils.dart';
 import '../../../domain/enums/button_state.dart';
-import '../../../domain/models/user.dart';
-import '../../viewmodels/auth/verify_twitter_viewmodel.dart';
 import '../buttons/secondary_button.dart';
 import 'custom_toast.dart';
 

@@ -17,3 +17,7 @@ String spacesDetailEndpoint = "/spaces/s";
 String userCreatedSpacesEndpoint = "/spaces/user/all";
 String userJoinedSpacesEndpoint = "/spaces/user/joined/all";
 String joinSpaceEndpoint = "/spaces/join";
+
+//ACCOUNT
+String currentSavedUserProfileEndpoint = "/profile/user";
+

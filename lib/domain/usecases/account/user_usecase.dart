@@ -4,7 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../data/repository/account_repository_impl.dart';
 import '../../models/user.dart';
 abstract class UserUseCase {
-  Future<User?> getCurrentSavedUser ();
+  Future<User?> getCurrentSavedUser();
+  Future<dynamic> getCurrentSavedUserProfile();
 }
 class UserUseCaseImpl extends UserUseCase {
   final AccountRepository accountRepository;
@@ -14,6 +15,11 @@ class UserUseCaseImpl extends UserUseCase {
   @override
   Future<User?> getCurrentSavedUser() async  {
     return await accountRepository.getCurrentSavedUser();
+  }
+
+  @override
+  Future<dynamic> getCurrentSavedUserProfile() async {
+    return accountRepository.getCurrentSavedUserProfile();
   }
 
 }

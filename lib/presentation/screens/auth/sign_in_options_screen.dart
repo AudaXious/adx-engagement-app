@@ -124,7 +124,7 @@ class SignInOptionsScreen extends StatelessWidget {
                               },
                             )
                         ),
-                        const Gap(50),
+                        const Gap(30),
                         Container(
                           margin: const EdgeInsets.symmetric(horizontal: 20),
                           child: TextButton(

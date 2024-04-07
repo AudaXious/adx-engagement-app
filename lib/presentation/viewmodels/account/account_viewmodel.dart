@@ -3,6 +3,7 @@ import 'package:audaxious/core/services/shared_preferences_services.dart';
 import 'package:audaxious/domain/usecases/account/logout_usecase.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../domain/enums/view_state.dart';
+import '../../../domain/models/user.dart';
 import '../../../domain/usecases/account/user_usecase.dart';
 import '../../screens/account/account_state.dart';
 
@@ -15,7 +16,7 @@ class AccountViewModel extends StateNotifier<AccountState> {
     required this.userUseCase,
   }) : super (AccountState.initial()) {
     updateLoginStatus();
-    // getCurrentSavedUserProfile();
+    getCurrentSavedUser();
   }
 
   static final notifier =
@@ -52,11 +53,15 @@ class AccountViewModel extends StateNotifier<AccountState> {
   }
  }
 
-  Future<void> getCurrentSavedUserProfile() async {
+  Future<void> getCurrentSavedUser() async {
     state = state.update(profileViewState: ViewState.loading);
     try {
-      final response = await userUseCase.getCurrentSavedUserProfile();
-      print(response);
+      final user = await userUseCase.getCurrentSavedUser();
+      if (user != null) {
+        state = state.update(user: user);
+      }
+      state = state.update(profileViewState: ViewState.idle);
+      print(user?.username);
 
     }catch (e) {
       state = state.update(profileViewState: ViewState.error);
@@ -65,6 +70,26 @@ class AccountViewModel extends StateNotifier<AccountState> {
     }
   }
 
+  Future<void> getCurrentSavedUserProfile() async {
+    state = state.update(profileViewState: ViewState.loading);
+    try {
+      final response = await userUseCase.getCurrentSavedUserProfile();
+      final data = response['data'];
+
+      if (data != null) {
+        final user = User.fromJson(data);
+        state = state.update(user: user);
+      }
+
+      state = state.update(profileViewState: ViewState.idle);
+      print(response);
+
+    }catch (e) {
+      state = state.update(profileViewState: ViewState.error);
+      state = state.update(error: e.toString());
+      print("View model error: ${e.toString()}");
+    }
+  }
 
 }
 

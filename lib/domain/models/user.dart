@@ -9,6 +9,7 @@ class User {
   String? updatedAt;
   int? version;
   String? username;
+  String? profilePicture;
   String? token;
 
   User({
@@ -22,6 +23,7 @@ class User {
     this.updatedAt,
     this.version,
     this.username,
+    this.profilePicture,
     this.token,
   });
 
@@ -37,6 +39,7 @@ class User {
       updatedAt: json['updatedAt'],
       version: json['__v'],
       username: json['username'],
+      // profilePicture: json['profilePicture'],
       token: json['token'],
     );
   }
@@ -53,6 +56,7 @@ class User {
       'updatedAt': updatedAt,
       '__v': version,
       'username': username,
+      // 'profilePicture': profilePicture,
       'token': token,
     };
   }

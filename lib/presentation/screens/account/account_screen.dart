@@ -31,6 +31,7 @@ class AccountScreen extends HookConsumerWidget {
     final reader = ref.read(AccountViewModel.notifier.notifier);
     final notifier = ref.watch(AccountViewModel.notifier);
     final isLoggedIn = useState<bool?>(null);
+    final user = notifier.user;
 
     void getCurrentSavedUserProfile() async {
       reader.getCurrentSavedUserProfile();
@@ -40,7 +41,7 @@ class AccountScreen extends HookConsumerWidget {
       isLoggedIn.value = await SharedPreferencesServices.getIsLoggedIn();
 
       if (isLoggedIn.value == true) {
-        getCurrentSavedUserProfile();
+        // getCurrentSavedUserProfile();
       }
     }
 
@@ -78,21 +79,24 @@ class AccountScreen extends HookConsumerWidget {
                             child: Row(
                               children: [
                                 ClipOval(
-                                    child: CachedNetworkImage(
-                                      fit: BoxFit.fill,
-                                      imageUrl:  "https://res.cloudinary.com/dpm6velwz/image/upload/v1712005871/icon/660b22ef0bf929b3467fe78c.jpg",
-                                      placeholder: (context, url) => const CircularProgressIndicator(
-                                        color: Color(0xFF79C4EC),
-                                        strokeWidth: 2,
-                                      ),
-                                      width: profileImageWidth,
-                                      height: profileImageHeight,
-                                    )
+                                  child: user?.profilePicture == null
+                                      ? Image.asset(
+                                    "assets/images/dumm_profile.png",
+                                    width: profileImageHeight,
+                                    height: profileImageHeight,
+                                  )
+                                      : CachedNetworkImage(
+                                    fit: BoxFit.fill,
+                                    imageUrl: user?.profilePicture ?? "",
+                                    placeholder: (context, url) => CircularProgressBar(),
+                                    width: profileImageHeight,
+                                    height: profileImageHeight,
+                                  ),
                                 ),
-                                const Gap(15),
+                                const Gap(10),
                                 Expanded(
                                   child: Text(
-                                    "HackCity Tech",
+                                    "@${user?.username}",
                                     style: Theme.of(context).textTheme.displaySmall?.
                                     copyWith(fontSize: 16, color: cardTitleColor),
                                   ),

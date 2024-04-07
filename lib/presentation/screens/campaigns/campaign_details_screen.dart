@@ -300,8 +300,8 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                                       }
                                                       break;
                                                     case "like":
-                                                      if (isTwitterVerified) {
-                                                        print("like");
+                                                      if (!isTwitterVerified) {
+                                                        _likeTweet(task['url']);
                                                       }else {
                                                         if (!context.mounted) return;
                                                         showDialog(
@@ -409,6 +409,17 @@ class CampaignDetailsScreen extends HookConsumerWidget {
       await launch(followUrl);
     } else {
       throw 'Could not launch $followUrl';
+    }
+  }
+
+  void _likeTweet(String tweet) async {
+    String tweetId = extractTweetIdFromTwitterUrl(tweet);
+    print("tweet id $tweetId");
+    final likeUrl = 'https://twitter.com/intent/like?tweet_id=$tweetId';
+    if (await canLaunch(likeUrl)) {
+      await launch(likeUrl);
+    } else {
+      throw 'Could not launch $likeUrl';
     }
   }
 }

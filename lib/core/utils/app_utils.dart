@@ -73,5 +73,13 @@ String extractUsernameFromTwitterUrl(String url) {
   }
 }
 
+String extractTweetIdFromTwitterUrl(String url) {
+  final uri = Uri.parse(url);
+  final segments = uri.pathSegments;
+  return segments.last;
+}
+
+
+
 
 

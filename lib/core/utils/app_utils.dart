@@ -63,4 +63,15 @@ String formatEndDate(String dateString) {
   return '${days}d : ${hours}h : ${minutes}m left';
 }
 
+String extractUsernameFromTwitterUrl(String url) {
+  Uri uri = Uri.parse(url);
+  List<String> pathSegments = uri.pathSegments;
+  if (pathSegments.isNotEmpty) {
+    return pathSegments.last;
+  } else {
+    throw 'Invalid Twitter profile URL';
+  }
+}
+
+
 

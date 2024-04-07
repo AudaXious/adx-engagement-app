@@ -15,6 +15,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toastification/toastification.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/services/shared_preferences_services.dart';
 import '../../../core/utils/app_utils.dart';
@@ -286,8 +287,8 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                                       }
                                                       break;
                                                     case "follow":
-                                                      if (isTwitterVerified) {
-                                                        print("follow");
+                                                      if (!isTwitterVerified) {
+                                                        _followTwitterUser(task['url']);
                                                       }else {
                                                         if (!context.mounted) return;
                                                         showDialog(
@@ -399,5 +400,15 @@ class CampaignDetailsScreen extends HookConsumerWidget {
               ],
       ),
     );
+  }
+
+  void _followTwitterUser(String profileUrl) async {
+    String username = extractUsernameFromTwitterUrl(profileUrl);
+    final followUrl = 'https://twitter.com/intent/follow?screen_name=$username';
+    if (await canLaunch(followUrl)) {
+      await launch(followUrl);
+    } else {
+      throw 'Could not launch $followUrl';
+    }
   }
 }

@@ -1,5 +1,7 @@
+import 'package:audaxious/core/utils/theme/dark_theme.dart';
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:web3modal_flutter/web3modal_flutter.dart';
 
 @RoutePage()
@@ -23,7 +25,7 @@ class _ConnectWalletScreenState extends State<ConnectWalletScreen> {
     _w3mService = W3MService(
       projectId: '70630571fe8c62c8b5dfffe48ebc8c79',
       metadata: const PairingMetadata(
-        name: 'Web3Modal Flutter Example',
+        name: 'Audaxious',
         description: 'Web3Modal Flutter Example',
         url: 'https://www.walletconnect.com/',
         icons: ['https://walletconnect.com/walletconnect-logo.png'],
@@ -40,7 +42,20 @@ class _ConnectWalletScreenState extends State<ConnectWalletScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text("Wallet connect"),
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            W3MConnectWalletButton(service: _w3mService),
+            const Gap(20),
+            W3MNetworkSelectButton(service: _w3mService),
+            const Gap(20),
+            W3MAccountButton(service: _w3mService)
+          ],
+        ),
+      ),
     );
   }
 }

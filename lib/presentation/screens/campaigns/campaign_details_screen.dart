@@ -289,6 +289,8 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                                     case "follow":
                                                       if (!isTwitterVerified) {
                                                         _followTwitterUser(task['url']);
+                                                        await Future.delayed(const Duration(milliseconds: 2000));
+                                                        isFollowed.value = true;
                                                       }else {
                                                         if (!context.mounted) return;
                                                         showDialog(
@@ -302,6 +304,8 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                                     case "like":
                                                       if (!isTwitterVerified) {
                                                         _likeTweet(task['url']);
+                                                        await Future.delayed(const Duration(milliseconds: 2000));
+                                                        isLiked.value = true;
                                                       }else {
                                                         if (!context.mounted) return;
                                                         showDialog(
@@ -313,8 +317,10 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                                       }
                                                       break;
                                                     case "repost":
-                                                      if (isTwitterVerified) {
-                                                        print("repost");
+                                                      if (!isTwitterVerified) {
+                                                        _retweetTweet(task['url']);
+                                                        await Future.delayed(const Duration(milliseconds: 2000));
+                                                        isReposted.value = true;
                                                       }else {
                                                         if (!context.mounted) return;
                                                         showDialog(
@@ -414,7 +420,6 @@ class CampaignDetailsScreen extends HookConsumerWidget {
 
   void _likeTweet(String tweet) async {
     String tweetId = extractTweetIdFromTwitterUrl(tweet);
-    print("tweet id $tweetId");
     final likeUrl = 'https://twitter.com/intent/like?tweet_id=$tweetId';
     if (await canLaunch(likeUrl)) {
       await launch(likeUrl);
@@ -422,4 +427,15 @@ class CampaignDetailsScreen extends HookConsumerWidget {
       throw 'Could not launch $likeUrl';
     }
   }
+
+  void _retweetTweet(String tweet) async {
+    String tweetId = extractTweetIdFromTwitterUrl(tweet);
+    final retweetUrl = 'https://twitter.com/intent/retweet?tweet_id=$tweetId';
+    if (await canLaunch(retweetUrl)) {
+      await launch(retweetUrl);
+    } else {
+      throw 'Could not launch $retweetUrl';
+    }
+  }
+
 }

@@ -153,8 +153,8 @@ class SpacesViewModel extends StateNotifier<SpacesState> {
       return true;
 
     } catch (e) {
-      state = state.update(joinSpaceViewState: ViewState.error);
       state = state.update(error: e.toString());
+      state = state.update(joinSpaceViewState: ViewState.error);
       print("View model error: ${e.toString()}");
       return false;
     }

@@ -100,7 +100,7 @@ class _TaskButtonState extends State<TaskButton> {
               ),
             ),
             const Spacer(),
-            Image.asset("assets/images/checkmark_circle.png", width: 24, height: 24,)
+            Image.asset("assets/images/checkmark_circle.png", width: 20, height: 20,)
           ],
         );
     }

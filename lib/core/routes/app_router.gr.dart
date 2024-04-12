@@ -38,6 +38,12 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    ConnectWalletRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const ConnectWalletScreen(),
+      );
+    },
     CreateCommunityRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -187,6 +193,20 @@ class CampaignDetailsRouteArgs {
   String toString() {
     return 'CampaignDetailsRouteArgs{key: $key, campaign: $campaign, campaignIndex: $campaignIndex}';
   }
+}
+
+/// generated route for
+/// [ConnectWalletScreen]
+class ConnectWalletRoute extends PageRouteInfo<void> {
+  const ConnectWalletRoute({List<PageRouteInfo>? children})
+      : super(
+          ConnectWalletRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ConnectWalletRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

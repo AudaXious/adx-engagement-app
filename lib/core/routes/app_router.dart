@@ -8,6 +8,7 @@ import '../../presentation/screens/auth/login_screen.dart';
 import '../../presentation/screens/auth/sign_in_options_screen.dart';
 import '../../presentation/screens/auth/verify_otp_screen.dart';
 import '../../presentation/screens/auth/create_username_screen.dart';
+import '../../presentation/screens/auth/web3modal/connect_wallet_screen.dart';
 import '../../presentation/screens/campaigns/campaign_details_screen.dart';
 import '../../presentation/screens/intro/on_boarding_screen.dart';
 import '../../presentation/screens/main/bottom_bar.dart';
@@ -33,6 +34,7 @@ class AppRouter extends _$AppRouter {
     AutoRoute(page: LoginRoute.page),
     AutoRoute(page: VerifyOTPRoute.page),
     AutoRoute(page: CreateUsernameRoute.page),
+    AutoRoute(page: ConnectWalletRoute.page),
 
     //Bottom nav
     AutoRoute(

@@ -25,6 +25,33 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
+  Future<Map<String, dynamic>> walletLogin(String walletId) async {
+    try {
+      final response = await DioClient.instance.post(
+          verifyOTPEndpoint,
+          data: {'walletId': walletId},
+          requiresAuthorization: false
+      );
+
+      final data = response['data'];
+      if (data != null) {
+        User user = User.fromJson(data);
+        await SharedPreferencesServices().saveCurrentUser("user", json.encode(user));
+        await SharedPreferencesServices.saveAccessToken(user.token!);
+        await SharedPreferencesServices.saveIsLoggedIn(true);
+
+        final jj = await SharedPreferencesServices().getCurrentSavedUser("user");
+        print("Saved user: $jj");
+      }
+
+      return response;
+    } on DioException catch (e) {
+      var error = CustomDioException.fromDioError(e);
+      throw error.errorMessage;
+    }
+  }
+
+  @override
   Future<Map<String, dynamic>> verifyOTPForSignIn(String email, String otp) async {
     try {
       final response = await DioClient.instance.post(
@@ -39,9 +66,6 @@ class AuthRepositoryImpl implements AuthRepository {
         await SharedPreferencesServices().saveCurrentUser("user", json.encode(user));
         await SharedPreferencesServices.saveAccessToken(user.token!);
         await SharedPreferencesServices.saveIsLoggedIn(true);
-
-        final jj = await SharedPreferencesServices().getCurrentSavedUser("user");
-        print("Saved user: $jj");
       }
 
       return response;

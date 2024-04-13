@@ -3,6 +3,7 @@ String audaxiousBaseURL = "https://api.audaxious.com/api/v1";
 
 //AUTHENTICATION
 String loginEndpoint = "/user/onboard";
+String walletLoginEndpoint = "user/wallet/login";
 String verifyOTPEndpoint = "/user/verify?type=verify";
 String createUsernameEndpoint = "/profile/update-username";
 String verifyTwitterEndpoint = "/twitter/verify";

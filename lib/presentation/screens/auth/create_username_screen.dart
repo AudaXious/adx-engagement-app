@@ -32,33 +32,6 @@ class CreateUsernameScreen extends HookConsumerWidget {
       appBar: AppBar(
         title: Image.asset("assets/images/audaxious_name_logo.png", width: 100, height: 16),
         centerTitle: true,
-        actions: [
-          IconButton(
-              onPressed: () {
-                // JustTheTooltip(
-                //   child: Material(
-                //     color: Colors.grey.shade800,
-                //     shape: const CircleBorder(),
-                //     elevation: 4.0,
-                //     child: const Padding(
-                //       padding: EdgeInsets.all(8.0),
-                //       child: Icon(
-                //         Icons.add,
-                //         color: Colors.white,
-                //       ),
-                //     ),
-                //   ),
-                //   content: const Padding(
-                //     padding: EdgeInsets.all(8.0),
-                //     child: Text(
-                //       "Please note that after saving a username, you can only change it after 30 days."
-                //     ),
-                //   ),
-                // );
-              },
-              icon: const Icon(Icons.info_outline)
-          )
-        ],
       ),
       body: Form(
         key: formKey,

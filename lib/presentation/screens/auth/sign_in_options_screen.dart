@@ -108,7 +108,7 @@ class SignInOptionsScreen extends StatelessWidget {
                         Container(
                             margin: const EdgeInsets.symmetric(horizontal: 20),
                             child: SecondaryButton(
-                              buttonText: "Sign in with Google",
+                              buttonText: "Sign In with Google",
                               icon: "assets/images/google.png",
                               onPressed: () {
                               },
@@ -118,7 +118,7 @@ class SignInOptionsScreen extends StatelessWidget {
                         Container(
                             margin: const EdgeInsets.symmetric(horizontal: 20),
                             child: SecondaryButton(
-                              buttonText: "Sign in with WalletConnect",
+                              buttonText: "Sign In with Wallet",
                               icon: "assets/images/wallet_connect.png",
                               onPressed: () {
                                 context.router.navigate(const ConnectWalletRoute());

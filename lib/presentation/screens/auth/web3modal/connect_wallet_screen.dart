@@ -1,4 +1,4 @@
-import 'package:audaxious/core/utils/theme/dark_theme.dart';
+import 'package:audaxious/presentation/widgets/buttons/primary_button.dart';
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -19,6 +19,8 @@ class _ConnectWalletScreenState extends State<ConnectWalletScreen> {
   void initState() {
     super.initState();
     initializeState();
+    getAccountDetails();
+    // print("${ _w3mService.getApprovedChains()}");
   }
 
   void initializeState() async {
@@ -39,21 +41,46 @@ class _ConnectWalletScreenState extends State<ConnectWalletScreen> {
     await _w3mService.init();
   }
 
+  void getAccountDetails() {
+    print("Status: ${_w3mService.status}");
+    print("Selected Wallet: ${_w3mService.selectedWallet}");
+  }
+
   @override
   Widget build(BuildContext context) {
+    getAccountDetails();
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            W3MConnectWalletButton(service: _w3mService),
-            const Gap(20),
-            W3MNetworkSelectButton(service: _w3mService),
-            const Gap(20),
-            W3MAccountButton(service: _w3mService)
-          ],
+      appBar: AppBar(
+        title: Text(
+          "Sign In with Wallet",
+          style: Theme.of(context).textTheme.displaySmall,
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              W3MConnectWalletButton(service: _w3mService),
+              // W3MConnectWalletButton(
+              //   service: _w3mService,
+              //   state: ConnectButtonState.none,
+              // ),
+              const Gap(20),
+              W3MNetworkSelectButton(service: _w3mService),
+              const Gap(20),
+              W3MAccountButton(service: _w3mService),
+              const Gap(50),
+              PrimaryButton(
+                buttonText: "Sign in",
+                onPressed: () {
+                  getAccountDetails();
+                },
+              )
+            ],
+          ),
         ),
       ),
     );

@@ -1,54 +1,51 @@
 import 'package:audaxious/presentation/widgets/buttons/primary_button.dart';
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:web3modal_flutter/web3modal_flutter.dart';
 
 @RoutePage()
-class ConnectWalletScreen extends StatefulWidget {
+class ConnectWalletScreen extends HookConsumerWidget {
   const ConnectWalletScreen({super.key});
 
   @override
-  State<ConnectWalletScreen> createState() => _ConnectWalletScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    late W3MService _w3mService;
+    late String? walletId;
 
-class _ConnectWalletScreenState extends State<ConnectWalletScreen> {
-  late W3MService _w3mService;
+    void getAccountDetails() {
+      walletId = _w3mService.session?.address;
+      print("Status: ${_w3mService.status}");
+      print("Address: $walletId");
+    }
 
-  @override
-  void initState() {
-    super.initState();
-    initializeState();
-    getAccountDetails();
-    // print("${ _w3mService.getApprovedChains()}");
-  }
-
-  void initializeState() async {
-    _w3mService = W3MService(
-      projectId: '70630571fe8c62c8b5dfffe48ebc8c79',
-      metadata: const PairingMetadata(
-        name: 'Audaxious',
-        description: 'Web3Modal Flutter Example',
-        url: 'https://www.walletconnect.com/',
-        icons: ['https://walletconnect.com/walletconnect-logo.png'],
-        redirect: Redirect(
-          native: 'audaxious://',
-          universal: 'https://www.walletconnect.com',
+    void initializeW3MService() async {
+      _w3mService = W3MService(
+        projectId: '70630571fe8c62c8b5dfffe48ebc8c79',
+        metadata: const PairingMetadata(
+          name: 'Audaxious',
+          description: 'Web3Modal Flutter Example',
+          url: 'https://www.walletconnect.com/',
+          icons: ['https://walletconnect.com/walletconnect-logo.png'],
+          redirect: Redirect(
+            native: 'audaxious://',
+            universal: 'https://www.walletconnect.com',
+          ),
         ),
-      ),
-    );
+      );
 
-    await _w3mService.init();
-  }
+      await _w3mService.init();
+      getAccountDetails();
+    }
 
-  void getAccountDetails() {
-    print("Status: ${_w3mService.status}");
-    print("Selected Wallet: ${_w3mService.selectedWallet}");
-  }
+    useEffect(() {
+      initializeW3MService();
+      return () {
+      };
+    }, []);
 
-  @override
-  Widget build(BuildContext context) {
-    getAccountDetails();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -72,13 +69,6 @@ class _ConnectWalletScreenState extends State<ConnectWalletScreen> {
               W3MNetworkSelectButton(service: _w3mService),
               const Gap(20),
               W3MAccountButton(service: _w3mService),
-              const Gap(50),
-              PrimaryButton(
-                buttonText: "Sign in",
-                onPressed: () {
-                  getAccountDetails();
-                },
-              )
             ],
           ),
         ),

@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 
 import '../../../core/routes/app_router.dart';
@@ -29,63 +31,77 @@ class SignInOptionsScreen extends StatelessWidget {
               ],
             ),
             const Gap(30),
-            Stack(
-              clipBehavior: Clip.none,
-              alignment: Alignment.center,
-              children: [
-                Image.asset(
-                  'assets/images/on_boarding_bg2.png',
-                  width: size.width*0.7,
-                  height: 500,
-                ),
+            SizedBox(
+              height: 700,
+              child: Stack(
+                clipBehavior: Clip.none,
+                alignment: Alignment.center,
+                children: [
+                  Positioned(
+                    top: 0,
+                    child: Image.asset(
+                      'assets/images/on_boarding_bg2.png',
+                      width: size.width*0.7,
+                      height: 500,
+                    ),
+                  ),
 
-                Container(
-                  width: size.width*0.7,
-                  height: 500,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
-                      colors: [
-                        Colors.black.withOpacity(0.9),
-                        Colors.transparent,
-                      ],
+                  Positioned(
+                    top: 0,
+                    child: Container(
+                      width: size.width*0.7,
+                      height: 500,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                          colors: [
+                            Colors.black.withOpacity(0.9),
+                            Colors.transparent,
+                          ],
+                        ),
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  width: size.width*0.7,
-                  height: 500,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
-                      colors: [
-                        Colors.black.withOpacity(0.9),
-                        Colors.transparent,
-                      ],
+                  Positioned(
+                    top: 0,
+                    child: Container(
+                      width: size.width*0.7,
+                      height: 500,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                          colors: [
+                            Colors.black.withOpacity(0.9),
+                            Colors.transparent,
+                          ],
+                        ),
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  width: size.width*0.7,
-                  height: 500,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.black.withOpacity(0.6),
-                        Colors.transparent,
-                      ],
+                  Positioned(
+                    top: 0,
+                    child: Container(
+                      width: size.width*0.7,
+                      height: 500,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.black.withOpacity(0.6),
+                            Colors.transparent,
+                          ],
+                        ),
+                      ),
                     ),
                   ),
-                ),
 
-                Positioned(
-                  top: 330,
-                    left: -60,
-                    right: -60,
+                  Positioned(
+                    top: 330,
+                    left: 0,
+                    right: 0,
                     child: Column(
                       children: [
                         Text(
@@ -94,11 +110,11 @@ class SignInOptionsScreen extends StatelessWidget {
                         ),
                         const Gap(20),
                         Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 20),
+                            margin: const EdgeInsets.symmetric(horizontal: 10),
                             child: PrimaryButton(
                               buttonText: "Sign In with Email",
                               onPressed: () {
-                                context.router.navigate(WalletLoginRoute());
+                                context.router.navigate(LoginRoute());
                               },
                             )
                         ),
@@ -106,7 +122,7 @@ class SignInOptionsScreen extends StatelessWidget {
                         const Text("Or"),
                         const Gap(20),
                         Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 20),
+                            margin: const EdgeInsets.symmetric(horizontal: 0),
                             child: SecondaryButton(
                               buttonText: "Sign In with Google",
                               icon: "assets/images/google.png",
@@ -116,7 +132,7 @@ class SignInOptionsScreen extends StatelessWidget {
                         ),
                         const Gap(20),
                         Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 20),
+                            margin: const EdgeInsets.symmetric(horizontal: 0),
                             child: SecondaryButton(
                               buttonText: "Sign In with Wallet",
                               icon: "assets/images/wallet_connect.png",
@@ -150,8 +166,9 @@ class SignInOptionsScreen extends StatelessWidget {
                         )
                       ],
                     )
-                )
-              ],
+                  )
+                ],
+              ),
             ),
 
           ],

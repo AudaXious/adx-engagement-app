@@ -1,3 +1,4 @@
+import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:web3modal_flutter/web3modal_flutter.dart';
 import '../../../../core/routes/app_router.dart';
 import '../../../viewmodels/auth/wallet_login_viewmodel.dart';
 import '../../../widgets/alerts/custom_toast.dart';
+import '../../../widgets/progressBars/circular_progress_bar.dart';
 
 @RoutePage()
 class WalletLoginScreen extends HookConsumerWidget {
@@ -21,7 +23,7 @@ class WalletLoginScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final reader = ref.read(WalletLoginViewModel.notifier.notifier);
-
+    final notifier = ref.read(WalletLoginViewModel.notifier);
 
     void initializeW3MService() async {
       _w3mService = W3MService(
@@ -40,7 +42,6 @@ class WalletLoginScreen extends HookConsumerWidget {
 
       await _w3mService.init();
       if (_w3mService.status == W3MServiceStatus.initialized) {
-        print("The fucking wallet has been initialized");
         if (_w3mService != null) {
           final walletId = _w3mService.session?.address;
           print(walletId);
@@ -69,12 +70,12 @@ class WalletLoginScreen extends HookConsumerWidget {
             }
 
           }else {
-            CustomToast.show(
-              context: context,
-              title: "Error",
-              description: "No wallet address found. Please try again!",
-              type: ToastificationType.error,
-            );
+            // CustomToast.show(
+            //   context: context,
+            //   title: "Error",
+            //   description: "No wallet address found. Please try again!",
+            //   type: ToastificationType.error,
+            // );
           }
 
         }
@@ -97,7 +98,8 @@ class WalletLoginScreen extends HookConsumerWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Center(
-          child: Column(
+          child: notifier.viewState.isLoading ? CircularProgressBar()
+              : Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [

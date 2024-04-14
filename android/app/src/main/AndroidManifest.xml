@@ -28,7 +28,7 @@
     </queries>
 
     <application
-        android:label="audaxious"
+        android:label="AudaXious"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -1,3 +1,3 @@
 # audaxious
 
-The Web3.0 Gateway for Social Networks
+AI Enhanced Decentralized Engagement Protocol

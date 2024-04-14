@@ -20,7 +20,7 @@ class VerifyOTPViewModel extends StateNotifier<VerifyOTPState> {
   Future<User?> verifyOTP(String email,String otp) async {
     state = state.update(viewState: ViewState.loading);
     try {
-      final response = await verifyOTPUseCase.verifyOTP(email, otp);
+      final response = await verifyOTPUseCase.verifyOTP(email.trim(), otp.trim());
       final success = response['success'];
       final message = response['message'];
       final data = response['data'];

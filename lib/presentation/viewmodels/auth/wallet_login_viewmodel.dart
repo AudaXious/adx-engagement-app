@@ -22,7 +22,7 @@ class WalletLoginViewModel extends StateNotifier<WalletLoginState> {
   Future<User?> loginUser(String walletId) async {
       state = state.update(viewState: ViewState.loading);
       try {
-        final response = await walletLoginUseCase.walletLogin(walletId);
+        final response = await walletLoginUseCase.walletLogin(walletId.trim());
         final success = response['success'];
         final data = response['data'];
 

@@ -31,6 +31,8 @@ Color darkOrange = const Color(0xFFD04740);
 
 
 final ThemeData darkTheme = ThemeData(
+  splashColor: Colors.transparent,
+  highlightColor: Colors.transparent,
   textTheme: const TextTheme(
     displayLarge: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w800, fontFamily: 'Poppins'),
     displayMedium: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500, fontFamily: 'Poppins'),

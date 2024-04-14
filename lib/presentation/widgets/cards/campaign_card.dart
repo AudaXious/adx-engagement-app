@@ -20,8 +20,7 @@ class CampaignCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      splashColor: const Color(0x0d021418),
+    return GestureDetector(
       onTap: () {
         context.router.navigate(
             CampaignDetailsRoute(campaign: campaign, campaignIndex: postIndex));

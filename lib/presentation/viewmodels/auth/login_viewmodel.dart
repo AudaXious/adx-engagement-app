@@ -20,7 +20,7 @@ class LoginViewModel extends StateNotifier<LoginState> {
   Future<bool> loginUser(String email) async {
       state = state.update(viewState: ViewState.loading);
       try {
-        final response = await loginUseCase.login(email);
+        final response = await loginUseCase.login(email.trim());
         final success = response['success'];
         final data = response['data'];
 

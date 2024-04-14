@@ -172,7 +172,10 @@ class SpacesScreen extends HookConsumerWidget {
                   itemCount: displayedSpaces.length,
                   itemBuilder: (context, index) {
                     final singleSpace = displayedSpaces[index];
-                    return SpaceCard(space: singleSpace);
+                    return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: SpaceCard(space: singleSpace)
+                    );
                   }
               )
 

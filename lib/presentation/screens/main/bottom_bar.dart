@@ -33,6 +33,7 @@ class BottomBarScreen extends StatelessWidget {
               selectedFontSize: 13,
               unselectedFontSize: 13,
               iconSize: 20,
+              enableFeedback: false,
               // showSelectedLabels: false,
               // showUnselectedLabels: false,
               items: [

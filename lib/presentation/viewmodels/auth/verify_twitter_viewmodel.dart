@@ -20,7 +20,7 @@ class VerifyTwitterViewModel extends StateNotifier<VerifyTwitterState> {
 Future<bool> verifyTwitter(String url) async {
     state = state.update(viewState: ViewState.loading);
     try {
-      final response = await verifyTwitterUseCase.verifyTwitter(url);
+      final response = await verifyTwitterUseCase.verifyTwitter(url.trim());
       final success = response['success'];
       final data = response['data'];
 

@@ -117,10 +117,8 @@ class VerifyOTPScreen extends HookConsumerWidget {
                   );
 
                   if (user.username == null) {
-                    print("User name does not exists ${user.username}");
                     context.router.navigate(CreateUsernameRoute());
                   }else {
-                    print("User name exists ${user.username}");
                     context.router.replaceAll([const BottomBarRoute()]);
                   }
                 }

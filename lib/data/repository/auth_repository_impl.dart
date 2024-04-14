@@ -28,7 +28,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Map<String, dynamic>> walletLogin(String walletId) async {
     try {
       final response = await DioClient.instance.post(
-          verifyOTPEndpoint,
+          walletLoginEndpoint,
           data: {'walletId': walletId},
           requiresAuthorization: false
       );

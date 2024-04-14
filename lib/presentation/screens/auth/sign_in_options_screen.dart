@@ -98,7 +98,7 @@ class SignInOptionsScreen extends StatelessWidget {
                             child: PrimaryButton(
                               buttonText: "Sign In with Email",
                               onPressed: () {
-                                context.router.navigate(const ConnectWalletRoute());
+                                context.router.navigate(WalletLoginRoute());
                               },
                             )
                         ),
@@ -121,7 +121,7 @@ class SignInOptionsScreen extends StatelessWidget {
                               buttonText: "Sign In with Wallet",
                               icon: "assets/images/wallet_connect.png",
                               onPressed: () {
-                                context.router.navigate(const ConnectWalletRoute());
+                                context.router.navigate(WalletLoginRoute());
                               },
                             )
                         ),

@@ -38,12 +38,6 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
-    ConnectWalletRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const ConnectWalletScreen(),
-      );
-    },
     CreateCommunityRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -121,6 +115,14 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    WalletLoginRoute.name: (routeData) {
+      final args = routeData.argsAs<WalletLoginRouteArgs>(
+          orElse: () => const WalletLoginRouteArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WalletLoginScreen(key: args.key),
+      );
+    },
   };
 }
 
@@ -193,20 +195,6 @@ class CampaignDetailsRouteArgs {
   String toString() {
     return 'CampaignDetailsRouteArgs{key: $key, campaign: $campaign, campaignIndex: $campaignIndex}';
   }
-}
-
-/// generated route for
-/// [ConnectWalletScreen]
-class ConnectWalletRoute extends PageRouteInfo<void> {
-  const ConnectWalletRoute({List<PageRouteInfo>? children})
-      : super(
-          ConnectWalletRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'ConnectWalletRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -456,5 +444,34 @@ class VerifyOTPRouteArgs {
   @override
   String toString() {
     return 'VerifyOTPRouteArgs{key: $key, email: $email}';
+  }
+}
+
+/// generated route for
+/// [WalletLoginScreen]
+class WalletLoginRoute extends PageRouteInfo<WalletLoginRouteArgs> {
+  WalletLoginRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          WalletLoginRoute.name,
+          args: WalletLoginRouteArgs(key: key),
+          initialChildren: children,
+        );
+
+  static const String name = 'WalletLoginRoute';
+
+  static const PageInfo<WalletLoginRouteArgs> page =
+      PageInfo<WalletLoginRouteArgs>(name);
+}
+
+class WalletLoginRouteArgs {
+  const WalletLoginRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'WalletLoginRouteArgs{key: $key}';
   }
 }

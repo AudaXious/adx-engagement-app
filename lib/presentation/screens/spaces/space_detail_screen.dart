@@ -3,6 +3,7 @@ import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/presentation/viewmodels/spaces/space_detail_viewmodel.dart';
 import 'package:audaxious/presentation/widgets/buttons/custom_radio_group_tabs_horizontal.dart';
 import 'package:audaxious/presentation/widgets/buttons/primary_button.dart';
+import 'package:audaxious/presentation/widgets/buttons/primary_outline_button.dart';
 import 'package:audaxious/presentation/widgets/progressBars/circular_progress_bar.dart';
 import 'package:auto_route/annotations.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -24,6 +25,7 @@ import '../../widgets/alerts/sign_in_dialog.dart';
 import '../../widgets/cards/campaign_card.dart';
 import '../../widgets/leader_board_item.dart';
 import '../../widgets/space_tag.dart';
+import '../../widgets/vertical_bar.dart';
 
 @RoutePage()
 class SpaceDetailScreen extends HookConsumerWidget {
@@ -135,8 +137,10 @@ class SpaceDetailScreen extends HookConsumerWidget {
                             ),
                             const Gap(3),
                             Text(
-                              "0 active campaign",
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: lightGreen),
+                                space!.campaignsCount! > 1
+                                  ? "${space?.campaignsCount} active campaigns"
+                                  : "${space?.campaignsCount} active campaign",
+                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: lightGreen),
                             )
                           ],
                         ),
@@ -145,7 +149,16 @@ class SpaceDetailScreen extends HookConsumerWidget {
                       SizedBox(
                           width: 140,
                           height: 32,
-                          child: PrimaryButton(
+                          child: space!.isMember!
+                              ? PrimaryOutlineButton(
+                              onPressed: (){},
+                              buttonText: "Leave space",
+                              borderRadius: 30,
+                              buttonState: notifier.joinSpaceViewState. isLoading
+                                  ? ButtonState.loading
+                                  : ButtonState.active
+                          )
+                              : PrimaryButton(
                               onPressed: () async {
                                 final isLoggedIn = await SharedPreferencesServices.getIsLoggedIn();
                                 if (isLoggedIn) {
@@ -191,18 +204,15 @@ class SpaceDetailScreen extends HookConsumerWidget {
                   Row(
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
-                        decoration: BoxDecoration(
-                          border: Border.all(width: 0.2, color: secondaryColor),
-                          borderRadius: const BorderRadius.all(Radius.circular(15)),
-                        ),
                         child: Row(
                           children: [
-                            Image.asset("assets/images/user_group.png", width: 22, height: 22,),
+                            Image.asset("assets/images/people.png", width: 18, height: 18,),
+                            const Gap(5),
+                            VerticalBar(color: secondaryColor.withOpacity(0.5), width: 0.5, height: 20,),
                             const Gap(5),
                             Text(
                               space?.spaceMembersCount.toString() ?? "",
-                              style: Theme.of(context).textTheme.bodyMedium?.
+                              style: Theme.of(context).textTheme.bodyLarge?.
                               copyWith(color: secondaryColor.withOpacity(0.9)),
                             ),
         
@@ -212,15 +222,15 @@ class SpaceDetailScreen extends HookConsumerWidget {
                       const Gap(20),
                       IconButton(
                         onPressed: () {},
-                        icon: Image.asset("assets/images/internet.png", width: 20, height: 20,),
+                        icon: Image.asset("assets/images/internet.png", width: 16, height: 16,),
                       ),
                       IconButton(
                         onPressed: () {},
-                        icon: Image.asset("assets/images/twitter.png", width: 24, height: 24,),
+                        icon: Image.asset("assets/images/twitter.png", width: 20, height: 20,),
                       ),
                       IconButton(
                         onPressed: () {},
-                        icon: Image.asset("assets/images/discord.png", width: 24, height: 24,),
+                        icon: Image.asset("assets/images/discord.png", width: 20, height: 20,),
                       ),
                     ],
                   ),

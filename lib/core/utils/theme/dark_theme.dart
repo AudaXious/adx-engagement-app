@@ -12,6 +12,7 @@ Color bannerColor1 = const Color(0xFF162530);
 Color taskChipBorderColor = const Color(0xFFB2B3B6);
 Color dividerColor = const Color(0xFFB2B3B6);
 
+Color successGreen = const Color(0xFF37d67a);
 Color lightTeal = const Color(0xFF7AE7E7);
 Color lightGreen = const Color(0xFF6DE6AE);
 Color lightGold = const Color(0xFFE1D356);
@@ -24,6 +25,7 @@ Color searchTextInputBorderColor = const Color(0xFFE8E8E8);
 Color fadedTextColor = const Color(0xFF757575);
 Color activeTabColor = const Color(0xFF13161E);
 Color inActiveBottomBarColor = const Color(0xFFE5E5E5);
+Color activeCampaignBgColor = const Color(0xFF641da1);
 Color yellowBarColor = const Color(0xFFFFAA3E);
 Color purpleBarColor = const Color(0xFFB63EFF);
 Color greenBarColor = const Color(0xFF3EFFDC);

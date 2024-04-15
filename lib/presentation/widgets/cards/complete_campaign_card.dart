@@ -43,7 +43,7 @@ class CompleteCampaignCard extends StatelessWidget {
                         child: Container(
                           margin: const EdgeInsets.only(right: 3),
                           child: Image.asset(
-                              "assets/images/verification_tick.png",
+                              "assets/images/verified_gear.png",
                               width: verificationBadgeSize,
                               height: verificationBadgeSize
                           ),

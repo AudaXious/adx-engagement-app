@@ -8,7 +8,9 @@ class Space {
   String? coverURL;
   String? profileURL;
   int? spaceMembersCount;
+  int? campaignsCount;
   bool? isVerified;
+  bool? isMember;
   String? createdAt;
   String? updatedAt;
 
@@ -22,7 +24,9 @@ class Space {
     this.profileURL,
     this.coverURL,
     this.spaceMembersCount,
+    this.campaignsCount,
     this.isVerified,
+    this.isMember,
     this.createdAt,
     this.updatedAt,
   });
@@ -38,7 +42,9 @@ class Space {
       coverURL: json['bannerUrl'],
       profileURL: json['iconUrl'],
       spaceMembersCount: json['spaceMembersCount'],
+      campaignsCount: json['campaignsCount'],
       isVerified: json['isVerified'],
+      isMember: json['isMember'],
       createdAt: json['createdAt'],
       updatedAt: json['updatedAt'],
     );
@@ -53,7 +59,8 @@ class Space {
       'links': links,
       'uuid': uuid,
       'spaceMembersCount': spaceMembersCount,
-      'isVerified': spaceMembersCount,
+      'isVerified': isVerified,
+      'isMember': isMember,
       'createdAt': createdAt,
       'updatedAt': updatedAt,
     };

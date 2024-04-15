@@ -46,6 +46,9 @@ class SpacesViewModel extends StateNotifier<SpacesState> {
 
         final spaces = dataList.map((spacesData) => Space.fromJson(spacesData)).toList();
         state = state.update(spaces: spaces);
+        for (int i = 0; i < spaces.length; i++) {
+          print(spaces[i].isMember);
+        }
       }else {
         print('Unexpected data format. Expected a list of spaces.');
         state = state.update(spaceViewState: ViewState.error);

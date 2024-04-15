@@ -1,13 +1,13 @@
-import 'package:audaxious/domain/enums/button_state.dart';
 import 'package:audaxious/domain/models/space.dart';
 import 'package:audaxious/presentation/widgets/alerts/custom_toast.dart';
-import 'package:audaxious/presentation/widgets/buttons/primary_outline_button.dart';
+import 'package:audaxious/presentation/widgets/cards/active_campaign.dart';
 import 'package:audaxious/presentation/widgets/progressBars/circular_progress_bar.dart';
 import 'package:audaxious/presentation/widgets/vertical_bar.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -21,7 +21,6 @@ import '../../../core/utils/theme/dark_theme.dart';
 import '../../viewmodels/spaces/spaces_viewmodel.dart';
 import '../alerts/sign_in_dialog.dart';
 import '../card_space_tag.dart';
-import '../space_tag.dart';
 class SpaceCard extends HookConsumerWidget {
   Space space;
   SpaceCard({super.key, required this.space});
@@ -31,6 +30,11 @@ class SpaceCard extends HookConsumerWidget {
     final reader = ref.read(SpacesViewModel.notifier.notifier);
     final notifier = ref.watch(SpacesViewModel.notifier);
     final joinLoadingState = useState(false);
+    final isMemberState = useState<bool?>(null);
+
+    if (space != null) {
+      isMemberState.value = space.isMember;
+    }
 
     return GestureDetector(
       onTap: () {
@@ -57,20 +61,33 @@ class SpaceCard extends HookConsumerWidget {
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            ClipOval(
-                              child: space.profileURL == null
-                                  ? Image.asset(
-                                      "assets/images/dumm_profile.png",
-                                      width: cardProfileWidth,
-                                      height: cardProfileHeight,
+                            Stack(
+                              alignment: Alignment.bottomRight,
+                              clipBehavior: Clip.none,
+                              children: [
+                                ClipOval(
+                                  child: space.profileURL == null
+                                      ? Image.asset(
+                                    "assets/images/dumm_profile.png",
+                                    width: cardProfileWidth,
+                                    height: cardProfileHeight,
                                   )
-                                  : CachedNetworkImage(
-                                      fit: BoxFit.fill,
-                                      imageUrl: space.profileURL ?? "",
-                                      placeholder: (context, url) => CircularProgressBar(),
-                                      width: cardProfileWidth,
-                                      height: cardProfileHeight,
-                              ),
+                                      : CachedNetworkImage(
+                                    fit: BoxFit.fill,
+                                    imageUrl: space.profileURL ?? "",
+                                    placeholder: (context, url) => CircularProgressBar(),
+                                    width: cardProfileWidth,
+                                    height: cardProfileHeight,
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: space.isVerified!,
+                                  child: Positioned(
+                                    top: cardProfileHeight - 15,
+                                    child: Image.asset("assets/images/verification_tick.png", width: 16, height: 16,)
+                                  ),
+                                )
+                              ],
                             ),
                             const Gap(8),
                             Expanded(
@@ -81,10 +98,25 @@ class SpaceCard extends HookConsumerWidget {
                               ),
                             ),
                             const Gap(20),
-                            SizedBox(
-                              width: 90,
-                              height: 30,
-                              child: PrimaryOutlineButton(
+
+                            Visibility(
+                              visible: isMemberState.value!,
+                              child: Container(
+                                padding: const EdgeInsets.all(5),
+                                height: 30,
+                                width: 30,
+                                decoration: BoxDecoration(
+                                    border: Border.all(width: 0.8, color: successGreen.withOpacity(0.3)),
+                                    borderRadius: const BorderRadius.all(Radius.circular(100)),
+                                    color: successGreen.withOpacity(0.1)
+                                ),
+                                child: Image.asset("assets/images/tick_circle.png", width: 12, height: 12,),
+                              ),
+                            ),
+
+                            Visibility(
+                              visible: !isMemberState.value!,
+                              child: IconButton(
                                 onPressed: joinLoadingState.value ? null : () async {
                                   final isLoggedIn = await SharedPreferencesServices.getIsLoggedIn();
                                   if (isLoggedIn) {
@@ -92,6 +124,7 @@ class SpaceCard extends HookConsumerWidget {
                                     bool isSuccessful = await reader.joinSpace(space.uuid ?? "");
 
                                     if (isSuccessful) {
+                                      isMemberState.value = true;
                                       if (!context.mounted) return;
                                       CustomToast.show(
                                         context: context,
@@ -119,39 +152,46 @@ class SpaceCard extends HookConsumerWidget {
                                     );
                                   }
                                 },
-
-                                buttonText: "Join",
-                                borderColor: secondaryColor.withOpacity(0.3),
-                                buttonState: joinLoadingState.value
-                                    ? ButtonState.loading
-                                    : ButtonState.active,
-
+                                icon: Container(
+                                  padding: const EdgeInsets.all(5),
+                                  height: 30,
+                                  width: 30,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(width: 0.8, color: lightGold.withOpacity(0.3)),
+                                      borderRadius: const BorderRadius.all(Radius.circular(100)),
+                                      color: lightGold.withOpacity(0.1)
+                                  ),
+                                  child: joinLoadingState.value
+                                      ? CircularProgressBar()
+                                      : Image.asset("assets/images/user_add.png", width: 12, height: 12,),
+                                ),
                               ),
-                            ),
-
+                            )
                           ],
                         ),
-                        const Gap(15),
-                        Text(
+                        const Gap(25),
+                        space.campaignsCount! <= 0
+                            ? Text(
                             shortenString(
                                 space.description ?? "",
                                 80
                             ),
                             style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: greyTextColor)
-                        ),
-                        const Gap(15),
+                        )
+                            : ActiveCampaign(activeCampaign: space.campaignsCount!),
+                        const Gap(25),
                         Row(
                           children: [
                             Row(
                               children: [
-                                Image.asset("assets/images/user_group.png", width: 20, height: 20,),
+                                Image.asset("assets/images/people.png", width: 16, height: 16,),
                                 const Gap(5),
                                 VerticalBar(color: secondaryColor.withOpacity(0.5), width: 0.5, height: 20,),
                                 const Gap(5),
                                 Text(
                                   space.spaceMembersCount.toString(),
                                   style: Theme.of(context).textTheme.bodyLarge?.
-                                  copyWith(color: secondaryColor.withOpacity(0.8), fontSize: 13),
+                                  copyWith(color: secondaryColor.withOpacity(0.8), fontSize: 11),
                                 ),
 
                               ],
@@ -161,7 +201,7 @@ class SpaceCard extends HookConsumerWidget {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Icon(Icons.tag_outlined, color: successColor.withOpacity(0.6), size: 20),
+                                  Image.asset("assets/images/hashtag.png", width: 16, height: 16,),
                                   const Gap(5),
                                   VerticalBar(color: secondaryColor.withOpacity(0.5), width: 0.5, height: 20,),
                                   const Gap(5),

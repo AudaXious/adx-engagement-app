@@ -8,7 +8,7 @@ class CardSpaceTag extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
         tag,
-        style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: secondaryColor.withOpacity(0.8), fontSize: 12)
+        style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: secondaryColor.withOpacity(0.8))
     );
   }
 }

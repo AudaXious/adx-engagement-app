@@ -645,7 +645,7 @@ class AccountScreen extends HookConsumerWidget {
                     ),
                    )
     )
-        : const SignInOptionsScreen();
+        : SignInOptionsScreen();
   }
 
 }

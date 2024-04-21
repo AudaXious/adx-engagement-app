@@ -64,6 +64,21 @@ class SpacesRepositoryImpl extends SpacesRepository {
   }
 
   @override
+  Future<dynamic> getLeaderBoardBySpaceId(String spaceId) async {
+    try {
+      final response = await DioClient.instance.get(
+        "$spaceLeaderBoardEndpoint/$spaceId",
+      );
+
+      print(response);
+      return response;
+    } on DioException catch (e) {
+      var error = CustomDioException.fromDioError(e);
+      throw error.errorMessage;
+    }
+  }
+
+  @override
   Future<dynamic> joinSpace(String spaceId) async {
     try {
       final response = await DioClient.instance.post(

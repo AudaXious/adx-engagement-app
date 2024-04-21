@@ -1,7 +1,7 @@
 import 'package:audaxious/domain/models/campaign.dart';
 import 'package:audaxious/domain/models/space.dart';
-
 import '../../../domain/enums/view_state.dart';
+import '../../../domain/models/leader_board.dart';
 
 class SpaceDetailState {
   factory SpaceDetailState.initial() => const SpaceDetailState._(
@@ -12,8 +12,10 @@ class SpaceDetailState {
     error: '',
     message: '',
     space: null,
-    campaigns: null
+    campaigns: null,
+    leaderBoard: null,
   );
+
   const SpaceDetailState._({
     required this.spaceInfoViewState,
     required this.spaceCampaignsViewState,
@@ -23,6 +25,7 @@ class SpaceDetailState {
     required this.message,
     required this.space,
     required this.campaigns,
+    required this.leaderBoard,
   });
 
   final ViewState spaceInfoViewState;
@@ -33,6 +36,7 @@ class SpaceDetailState {
   final String message;
   final Space? space;
   final List<Campaign>? campaigns;
+  final List<LeaderBoard>? leaderBoard;
 
   SpaceDetailState update({
     ViewState? spaceInfoViewState,
@@ -42,7 +46,8 @@ class SpaceDetailState {
     String? error,
     String? message,
     Space? space,
-    List<Campaign>? campaigns
+    List<Campaign>? campaigns,
+    List<LeaderBoard>? leaderBoard,
 
   }) =>
       SpaceDetailState._(
@@ -54,6 +59,7 @@ class SpaceDetailState {
         message: message ?? this.message,
         space: space ?? this.space,
         campaigns: campaigns ?? this.campaigns,
+        leaderBoard: leaderBoard ?? this.leaderBoard,
       );
 }
 

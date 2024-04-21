@@ -16,7 +16,7 @@ class LeaderBoardItem extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            "${leaderBoard.id}",
+            "0",
             style: Theme.of(context).textTheme.bodyLarge,
             textAlign: TextAlign.center,
           ),

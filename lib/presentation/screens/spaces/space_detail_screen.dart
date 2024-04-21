@@ -272,6 +272,7 @@ class SpaceDetailScreen extends HookConsumerWidget {
                     break;
                   case "leaderboard":
                     activeTab.value = value;
+                    reader.getLeaderBoardBySpaceId(spaceId);
                     break;
                   default:
                     break;
@@ -323,7 +324,7 @@ class SpaceDetailScreen extends HookConsumerWidget {
                           Image.asset("assets/images/ranking.png", width: 50, height: 50),
                           const Gap(10),
                           Text(
-                            "Your achievements",
+                            "All time | View top ranked",
                             style: Theme.of(context).textTheme.displayMedium,
                             textAlign: TextAlign.center,
                           ),
@@ -370,15 +371,30 @@ class SpaceDetailScreen extends HookConsumerWidget {
                           const Gap(20),
                           Container(
                             margin: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Column(
-                              children: [
-                                LeaderBoardItem(leaderBoard: LeaderBoard(id: 1, profile: null, points: 140, username: "David Audu"),),
-                                LeaderBoardItem(leaderBoard: LeaderBoard(id: 2, profile: null, points: 120, username: "Eddidiong Eddie"),),
-                                LeaderBoardItem(leaderBoard: LeaderBoard(id: 3, profile: null, points: 102, username: "Jimoh Ahmed"),),
-                                LeaderBoardItem(leaderBoard: LeaderBoard(id: 4, profile: null, points: 90, username: "Damilola Aleyeni"),),
-                                LeaderBoardItem(leaderBoard: LeaderBoard(id: 5, profile: null, points: 45, username: "Malik Wasiu")),
-                                LeaderBoardItem(leaderBoard: LeaderBoard(id: 6, profile: null, points: 25, username: "Shola Otitoju")),
-                              ],
+                            child: notifier.spaceLeaderboardViewState.isLoading
+                                ? Center(child: CircularProgressBar(size: 20))
+                                : notifier.spaceLeaderboardViewState.isError
+                                ? Center(child: Text(notifier.error))
+                                : (notifier.leaderBoard == null || notifier.leaderBoard!.isEmpty)
+                                ? NoResultFoundIllustration(
+                              title: "No one here yet",
+                              description: "When users climb the leaderboard in this space, it'll appear here.",
+                              illustration: "assets/images/empty_spaces_cards.png",
+                            )
+                                : ListView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                padding: const EdgeInsets.symmetric(horizontal: 20),
+                                itemCount: notifier.leaderBoard?.length,
+                                itemBuilder: (context, index) {
+                                  final leaderBoardItem = notifier.leaderBoard?[index];
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 10),
+                                    child: LeaderBoardItem(
+                                      leaderBoard: leaderBoardItem!,
+                                    ),
+                                  );
+                                }
                             ),
                           )
 

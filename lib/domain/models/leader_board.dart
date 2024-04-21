@@ -1,12 +1,9 @@
 class LeaderBoard {
-  int? id;
   String? profile;
   String? username;
   int? points;
 
-
   LeaderBoard({
-    this.id,
     this.profile,
     this.username,
     this.points,
@@ -14,14 +11,18 @@ class LeaderBoard {
 
   factory LeaderBoard.fromJson(Map<String, dynamic> json) {
     return LeaderBoard(
-      id: json['_id'],
+      username: json['username'],
+      points: json['totalPoints'],
+      profile: json['avatarUrl'],
 
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      '_id': id,
+      'username': username,
+      'totalPoints': points,
+      'avatarUrl': profile,
     };
   }
 }

@@ -80,7 +80,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   child: PrimaryButton(
                     buttonText: "Sign In",
                     onPressed: () {
-                      context.router.navigate(const SignInOptionsRoute());
+                      context.router.navigate(SignInOptionsRoute());
                     },
                   )
               ),

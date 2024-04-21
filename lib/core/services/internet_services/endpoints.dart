@@ -1,24 +1,30 @@
 // String audaxiousTestBaseURL = "https://audaxious-light-api-1a66249f6914.herokuapp.com/api/v1";
-String audaxiousBaseURL = "https://api.audaxious.com/api/v1";
+String audaxiousBaseURL = "https://api.audaxious.com/api";
 
 //AUTHENTICATION
-String loginEndpoint = "/user/onboard";
-String walletLoginEndpoint = "/user/wallet/login";
-String verifyOTPEndpoint = "/user/verify?type=verify";
-String createUsernameEndpoint = "/profile/update-username";
-String verifyTwitterEndpoint = "/twitter/verify";
-
-//CAMPAIGNS
-String campaignsEndpoint = "/campaign/all-campaigns";
-String campaignsBySpaceEndpoint = "/campaign";
-
-//SPACES
-String spacesEndpoint = "/spaces/all";
-String spacesDetailEndpoint = "/spaces/s";
-String userCreatedSpacesEndpoint = "/spaces/user/all";
-String userJoinedSpacesEndpoint = "/spaces/user/joined/all";
-String joinSpaceEndpoint = "/spaces/join";
+String loginEndpoint = "/v1/user/onboard";
+String walletLoginEndpoint = "/v1/user/wallet/login";
+String verifyOTPEndpoint = "/v1/user/verify?type=verify";
+String createUsernameEndpoint = "/v1/profile/update-username";
+String verifyTwitterEndpoint = "/v1/twitter/verify";
 
 //ACCOUNT
-String currentSavedUserProfileEndpoint = "/profile/user";
+String currentSavedUserProfileEndpoint = "/v1/profile/user";
+
+//CAMPAIGNS
+String campaignsEndpoint = "/v1/campaign/all-campaigns";
+String campaignsBySpaceEndpoint = "/v1/campaign";
+
+//SPACES
+String spacesEndpoint = "/v1/spaces/all";
+String spacesDetailEndpoint = "/v1/spaces/s";
+String userCreatedSpacesEndpoint = "/v1/spaces/user/all";
+String userJoinedSpacesEndpoint = "/v1/spaces/user/joined/all";
+String joinSpaceEndpoint = "/v1/spaces/join";
+
+//LEADERBOARD
+String spaceLeaderBoardEndpoint = "/analytics/spaceAnalytics/leaderboard";
+
+
+
 

@@ -52,6 +52,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: CreateUsernameScreen(key: args.key),
       );
     },
+    FirstRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const FirstScreen(),
+      );
+    },
     HomeRoute.name: (routeData) {
       final args =
           routeData.argsAs<HomeRouteArgs>(orElse: () => const HomeRouteArgs());
@@ -81,9 +87,11 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     SignInOptionsRoute.name: (routeData) {
+      final args = routeData.argsAs<SignInOptionsRouteArgs>(
+          orElse: () => const SignInOptionsRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: SignInOptionsScreen(),
+        child: SignInOptionsScreen(key: args.key),
       );
     },
     SpaceDetailRoute.name: (routeData) {
@@ -241,6 +249,20 @@ class CreateUsernameRouteArgs {
 }
 
 /// generated route for
+/// [FirstScreen]
+class FirstRoute extends PageRouteInfo<void> {
+  const FirstRoute({List<PageRouteInfo>? children})
+      : super(
+          FirstRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'FirstRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [HomeScreen]
 class HomeRoute extends PageRouteInfo<HomeRouteArgs> {
   HomeRoute({
@@ -326,16 +348,31 @@ class RaffleRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [SignInOptionsScreen]
-class SignInOptionsRoute extends PageRouteInfo<void> {
-  const SignInOptionsRoute({List<PageRouteInfo>? children})
-      : super(
+class SignInOptionsRoute extends PageRouteInfo<SignInOptionsRouteArgs> {
+  SignInOptionsRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
           SignInOptionsRoute.name,
+          args: SignInOptionsRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'SignInOptionsRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<SignInOptionsRouteArgs> page =
+      PageInfo<SignInOptionsRouteArgs>(name);
+}
+
+class SignInOptionsRouteArgs {
+  const SignInOptionsRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'SignInOptionsRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for

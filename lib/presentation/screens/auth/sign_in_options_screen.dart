@@ -25,6 +25,14 @@ class SignInOptionsScreen extends HookConsumerWidget {
 
   late W3MService _w3mService;
 
+  // @override
+  // void didChangeAppLifecycleState(AppLifecycleState state) {
+  //   if (state == AppLifecycleState.resumed) {
+  //     print("hello boy");
+  //     // initializeW3MService();
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final size = AppLayout.getSize(context);
@@ -32,6 +40,8 @@ class SignInOptionsScreen extends HookConsumerWidget {
     final notifier = ref.read(WalletLoginViewModel.notifier);
 
     void loginUser() async {
+      print("Login started");
+
       if (_w3mService != null) {
         final walletId = _w3mService.session?.address;
         print(walletId);
@@ -51,11 +61,11 @@ class SignInOptionsScreen extends HookConsumerWidget {
             if (user.username == null) {
               if (!context.mounted) return;
               print("User name does not exists ${user.username}");
-              context.router.navigate(CreateUsernameRoute());
+              // context.router.navigate(CreateUsernameRoute());
             }else {
               if (!context.mounted) return;
               print("User name exists ${user.username}");
-              context.router.replaceAll([const BottomBarRoute()]);
+              // context.router.replaceAll([const BottomBarRoute()]);
             }
           }
 
@@ -66,6 +76,8 @@ class SignInOptionsScreen extends HookConsumerWidget {
     }
 
     void initializeW3MService() async {
+      print("Initialization started");
+
       _w3mService = W3MService(
         projectId: '70630571fe8c62c8b5dfffe48ebc8c79',
         metadata: const PairingMetadata(
@@ -92,7 +104,16 @@ class SignInOptionsScreen extends HookConsumerWidget {
       initializeW3MService();
       return () {
       };
-    }, []);
+    }, const []);
+
+    // Custom hook to listen to app lifecycle state changes
+    // useEffect(() {
+    //   final WidgetsBindingObserver observer = _AppLifecycleObserver(ref);
+    //   WidgetsBinding.instance!.addObserver(observer);
+    //   return () {
+    //     WidgetsBinding.instance!.removeObserver(observer);
+    //   };
+    // }, []);
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -199,7 +220,7 @@ class SignInOptionsScreen extends HookConsumerWidget {
                         const Text("Or"),
                         const Gap(20),
                         Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 0),
+                            margin: const EdgeInsets.symmetric(horizontal: 10),
                             child: SecondaryButton(
                               buttonText: "Sign In with Google",
                               icon: "assets/images/google.png",
@@ -209,7 +230,7 @@ class SignInOptionsScreen extends HookConsumerWidget {
                         ),
                         const Gap(20),
                         Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 0),
+                            margin: const EdgeInsets.symmetric(horizontal: 10),
                             child: SecondaryButton(
                               buttonText: "Sign In with Wallet",
                               icon: "assets/images/wallet_connect.png",

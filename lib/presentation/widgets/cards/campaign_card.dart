@@ -8,6 +8,7 @@ import 'package:gap/gap.dart';
 
 import '../../../core/routes/app_router.dart';
 import '../../../domain/models/campaign.dart';
+import '../vertical_bar.dart';
 
 class CampaignCard extends StatelessWidget {
   Campaign campaign;
@@ -129,21 +130,22 @@ class CampaignCard extends StatelessWidget {
                                   const Gap(5),
                                   Row(
                                     children: [
+                                      Text(
+                                         campaign.spaceTitle ?? "",
+                                        style: Theme.of(context).textTheme.bodySmall?.
+                                        copyWith(color: greyTextColor),
+                                      ),
+                                      const Gap(2),
                                       Visibility(
                                         visible: campaign.isVerified ?? false,
                                         child: Container(
                                           margin: const EdgeInsets.only(right: 3),
                                           child: Image.asset(
-                                            "assets/images/verification_tick.png",
-                                            width: verificationBadgeSize,
-                                            height: verificationBadgeSize
+                                              "assets/images/verification_tick.png",
+                                              width: verificationBadgeSize,
+                                              height: verificationBadgeSize
                                           ),
                                         ),
-                                      ),
-                                      Text(
-                                         campaign.spaceTitle ?? "",
-                                        style: Theme.of(context).textTheme.bodySmall?.
-                                        copyWith(color: greyTextColor),
                                       )
                                     ],
                                   ),
@@ -164,25 +166,19 @@ class CampaignCard extends StatelessWidget {
                         const Gap(20),
                         Row(
                           children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
-                              decoration: BoxDecoration(
-                                border: Border.all(width: 0.2, color: secondaryColor.withOpacity(0.4)),
-                                borderRadius: const BorderRadius.all(Radius.circular(15)),
-                                // color: lightTeal.withOpacity(0.2),
-                              ),
-                              child: Row(
-                                children: [
-                                  Image.asset("assets/images/user_group.png", width: 20, height: 20,),
-                                  const Gap(5),
-                                  Text(
-                                    campaign.participants.toString(),
-                                    style: Theme.of(context).textTheme.bodyMedium?.
-                                    copyWith(color: secondaryColor.withOpacity(0.9)),
-                                  ),
+                            Row(
+                              children: [
+                                Image.asset("assets/images/people.png", width: 16, height: 16,),
+                                const Gap(5),
+                                VerticalBar(color: secondaryColor.withOpacity(0.5), width: 0.5, height: 20,),
+                                const Gap(5),
+                                Text(
+                                  campaign.participants.toString(),
+                                  style: Theme.of(context).textTheme.bodyLarge?.
+                                  copyWith(color: secondaryColor.withOpacity(0.8), fontSize: 11),
+                                ),
 
-                                ],
-                              ),
+                              ],
                             ),
                             const Spacer(),
                             Image.asset("assets/images/time_icon.png", width: 16, height: 16, color: taskChipBorderColor.withOpacity(0.6)),

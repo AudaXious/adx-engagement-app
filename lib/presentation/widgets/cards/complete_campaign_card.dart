@@ -6,6 +6,7 @@ import '../../../core/utils/app_utils.dart';
 import '../../../core/utils/constants.dart';
 import '../../../core/utils/theme/dark_theme.dart';
 import '../../../domain/models/campaign.dart';
+import '../vertical_bar.dart';
 class CompleteCampaignCard extends StatelessWidget {
   Campaign campaign;
 
@@ -140,25 +141,39 @@ class CompleteCampaignCard extends StatelessWidget {
                       margin: const EdgeInsets.symmetric(horizontal: 16),
                       child: Row(
                         children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
-                            decoration: BoxDecoration(
-                              border: Border.all(width: 0.2, color: secondaryColor.withOpacity(0.4)),
-                              borderRadius: const BorderRadius.all(Radius.circular(15)),
-                              // color: lightTeal.withOpacity(0.2),
-                            ),
-                            child: Row(
-                              children: [
-                                Image.asset("assets/images/user_group.png", width: 20, height: 20,),
-                                const Gap(5),
-                                Text(
-                                  campaign.participants.toString(),
-                                  style: Theme.of(context).textTheme.bodyMedium?.
-                                  copyWith(color: secondaryColor.withOpacity(0.9)),
-                                ),
+                          // Container(
+                          //   padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+                          //   decoration: BoxDecoration(
+                          //     border: Border.all(width: 0.2, color: secondaryColor.withOpacity(0.4)),
+                          //     borderRadius: const BorderRadius.all(Radius.circular(15)),
+                          //     // color: lightTeal.withOpacity(0.2),
+                          //   ),
+                          //   child: Row(
+                          //     children: [
+                          //       Image.asset("assets/images/user_group.png", width: 20, height: 20,),
+                          //       const Gap(5),
+                          //       Text(
+                          //         campaign.participants.toString(),
+                          //         style: Theme.of(context).textTheme.bodyMedium?.
+                          //         copyWith(color: secondaryColor.withOpacity(0.9)),
+                          //       ),
+                          //
+                          //     ],
+                          //   ),
+                          // ),
+                          Row(
+                            children: [
+                              Image.asset("assets/images/people.png", width: 16, height: 16,),
+                              const Gap(5),
+                              VerticalBar(color: secondaryColor.withOpacity(0.5), width: 0.5, height: 20,),
+                              const Gap(5),
+                              Text(
+                                campaign.participants.toString(),
+                                style: Theme.of(context).textTheme.bodyLarge?.
+                                copyWith(color: secondaryColor.withOpacity(0.8), fontSize: 11),
+                              ),
 
-                              ],
-                            ),
+                            ],
                           ),
                           const Spacer(),
                           Image.asset("assets/images/time_icon.png", width: 16, height: 16, color: taskChipBorderColor.withOpacity(0.6)),

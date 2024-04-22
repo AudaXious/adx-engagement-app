@@ -94,6 +94,12 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                           children: [
                             Row(
                               children: [
+                                Text(
+                                  campaigns?[currentIndex.value].spaceTitle ?? "",
+                                  style: Theme.of(context).textTheme.headlineMedium?.
+                                  copyWith(color: greyTextColor),
+                                ),
+                                const Gap(2),
                                 Visibility(
                                   visible: campaign.isVerified ?? false,
                                   child: Container(
@@ -105,13 +111,6 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                     ),
                                   ),
                                 ),
-                                Expanded(
-                                  child: Text(
-                                    campaigns?[currentIndex.value].spaceTitle ?? "",
-                                    style: Theme.of(context).textTheme.headlineMedium?.
-                                    copyWith(color: greyTextColor),
-                                  ),
-                                )
                               ],
                             ),
                             const Gap(5),

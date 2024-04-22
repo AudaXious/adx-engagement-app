@@ -94,7 +94,7 @@ class SpaceDetailScreen extends HookConsumerWidget {
                 Positioned(
                   top: coverImageHeight - profileImageHeight / 2,
                   left: 20,
-                  child:  Container(
+                  child: Container(
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(color: Colors.white, width: 1)
@@ -115,7 +115,8 @@ class SpaceDetailScreen extends HookConsumerWidget {
                       ),
                     ),
                   ),
-                )
+                ),
+
               ],
             ),
             Container(
@@ -129,9 +130,21 @@ class SpaceDetailScreen extends HookConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              space?.title ?? "",
-                              style: Theme.of(context).textTheme.displayMedium,
+                            Row(
+                              children: [
+                                Text(
+                                  space?.title ?? "",
+                                  style: Theme.of(context).textTheme.displayMedium,
+                                ),
+                                const Gap(2),
+                                Visibility(
+                                  visible: space!.isVerified!,
+                                  child: Positioned(
+                                      top: profileImageHeight - 20,
+                                      child: Image.asset("assets/images/verification_tick.png", width: 18, height: 18,)
+                                  ),
+                                ),
+                              ],
                             ),
                             const Gap(3),
                             Text(

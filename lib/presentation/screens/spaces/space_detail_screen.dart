@@ -17,7 +17,6 @@ import '../../../core/services/shared_preferences_services.dart';
 import '../../../core/utils/constants.dart';
 import '../../../core/utils/theme/dark_theme.dart';
 import '../../../domain/enums/button_state.dart';
-import '../../../domain/models/leader_board.dart';
 import '../../../domain/models/space.dart';
 import '../../widgets/alerts/custom_toast.dart';
 import '../../widgets/alerts/empty_result_found_illustration.dart';
@@ -324,7 +323,7 @@ class SpaceDetailScreen extends HookConsumerWidget {
                           Image.asset("assets/images/ranking.png", width: 50, height: 50),
                           const Gap(10),
                           Text(
-                            "All time | View top ranked",
+                            "Your Achievements",
                             style: Theme.of(context).textTheme.displayMedium,
                             textAlign: TextAlign.center,
                           ),
@@ -358,7 +357,7 @@ class SpaceDetailScreen extends HookConsumerWidget {
                           Container(
                             margin: const EdgeInsets.symmetric(horizontal: 20),
                             child: Text(
-                              "Your achievements",
+                              "All time | View top ranked",
                               style: Theme.of(context).textTheme.displayMedium,
                               textAlign: TextAlign.center,
                             ),
@@ -392,6 +391,7 @@ class SpaceDetailScreen extends HookConsumerWidget {
                                     padding: const EdgeInsets.symmetric(vertical: 10),
                                     child: LeaderBoardItem(
                                       leaderBoard: leaderBoardItem!,
+                                      position: index+1,
                                     ),
                                   );
                                 }

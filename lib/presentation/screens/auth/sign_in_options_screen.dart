@@ -1,14 +1,11 @@
 import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toastification/toastification.dart';
 import 'package:web3modal_flutter/services/w3m_service/i_w3m_service.dart';
-import 'package:web3modal_flutter/services/w3m_service/w3m_service.dart';
 import 'package:web3modal_flutter/web3modal_flutter.dart';
 
 import '../../../core/routes/app_router.dart';
@@ -42,38 +39,36 @@ class SignInOptionsScreen extends HookConsumerWidget {
     void loginUser() async {
       print("Login started");
 
-      if (_w3mService != null) {
-        final walletId = _w3mService.session?.address;
-        print(walletId);
+      final walletId = _w3mService.session?.address;
+      print(walletId);
 
-        if (walletId != null) {
-          final user = await reader.loginUser(walletId);
-          if (user == null) {
-            if (!context.mounted) return;
-            CustomToast.show(
-              context: context,
-              title: "Error",
-              description: "Failed to login user. Please try again!",
-              type: ToastificationType.error,
-            );
-
-          }else {
-            if (user.username == null) {
-              if (!context.mounted) return;
-              print("User name does not exists ${user.username}");
-              // context.router.navigate(CreateUsernameRoute());
-            }else {
-              if (!context.mounted) return;
-              print("User name exists ${user.username}");
-              // context.router.replaceAll([const BottomBarRoute()]);
-            }
-          }
+      if (walletId != null) {
+        final user = await reader.loginUser(walletId);
+        if (user == null) {
+          if (!context.mounted) return;
+          CustomToast.show(
+            context: context,
+            title: "Error",
+            description: "Failed to login user. Please try again!",
+            type: ToastificationType.error,
+          );
 
         }else {
+          if (user.username == null) {
+            if (!context.mounted) return;
+            print("User name does not exists ${user.username}");
+            // context.router.navigate(CreateUsernameRoute());
+          }else {
+            if (!context.mounted) return;
+            print("User name exists ${user.username}");
+            // context.router.replaceAll([const BottomBarRoute()]);
+          }
         }
 
+      }else {
       }
-    }
+
+        }
 
     void initializeW3MService() async {
       print("Initialization started");

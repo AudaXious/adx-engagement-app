@@ -5,9 +5,7 @@ import 'package:audaxious/presentation/widgets/progressBars/circular_progress_ba
 import 'package:audaxious/presentation/widgets/vertical_bar.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -32,10 +30,8 @@ class SpaceCard extends HookConsumerWidget {
     final joinLoadingState = useState(false);
     final isMemberState = useState<bool?>(null);
 
-    if (space != null) {
-      isMemberState.value = space.isMember;
-    }
-
+    isMemberState.value = space.isMember;
+  
     return GestureDetector(
       onTap: () {
         context.router.navigate(SpaceDetailRoute(spaceId: space.uuid ?? "", space: space));

@@ -7,7 +7,8 @@ import '../../core/utils/theme/dark_theme.dart';
 import '../../domain/models/leader_board.dart';
 class LeaderBoardItem extends StatelessWidget {
   LeaderBoard leaderBoard;
-  LeaderBoardItem({super.key, required this.leaderBoard});
+  int position;
+  LeaderBoardItem({super.key, required this.leaderBoard, required this.position});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class LeaderBoardItem extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            "0",
+            position.toString(),
             style: Theme.of(context).textTheme.bodyLarge,
             textAlign: TextAlign.center,
           ),

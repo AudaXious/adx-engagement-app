@@ -1,7 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:web3modal_flutter/services/w3m_service/i_w3m_service.dart';
-import 'package:web3modal_flutter/services/w3m_service/w3m_service.dart';
 import 'package:web3modal_flutter/web3modal_flutter.dart';
 
 @RoutePage()
@@ -38,38 +37,36 @@ class _FirstScreenState extends State<FirstScreen> {
   void loginUser() async {
     print("Login started");
 
-    if (_w3mService != null) {
-      final walletId = _w3mService.session?.address;
-      print("Wallert address: $walletId");
+    final walletId = _w3mService.session?.address;
+    print("Wallert address: $walletId");
 
-      // if (walletId != null) {
-      //   final user = await reader.loginUser(walletId);
-      //   if (user == null) {
-      //     if (!context.mounted) return;
-      //     CustomToast.show(
-      //       context: context,
-      //       title: "Error",
-      //       description: "Failed to login user. Please try again!",
-      //       type: ToastificationType.error,
-      //     );
-      //
-      //   }else {
-      //     if (user.username == null) {
-      //       if (!context.mounted) return;
-      //       print("User name does not exists ${user.username}");
-      //       // context.router.navigate(CreateUsernameRoute());
-      //     }else {
-      //       if (!context.mounted) return;
-      //       print("User name exists ${user.username}");
-      //       // context.router.replaceAll([const BottomBarRoute()]);
-      //     }
-      //   }
-      //
-      // }else {
-      // }
+    // if (walletId != null) {
+    //   final user = await reader.loginUser(walletId);
+    //   if (user == null) {
+    //     if (!context.mounted) return;
+    //     CustomToast.show(
+    //       context: context,
+    //       title: "Error",
+    //       description: "Failed to login user. Please try again!",
+    //       type: ToastificationType.error,
+    //     );
+    //
+    //   }else {
+    //     if (user.username == null) {
+    //       if (!context.mounted) return;
+    //       print("User name does not exists ${user.username}");
+    //       // context.router.navigate(CreateUsernameRoute());
+    //     }else {
+    //       if (!context.mounted) return;
+    //       print("User name exists ${user.username}");
+    //       // context.router.replaceAll([const BottomBarRoute()]);
+    //     }
+    //   }
+    //
+    // }else {
+    // }
 
     }
-  }
 
   void initializeW3MService() async {
     print("Initialization started");

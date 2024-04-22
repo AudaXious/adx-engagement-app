@@ -70,7 +70,6 @@ class SpacesRepositoryImpl extends SpacesRepository {
         "$spaceLeaderBoardEndpoint/$spaceId",
       );
 
-      print(response);
       return response;
     } on DioException catch (e) {
       var error = CustomDioException.fromDioError(e);

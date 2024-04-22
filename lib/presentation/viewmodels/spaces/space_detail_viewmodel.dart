@@ -79,7 +79,6 @@ class SpacesDetailsViewModel extends StateNotifier<SpaceDetailState> {
     try {
       final response = await spaceLeaderBoardBySpaceIdUseCase.getLeaderBoardBySpaceId(spaceId);
       final data = response['data'];
-      print(data);
       if (data != null && data is List) {
         final List dataList = data.cast<dynamic>();
 

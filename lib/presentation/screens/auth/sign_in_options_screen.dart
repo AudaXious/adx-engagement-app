@@ -22,78 +22,36 @@ class SignInOptionsScreen extends HookConsumerWidget {
 
   late W3MService _w3mService;
 
-  // @override
-  // void didChangeAppLifecycleState(AppLifecycleState state) {
-  //   if (state == AppLifecycleState.resumed) {
-  //     print("hello boy");
-  //     // initializeW3MService();
-  //   }
-  // }
+  void initializeW3MService() async {
+    print("Initialization started");
+
+    _w3mService = W3MService(
+      projectId: '70630571fe8c62c8b5dfffe48ebc8c79',
+      metadata: const PairingMetadata(
+        name: 'Audaxious',
+        description: 'Connect wallet to AudaXious',
+        url: 'https://www.audaxious.com/',
+        icons: ['https://walletconnect.com/walletconnect-logo.png'],
+        redirect: Redirect(
+          native: 'audaxious://',
+          universal: 'https://www.walletconnect.com',
+        ),
+      ),
+    );
+
+    await _w3mService.init();
+    // if (_w3mService.status == W3MServiceStatus.initialized) {
+    //   print("The fucking service has been initialised");
+    //   // loginUser();
+    // }
+
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final size = AppLayout.getSize(context);
-    final reader = ref.read(WalletLoginViewModel.notifier.notifier);
+    // final reader = ref.read(WalletLoginViewModel.notifier.notifier);
     final notifier = ref.read(WalletLoginViewModel.notifier);
-
-    void loginUser() async {
-      print("Login started");
-
-      final walletId = _w3mService.session?.address;
-      print(walletId);
-
-      if (walletId != null) {
-        final user = await reader.loginUser(walletId);
-        if (user == null) {
-          if (!context.mounted) return;
-          CustomToast.show(
-            context: context,
-            title: "Error",
-            description: "Failed to login user. Please try again!",
-            type: ToastificationType.error,
-          );
-
-        }else {
-          if (user.username == null) {
-            if (!context.mounted) return;
-            print("User name does not exists ${user.username}");
-            // context.router.navigate(CreateUsernameRoute());
-          }else {
-            if (!context.mounted) return;
-            print("User name exists ${user.username}");
-            // context.router.replaceAll([const BottomBarRoute()]);
-          }
-        }
-
-      }else {
-      }
-
-        }
-
-    void initializeW3MService() async {
-      print("Initialization started");
-
-      _w3mService = W3MService(
-        projectId: '70630571fe8c62c8b5dfffe48ebc8c79',
-        metadata: const PairingMetadata(
-          name: 'Audaxious',
-          description: 'Connect wallet to AudaXious',
-          url: 'https://www.audaxious.com/',
-          icons: ['https://walletconnect.com/walletconnect-logo.png'],
-          redirect: Redirect(
-            native: 'audaxious://',
-            universal: 'https://www.walletconnect.com',
-          ),
-        ),
-      );
-
-      await _w3mService.init();
-      if (_w3mService.status == W3MServiceStatus.initialized) {
-        loginUser();
-      }
-
-      // print("Wallet addressxyz ${_w3mService.session!.address!}");
-    }
 
     useEffect(() {
       initializeW3MService();
@@ -102,13 +60,13 @@ class SignInOptionsScreen extends HookConsumerWidget {
     }, const []);
 
     // Custom hook to listen to app lifecycle state changes
-    // useEffect(() {
-    //   final WidgetsBindingObserver observer = _AppLifecycleObserver(ref);
-    //   WidgetsBinding.instance!.addObserver(observer);
-    //   return () {
-    //     WidgetsBinding.instance!.removeObserver(observer);
-    //   };
-    // }, []);
+    useEffect(() {
+      final WidgetsBindingObserver observer = _AppLifecycleObserver(this, ref, context);
+      WidgetsBinding.instance.addObserver(observer);
+      return () {
+        WidgetsBinding.instance.removeObserver(observer);
+      };
+    }, []);
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -279,4 +237,59 @@ class SignInOptionsScreen extends HookConsumerWidget {
       ),
     );
   }
+}
+
+
+class _AppLifecycleObserver extends WidgetsBindingObserver {
+  final SignInOptionsScreen signInOptionsScreen;
+  WidgetRef ref;
+  BuildContext context;
+
+  _AppLifecycleObserver(this.signInOptionsScreen, this.ref, this.context);
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      signInOptionsScreen.initializeW3MService();
+      if (signInOptionsScreen._w3mService.status == W3MServiceStatus.initialized) {
+        print("The fucking service has been initialised");
+        loginUser();
+      }else {
+        print("The fucking service has not been initialised");
+
+      }
+    }
+  }
+
+  void loginUser() async {
+    print("Login started");
+    final reader = ref.read(WalletLoginViewModel.notifier.notifier);
+    final walletId = signInOptionsScreen._w3mService.session?.address;
+
+    if (walletId != null) {
+      final user = await reader.loginUser(walletId);
+      if (user == null) {
+        if (!context.mounted) return;
+        CustomToast.show(
+          context: context,
+          title: "Error",
+          description: "Failed to login user. Please try again!",
+          type: ToastificationType.error,
+        );
+
+      }else {
+        if (user.username == null) {
+          if (!context.mounted) return;
+          // context.router.navigate(CreateUsernameRoute());
+        }else {
+          if (!context.mounted) return;
+          // context.router.replaceAll([const BottomBarRoute()]);
+        }
+      }
+
+    }else {
+    }
+
+  }
+
 }

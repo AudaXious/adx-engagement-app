@@ -72,6 +72,7 @@ class CampaignDetailsScreen extends HookConsumerWidget {
     useEffect(() {
       currentIndex.value = campaignIndex;
       return () {
+        animationController.dispose();
       };
     }, [campaignIndex]);
 

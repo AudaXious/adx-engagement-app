@@ -8,10 +8,11 @@ import '../../core/services/internet_services/endpoints.dart';
 
 class SpacesRepositoryImpl extends SpacesRepository {
   @override
-  Future<dynamic> getSpaces() async {
+  Future<dynamic> getSpaces(bool requiresAuthorization) async {
     try {
       final response = await DioClient.instance.get(
         spacesEndpoint,
+        requiresAuthorization: requiresAuthorization
       );
 
       return response;

@@ -305,12 +305,12 @@ class _AppLifecycleObserver extends WidgetsBindingObserver {
       }
 
     }else {
-      CustomToast.show(
-        context: context,
-        title: "Error",
-        description: "No wallet Id found",
-        type: ToastificationType.error,
-      );
+      // CustomToast.show(
+      //   context: context,
+      //   title: "Error",
+      //   description: "No wallet Id found",
+      //   type: ToastificationType.error,
+      // );
     }
 
   }

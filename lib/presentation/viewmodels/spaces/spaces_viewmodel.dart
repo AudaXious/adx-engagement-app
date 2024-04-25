@@ -1,4 +1,5 @@
 
+import 'package:audaxious/core/services/shared_preferences_services.dart';
 import 'package:audaxious/domain/models/space.dart';
 import 'package:audaxious/domain/usecases/spaces/join_space_usecase.dart';
 import 'package:audaxious/domain/usecases/spaces/space_detail_usecase.dart';
@@ -38,7 +39,8 @@ class SpacesViewModel extends StateNotifier<SpacesState> {
   Future<void> getSpaces() async {
     state = state.update(spaceViewState: ViewState.loading);
     try {
-      final response = await spacesUseCase.getSpaces();
+      final requiresAuthorization = await SharedPreferencesServices.getIsLoggedIn();
+      final response = await spacesUseCase.getSpaces(requiresAuthorization);
       final data = response['data'];
 
       if (data != null && data is List) {

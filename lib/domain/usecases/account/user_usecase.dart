@@ -14,12 +14,12 @@ class UserUseCaseImpl extends UserUseCase {
 
   @override
   Future<User?> getCurrentSavedUser() async  {
-    return await accountRepository.getCurrentSavedUser();
+    return await accountRepository.getCurrentSavedUserProfile();
   }
 
   @override
   Future<dynamic> getCurrentSavedUserProfile() async {
-    return accountRepository.getCurrentSavedUserProfile();
+    return accountRepository.getCurrentUserProfile();
   }
 
 }

@@ -71,7 +71,6 @@ class AuthRepositoryImpl implements AuthRepository {
           await SharedPreferencesServices.saveTwitterUsername(user.twitterUsername!);
           await SharedPreferencesServices.saveTwitterVerificationStatus(true);
         }
-
       }
 
       return response;

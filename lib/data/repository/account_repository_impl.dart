@@ -10,7 +10,7 @@ import '../../domain/models/user.dart';
 
 class AccountRepositoryImpl implements AccountRepository {
   @override
-  Future<User?> getCurrentSavedUser() async {
+  Future<User?> getCurrentSavedUserProfile() async {
     try {
       String? userJson = await SharedPreferencesServices().getCurrentSavedUser("user");
       if (userJson != null) {
@@ -26,7 +26,7 @@ class AccountRepositoryImpl implements AccountRepository {
   }
 
   @override
-  Future<dynamic> getCurrentSavedUserProfile() async {
+  Future<dynamic> getCurrentUserProfile() async {
     try {
       final response = await DioClient.instance.post(
         currentSavedUserProfileEndpoint,

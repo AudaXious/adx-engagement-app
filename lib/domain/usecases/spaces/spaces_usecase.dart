@@ -2,7 +2,7 @@ import 'package:audaxious/data/repository/spaces_repository_impl.dart';
 import 'package:audaxious/domain/repository/spaces_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 abstract class SpacesUseCase {
-  Future<dynamic> getSpaces();
+  Future<dynamic> getSpaces(bool requiresAuthorization);
 
 }
 class SpacesUseCaseImpl extends SpacesUseCase {
@@ -11,8 +11,8 @@ class SpacesUseCaseImpl extends SpacesUseCase {
   SpacesUseCaseImpl(this.spacesRepository);
 
   @override
-  Future<dynamic> getSpaces() async {
-    return await spacesRepository.getSpaces();
+  Future<dynamic> getSpaces(bool requiresAuthorization) async {
+    return await spacesRepository.getSpaces(requiresAuthorization);
   }
 }
 

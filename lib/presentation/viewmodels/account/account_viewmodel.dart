@@ -16,7 +16,7 @@ class AccountViewModel extends StateNotifier<AccountState> {
     required this.userUseCase,
   }) : super (AccountState.initial()) {
     updateLoginStatus();
-    getCurrentSavedUser();
+    getCurrentSavedUserProfile();
   }
 
   static final notifier =
@@ -53,7 +53,7 @@ class AccountViewModel extends StateNotifier<AccountState> {
   }
  }
 
-  Future<void> getCurrentSavedUser() async {
+  Future<void> getCurrentSavedUserProfile() async {
     state = state.update(profileViewState: ViewState.loading);
     try {
       final user = await userUseCase.getCurrentSavedUser();
@@ -70,7 +70,7 @@ class AccountViewModel extends StateNotifier<AccountState> {
     }
   }
 
-  Future<void> getCurrentSavedUserProfile() async {
+  Future<void> getCurrentUserProfile() async {
     state = state.update(profileViewState: ViewState.loading);
     try {
       final response = await userUseCase.getCurrentSavedUserProfile();

@@ -1,5 +1,5 @@
 abstract class SpacesRepository {
-  Future<dynamic> getSpaces();
+  Future<dynamic> getSpaces(bool requiresAuthorization);
   Future<dynamic> getUserCreatedSpaces();
   Future<dynamic> getUserJoinedSpaces();
   Future<dynamic> getSpaceDetails(String spaceId);

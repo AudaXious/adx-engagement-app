@@ -21,70 +21,37 @@ class SignInOptionsScreen extends HookConsumerWidget{
 
   late W3MService _w3mService;
 
+  void initializeW3MService() async {
+    print("Initialization started");
+
+    _w3mService = W3MService(
+      projectId: '70630571fe8c62c8b5dfffe48ebc8c79',
+      metadata: const PairingMetadata(
+        name: 'Audaxious',
+        description: 'Connect wallet to AudaXious',
+        url: 'https://www.audaxious.com/',
+        icons: ['https://walletconnect.com/walletconnect-logo.png'],
+        redirect: Redirect(
+          native: 'audaxious://',
+          universal: 'https://www.walletconnect.com',
+        ),
+      ),
+    );
+
+    await _w3mService.init();
+    if (_w3mService.status == W3MServiceStatus.initialized) {
+
+    }
+
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final size = AppLayout.getSize(context);
-    final reader = ref.read(WalletLoginViewModel.notifier.notifier);
     final notifier = ref.read(WalletLoginViewModel.notifier);
 
-    void initializeW3MService() async {
-      print("Initialization started");
-
-      _w3mService = W3MService(
-        projectId: '70630571fe8c62c8b5dfffe48ebc8c79',
-        metadata: const PairingMetadata(
-          name: 'Audaxious',
-          description: 'Connect wallet to AudaXious',
-          url: 'https://www.audaxious.com/',
-          icons: ['https://walletconnect.com/walletconnect-logo.png'],
-          redirect: Redirect(
-            native: 'audaxious://',
-            universal: 'https://www.walletconnect.com',
-          ),
-        ),
-      );
-
-      await _w3mService.init();
-      if (_w3mService.status == W3MServiceStatus.initialized) {
-        print("Web 3 status ${_w3mService.status}");
-        print("Web 3 address ${_w3mService.session?.address}");
-        // loginUser();
-      }
-
-    }
-
-    void loginUser() async {
-      print("Login started");
-      final walletId = _w3mService.session?.address;
-
-      if (walletId != null) {
-        final user = await reader.loginUser(walletId);
-        if (user == null) {
-          if (!context.mounted) return;
-          CustomToast.show(
-            context: context,
-            title: "Error",
-            description: "Failed to login user. Please try again!",
-            type: ToastificationType.error,
-          );
-
-        }else {
-          if (user.username == null) {
-            if (!context.mounted) return;
-            // context.router.navigate(CreateUsernameRoute());
-          }else {
-            if (!context.mounted) return;
-            // context.router.replaceAll([const BottomBarRoute()]);
-          }
-        }
-
-      }else {
-      }
-
-    }
-
     useEffect(() {
-      // initializeW3MService();
+      initializeW3MService();
       return () {
       };
     }, const []);
@@ -265,11 +232,10 @@ class SignInOptionsScreen extends HookConsumerWidget{
           ],
         ),
       ),
-    )
-    ;
+    );
+
   }
 }
-
 
 class _AppLifecycleObserver extends WidgetsBindingObserver {
   final SignInOptionsScreen signInOptionsScreen;
@@ -278,19 +244,74 @@ class _AppLifecycleObserver extends WidgetsBindingObserver {
 
   _AppLifecycleObserver(this.signInOptionsScreen, this.ref, this.context);
 
+  late W3MService _w3mService;
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      print("on resumed");
-
-      // signInOptionsScreen.initializeW3MService();
-      // print("Web 3 status ${signInOptionsScreen._w3mService.status}");
-      // print("Web 3 address ${signInOptionsScreen._w3mService.session?.address}");
-      // if (signInOptionsScreen._w3mService.status == W3MServiceStatus.initialized) {
-      //   loginUser();
-      // }else {
-      // }
+      initializeW3MService();
     }
   }
 
+  void initializeW3MService() async {
+    print("Initialization started");
+
+    _w3mService = W3MService(
+      projectId: '70630571fe8c62c8b5dfffe48ebc8c79',
+      metadata: const PairingMetadata(
+        name: 'Audaxious',
+        description: 'Connect wallet to AudaXious',
+        url: 'https://www.audaxious.com/',
+        icons: ['https://walletconnect.com/walletconnect-logo.png'],
+        redirect: Redirect(
+          native: 'audaxious://',
+          universal: 'https://www.walletconnect.com',
+        ),
+      ),
+    );
+
+    await _w3mService.init();
+    if (_w3mService.status == W3MServiceStatus.initialized) {
+      print("Web 3 status ${_w3mService.status}");
+      print("Web 3 address ${_w3mService.session?.address}");
+      loginUser();
+    }
+
+  }
+
+  void loginUser() async {
+    print("Login started");
+    final walletId = _w3mService.session?.address;
+
+    if (walletId != null) {
+      final user = await ref.read(WalletLoginViewModel.notifier.notifier).loginUser(walletId);
+      if (user == null) {
+        if (!context.mounted) return;
+        CustomToast.show(
+          context: context,
+          title: "Error",
+          description: "Failed to login user. Please try again!",
+          type: ToastificationType.error,
+        );
+
+      }else {
+        if (user.username == null) {
+          if (!context.mounted) return;
+          context.router.navigate(CreateUsernameRoute());
+        }else {
+          if (!context.mounted) return;
+          context.router.replaceAll([const BottomBarRoute()]);
+        }
+      }
+
+    }else {
+      CustomToast.show(
+        context: context,
+        title: "Error",
+        description: "No wallet Id found",
+        type: ToastificationType.error,
+      );
+    }
+
+  }
 }

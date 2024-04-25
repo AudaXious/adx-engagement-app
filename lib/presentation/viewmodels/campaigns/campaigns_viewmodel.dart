@@ -14,9 +14,7 @@ class CampaignsViewModel extends StateNotifier<CampaignDetailsState> {
   CampaignsViewModel({
     required this.campaignsUseCase,
     required this.joinSpacesUseCase,
-  }) : super (CampaignDetailsState.initial()) {
-    getCampaigns();
-  }
+  }) : super (CampaignDetailsState.initial());
 
   static final notifier =
   StateNotifierProvider<CampaignsViewModel, CampaignDetailsState>((ref) => CampaignsViewModel(

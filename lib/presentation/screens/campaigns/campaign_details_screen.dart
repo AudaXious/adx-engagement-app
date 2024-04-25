@@ -57,10 +57,21 @@ class CampaignDetailsScreen extends HookConsumerWidget {
         begin: const Offset(-1.0, 0.0), end: Offset.zero
     ).animate(animationController));
 
+    void callAPIs() async {
+      await Future.delayed(const Duration(milliseconds: 200));
+      reader.getCampaigns();
+    }
+
+    useEffect(() {
+      callAPIs();
+      return () {
+        // Reset the state to initial values
+      };
+    }, []);
+
     useEffect(() {
       currentIndex.value = campaignIndex;
       return () {
-        animationController.dispose();
       };
     }, [campaignIndex]);
 

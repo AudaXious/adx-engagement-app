@@ -66,6 +66,7 @@ class AuthRepositoryImpl implements AuthRepository {
         User user = User.fromJson(data);
         await SharedPreferencesServices().saveCurrentUser("user", json.encode(user));
         await SharedPreferencesServices.saveAccessToken(user.token!);
+        if (user.username != null) {await SharedPreferencesServices.saveIsLoggedIn(true);}
         if (user.twitterUsername != null) {
           await SharedPreferencesServices.saveTwitterUsername(user.twitterUsername!);
           await SharedPreferencesServices.saveTwitterVerificationStatus(true);

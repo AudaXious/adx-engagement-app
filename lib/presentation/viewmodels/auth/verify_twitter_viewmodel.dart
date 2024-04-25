@@ -24,6 +24,9 @@ Future<bool> verifyTwitter(String url) async {
       final success = response['success'];
       final data = response['data'];
 
+      print(data);
+
+
       if (success != null && success == true) {
         if (data != null) {
           final user = User.fromJson(data);

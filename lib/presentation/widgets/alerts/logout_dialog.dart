@@ -15,20 +15,21 @@ import '../../../core/utils/app_utils.dart';
 import '../../../core/utils/theme/dark_theme.dart';
 import '../../../core/utils/view_utils.dart';
 import '../../../domain/enums/button_state.dart';
+import '../../viewmodels/account/account_viewmodel.dart';
+import '../buttons/primary_text_button.dart';
 import '../buttons/secondary_button.dart';
 import 'custom_toast.dart';
 
-class SignInDialog extends HookConsumerWidget {
-  SignInDialog({super.key});
+class LogOutDialog extends HookConsumerWidget {
+  LogOutDialog({super.key});
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.watch(LoginViewModel.notifier);
-    final reader = ref.read(LoginViewModel.notifier.notifier);
-    final isFormValidated = useState(false);
+    final notifier = ref.watch(AccountViewModel.notifier);
+    final reader = ref.read(AccountViewModel.notifier.notifier);
 
     return Dialog(
       shape: RoundedRectangleBorder(
@@ -64,77 +65,47 @@ class SignInDialog extends HookConsumerWidget {
                     ],
                   ),
                   Text(
-                    "Sign In",
+                    "Log Out!",
                     style: Theme.of(context).textTheme.displayLarge,
+                  ),
+                  const Gap(5),
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 50),
+                    child: Text(
+                      "Are you sure you want to log out of your account?",
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: greyTextColor),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                   const Gap(30),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16),
-                    child: TextFormField(
-                      controller: _emailController,
-                      decoration: primaryTextFormFieldDecoration(labelText: 'Enter email address'),
-                      validator: requiredValidator,
-                      onChanged: (_) {
-                        isFormValidated.value = formKey.currentState?.validate() ?? false;
+                    height: 45,
+                    child: SecondaryButton(
+                      buttonText: "No",
+                      onPressed: () {
+                        Navigator.of(context).pop();
                       },
                     ),
                   ),
-                  const Gap(20),
+                  const Gap(5),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16),
                     height: 45,
-                    child: PrimaryButton(
-                      buttonText: "Sign In with Email",
+                    child: PrimaryTextButton(
+                      buttonText: "Yes",
+                      textColor: secondaryColor,
                       onPressed: () async {
-                        bool isLoginSuccessful = await reader.loginUser(_emailController.text, context);
-                        if (isLoginSuccessful) {
+                        bool isSuccessful = await reader.logoutUser();
+                        if (isSuccessful) {
                           if (!context.mounted) return;
-                          Navigator.of(context).pop();
-                          context.router.navigate(VerifyOTPRoute(
-                            email: _emailController.text,
-                          ));
-
-                        }else {
-                          if (!context.mounted) return;
-                          CustomToast.show(
-                            context: context,
-                            title: "Error",
-                            // description: "Failed to verify twiiter. Please try again!",
-                            description: notifier.error,
-                            type: ToastificationType.error,
-                          );
+                          context.router.replaceAll([SignInOptionsRoute()]);
                         }
                       },
-                      buttonState: notifier.viewState.isLoading
+                      buttonState: notifier.logoutViewState.isLoading
                           ? ButtonState.loading
-                          : isFormValidated.value
-                          ? ButtonState.active
-                          : ButtonState.disabled,
+                          : ButtonState.active,
                     ),
-                  ),
-                  const Gap(20),
-                  const Text("Or"),
-                  const Gap(20),
-                  Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 20),
-                      height: 45,
-                      child: SecondaryButton(
-                        buttonText: "Sign in with Google",
-                        icon: "assets/images/google.png",
-                        onPressed: () {
-                        },
-                      )
-                  ),
-                  const Gap(20),
-                  Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 20),
-                      height: 45,
-                      child: SecondaryButton(
-                        buttonText: "Sign in with WalletConnect",
-                        icon: "assets/images/wallet_connect.png",
-                        onPressed: () {
-                        },
-                      )
                   ),
                   const Gap(40),
 

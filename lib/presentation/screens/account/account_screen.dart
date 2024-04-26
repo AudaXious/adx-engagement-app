@@ -5,6 +5,7 @@ import 'package:audaxious/domain/enums/button_state.dart';
 import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/presentation/screens/auth/sign_in_options_screen.dart';
 import 'package:audaxious/presentation/viewmodels/account/account_viewmodel.dart';
+import 'package:audaxious/presentation/widgets/alerts/logout_dialog.dart';
 import 'package:audaxious/presentation/widgets/buttons/primary_outline_button.dart';
 import 'package:audaxious/presentation/widgets/buttons/primary_text_button.dart';
 import 'package:audaxious/presentation/widgets/progressBars/circular_progress_bar.dart';
@@ -628,15 +629,14 @@ class AccountScreen extends HookConsumerWidget {
                             buttonText: "Logout",
                             textColor: errorColor,
                             onPressed: () async {
-                              bool isSuccessful = await reader.logoutUser();
-                              if (isSuccessful) {
-                                if (!context.mounted) return;
-                                context.router.replaceAll([SignInOptionsRoute()]);
-                              }
+                              if (!context.mounted) return;
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return LogOutDialog();
+                                },
+                              );
                             },
-                            buttonState: notifier.logoutViewState.isLoading
-                                ? ButtonState.loading
-                                : ButtonState.active,
                           ),
                           const Gap(20),
                         ],

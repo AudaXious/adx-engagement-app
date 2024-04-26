@@ -30,6 +30,7 @@ Color yellowBarColor = const Color(0xFFFFAA3E);
 Color purpleBarColor = const Color(0xFFB63EFF);
 Color greenBarColor = const Color(0xFF3EFFDC);
 Color darkOrange = const Color(0xFFD04740);
+Color lightOrange = const Color(0xFFff8a65);
 
 
 final ThemeData darkTheme = ThemeData(

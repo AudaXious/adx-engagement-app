@@ -219,10 +219,10 @@ class SpaceDetailScreen extends HookConsumerWidget {
                                 children: [
                                   Row(
                                     children: [
-                                      Image.asset("assets/images/people.png", width: 18, height: 18,),
+                                      Image.asset("assets/images/people.png", width: 18, height: 18, color: secondaryColor),
                                       const Gap(5),
-                                      VerticalBar(color: secondaryColor.withOpacity(0.5), width: 0.5, height: 20,),
-                                      const Gap(5),
+                                      // VerticalBar(color: secondaryColor.withOpacity(0.5), width: 0.5, height: 20,),
+                                      // const Gap(5),
                                       Text(
                                         space?.spaceMembersCount.toString() ?? "",
                                         style: Theme.of(context).textTheme.bodyLarge?.
@@ -231,19 +231,26 @@ class SpaceDetailScreen extends HookConsumerWidget {
 
                                     ],
                                   ),
-                                  const Gap(20),
+                                  const Gap(30),
+                                  VerticalBar(color: secondaryColor.withOpacity(0.5), width: 0.5, height: 20,),
                                   IconButton(
                                     onPressed: () {},
-                                    icon: Image.asset("assets/images/internet.png", width: 16, height: 16,),
+                                    icon: Image.asset("assets/images/internet.png", width: 14, height: 14,),
                                   ),
+                                  VerticalBar(color: secondaryColor.withOpacity(0.5), width: 0.5, height: 20,),
+                                  const Gap(5),
                                   IconButton(
                                     onPressed: () {},
-                                    icon: Image.asset("assets/images/twitter.png", width: 20, height: 20,),
+                                    icon: Image.asset("assets/images/twitter.png", width: 18, height: 18,),
                                   ),
+                                  VerticalBar(color: secondaryColor.withOpacity(0.5), width: 0.5, height: 20,),
+                                  const Gap(5),
                                   IconButton(
                                     onPressed: () {},
-                                    icon: Image.asset("assets/images/discord.png", width: 20, height: 20,),
+                                    icon: Image.asset("assets/images/discord.png", width: 18, height: 18,),
                                   ),
+                                  VerticalBar(color: secondaryColor.withOpacity(0.5), width: 0.5, height: 20,),
+                                  const Gap(5),
                                 ],
                               ),
                               const Gap(20),

@@ -180,10 +180,10 @@ class SpaceCard extends HookConsumerWidget {
                           children: [
                             Row(
                               children: [
-                                Image.asset("assets/images/people.png", width: 16, height: 16,),
+                                Image.asset("assets/images/people.png", width: 16, height: 16, color: secondaryColor),
                                 const Gap(5),
-                                VerticalBar(color: secondaryColor.withOpacity(0.5), width: 0.5, height: 20,),
-                                const Gap(5),
+                                // VerticalBar(color: secondaryColor.withOpacity(0.5), width: 0.5, height: 20,),
+                                // const Gap(5),
                                 Text(
                                   space.spaceMembersCount.toString(),
                                   style: Theme.of(context).textTheme.bodyLarge?.
@@ -197,10 +197,10 @@ class SpaceCard extends HookConsumerWidget {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Image.asset("assets/images/hashtag.png", width: 16, height: 16,),
+                                  Image.asset("assets/images/hashtag.png", width: 16, height: 16, color: lightGold,),
                                   const Gap(5),
                                   VerticalBar(color: secondaryColor.withOpacity(0.5), width: 0.5, height: 20,),
-                                  const Gap(5),
+                                  const Gap(2),
                                   Row(
                                     children: space.tags?.map((tag) => Padding(
                                       padding: const EdgeInsets.symmetric(horizontal: 5),

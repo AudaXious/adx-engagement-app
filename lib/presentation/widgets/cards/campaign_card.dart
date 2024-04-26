@@ -48,7 +48,7 @@ class CampaignCard extends StatelessWidget {
                     ),
                     child: Row(
                       children: [
-                        Image.asset("assets/images/verified_gear.png", width: 16, height: 16,),
+                        Image.asset("assets/images/task.png", width: 12, height: 12, color: taskChipBorderColor.withOpacity(0.6)),
                         const Gap(3),
                         Text(
                           "Tasks | 0/${campaign.taskCount}",
@@ -68,13 +68,13 @@ class CampaignCard extends StatelessWidget {
                     ),
                     child: Row(
                       children: [
+                        Image.asset("assets/images/medal.png", width: 12, height: 12, color: lightGold,),
+                        const Gap(3),
                         Text(
                           "Earn | ${campaign.points} XP",
                           style: Theme.of(context).textTheme.bodyMedium?.
                           copyWith(color: lightGold.withOpacity(0.7)),
                         ),
-                        const Gap(3),
-                        Image.asset("assets/images/cryptocurrency.png", width: 16, height: 16,),
                       ],
                     ),
                   ),
@@ -168,10 +168,10 @@ class CampaignCard extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                Image.asset("assets/images/people.png", width: 16, height: 16,),
+                                Image.asset("assets/images/people.png", width: 16, height: 16, color: secondaryColor,),
                                 const Gap(5),
-                                VerticalBar(color: secondaryColor.withOpacity(0.5), width: 0.5, height: 20,),
-                                const Gap(5),
+                                // VerticalBar(color: secondaryColor.withOpacity(0.5), width: 0.5, height: 20,),
+                                // const Gap(5),
                                 Text(
                                   campaign.participants.toString(),
                                   style: Theme.of(context).textTheme.bodyLarge?.
@@ -181,8 +181,10 @@ class CampaignCard extends StatelessWidget {
                               ],
                             ),
                             const Spacer(),
-                            Image.asset("assets/images/time_icon.png", width: 16, height: 16, color: taskChipBorderColor.withOpacity(0.6)),
+                            Image.asset("assets/images/timer.png", width: 14, height: 14, color: lightGold.withOpacity(0.6)),
                             const Gap(5),
+                            // VerticalBar(color: secondaryColor.withOpacity(0.5), width: 0.5, height: 20,),
+                            // const Gap(5),
                             Text(
                               formatEndDate(campaign.endDate ?? ""),
                               style: Theme.of(context).textTheme.bodyMedium?.

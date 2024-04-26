@@ -128,7 +128,7 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                             const Gap(5),
                             Row(
                               children: [
-                                Image.asset("assets/images/time_icon.png", width: 16, height: 16, color: taskChipBorderColor.withOpacity(0.6)),
+                                Image.asset("assets/images/timer.png", width: 14, height: 14, color: lightGold.withOpacity(0.6)),
                                 const Gap(5),
                                 Text(
                                   formatEndDate(campaigns?[currentIndex.value].endDate ?? ""),
@@ -206,10 +206,16 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                                 borderRadius: const BorderRadius.all(Radius.circular(15)),
                                                 color: lightGold.withOpacity(0.1),
                                               ),
-                                              child: Text(
-                                                "${campaign.points} XP",
-                                                style: Theme.of(context).textTheme.bodyMedium?.
-                                                copyWith(color: lightGold.withOpacity(0.7)),
+                                              child: Row(
+                                                children: [
+                                                  Image.asset("assets/images/medal.png", width: 12, height: 12, color: lightGold,),
+                                                  const Gap(3),
+                                                  Text(
+                                                    "${campaign.points} XP",
+                                                    style: Theme.of(context).textTheme.bodyMedium?.
+                                                    copyWith(color: lightGold.withOpacity(0.7)),
+                                                  )
+                                                ],
                                               ),
                                             ),
                                             const Gap(8),

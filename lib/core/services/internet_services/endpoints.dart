@@ -1,5 +1,5 @@
-// String audaxiousTestBaseURL = "https://audaxious-light-api-1a66249f6914.herokuapp.com/api/v1";
-String audaxiousBaseURL = "https://api.audaxious.com/api";
+String audaxiousTestBaseURL = "https://audaxious-light-api-1a66249f6914.herokuapp.com/api";
+String audaxiousProdBaseURL = "https://api.audaxious.com/api";
 
 //AUTHENTICATION
 String loginEndpoint = "/v1/user/onboard";

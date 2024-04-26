@@ -5,10 +5,13 @@ import 'package:audaxious/domain/usecases/spaces/join_space_usecase.dart';
 import 'package:audaxious/domain/usecases/spaces/space_detail_usecase.dart';
 import 'package:audaxious/domain/usecases/spaces/spaces_usecase.dart';
 import 'package:audaxious/presentation/screens/main/spaces_state.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toastification/toastification.dart';
 import '../../../domain/enums/view_state.dart';
 import '../../../domain/usecases/spaces/user_created_spaces_usecase.dart';
 import '../../../domain/usecases/spaces/user_joined_spaces_usecase.dart';
+import '../../widgets/alerts/custom_toast.dart';
 
 class SpacesViewModel extends StateNotifier<SpacesState> {
   SpacesUseCase spacesUseCase;
@@ -145,21 +148,33 @@ class SpacesViewModel extends StateNotifier<SpacesState> {
     }
   }
 
-  Future<bool> joinSpace(String spaceId) async {
+  Future<bool> joinSpace(String spaceId, BuildContext context) async {
     state = state.update(joinSpaceViewState: ViewState.loading);
     try {
       final response = await joinSpacesUseCase.joinSpace(spaceId);
-      final data = response['data'];
       final message = response['message'];
 
       state = state.update(message: message);
       state = state.update(joinSpaceViewState: ViewState.idle);
+
+      CustomToast.show(
+        context: context,
+        title: "Success",
+        description: message,
+        type: ToastificationType.success,
+      );
 
       return true;
 
     } catch (e) {
       state = state.update(error: e.toString());
       state = state.update(joinSpaceViewState: ViewState.error);
+      CustomToast.show(
+        context: context,
+        title: "Error",
+        description: e.toString(),
+        type: ToastificationType.error,
+      );
       print("View model error: ${e.toString()}");
       return false;
     }

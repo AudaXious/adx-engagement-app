@@ -8,7 +8,6 @@ import 'package:gap/gap.dart';
 
 import '../../../core/routes/app_router.dart';
 import '../../../domain/models/campaign.dart';
-import '../vertical_bar.dart';
 
 class CampaignCard extends StatelessWidget {
   Campaign campaign;

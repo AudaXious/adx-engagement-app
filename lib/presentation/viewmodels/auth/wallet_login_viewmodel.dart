@@ -1,12 +1,12 @@
 
 import 'package:audaxious/domain/usecases/auth/wallet_login_usecase.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:web3modal_flutter/services/w3m_service/i_w3m_service.dart';
-import 'package:web3modal_flutter/services/w3m_service/w3m_service.dart';
-import 'package:web3modal_flutter/web3modal_flutter.dart';
+import 'package:toastification/toastification.dart';
 import '../../../domain/enums/view_state.dart';
 import '../../../domain/models/user.dart';
 import '../../screens/auth/web3modal/wallet_login_state.dart';
+import '../../widgets/alerts/custom_toast.dart';
 
 class WalletLoginViewModel extends StateNotifier<WalletLoginState> {
   WalletLoginUseCase walletLoginUseCase;
@@ -20,41 +20,14 @@ class WalletLoginViewModel extends StateNotifier<WalletLoginState> {
       walletLoginUseCase: ref.read(walletLoginUseCaseProvider),
   ));
 
-  // void initializeW3MService() async {
-  //   print("Initialization started");
-  //   late W3MService _w3mService;
-  //
-  //   _w3mService = W3MService(
-  //     projectId: '70630571fe8c62c8b5dfffe48ebc8c79',
-  //     metadata: const PairingMetadata(
-  //       name: 'Audaxious',
-  //       description: 'Connect wallet to AudaXious',
-  //       url: 'https://www.audaxious.com/',
-  //       icons: ['https://walletconnect.com/walletconnect-logo.png'],
-  //       redirect: Redirect(
-  //         native: 'audaxious://',
-  //         universal: 'https://www.walletconnect.com',
-  //       ),
-  //     ),
-  //   );
-  //
-  //   await _w3mService.init();
-  //   if (_w3mService.status == W3MServiceStatus.initialized) {
-  //     final walledId = _w3mService.session?.address;
-  //     if(walledId != null) {
-  //       loginUser(walledId);
-  //     }
-  //   }
-  //
-  //   // print("Wallet addressxyz ${_w3mService.session!.address!}");
-  // }
 
-  Future<User?> loginUser(String walletId) async {
+  Future<User?> loginUser(String walletId, BuildContext context) async {
       state = state.update(viewState: ViewState.loading);
       try {
         final response = await walletLoginUseCase.walletLogin(walletId.trim());
         final success = response['success'];
         final data = response['data'];
+        final message = response['message'];
 
         if (success != null && success == true) {
           if (data != null) {
@@ -69,6 +42,12 @@ class WalletLoginViewModel extends StateNotifier<WalletLoginState> {
       } catch (e) {
         state = state.update(viewState: ViewState.error);
         state = state.update(error: e.toString());
+        CustomToast.show(
+          context: context,
+          title: "Error",
+          description: e.toString(),
+          type: ToastificationType.error,
+        );
         print("View model error: ${e.toString()}");
         return null;
       }

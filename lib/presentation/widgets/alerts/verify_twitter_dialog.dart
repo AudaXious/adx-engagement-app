@@ -68,7 +68,7 @@ class VerifyTwitterDialog extends HookConsumerWidget {
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
-                        "Twitter verification",
+                        "X verification",
                         style: Theme.of(context).textTheme.displayLarge
                             ?.copyWith(fontSize: 26)
                     ),
@@ -77,7 +77,7 @@ class VerifyTwitterDialog extends HookConsumerWidget {
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
-                      "In order to continue, you need to verify your twitter account",
+                      "In order to continue, you need to verify your X account",
                       style: Theme.of(context).textTheme.bodyLarge
                           ?.copyWith(color: fadedTextColor),
                       textAlign: TextAlign.center,
@@ -198,9 +198,9 @@ class VerifyTwitterDialog extends HookConsumerWidget {
                     margin: const EdgeInsets.symmetric(horizontal: 16),
                     height: 45,
                     child: PrimaryButton(
-                      buttonText: "Verify twitter account",
+                      buttonText: "Verify X account",
                       onPressed: () async {
-                        bool isVerificationSuccessful = await reader.verifyTwitter(_tweetLinkController.text);
+                        bool isVerificationSuccessful = await reader.verifyTwitter(_tweetLinkController.text, context);
                         if (isVerificationSuccessful) {
                           await SharedPreferencesServices.saveTwitterVerificationStatus(true);
                           if (!context.mounted) return;
@@ -208,18 +208,8 @@ class VerifyTwitterDialog extends HookConsumerWidget {
                           CustomToast.show(
                             context: context,
                             title: "Success",
-                            description: "Successfully verified",
+                            description: "X successfully verified",
                             type: ToastificationType.success,
-                          );
-
-                        }else {
-                          if (!context.mounted) return;
-                          CustomToast.show(
-                            context: context,
-                            title: "Error",
-                            // description: "Failed to verify twiiter. Please try again!",
-                            description: notifier.error,
-                            type: ToastificationType.error,
                           );
                         }
                       },

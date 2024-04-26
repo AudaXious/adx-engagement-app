@@ -77,14 +77,6 @@ class CreateUsernameScreen extends HookConsumerWidget {
                       type: ToastificationType.success,
                     );
                     context.router.replaceAll([const BottomBarRoute()]);
-                  }else {
-                    if (!context.mounted) return;
-                    CustomToast.show(
-                      context: context,
-                      title: "Error",
-                      description: "Failed to create username. Please try again!",
-                      type: ToastificationType.error,
-                    );
                   }
                 },
                 buttonText: "Create username",

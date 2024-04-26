@@ -631,7 +631,7 @@ class AccountScreen extends HookConsumerWidget {
                               bool isSuccessful = await reader.logoutUser();
                               if (isSuccessful) {
                                 if (!context.mounted) return;
-                                context.router.replaceAll([LoginRoute()]);
+                                context.router.replaceAll([SignInOptionsRoute()]);
                               }
                             },
                             buttonState: notifier.logoutViewState.isLoading

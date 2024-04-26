@@ -284,7 +284,7 @@ class _AppLifecycleObserver extends WidgetsBindingObserver {
     final walletId = _w3mService.session?.address;
 
     if (walletId != null) {
-      final user = await ref.read(WalletLoginViewModel.notifier.notifier).loginUser(walletId);
+      final user = await ref.read(WalletLoginViewModel.notifier.notifier).loginUser(walletId, context);
       if (user == null) {
         if (!context.mounted) return;
         CustomToast.show(

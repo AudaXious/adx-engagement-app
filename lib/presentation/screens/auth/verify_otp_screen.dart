@@ -97,7 +97,7 @@ class VerifyOTPScreen extends HookConsumerWidget {
                   )
               ),
               onCompleted: (pin) async {
-                final user = await reader.verifyOTP(email, pin);
+                final user = await reader.verifyOTP(email, pin, context);
                 if (user == null) {
                   if (!context.mounted) return;
                   CustomToast.show(
@@ -108,14 +108,6 @@ class VerifyOTPScreen extends HookConsumerWidget {
                   );
 
                 }else {
-                  if (!context.mounted) return;
-                  CustomToast.show(
-                    context: context,
-                    title: "Success",
-                    description: "You've been successfully verified",
-                    type: ToastificationType.success,
-                  );
-
                   if (user.username == null) {
                     context.router.navigate(CreateUsernameRoute());
                   }else {

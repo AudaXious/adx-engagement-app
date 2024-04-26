@@ -86,7 +86,7 @@ class SignInDialog extends HookConsumerWidget {
                     child: PrimaryButton(
                       buttonText: "Sign In with Email",
                       onPressed: () async {
-                        bool isLoginSuccessful = await reader.loginUser(_emailController.text);
+                        bool isLoginSuccessful = await reader.loginUser(_emailController.text, context);
                         if (isLoginSuccessful) {
                           if (!context.mounted) return;
                           Navigator.of(context).pop();

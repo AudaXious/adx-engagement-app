@@ -11,13 +11,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:toastification/toastification.dart';
 import '../../../core/services/shared_preferences_services.dart';
 import '../../../core/utils/constants.dart';
 import '../../../core/utils/theme/dark_theme.dart';
 import '../../../domain/enums/button_state.dart';
 import '../../../domain/models/space.dart';
-import '../../widgets/alerts/custom_toast.dart';
 import '../../widgets/alerts/empty_result_found_illustration.dart';
 import '../../widgets/alerts/sign_in_dialog.dart';
 import '../../widgets/cards/campaign_card.dart';
@@ -37,6 +35,7 @@ class SpaceDetailScreen extends HookConsumerWidget {
     final reader = ref.read(SpacesDetailsViewModel.notifier.notifier);
     final notifier = ref.watch(SpacesDetailsViewModel.notifier);
     final activeTab = useState("campaigns");
+    final isMemberState = useState<bool?>(null);
 
     void callAPIs() async {
       await Future.delayed(const Duration(milliseconds: 200));
@@ -45,6 +44,7 @@ class SpaceDetailScreen extends HookConsumerWidget {
         final spaceDetail = await reader.getSpaceDetail(spaceId);
         if (spaceDetail != null) {
           space = spaceDetail;
+          isMemberState.value = space?.isMember;
         }
       }
       reader.getCampaignsBySpaceId(spaceId);
@@ -163,7 +163,7 @@ class SpaceDetailScreen extends HookConsumerWidget {
                                   SizedBox(
                                       width: 140,
                                       height: 32,
-                                      child: space?.isMember ?? false
+                                      child: isMemberState.value ?? false
                                           ? PrimaryOutlineButton(
                                           onPressed: (){},
                                           buttonText: "Leave space",
@@ -173,27 +173,14 @@ class SpaceDetailScreen extends HookConsumerWidget {
                                               : ButtonState.active
                                       )
                                           : PrimaryButton(
-                                          onPressed: () async {
+                                            onPressed: () async {
                                             final isLoggedIn = await SharedPreferencesServices.getIsLoggedIn();
                                             if (isLoggedIn) {
-                                              bool isSuccessful = await reader.joinSpace(space?.uuid ?? "");
+                                              bool isSuccessful = await reader.joinSpace(space?.uuid ?? "", context);
                                               if (isSuccessful) {
-                                                if (!context.mounted) return;
-                                                CustomToast.show(
-                                                  context: context,
-                                                  title: "Success",
-                                                  description: notifier.message,
-                                                  type: ToastificationType.success,
-                                                );
-                                              }else {
-                                                if (!context.mounted) return;
-                                                CustomToast.show(
-                                                  context: context,
-                                                  title: "Error",
-                                                  description: notifier.message,
-                                                  type: ToastificationType.error,
-                                                );
+                                                isMemberState.value = true;
                                               }
+
                                             }else {
                                               if (!context.mounted) return;
                                               showDialog(

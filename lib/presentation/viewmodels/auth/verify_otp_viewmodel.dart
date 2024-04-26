@@ -1,9 +1,12 @@
 
 import 'package:audaxious/domain/usecases/auth/verify_otp_usecase.dart';
 import 'package:audaxious/presentation/screens/auth/verify_otp_state.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toastification/toastification.dart';
 import '../../../domain/enums/view_state.dart';
 import '../../../domain/models/user.dart';
+import '../../widgets/alerts/custom_toast.dart';
 
 class VerifyOTPViewModel extends StateNotifier<VerifyOTPState> {
   VerifyOTPUseCase verifyOTPUseCase;
@@ -17,7 +20,7 @@ class VerifyOTPViewModel extends StateNotifier<VerifyOTPState> {
     verifyOTPUseCase: ref.read(verifyOTPUseCaseProvider),
   ));
 
-  Future<User?> verifyOTP(String email,String otp) async {
+  Future<User?> verifyOTP(String email,String otp, BuildContext context) async {
     state = state.update(viewState: ViewState.loading);
     try {
       final response = await verifyOTPUseCase.verifyOTP(email.trim(), otp.trim());
@@ -39,8 +42,15 @@ class VerifyOTPViewModel extends StateNotifier<VerifyOTPState> {
       }
 
     } catch (e) {
+
       state = state.update(viewState: ViewState.error);
       state = state.update(error: e.toString());
+      CustomToast.show(
+        context: context,
+        title: "Error",
+        description: e.toString(),
+        type: ToastificationType.error,
+      );
       print("View model error: ${e.toString()}");
       return null;
     }

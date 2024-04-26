@@ -3,10 +3,8 @@ import 'package:gap/gap.dart';
 import 'package:toastification/toastification.dart';
 
 import '../../../core/utils/app_utils.dart';
-import '../../../core/utils/constants.dart';
 import '../../../core/utils/theme/dark_theme.dart';
 import '../../../domain/models/campaign.dart';
-import '../vertical_bar.dart';
 class CompleteCampaignCard extends StatelessWidget {
   Campaign campaign;
 

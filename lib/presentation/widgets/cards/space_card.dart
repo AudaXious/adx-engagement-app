@@ -1,5 +1,4 @@
 import 'package:audaxious/domain/models/space.dart';
-import 'package:audaxious/presentation/widgets/alerts/custom_toast.dart';
 import 'package:audaxious/presentation/widgets/cards/active_campaign.dart';
 import 'package:audaxious/presentation/widgets/progressBars/circular_progress_bar.dart';
 import 'package:audaxious/presentation/widgets/vertical_bar.dart';
@@ -9,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:toastification/toastification.dart';
 
 import '../../../core/routes/app_router.dart';
 import '../../../core/services/shared_preferences_services.dart';
@@ -95,9 +93,9 @@ class SpaceCard extends HookConsumerWidget {
                             ),
                             const Gap(20),
 
-                            Visibility(
-                              visible: isMemberState.value!,
-                              child: Container(
+                            SizedBox(
+                              child: isMemberState.value ?? false
+                                  ? Container(
                                 padding: const EdgeInsets.all(5),
                                 height: 30,
                                 width: 30,
@@ -107,36 +105,18 @@ class SpaceCard extends HookConsumerWidget {
                                     color: successGreen.withOpacity(0.1)
                                 ),
                                 child: Image.asset("assets/images/tick_circle.png", width: 12, height: 12,),
-                              ),
-                            ),
-
-                            Visibility(
-                              visible: !isMemberState.value!,
-                              child: IconButton(
-                                onPressed: joinLoadingState.value ? null : () async {
+                              )
+                                  : IconButton(
+                                  onPressed: joinLoadingState.value ? null : () async {
                                   final isLoggedIn = await SharedPreferencesServices.getIsLoggedIn();
                                   if (isLoggedIn) {
                                     joinLoadingState.value = true;
-                                    bool isSuccessful = await reader.joinSpace(space.uuid ?? "");
+                                    bool isSuccessful = await reader.joinSpace(space.uuid ?? "", context);
 
                                     if (isSuccessful) {
                                       isMemberState.value = true;
-                                      if (!context.mounted) return;
-                                      CustomToast.show(
-                                        context: context,
-                                        title: "Success",
-                                        description: notifier.message,
-                                        type: ToastificationType.success,
-                                      );
-                                    } else {
-                                      if (!context.mounted) return;
-                                      CustomToast.show(
-                                        context: context,
-                                        title: "Error",
-                                        description: notifier.error,
-                                        type: ToastificationType.error,
-                                      );
                                     }
+
                                     joinLoadingState.value = false;
                                   }else {
                                     if (!context.mounted) return;
@@ -163,6 +143,7 @@ class SpaceCard extends HookConsumerWidget {
                                 ),
                               ),
                             )
+
                           ],
                         ),
                         const Gap(25),
@@ -197,7 +178,7 @@ class SpaceCard extends HookConsumerWidget {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Image.asset("assets/images/hashtag.png", width: 16, height: 16, color: lightGold,),
+                                  Image.asset("assets/images/hashtag.png", width: 16, height: 16, color: lightGold),
                                   const Gap(5),
                                   VerticalBar(color: secondaryColor.withOpacity(0.5), width: 0.5, height: 20,),
                                   const Gap(2),

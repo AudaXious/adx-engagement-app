@@ -1,9 +1,12 @@
 
 import 'package:audaxious/domain/usecases/auth/verify_twitter_usecase.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toastification/toastification.dart';
 import '../../../domain/enums/view_state.dart';
 import '../../../domain/models/user.dart';
 import '../../screens/auth/verify_twitter_state.dart';
+import '../../widgets/alerts/custom_toast.dart';
 
 class VerifyTwitterViewModel extends StateNotifier<VerifyTwitterState> {
   VerifyTwitterUseCase verifyTwitterUseCase;
@@ -17,15 +20,12 @@ class VerifyTwitterViewModel extends StateNotifier<VerifyTwitterState> {
       verifyTwitterUseCase: ref.read(verifyTwitterUseCaseProvider),
   ));
 
-Future<bool> verifyTwitter(String url) async {
+Future<bool> verifyTwitter(String url, BuildContext context) async {
     state = state.update(viewState: ViewState.loading);
     try {
       final response = await verifyTwitterUseCase.verifyTwitter(url.trim());
       final success = response['success'];
       final data = response['data'];
-
-      print(data);
-
 
       if (success != null && success == true) {
         if (data != null) {
@@ -40,6 +40,12 @@ Future<bool> verifyTwitter(String url) async {
     } catch (e) {
       state = state.update(viewState: ViewState.error);
       state = state.update(error: e.toString());
+      CustomToast.show(
+        context: context,
+        title: "Error",
+        description: e.toString(),
+        type: ToastificationType.error,
+      );
       print("View model error: ${e.toString()}");
       return false;
     }

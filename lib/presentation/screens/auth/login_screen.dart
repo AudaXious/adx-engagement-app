@@ -66,20 +66,12 @@ class LoginScreen extends HookConsumerWidget {
               const Gap(50),
               PrimaryButton(
                 onPressed: () async {
-                  bool isLoginSuccessful = await reader.loginUser(_emailController.text);
+                  bool isLoginSuccessful = await reader.loginUser(_emailController.text, context);
                   if (isLoginSuccessful) {
                     if (!context.mounted) return;
                     context.router.navigate(VerifyOTPRoute(
                       email: _emailController.text,
                     ));
-                  }else {
-                    if (!context.mounted) return;
-                    CustomToast.show(
-                      context: context,
-                      title: "Error",
-                      description: notifier.error,
-                      type: ToastificationType.error,
-                    );
                   }
                 },
                 buttonText: "Sign In",

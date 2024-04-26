@@ -275,7 +275,7 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                               buttonIcon = "assets/images/un_like.png";
                                               break;
                                             case "follow":
-                                              buttonIcon = "assets/images/twitter.png";
+                                              buttonIcon = "assets/images/x.png";
                                               break;
                                             case "repost":
                                               buttonIcon = "assets/images/repost.png";

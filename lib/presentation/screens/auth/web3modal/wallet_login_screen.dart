@@ -44,7 +44,7 @@ class WalletLoginScreen extends HookConsumerWidget {
         print(walletId);
 
         if (walletId != null) {
-          final user = await reader.loginUser(walletId);
+          final user = await reader.loginUser(walletId, context);
           if (user == null) {
             if (!context.mounted) return;
             CustomToast.show(

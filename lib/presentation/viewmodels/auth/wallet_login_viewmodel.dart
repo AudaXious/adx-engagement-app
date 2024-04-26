@@ -2,6 +2,7 @@
 import 'package:audaxious/domain/usecases/auth/wallet_login_usecase.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:toastification/toastification.dart';
 import '../../../domain/enums/view_state.dart';
 import '../../../domain/models/user.dart';
@@ -23,6 +24,8 @@ class WalletLoginViewModel extends StateNotifier<WalletLoginState> {
 
   Future<User?> loginUser(String walletId, BuildContext context) async {
       state = state.update(viewState: ViewState.loading);
+      context.loaderOverlay.show();
+      context.loaderOverlay.visible;
       try {
         final response = await walletLoginUseCase.walletLogin(walletId.trim());
         final success = response['success'];
@@ -33,15 +36,18 @@ class WalletLoginViewModel extends StateNotifier<WalletLoginState> {
           if (data != null) {
             final user = User.fromJson(data);
             state = state.update(user: user);
+            context.loaderOverlay.hide();
             return user;
           }
 
           state = state.update(viewState: ViewState.idle);
+          context.loaderOverlay.hide();
         }
 
       } catch (e) {
         state = state.update(viewState: ViewState.error);
         state = state.update(error: e.toString());
+        context.loaderOverlay.hide();
         CustomToast.show(
           context: context,
           title: "Error",

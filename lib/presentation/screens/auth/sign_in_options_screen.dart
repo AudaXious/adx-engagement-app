@@ -5,6 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toastification/toastification.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:web3modal_flutter/services/w3m_service/i_w3m_service.dart';
 import 'package:web3modal_flutter/web3modal_flutter.dart';
 import '../../../core/routes/app_router.dart';
@@ -205,7 +206,9 @@ class SignInOptionsScreen extends HookConsumerWidget{
                           Container(
                             margin: const EdgeInsets.symmetric(horizontal: 20),
                             child: TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                _launchURL('https://audaxious.com');
+                              },
                               child: RichText(
                                 text: TextSpan(
                                   text: 'By continuing, you agree our ',
@@ -236,6 +239,14 @@ class SignInOptionsScreen extends HookConsumerWidget{
       ),
     );
 
+  }
+}
+
+void _launchURL(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
 }
 

@@ -11,6 +11,7 @@ import 'package:web3modal_flutter/web3modal_flutter.dart';
 import '../../../core/routes/app_router.dart';
 import '../../../core/utils/app_layout.dart';
 import '../../../core/utils/theme/dark_theme.dart';
+import '../../../core/web3/constants.dart';
 import '../../../domain/enums/button_state.dart';
 import '../../viewmodels/auth/wallet_login_viewmodel.dart';
 import '../../widgets/alerts/custom_toast.dart';
@@ -26,12 +27,10 @@ class SignInOptionsScreen extends HookConsumerWidget{
   late W3MService _w3mService;
 
   void initializeW3MService() async {
-    print("Initialization started");
-
     _w3mService = W3MService(
-      projectId: '70630571fe8c62c8b5dfffe48ebc8c79',
+      projectId: projectId,
       metadata: const PairingMetadata(
-        name: 'Audaxious',
+        name: 'AudaXious',
         description: 'Connect wallet to AudaXious',
         url: 'https://www.audaxious.com/',
         icons: ['https://walletconnect.com/walletconnect-logo.png'],
@@ -43,10 +42,6 @@ class SignInOptionsScreen extends HookConsumerWidget{
     );
 
     await _w3mService.init();
-    if (_w3mService.status == W3MServiceStatus.initialized) {
-
-    }
-
   }
 
   @override
@@ -259,12 +254,10 @@ class _AppLifecycleObserver extends WidgetsBindingObserver {
   }
 
   void initializeW3MService() async {
-    print("Initialization started");
-
     _w3mService = W3MService(
-      projectId: '70630571fe8c62c8b5dfffe48ebc8c79',
+      projectId: projectId,
       metadata: const PairingMetadata(
-        name: 'Audaxious',
+        name: 'AudaXious',
         description: 'Connect wallet to AudaXious',
         url: 'https://www.audaxious.com/',
         icons: ['https://walletconnect.com/walletconnect-logo.png'],
@@ -277,15 +270,12 @@ class _AppLifecycleObserver extends WidgetsBindingObserver {
 
     await _w3mService.init();
     if (_w3mService.status == W3MServiceStatus.initialized) {
-      print("Web 3 status ${_w3mService.status}");
-      print("Web 3 address ${_w3mService.session?.address}");
       loginUser();
     }
 
   }
 
   void loginUser() async {
-    print("Login started");
     final walletId = _w3mService.session?.address;
 
     if (walletId != null) {
@@ -315,13 +305,6 @@ class _AppLifecycleObserver extends WidgetsBindingObserver {
 
     }else {
       context.loaderOverlay.hide();
-
-      // CustomToast.show(
-      //   context: context,
-      //   title: "Error",
-      //   description: "No wallet Id found",
-      //   type: ToastificationType.error,
-      // );
     }
 
   }

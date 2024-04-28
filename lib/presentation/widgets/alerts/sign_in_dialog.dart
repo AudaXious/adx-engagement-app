@@ -7,19 +7,46 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:toastification/toastification.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:web3modal_flutter/services/w3m_service/i_w3m_service.dart';
+import 'package:web3modal_flutter/services/w3m_service/w3m_service.dart';
+import 'package:web3modal_flutter/web3modal_flutter.dart';
 
 import '../../../core/routes/app_router.dart';
 import '../../../core/utils/app_utils.dart';
 import '../../../core/utils/theme/dark_theme.dart';
 import '../../../core/utils/view_utils.dart';
+import '../../../core/web3/constants.dart';
 import '../../../domain/enums/button_state.dart';
+import '../../viewmodels/auth/wallet_login_viewmodel.dart';
+import '../buttons/connect_wallet_button.dart';
 import '../buttons/secondary_button.dart';
 import 'custom_toast.dart';
 
 class SignInDialog extends HookConsumerWidget {
   SignInDialog({super.key});
+
+  late W3MService _w3mService;
+
+  void initializeW3MService() async {
+    _w3mService = W3MService(
+      projectId: projectId,
+      metadata: const PairingMetadata(
+        name: 'AudaXious',
+        description: 'Connect wallet to AudaXious',
+        url: 'https://www.audaxious.com/',
+        icons: ['https://walletconnect.com/walletconnect-logo.png'],
+        redirect: Redirect(
+          native: 'audaxious://',
+          universal: 'https://www.walletconnect.com',
+        ),
+      ),
+    );
+
+    await _w3mService.init();
+  }
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
@@ -119,11 +146,13 @@ class SignInDialog extends HookConsumerWidget {
                   Container(
                       margin: const EdgeInsets.symmetric(horizontal: 20),
                       height: 45,
-                      child: SecondaryButton(
-                        buttonText: "Sign in with WalletConnect",
+                      child: ConnectWalletButton(
+                        buttonText: "Sign In with Wallet",
                         icon: "assets/images/wallet_connect.png",
-                        onPressed: () {
+                        onPressed: () async {
+                          _w3mService.openModal(context);
                         },
+
                       )
                   ),
                   const Gap(40),
@@ -136,4 +165,77 @@ class SignInDialog extends HookConsumerWidget {
       );
   }
 
+}
+
+class _AppLifecycleObserver extends WidgetsBindingObserver {
+  final SignInDialog signInDialog;
+  WidgetRef ref;
+  BuildContext context;
+
+  _AppLifecycleObserver(this.signInDialog, this.ref, this.context);
+
+  late W3MService _w3mService;
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      initializeW3MService();
+    }
+  }
+
+  void initializeW3MService() async {
+    _w3mService = W3MService(
+      projectId: projectId,
+      metadata: const PairingMetadata(
+        name: 'AudaXious',
+        description: 'Connect wallet to AudaXious',
+        url: 'https://www.audaxious.com/',
+        icons: ['https://walletconnect.com/walletconnect-logo.png'],
+        redirect: Redirect(
+          native: 'audaxious://',
+          universal: 'https://www.walletconnect.com',
+        ),
+      ),
+    );
+
+    await _w3mService.init();
+    if (_w3mService.status == W3MServiceStatus.initialized) {
+      loginUser();
+    }
+
+  }
+
+  void loginUser() async {
+    final walletId = _w3mService.session?.address;
+
+    if (walletId != null) {
+      context.loaderOverlay.show();
+      context.loaderOverlay.visible;
+      final user = await ref.read(WalletLoginViewModel.notifier.notifier).loginUser(walletId, context);
+      if (user == null) {
+        if (!context.mounted) return;
+        context.loaderOverlay.hide();
+        CustomToast.show(
+          context: context,
+          title: "Error",
+          description: "Failed to login user. Please try again!",
+          type: ToastificationType.error,
+        );
+
+      }else {
+        context.loaderOverlay.hide();
+        if (user.username == null) {
+          if (!context.mounted) return;
+          context.router.navigate(CreateUsernameRoute());
+        }else {
+          if (!context.mounted) return;
+          context.router.replaceAll([const BottomBarRoute()]);
+        }
+      }
+
+    }else {
+      context.loaderOverlay.hide();
+    }
+
+  }
 }

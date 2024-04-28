@@ -129,7 +129,7 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                             Row(
                               children: [
                                 Image.asset("assets/images/timer.png", width: 14, height: 14, color: lightGold.withOpacity(0.6)),
-                                const Gap(5),
+                                const Gap(3),
                                 Text(
                                   formatEndDate(campaigns?[currentIndex.value].endDate ?? ""),
                                   style: Theme.of(context).textTheme.bodyMedium?.

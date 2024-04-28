@@ -60,6 +60,14 @@ String formatEndDate(String dateString) {
   int hours = difference.inHours.remainder(24);
   int minutes = difference.inMinutes.remainder(60);
 
+  if (days > 0) {
+    return '${days}d : ${hours}h : ${minutes}m left';
+  }else if (days < 1) {
+    return '${hours}h : ${minutes}m left';
+  }else if (days < 1 && hours < 1) {
+    return '${minutes}m left';
+  }
+
   return '${days}d : ${hours}h : ${minutes}m left';
 }
 

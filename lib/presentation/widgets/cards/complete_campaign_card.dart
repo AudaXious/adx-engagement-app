@@ -172,7 +172,7 @@ class CompleteCampaignCard extends StatelessWidget {
                           ),
                           const Spacer(),
                           Image.asset("assets/images/timer.png", width: 14, height: 14, color: lightGold.withOpacity(0.6)),
-                          const Gap(5),
+                          const Gap(3),
                           Text(
                             formatEndDate(campaign.endDate ?? ""),
                             style: Theme.of(context).textTheme.bodyMedium?.

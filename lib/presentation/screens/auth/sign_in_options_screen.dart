@@ -28,7 +28,7 @@ class SignInOptionsScreen extends HookConsumerWidget{
 
   void initializeW3MService() async {
     _w3mService = W3MService(
-      projectId: projectId,
+      projectId: projectIdProd,
       metadata: const PairingMetadata(
         name: 'AudaXious',
         description: 'Connect wallet to AudaXious',
@@ -255,7 +255,7 @@ class _AppLifecycleObserver extends WidgetsBindingObserver {
 
   void initializeW3MService() async {
     _w3mService = W3MService(
-      projectId: projectId,
+      projectId: projectIdProd,
       metadata: const PairingMetadata(
         name: 'AudaXious',
         description: 'Connect wallet to AudaXious',

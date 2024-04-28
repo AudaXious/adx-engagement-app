@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GlobalLoaderOverlay(
-      overlayColor: backgroundColor.withOpacity(0.9),
+      overlayColor: backgroundColor,
       useDefaultLoading: false,
       disableBackButton: false,
       closeOnBackButton: true,
@@ -29,13 +29,6 @@ class MyApp extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const ZoomableWidget(
-                child: Image(
-                  image: AssetImage("assets/images/audaxious_name_logo.png"),
-                  width: 60,
-                  height: 60,
-                ),
-              ),
               Loading(message: "Please wait...",)
             ],
           ),

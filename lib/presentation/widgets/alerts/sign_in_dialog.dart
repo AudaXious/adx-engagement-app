@@ -73,7 +73,7 @@ class SignInDialog extends HookConsumerWidget {
                     child: TextFormField(
                       controller: _emailController,
                       decoration: primaryTextFormFieldDecoration(labelText: 'Enter email address'),
-                      validator: requiredValidator,
+                      validator: emailValidator,
                       onChanged: (_) {
                         isFormValidated.value = formKey.currentState?.validate() ?? false;
                       },
@@ -93,16 +93,6 @@ class SignInDialog extends HookConsumerWidget {
                           context.router.navigate(VerifyOTPRoute(
                             email: _emailController.text,
                           ));
-
-                        }else {
-                          if (!context.mounted) return;
-                          CustomToast.show(
-                            context: context,
-                            title: "Error",
-                            // description: "Failed to verify twiiter. Please try again!",
-                            description: notifier.error,
-                            type: ToastificationType.error,
-                          );
                         }
                       },
                       buttonState: notifier.viewState.isLoading

@@ -15,6 +15,8 @@ import '../../viewmodels/auth/wallet_login_viewmodel.dart';
 import '../../widgets/alerts/custom_toast.dart';
 import '../../widgets/buttons/primary_button.dart';
 import '../../widgets/buttons/secondary_button.dart';
+import 'package:loader_overlay/loader_overlay.dart';
+
 @RoutePage()
 class SignInOptionsScreen extends HookConsumerWidget{
   SignInOptionsScreen({super.key});
@@ -255,6 +257,8 @@ class _AppLifecycleObserver extends WidgetsBindingObserver {
 
   void initializeW3MService() async {
     print("Initialization started");
+    context.loaderOverlay.show();
+    context.loaderOverlay.visible;
 
     _w3mService = W3MService(
       projectId: '70630571fe8c62c8b5dfffe48ebc8c79',
@@ -287,6 +291,7 @@ class _AppLifecycleObserver extends WidgetsBindingObserver {
       final user = await ref.read(WalletLoginViewModel.notifier.notifier).loginUser(walletId, context);
       if (user == null) {
         if (!context.mounted) return;
+        context.loaderOverlay.hide();
         CustomToast.show(
           context: context,
           title: "Error",
@@ -295,6 +300,7 @@ class _AppLifecycleObserver extends WidgetsBindingObserver {
         );
 
       }else {
+        context.loaderOverlay.hide();
         if (user.username == null) {
           if (!context.mounted) return;
           context.router.navigate(CreateUsernameRoute());
@@ -305,6 +311,8 @@ class _AppLifecycleObserver extends WidgetsBindingObserver {
       }
 
     }else {
+      context.loaderOverlay.hide();
+
       // CustomToast.show(
       //   context: context,
       //   title: "Error",

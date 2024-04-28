@@ -9,12 +9,26 @@ class Loading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CircularProgressBar(size: 12),
-        const Gap(5),
+        Stack(
+          children: [
+            CircularProgressBar(size: 80),
+            const Positioned(
+              top: 80/4,
+              left: 0,
+              right: 0,
+              child: Image(
+                image: AssetImage("assets/images/logo.png"),
+                width: 40,
+                height: 40,
+              ),
+            )
+          ],
+        ),
+        const Gap(10),
         Text(
             message ?? "",
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: fadedTextColor)

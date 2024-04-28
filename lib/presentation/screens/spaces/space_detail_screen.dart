@@ -37,10 +37,13 @@ class SpaceDetailScreen extends HookConsumerWidget {
     final activeTab = useState("campaigns");
     final isMemberState = useState<bool?>(null);
 
+    if (space != null) {
+      isMemberState.value = space?.isMember;
+    }
+
     void callAPIs() async {
       await Future.delayed(const Duration(milliseconds: 200));
       if (space == null) {
-        print("space is null");
         final spaceDetail = await reader.getSpaceDetail(spaceId);
         if (spaceDetail != null) {
           space = spaceDetail;
@@ -168,9 +171,6 @@ class SpaceDetailScreen extends HookConsumerWidget {
                                           onPressed: (){},
                                           buttonText: "Leave space",
                                           borderRadius: 30,
-                                          buttonState: notifier.joinSpaceViewState. isLoading
-                                              ? ButtonState.loading
-                                              : ButtonState.active
                                       )
                                           : PrimaryButton(
                                             onPressed: () async {

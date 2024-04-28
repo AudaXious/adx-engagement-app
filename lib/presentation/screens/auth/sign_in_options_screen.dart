@@ -14,6 +14,7 @@ import '../../../core/utils/theme/dark_theme.dart';
 import '../../../domain/enums/button_state.dart';
 import '../../viewmodels/auth/wallet_login_viewmodel.dart';
 import '../../widgets/alerts/custom_toast.dart';
+import '../../widgets/buttons/connect_wallet_button.dart';
 import '../../widgets/buttons/primary_button.dart';
 import '../../widgets/buttons/secondary_button.dart';
 import 'package:loader_overlay/loader_overlay.dart';
@@ -184,24 +185,15 @@ class SignInOptionsScreen extends HookConsumerWidget{
                           const Gap(20),
                           Container(
                               margin: const EdgeInsets.symmetric(horizontal: 10),
-                              child: SecondaryButton(
+                              child: ConnectWalletButton(
                                   buttonText: "Sign In with Wallet",
                                   icon: "assets/images/wallet_connect.png",
                                   onPressed: () async {
-                                    // context.router.navigate(WalletLoginRoute());
-                                    // initializeW3MService();
                                     _w3mService.openModal(context);
                                   },
-                                  buttonState: notifier.viewState.isLoading
-                                      ? ButtonState.loading
-                                      : ButtonState.active
+
                               )
                           ),
-                          // W3MConnectWalletButton(
-                          //   service: _w3mService,
-                          //   state: ConnectButtonState.idle,
-                          //   size: BaseButtonSize.regular,
-                          // ),
                           const Gap(30),
                           Container(
                             margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -268,8 +260,6 @@ class _AppLifecycleObserver extends WidgetsBindingObserver {
 
   void initializeW3MService() async {
     print("Initialization started");
-    context.loaderOverlay.show();
-    context.loaderOverlay.visible;
 
     _w3mService = W3MService(
       projectId: '70630571fe8c62c8b5dfffe48ebc8c79',
@@ -299,6 +289,8 @@ class _AppLifecycleObserver extends WidgetsBindingObserver {
     final walletId = _w3mService.session?.address;
 
     if (walletId != null) {
+      context.loaderOverlay.show();
+      context.loaderOverlay.visible;
       final user = await ref.read(WalletLoginViewModel.notifier.notifier).loginUser(walletId, context);
       if (user == null) {
         if (!context.mounted) return;

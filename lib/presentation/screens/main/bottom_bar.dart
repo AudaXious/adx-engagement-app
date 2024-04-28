@@ -56,22 +56,27 @@ class BottomBarScreen extends HookConsumerWidget {
                 BottomNavigationBarItem(
                     icon: Image.asset("assets/images/home.png", width: 21, height: 21),
                     activeIcon: Image.asset("assets/images/home.png", width: 21, height: 21, color: secondaryColor),
-                    label: "Campaigns"
+                    label: "Campaigns",
+                    tooltip: "Campaigns"
                 ),
                 BottomNavigationBarItem(
                     icon: Image.asset("assets/images/spaces.png", width: 23, height: 23),
                     activeIcon: Image.asset("assets/images/spaces.png", width: 23, height: 23, color: secondaryColor),
-                    label: "Spaces"
+                    label: "Spaces",
+                    tooltip: "Spaces"
+
                 ),
                 BottomNavigationBarItem(
                     icon: Image.asset("assets/images/raffles.png", width: 24, height: 24),
                     activeIcon: Image.asset("assets/images/raffles.png", width: 24, height: 24, color: secondaryColor),
-                    label: "Raffles"
+                    label: "Raffles",
+                    tooltip: "Raffles"
                 ),
                 BottomNavigationBarItem(
                     icon: Image.asset("assets/images/account.png", width: 20, height: 19),
                     activeIcon: Image.asset("assets/images/account.png", width: 20, height: 19, color: secondaryColor),
-                    label: "Account"
+                    label: "Account",
+                    tooltip: "Account"
                 ),
 
               ],
@@ -96,17 +101,20 @@ class BottomBarScreen extends HookConsumerWidget {
                 BottomNavigationBarItem(
                     icon: Image.asset("assets/images/home.png", width: 21, height: 21),
                     activeIcon: Image.asset("assets/images/home.png", width: 21, height: 21, color: secondaryColor),
-                    label: "Campaigns"
+                    label: "Campaigns",
+                    tooltip: "Campaigns"
                 ),
                 BottomNavigationBarItem(
                     icon: Image.asset("assets/images/spaces.png", width: 23, height: 23),
                     activeIcon: Image.asset("assets/images/spaces.png", width: 23, height: 23, color: secondaryColor),
-                    label: "Spaces"
+                    label: "Spaces",
+                    tooltip: "Spaces"
                 ),
                 BottomNavigationBarItem(
                     icon: Image.asset("assets/images/raffles.png", width: 24, height: 24),
                     activeIcon: Image.asset("assets/images/raffles.png", width: 24, height: 24, color: secondaryColor),
-                    label: "Raffles"
+                    label: "Raffles",
+                    tooltip: "Raffles"
                 ),
               ],
             )

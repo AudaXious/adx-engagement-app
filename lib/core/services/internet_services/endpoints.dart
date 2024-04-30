@@ -14,6 +14,7 @@ String currentSavedUserProfileEndpoint = "/v1/profile/user";
 //CAMPAIGNS
 String campaignsEndpoint = "/v1/campaign/all-campaigns";
 String campaignsBySpaceEndpoint = "/v1/campaign";
+String sendCompletedTaskEndpoint = "/v1/task/participate/all";
 
 //SPACES
 String spacesEndpoint = "/v1/spaces/all";

@@ -23,6 +23,8 @@ class HomeScreen extends HookConsumerWidget {
     'Old',
   ];
 
+  final TextEditingController _searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final reader = ref.read(HomeViewModel.notifier.notifier);
@@ -35,6 +37,12 @@ class HomeScreen extends HookConsumerWidget {
     filteredCampaigns != null && filteredCampaigns.isNotEmpty
         ? filteredCampaigns
         : (filteredCampaigns != null ? [] : campaigns);
+
+    useEffect(() {
+      return () {
+        _searchController.dispose();
+      };
+    }, []);
 
     return Scaffold(
       appBar: AppBar(
@@ -116,6 +124,7 @@ class HomeScreen extends HookConsumerWidget {
                   child: SizedBox(
                     height: 40,
                     child: TextField(
+                      controller: _searchController,
                       keyboardType: TextInputType.text,
                       cursorColor: Colors.white,
                       decoration: primaryTextFieldWithPrefixIconDecoration(

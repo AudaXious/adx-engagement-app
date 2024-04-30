@@ -1,3 +1,4 @@
+import 'package:audaxious/domain/models/tasks.dart';
 import 'package:audaxious/domain/repository/campaigns_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,6 +21,26 @@ class CampaignsRepositoryImpl extends CampaignsRepository {
       throw error.errorMessage;
     }
   }
+
+  @override
+  Future sendCompletedTasks(int campaignUUID, List<Task> completedTasks) async {
+    try {
+      List<Map<String, dynamic>> tasksJsonList =
+      completedTasks.map((task) => task.toJson()).toList();
+      Map<String, dynamic> requestData = {'tasks': tasksJsonList};
+
+      final response = await DioClient.instance.post(
+        sendCompletedTaskEndpoint,
+        data: requestData,
+      );
+
+      return response;
+    } on DioException catch (e) {
+      var error = CustomDioException.fromDioError(e);
+      throw error.errorMessage;
+    }
+  }
+
 
 }
 

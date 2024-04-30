@@ -25,6 +25,8 @@ class SpacesScreen extends HookConsumerWidget {
     'Joined spaces',
   ];
 
+  final TextEditingController _searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final reader = ref.read(SpacesViewModel.notifier.notifier);
@@ -37,6 +39,12 @@ class SpacesScreen extends HookConsumerWidget {
     filteredSpaces != null && filteredSpaces.isNotEmpty
         ? filteredSpaces
         : (filteredSpaces != null ? [] : spaces);
+
+    useEffect(() {
+      return () {
+        _searchController.dispose();
+      };
+    }, []);
 
     return Scaffold(
       appBar: AppBar(
@@ -134,6 +142,7 @@ class SpacesScreen extends HookConsumerWidget {
                   child: SizedBox(
                     height: 40,
                     child: TextField(
+                      controller: _searchController,
                       keyboardType: TextInputType.text,
                       cursorColor: Colors.white,
                       decoration: primaryTextFieldWithPrefixIconDecoration(

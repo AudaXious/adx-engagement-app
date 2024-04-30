@@ -1,35 +1,19 @@
-class Tasks {
-  String? follow;
-  String? like;
-  String? repost;
+class Task {
+  final String uuid;
 
-  Tasks({
-    this.follow,
-    this.like,
-    this.repost,
+  Task({
+    required this.uuid,
   });
 
-  factory Tasks.fromJson(Map<String, dynamic> json) {
-    return Tasks(
-      follow: json['follow'],
-      like: json['like'],
-      repost: json['repost'],
+  factory Task.fromJson(Map<String, dynamic> json) {
+    return Task(
+      uuid: json['uuid'],
     );
-  }
-
-  int get length {
-    int count = 0;
-    if (follow != null) count++;
-    if (like != null) count++;
-    if (repost != null) count++;
-    return count;
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'follow': follow,
-      'like': like,
-      'repost': repost,
+      'uuid': uuid,
     };
   }
 }

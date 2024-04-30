@@ -4,6 +4,7 @@ import 'package:audaxious/core/utils/theme/dark_theme.dart';
 import 'package:audaxious/domain/enums/button_state.dart';
 import 'package:audaxious/domain/enums/view_state.dart';
 import 'package:audaxious/domain/models/campaign.dart';
+import 'package:audaxious/domain/models/tasks.dart';
 import 'package:audaxious/presentation/viewmodels/campaigns/campaigns_viewmodel.dart';
 import 'package:audaxious/presentation/widgets/alerts/empty_result_found_illustration.dart';
 import 'package:audaxious/presentation/widgets/buttons/primary_button.dart';
@@ -35,12 +36,15 @@ class CampaignDetailsScreen extends HookConsumerWidget {
     required this.campaignIndex
   });
 
+  List<Task> completedTasks = [];
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final notifier = ref.watch(CampaignsViewModel.notifier);
     final reader = ref.read(CampaignsViewModel.notifier.notifier);
     final campaigns = notifier.campaigns;
     final currentIndex = useState(campaignIndex);
+    // final completedTasks = useState<List<Task>?>(null);
     final slideInRight = useState(true);
     final isSpaceJoined = useState(false);
     final isLiked = useState(false);
@@ -60,6 +64,11 @@ class CampaignDetailsScreen extends HookConsumerWidget {
     void callAPIs() async {
       await Future.delayed(const Duration(milliseconds: 200));
       reader.getCampaigns();
+    }
+
+    void updateCompletedTasks(Task task) {
+      completedTasks.add(task);
+      print(completedTasks);
     }
 
     useEffect(() {
@@ -300,15 +309,17 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                                       if (isSuccessfullyJoined) {
                                                         await Future.delayed(const Duration(milliseconds: 500));
                                                         isSpaceJoined.value = true;
+                                                        updateCompletedTasks(Task(uuid: task['uuid']));
                                                       }else {
                                                         isSpaceJoined.value = false;
                                                       }
                                                       break;
                                                     case "follow":
-                                                      if (isTwitterVerified) {
+                                                      if (!isTwitterVerified) {
                                                         _followTwitterUser(task['url']);
                                                         await Future.delayed(const Duration(milliseconds: 2000));
                                                         isFollowed.value = true;
+                                                        updateCompletedTasks(Task(uuid: task['uuid']));
                                                       }else {
                                                         if (!context.mounted) return;
                                                         showDialog(
@@ -320,10 +331,11 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                                       }
                                                       break;
                                                     case "like":
-                                                      if (isTwitterVerified) {
+                                                      if (!isTwitterVerified) {
                                                         _likeTweet(task['url']);
                                                         await Future.delayed(const Duration(milliseconds: 2000));
                                                         isLiked.value = true;
+                                                        updateCompletedTasks(Task(uuid: task['uuid']));
                                                       }else {
                                                         if (!context.mounted) return;
                                                         showDialog(
@@ -335,10 +347,11 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                                       }
                                                       break;
                                                     case "repost":
-                                                      if (isTwitterVerified) {
+                                                      if (!isTwitterVerified) {
                                                         _retweetTweet(task['url']);
                                                         await Future.delayed(const Duration(milliseconds: 2000));
                                                         isReposted.value = true;
+                                                        updateCompletedTasks(Task(uuid: task['uuid']));
                                                       }else {
                                                         if (!context.mounted) return;
                                                         showDialog(
@@ -371,9 +384,12 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                         }).toList() ?? [],
                                       ),
                                       const Gap(50),
-                                      const PrimaryButton(
+                                      PrimaryButton(
                                         buttonText: "Claim reward",
-                                        buttonState: ButtonState.disabled,
+                                        onPressed: () {
+                                          print(completedTasks.length);
+                                        },
+                                        // buttonState: ButtonState.disabled,
                                       )
                                     ],
                                  )

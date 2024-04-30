@@ -51,7 +51,7 @@ String formatEndDate(String dateString) {
   final bool isPast = dateTime.isBefore(now);
 
   if (isPast) {
-    return "00:00";
+    return "Expired";
   }
 
   Duration difference = now.difference(dateTime).abs();

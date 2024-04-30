@@ -6,13 +6,13 @@ abstract class CampaignsUseCase {
 
 }
 class CampaignsUseCaseImpl extends CampaignsUseCase {
-  final CampaignsRepository feedsRepository;
+  final CampaignsRepository campaignsRepository;
 
-  CampaignsUseCaseImpl(this.feedsRepository);
+  CampaignsUseCaseImpl(this.campaignsRepository);
 
   @override
   Future<dynamic> getCampaigns() async {
-    return await feedsRepository.getCampaigns();
+    return await campaignsRepository.getCampaigns();
   }
 }
 

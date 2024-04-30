@@ -30,7 +30,7 @@ class CampaignsRepositoryImpl extends CampaignsRepository {
       Map<String, dynamic> requestData = {'tasks': tasksJsonList};
 
       final response = await DioClient.instance.post(
-        sendCompletedTaskEndpoint,
+        "$sendCompletedTaskEndpoint/$campaignUUID",
         data: requestData,
       );
 

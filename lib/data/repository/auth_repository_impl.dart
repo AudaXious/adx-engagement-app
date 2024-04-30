@@ -115,6 +115,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
       return response;
     } on DioException catch (e) {
+      print("repository err $e");
       var error = CustomDioException.fromDioError(e);
       throw error.errorMessage;
     }

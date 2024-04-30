@@ -40,11 +40,11 @@ class CampaignDetailsScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
     final notifier = ref.watch(CampaignsViewModel.notifier);
     final reader = ref.read(CampaignsViewModel.notifier.notifier);
     final campaigns = notifier.campaigns;
     final currentIndex = useState(campaignIndex);
-    // final completedTasks = useState<List<Task>?>(null);
     final slideInRight = useState(true);
     final isSpaceJoined = useState(false);
     final isLiked = useState(false);
@@ -60,6 +60,14 @@ class CampaignDetailsScreen extends HookConsumerWidget {
     final slideInRightAnimation = useMemoized(() => Tween<Offset>(
         begin: const Offset(-1.0, 0.0), end: Offset.zero
     ).animate(animationController));
+
+    void resetTaskActions() {
+      isLiked.value = false;
+      isFollowed.value = false;
+      isReposted.value = false;
+      isSpaceJoined.value = false;
+      completedTasks = [];
+    }
 
     void callAPIs() async {
       await Future.delayed(const Duration(milliseconds: 200));
@@ -312,10 +320,12 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                                         updateCompletedTasks(Task(uuid: task['uuid']));
                                                       }else {
                                                         isSpaceJoined.value = false;
+                                                        updateCompletedTasks(Task(uuid: task['uuid']));
+
                                                       }
                                                       break;
                                                     case "follow":
-                                                      if (!isTwitterVerified) {
+                                                      if (isTwitterVerified) {
                                                         _followTwitterUser(task['url']);
                                                         await Future.delayed(const Duration(milliseconds: 2000));
                                                         isFollowed.value = true;
@@ -331,7 +341,7 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                                       }
                                                       break;
                                                     case "like":
-                                                      if (!isTwitterVerified) {
+                                                      if (isTwitterVerified) {
                                                         _likeTweet(task['url']);
                                                         await Future.delayed(const Duration(milliseconds: 2000));
                                                         isLiked.value = true;
@@ -347,7 +357,7 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                                       }
                                                       break;
                                                     case "repost":
-                                                      if (!isTwitterVerified) {
+                                                      if (isTwitterVerified) {
                                                         _retweetTweet(task['url']);
                                                         await Future.delayed(const Duration(milliseconds: 2000));
                                                         isReposted.value = true;
@@ -386,10 +396,28 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                       const Gap(50),
                                       PrimaryButton(
                                         buttonText: "Claim reward",
-                                        onPressed: () {
-                                          print(completedTasks.length);
+                                        onPressed: () async {
+                                          if (completedTasks.length == campaigns[currentIndex.value].tasks?.length) {
+                                            await reader.sendCompletedTasks(campaigns[currentIndex.value].uuid!, completedTasks);
+                                          } {
+                                            print(completedTasks.length);
+                                            print(campaigns[currentIndex.value].tasks?.length);
+
+                                            final snackBar = SnackBar(
+                                              backgroundColor: Colors.black,
+                                              content: Text(
+                                                  '\nTask not complete! \n',
+                                                  style: Theme.of(context).textTheme.bodyLarge
+                                              ),
+                                              duration: const Duration(seconds: 2),
+                                            );
+                                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                          }
+                                          // print(completedTasks.length);
                                         },
-                                        // buttonState: ButtonState.disabled,
+                                        buttonState: notifier.sendCompletedTaskViewState.isLoading
+                                            ? ButtonState.loading
+                                            : ButtonState.active,
                                       )
                                     ],
                                  )
@@ -414,6 +442,7 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                     children: [
                       IconButton(
                           onPressed: () {
+                            resetTaskActions();
                             slideInRight.value = false;
                             if (currentIndex.value > 0) {
                               currentIndex.value--;
@@ -426,6 +455,7 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                       ),
                       IconButton(
                           onPressed: (){
+                            resetTaskActions();
                             slideInRight.value = true;
                             currentIndex.value++;
                             if (currentIndex.value == campaigns.length) {

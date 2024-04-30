@@ -1,6 +1,6 @@
 class Campaign {
   String? description;
-  String? uuid;
+  int? uuid;
   int? points;
   String? reward;
   List<dynamic>? tasks;
@@ -32,7 +32,7 @@ class Campaign {
   factory Campaign.fromJson(Map<String, dynamic> json) {
     return Campaign(
       description: json['description'],
-      uuid: json['id'],
+      uuid: json['uuid'],
       points: json['points'],
       reward: json['reward'],
       tasks: json['tasks'],
@@ -50,7 +50,7 @@ class Campaign {
   Map<String, dynamic> toJson() {
     return {
       'description': description,
-      'id': uuid,
+      'uuid': uuid,
       'points': points,
       'reward': reward,
       'tasks': tasks,

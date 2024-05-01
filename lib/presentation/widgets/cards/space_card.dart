@@ -75,7 +75,7 @@ class SpaceCard extends HookConsumerWidget {
                                   ),
                                 ),
                                 Visibility(
-                                  visible: space.isVerified!,
+                                  visible: space.isVerified ?? false,
                                   child: Positioned(
                                     top: cardProfileHeight - 15,
                                     child: Image.asset("assets/images/verification_tick.png", width: 16, height: 16,)
@@ -147,15 +147,20 @@ class SpaceCard extends HookConsumerWidget {
                           ],
                         ),
                         const Gap(25),
-                        space.campaignsCount! <= 0
+                        space != null && space.campaignsCount != null
+                          ? space.campaignsCount! <= 0
                             ? Text(
-                            shortenString(
-                                space.description ?? "",
-                                80
+                                shortenString(
+                                    space.description ?? "",
+                                    80
+                                ),
+                                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: greyTextColor)
+                            )
+                            : ActiveCampaign(activeCampaign: space.campaignsCount!)
+                            : Text(
+                                "null",
+                                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: greyTextColor)
                             ),
-                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: greyTextColor)
-                        )
-                            : ActiveCampaign(activeCampaign: space.campaignsCount!),
                         const Gap(25),
                         Row(
                           children: [

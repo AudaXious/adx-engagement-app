@@ -67,7 +67,6 @@ class CampaignsViewModel extends StateNotifier<CampaignDetailsState> {
     try {
       final response = await userJoinedSpacesUseCase.getUserJoinedSpaces();
       final data = response['data'];
-      print(data);
 
       if (data != null && data is List) {
         final List dataList = data.cast<dynamic>();

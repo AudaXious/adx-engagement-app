@@ -1,5 +1,5 @@
 import 'package:audaxious/core/utils/theme/dark_theme.dart';
-import 'package:audaxious/presentation/widgets/alerts/loading.dart';
+import 'package:audaxious/presentation/widgets/progressBars/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loader_overlay/loader_overlay.dart';

@@ -61,7 +61,19 @@ class CampaignDetailsScreen extends HookConsumerWidget {
         begin: const Offset(-1.0, 0.0), end: Offset.zero
     ).animate(animationController));
 
+    void checkIfUserHasJoinedSpace() {
+      if(notifier.spaceUUIds != null) {
+        for (var uuid in notifier.spaceUUIds!) {
+          if (campaigns?[currentIndex.value].spaceUUID == uuid) {
+            isSpaceJoined.value = true;
+            print("uuids $uuid");
+          }
+        }
+      }
+    }
+
     void resetTaskActions() {
+      checkIfUserHasJoinedSpace();
       isLiked.value = false;
       isFollowed.value = false;
       isReposted.value = false;
@@ -71,12 +83,12 @@ class CampaignDetailsScreen extends HookConsumerWidget {
 
     void callAPIs() async {
       await Future.delayed(const Duration(milliseconds: 200));
-      reader.getCampaigns();
+      await reader.getCampaigns();
+      checkIfUserHasJoinedSpace();
     }
 
     void updateCompletedTasks(Task task) {
       completedTasks.add(task);
-      print(completedTasks);
     }
 
     useEffect(() {
@@ -319,8 +331,8 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                                         isSpaceJoined.value = true;
                                                         updateCompletedTasks(Task(uuid: task['uuid']));
                                                       }else {
-                                                        isSpaceJoined.value = false;
-                                                        updateCompletedTasks(Task(uuid: task['uuid']));
+                                                        // isSpaceJoined.value = true;
+                                                        // updateCompletedTasks(Task(uuid: task['uuid']));
 
                                                       }
                                                       break;
@@ -398,7 +410,7 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                         buttonText: "Claim reward",
                                         onPressed: () async {
                                           if (completedTasks.length == campaigns[currentIndex.value].tasks?.length) {
-                                            await reader.sendCompletedTasks(campaigns[currentIndex.value].uuid!, completedTasks);
+                                            await reader.sendCompletedTasks(context, campaigns[currentIndex.value].uuid!, completedTasks);
                                           } {
                                             print(completedTasks.length);
                                             print(campaigns[currentIndex.value].tasks?.length);

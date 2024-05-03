@@ -69,9 +69,11 @@ class CampaignDetailsScreen extends HookConsumerWidget {
     void checkIfUserHasJoinedSpace() {
       if(notifier.spaceUUIds != null) {
         for (var uuid in notifier.spaceUUIds!) {
+          print("all uuids $uuid");
+
           if (campaigns?[currentIndex.value].spaceUUID == uuid) {
             isSpaceJoined.value = true;
-            print("uuid $uuid");
+            print("isSpaceJoined ${isSpaceJoined.value}");
             updateCompletedTasks(Task(uuid: uuid!));
           }
         }
@@ -411,9 +413,7 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                         onPressed: () async {
                                           if (completedTasks.length == campaigns[currentIndex.value].tasks?.length) {
                                             await reader.sendCompletedTasks(context, campaigns[currentIndex.value].uuid!, completedTasks);
-                                          } {
-                                            print(completedTasks.length);
-                                            print(campaigns[currentIndex.value].tasks?.length);
+                                          } else {
 
                                             final snackBar = SnackBar(
                                               backgroundColor: Colors.black,
@@ -425,11 +425,12 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                             );
                                             ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                           }
-                                          // print(completedTasks.length);
                                         },
-                                        buttonState: notifier.sendCompletedTaskViewState.isLoading
+                                        buttonState: completedTasks.length == campaigns[currentIndex.value].tasks?.length
+                                            ? notifier.sendCompletedTaskViewState.isLoading
                                             ? ButtonState.loading
-                                            : ButtonState.active,
+                                            : ButtonState.active
+                                            : ButtonState.disabled,
                                       )
                                     ],
                                  )

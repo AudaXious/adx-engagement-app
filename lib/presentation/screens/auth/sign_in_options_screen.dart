@@ -194,7 +194,7 @@ class SignInOptionsScreen extends HookConsumerWidget{
                             margin: const EdgeInsets.symmetric(horizontal: 20),
                             child: TextButton(
                               onPressed: () {
-                                _launchURL('https://audaxious.com');
+                                _openTermsAndConditionsOnBrowser('https://audaxious.com');
                               },
                               child: RichText(
                                 text: TextSpan(
@@ -229,7 +229,7 @@ class SignInOptionsScreen extends HookConsumerWidget{
   }
 }
 
-void _launchURL(String url) async {
+void _openTermsAndConditionsOnBrowser(String url) async {
   if (await canLaunch(url)) {
     await launch(url);
   } else {

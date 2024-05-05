@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../core/services/shared_preferences_services.dart';
 import '../../../core/utils/constants.dart';
 import '../../../core/utils/theme/dark_theme.dart';
@@ -229,7 +230,9 @@ class SpaceDetailScreen extends HookConsumerWidget {
                                   const Gap(30),
                                   VerticalBar(color: Colors.white70.withOpacity(0.5), width: 0.5, height: 20,),
                                   IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      _openSpaceWebsiteOnBrowser('https://audaxious.com');
+                                    },
                                     icon: Image.asset("assets/images/internet.png", width: 14, height: 14, color: Colors.white70,),
                                   ),
                                   VerticalBar(color: Colors.white70.withOpacity(0.5), width: 0.5, height: 20,),
@@ -418,11 +421,19 @@ class SpaceDetailScreen extends HookConsumerWidget {
                             ),
                           ],
                         ),
-                        const Gap(200),
+                        const Gap(100),
                       ],
                     ),
             )
     );
 
+  }
+}
+
+void _openSpaceWebsiteOnBrowser(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
 }

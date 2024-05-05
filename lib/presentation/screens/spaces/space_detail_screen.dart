@@ -26,13 +26,13 @@ import '../../widgets/leader_board_item.dart';
 import '../../widgets/space_tag.dart';
 import '../../widgets/vertical_bar.dart';
 
-final isJoinedProvider = StateProvider((ref) => false);
-
 @RoutePage()
 class SpaceDetailScreen extends HookConsumerWidget {
   String spaceId;
   Space? space;
   SpaceDetailScreen({super.key, required this.spaceId, this.space});
+
+  late bool isJoined;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -43,12 +43,15 @@ class SpaceDetailScreen extends HookConsumerWidget {
     final isMemberState = useState<bool?>(null);
     final buttonState = useState<JoinSpaceButtonState>(JoinSpaceButtonState.join);
 
-    if (space != null) {
-      isMemberState.value = space?.isMember;
-      if (space!.isMember!) {
-        buttonState.value = JoinSpaceButtonState.joined;
+    useEffect(() {
+      if (space != null) {
+        isMemberState.value = space?.isMember;
+        if (space!.isMember!) {
+          buttonState.value = JoinSpaceButtonState.joined;
+        }
       }
-    }
+      return () {};
+    }, []);
 
     void callAPIs() async {
       await Future.delayed(const Duration(milliseconds: 200));
@@ -179,10 +182,9 @@ class SpaceDetailScreen extends HookConsumerWidget {
                                         buttonState.value = JoinSpaceButtonState.joined;
 
                                         if(isMemberState.value! == false) {
-                                          bool isSuccessful = await reader.joinSpace(space?.uuid ?? "", context);
-                                          if (isSuccessful) {
-                                            isMemberState.value = true;
-                                          }
+                                          isMemberState.value = true;
+                                          await reader.joinSpace(space?.uuid ?? "", context);
+
                                         }else {
                                           showDialog(
                                             context: context,

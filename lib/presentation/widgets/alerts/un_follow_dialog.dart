@@ -91,10 +91,7 @@ class UnFollowDialog extends HookConsumerWidget {
                             buttonText: "Cancel",
                             onPressed: () {
                               Navigator.of(context).pop();
-                            },
-                            buttonState: notifier.logoutViewState.isLoading
-                                ? ButtonState.loading
-                                : ButtonState.active,
+                            }
                           ),
                         ),
                       ),

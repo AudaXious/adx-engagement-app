@@ -113,24 +113,24 @@ class SpacesDetailsViewModel extends StateNotifier<SpaceDetailState> {
       state = state.update(message: message);
       state = state.update(joinSpaceViewState: ViewState.idle);
 
-      CustomToast.show(
-        context: context,
-        title: "Success",
-        description: message,
-        type: ToastificationType.success,
-      );
+      // CustomToast.show(
+      //   context: context,
+      //   title: "Success",
+      //   description: message,
+      //   type: ToastificationType.success,
+      // );
 
       return true;
 
     } catch (e) {
       state = state.update(error: e.toString());
       state = state.update(joinSpaceViewState: ViewState.error);
-      CustomToast.show(
-        context: context,
-        title: "Error",
-        description: e.toString(),
-        type: ToastificationType.error,
-      );
+      // CustomToast.show(
+      //   context: context,
+      //   title: "Error",
+      //   description: e.toString(),
+      //   type: ToastificationType.error,
+      // );
       print("View model error: ${e.toString()}");
       return false;
     }

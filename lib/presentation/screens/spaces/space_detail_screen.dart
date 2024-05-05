@@ -247,6 +247,7 @@ class SpaceDetailScreen extends HookConsumerWidget {
                                   const Gap(5),
                                   IconButton(
                                     onPressed: () {
+                                      _openTwitterProfile('https://discord.com/invite/');
                                     },
                                     icon: Image.asset("assets/images/discord.png", width: 18, height: 18,  color: Colors.white70),
                                   ),
@@ -449,3 +450,10 @@ void _openTwitterProfile(String profileUrl) async {
   }
 }
 
+void _openDiscordProfile(String profileUrl) async {
+  if (await canLaunch(profileUrl)) {
+    await launch(profileUrl);
+  } else {
+    throw 'Could not launch $profileUrl';
+  }
+}

@@ -54,6 +54,7 @@ dependencies:
   url_launcher: ^6.2.5
   web3modal_flutter: ^3.1.2
   loader_overlay: ^4.0.0
+  liquid_pull_to_refresh: ^3.0.1
 #  just_the_tooltip: ^0.0.12
 
 dev_dependencies:

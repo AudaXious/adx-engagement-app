@@ -15,13 +15,18 @@ import '../../../core/services/shared_preferences_services.dart';
 import '../../../core/utils/constants.dart';
 import '../../../core/utils/theme/dark_theme.dart';
 import '../../../domain/enums/button_state.dart';
+import '../../../domain/enums/join_space_button_state.dart';
 import '../../../domain/models/space.dart';
 import '../../widgets/alerts/empty_result_found_illustration.dart';
 import '../../widgets/alerts/sign_in_dialog.dart';
+import '../../widgets/alerts/un_follow_dialog.dart';
+import '../../widgets/buttons/join_and_leave_space_button.dart';
 import '../../widgets/cards/campaign_card.dart';
 import '../../widgets/leader_board_item.dart';
 import '../../widgets/space_tag.dart';
 import '../../widgets/vertical_bar.dart';
+
+final isJoinedProvider = StateProvider((ref) => false);
 
 @RoutePage()
 class SpaceDetailScreen extends HookConsumerWidget {
@@ -36,9 +41,13 @@ class SpaceDetailScreen extends HookConsumerWidget {
     final notifier = ref.watch(SpacesDetailsViewModel.notifier);
     final activeTab = useState("campaigns");
     final isMemberState = useState<bool?>(null);
+    final buttonState = useState<JoinSpaceButtonState>(JoinSpaceButtonState.join);
 
     if (space != null) {
       isMemberState.value = space?.isMember;
+      if (space!.isMember!) {
+        buttonState.value = JoinSpaceButtonState.joined;
+      }
     }
 
     void callAPIs() async {
@@ -163,42 +172,39 @@ class SpaceDetailScreen extends HookConsumerWidget {
                                     ),
                                   ),
                                   const Gap(50),
-                                  SizedBox(
-                                      width: 140,
-                                      height: 32,
-                                      child: isMemberState.value ?? false
-                                          ? PrimaryOutlineButton(
-                                          onPressed: (){},
-                                          buttonText: "Leave space",
-                                          borderRadius: 30,
-                                      )
-                                          : PrimaryButton(
-                                            onPressed: () async {
-                                            final isLoggedIn = await SharedPreferencesServices.getIsLoggedIn();
-                                            if (isLoggedIn) {
-                                              bool isSuccessful = await reader.joinSpace(space?.uuid ?? "", context);
-                                              if (isSuccessful) {
-                                                isMemberState.value = true;
-                                              }
+                                  JoinAndLeaveSpaceButton(
+                                    onPressed: () async {
+                                      final isLoggedIn = await SharedPreferencesServices.getIsLoggedIn();
+                                      if (isLoggedIn) {
+                                        buttonState.value = JoinSpaceButtonState.joined;
 
-                                            }else {
-                                              if (!context.mounted) return;
-                                              showDialog(
-                                                context: context,
-                                                builder: (BuildContext context) {
-                                                  return SignInDialog();
-                                                },
-                                              );
-                                            }
+                                        if(isMemberState.value! == false) {
+                                          bool isSuccessful = await reader.joinSpace(space?.uuid ?? "", context);
+                                          if (isSuccessful) {
+                                            isMemberState.value = true;
+                                          }
+                                        }else {
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return UnFollowDialog();
+                                            },
+                                          );
+                                        }
 
+                                      }else {
+                                        if (!context.mounted) return;
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return SignInDialog();
                                           },
-                                          buttonText: "Join space",
-                                          borderRadius: 30,
-                                          buttonState: notifier.joinSpaceViewState. isLoading
-                                              ? ButtonState.loading
-                                              : ButtonState.active
-                                      )
-                                  )
+                                        );
+                                      }
+                                    },
+                                    buttonState: buttonState.value,
+                                  ),
+
                                 ],
                               ),
                               const Gap(20),
@@ -219,24 +225,24 @@ class SpaceDetailScreen extends HookConsumerWidget {
                                     ],
                                   ),
                                   const Gap(30),
-                                  VerticalBar(color: secondaryColor.withOpacity(0.5), width: 0.5, height: 20,),
+                                  VerticalBar(color: Colors.white70.withOpacity(0.5), width: 0.5, height: 20,),
                                   IconButton(
                                     onPressed: () {},
-                                    icon: Image.asset("assets/images/internet.png", width: 14, height: 14,),
+                                    icon: Image.asset("assets/images/internet.png", width: 14, height: 14, color: Colors.white70,),
                                   ),
-                                  VerticalBar(color: secondaryColor.withOpacity(0.5), width: 0.5, height: 20,),
+                                  VerticalBar(color: Colors.white70.withOpacity(0.5), width: 0.5, height: 20,),
                                   const Gap(5),
                                   IconButton(
                                     onPressed: () {},
-                                    icon: Image.asset("assets/images/twitter.png", width: 18, height: 18,),
+                                    icon: Image.asset("assets/images/twitter.png", width: 18, height: 18,  color: Colors.white70),
                                   ),
-                                  VerticalBar(color: secondaryColor.withOpacity(0.5), width: 0.5, height: 20,),
+                                  VerticalBar(color: Colors.white70.withOpacity(0.5), width: 0.5, height: 20,),
                                   const Gap(5),
                                   IconButton(
                                     onPressed: () {},
-                                    icon: Image.asset("assets/images/discord.png", width: 18, height: 18,),
+                                    icon: Image.asset("assets/images/discord.png", width: 18, height: 18,  color: Colors.white70),
                                   ),
-                                  VerticalBar(color: secondaryColor.withOpacity(0.5), width: 0.5, height: 20,),
+                                  VerticalBar(color: Colors.white70.withOpacity(0.5), width: 0.5, height: 20,),
                                   const Gap(5),
                                 ],
                               ),

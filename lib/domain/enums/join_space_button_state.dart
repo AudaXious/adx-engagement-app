@@ -1,0 +1,4 @@
+enum JoinSpaceButtonState {
+  join,
+  joined,
+}

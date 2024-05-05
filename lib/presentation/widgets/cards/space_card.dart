@@ -1,4 +1,5 @@
 import 'package:audaxious/domain/models/space.dart';
+import 'package:audaxious/presentation/widgets/buttons/join_space_button.dart';
 import 'package:audaxious/presentation/widgets/cards/active_campaign.dart';
 import 'package:audaxious/presentation/widgets/progressBars/circular_progress_bar.dart';
 import 'package:audaxious/presentation/widgets/vertical_bar.dart';
@@ -14,25 +15,47 @@ import '../../../core/services/shared_preferences_services.dart';
 import '../../../core/utils/app_utils.dart';
 import '../../../core/utils/constants.dart';
 import '../../../core/utils/theme/dark_theme.dart';
+import '../../../domain/enums/join_space_button_state.dart';
 import '../../viewmodels/spaces/spaces_viewmodel.dart';
 import '../alerts/sign_in_dialog.dart';
 import '../card_space_tag.dart';
+
 class SpaceCard extends HookConsumerWidget {
   Space space;
   SpaceCard({super.key, required this.space});
 
+  late Space clickedSpace;
+  bool isMember = false;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final reader = ref.read(SpacesViewModel.notifier.notifier);
-    final notifier = ref.watch(SpacesViewModel.notifier);
-    final joinLoadingState = useState(false);
-    final isMemberState = useState<bool?>(null);
+    final buttonState = useState<JoinSpaceButtonState>(JoinSpaceButtonState.join);
 
-    isMemberState.value = space.isMember;
-  
+    if (space.isMember!) {
+      isMember = true;
+      buttonState.value = JoinSpaceButtonState.joined;
+    }
+
     return GestureDetector(
       onTap: () {
-        context.router.navigate(SpaceDetailRoute(spaceId: space.uuid ?? "", space: space));
+        print("The new fucking memem $isMember");
+        clickedSpace = Space(
+            title: space.title,
+            description: space.description,
+            creatorUUID: space.creatorUUID,
+            tags: space.tags,
+            links: space.links,
+            profileURL: space.profileURL,
+            coverURL: space.coverURL,
+            spaceMembersCount: space.spaceMembersCount,
+            campaignsCount: space.campaignsCount,
+            isVerified: space.isVerified,
+            isMember: isMember,
+            createdAt: space.createdAt,
+            updatedAt: space.updatedAt
+        );
+        context.router.navigate(SpaceDetailRoute(spaceId: space.uuid ?? "", space: clickedSpace));
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 15),
@@ -93,55 +116,39 @@ class SpaceCard extends HookConsumerWidget {
                             ),
                             const Gap(20),
 
-                            SizedBox(
-                              child: isMemberState.value ?? false
-                                  ? Container(
-                                padding: const EdgeInsets.all(5),
-                                height: 30,
-                                width: 30,
-                                decoration: BoxDecoration(
-                                    border: Border.all(width: 0.8, color: successGreen.withOpacity(0.3)),
-                                    borderRadius: const BorderRadius.all(Radius.circular(100)),
-                                    color: successGreen.withOpacity(0.1)
-                                ),
-                                child: Image.asset("assets/images/tick_circle.png", width: 12, height: 12,),
-                              )
-                                  : IconButton(
-                                  onPressed: joinLoadingState.value ? null : () async {
-                                  final isLoggedIn = await SharedPreferencesServices.getIsLoggedIn();
-                                  if (isLoggedIn) {
-                                    joinLoadingState.value = true;
-                                    bool isSuccessful = await reader.joinSpace(space.uuid ?? "", context);
-
-                                    if (isSuccessful) {
-                                      isMemberState.value = true;
-                                    }
-
-                                    joinLoadingState.value = false;
-                                  }else {
-                                    if (!context.mounted) return;
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return SignInDialog();
-                                      },
-                                    );
-                                  }
-                                },
-                                icon: Container(
-                                  padding: const EdgeInsets.all(5),
-                                  height: 30,
-                                  width: 30,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(width: 0.8, color: lightGold.withOpacity(0.3)),
-                                      borderRadius: const BorderRadius.all(Radius.circular(100)),
-                                      color: lightGold.withOpacity(0.1)
-                                  ),
-                                  child: joinLoadingState.value
-                                      ? CircularProgressBar()
-                                      : Image.asset("assets/images/user_add.png", width: 12, height: 12,),
-                                ),
-                              ),
+                            JoinSpaceButton(
+                              onPressed: () async {
+                                final isLoggedIn = await SharedPreferencesServices.getIsLoggedIn();
+                                if (isLoggedIn) {
+                                  isMember = true;
+                                  buttonState.value = JoinSpaceButtonState.joined;
+                                  clickedSpace = Space(
+                                      title: space.title,
+                                      description: space.description,
+                                      creatorUUID: space.creatorUUID,
+                                      tags: space.tags,
+                                      links: space.links,
+                                      profileURL: space.profileURL,
+                                      coverURL: space.coverURL,
+                                      spaceMembersCount: space.spaceMembersCount,
+                                      campaignsCount: space.campaignsCount,
+                                      isVerified: space.isVerified,
+                                      isMember: isMember,
+                                      createdAt: space.createdAt,
+                                      updatedAt: space.updatedAt
+                                  );
+                                 await reader.joinSpace(space.uuid ?? "", context);
+                                }else {
+                                  if (!context.mounted) return;
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return SignInDialog();
+                                    },
+                                  );
+                                }
+                              },
+                              buttonState: buttonState.value,
                             )
 
                           ],

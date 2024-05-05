@@ -63,17 +63,13 @@ class CampaignDetailsScreen extends HookConsumerWidget {
 
     void updateCompletedTasks(Task task) {
       completedTasks.add(task);
-      print(completedTasks);
     }
 
     void checkIfUserHasJoinedSpace() {
       if(notifier.spaceUUIds != null) {
         for (var uuid in notifier.spaceUUIds!) {
-          print("all uuids $uuid");
-
           if (campaigns?[currentIndex.value].spaceUUID == uuid) {
             isSpaceJoined.value = true;
-            print("isSpaceJoined ${isSpaceJoined.value}");
             updateCompletedTasks(Task(uuid: uuid!));
           }
         }
@@ -339,7 +335,7 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                                       }
                                                       break;
                                                     case "follow":
-                                                      if (!isTwitterVerified) {
+                                                      if (isTwitterVerified) {
                                                         _followTwitterUser(task['url']);
                                                         await Future.delayed(const Duration(milliseconds: 2000));
                                                         isFollowed.value = true;
@@ -355,7 +351,7 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                                       }
                                                       break;
                                                     case "like":
-                                                      if (!isTwitterVerified) {
+                                                      if (isTwitterVerified) {
                                                         _likeTweet(task['url']);
                                                         await Future.delayed(const Duration(milliseconds: 2000));
                                                         isLiked.value = true;
@@ -371,7 +367,7 @@ class CampaignDetailsScreen extends HookConsumerWidget {
                                                       }
                                                       break;
                                                     case "repost":
-                                                      if (!isTwitterVerified) {
+                                                      if (isTwitterVerified) {
                                                         _retweetTweet(task['url']);
                                                         await Future.delayed(const Duration(milliseconds: 2000));
                                                         isReposted.value = true;

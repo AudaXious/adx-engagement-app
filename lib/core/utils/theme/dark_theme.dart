@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 Color secondaryColor = const Color(0xFF79C4EC);
+Color secondaryColor2 = const Color(0xFF4BADE1);
 Color accentColor = const Color(0xFFEBEDED);
 Color backgroundColor = const Color(0xFF060B12);
 Color onBoardingBackgroundColor = const Color(0xFF13161E);

@@ -238,13 +238,16 @@ class SpaceDetailScreen extends HookConsumerWidget {
                                   VerticalBar(color: Colors.white70.withOpacity(0.5), width: 0.5, height: 20,),
                                   const Gap(5),
                                   IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      _openTwitterProfile('https://twitter.com/AudaXious3');
+                                    },
                                     icon: Image.asset("assets/images/twitter.png", width: 18, height: 18,  color: Colors.white70),
                                   ),
                                   VerticalBar(color: Colors.white70.withOpacity(0.5), width: 0.5, height: 20,),
                                   const Gap(5),
                                   IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                    },
                                     icon: Image.asset("assets/images/discord.png", width: 18, height: 18,  color: Colors.white70),
                                   ),
                                   VerticalBar(color: Colors.white70.withOpacity(0.5), width: 0.5, height: 20,),
@@ -437,3 +440,12 @@ void _openSpaceWebsiteOnBrowser(String url) async {
     throw 'Could not launch $url';
   }
 }
+
+void _openTwitterProfile(String profileUrl) async {
+  if (await canLaunch(profileUrl)) {
+    await launch(profileUrl);
+  } else {
+    throw 'Could not launch $profileUrl';
+  }
+}
+

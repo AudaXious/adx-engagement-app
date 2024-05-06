@@ -103,7 +103,10 @@ class LogOutDialog extends HookConsumerWidget {
                           bool isSuccessful = await reader.logoutUser();
                           if (isSuccessful) {
                             if (!context.mounted) return;
-                            context.router.replaceAll([SignInOptionsRoute()]);
+                            await context.router.pushAndPopUntil(
+                              SignInOptionsRoute(),
+                              predicate: (_) => false,
+                            );
                           }
                         },
                         buttonState: notifier.logoutViewState.isLoading

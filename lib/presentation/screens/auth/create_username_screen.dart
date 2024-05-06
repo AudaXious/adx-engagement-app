@@ -76,7 +76,10 @@ class CreateUsernameScreen extends HookConsumerWidget {
                       description: "Username created successfully",
                       type: ToastificationType.success,
                     );
-                    context.router.replaceAll([const BottomBarRoute()]);
+                    await context.router.pushAndPopUntil(
+                      const BottomBarRoute(),
+                      predicate: (_) => false,
+                    );
                   }
                 },
                 buttonText: "Create username",

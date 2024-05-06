@@ -11,7 +11,9 @@ import 'package:audaxious/presentation/widgets/buttons/primary_text_button.dart'
 import 'package:audaxious/presentation/widgets/progressBars/circular_progress_bar.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -133,9 +135,11 @@ class AccountScreen extends HookConsumerWidget {
                                         children: [
                                           VerticalBar(),
                                           const Gap(20),
-                                          Text(
-                                              "Loyalty point",
-                                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: fadedTextColor)
+                                          Expanded(
+                                            child: Text(
+                                                "Loyalty point",
+                                                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: fadedTextColor)
+                                            ),
                                           )
                                         ],
                                       ),
@@ -168,9 +172,11 @@ class AccountScreen extends HookConsumerWidget {
                                         children: [
                                           VerticalBar(color: yellowBarColor,),
                                           const Gap(20),
-                                          Text(
-                                              "ADX Airdrop",
-                                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: fadedTextColor)
+                                          Expanded(
+                                            child: Text(
+                                                "ADX Airdrop",
+                                                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: fadedTextColor)
+                                            ),
                                           )
                                         ],
                                       ),
@@ -207,9 +213,11 @@ class AccountScreen extends HookConsumerWidget {
                                         children: [
                                           VerticalBar(color: purpleBarColor,),
                                           const Gap(20),
-                                          Text(
-                                              "Total rewards",
-                                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: fadedTextColor)
+                                          Expanded(
+                                            child: Text(
+                                                "Total rewards",
+                                                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: fadedTextColor)
+                                            ),
                                           )
                                         ],
                                       ),
@@ -242,9 +250,11 @@ class AccountScreen extends HookConsumerWidget {
                                         children: [
                                           VerticalBar(color: greenBarColor,),
                                           const Gap(20),
-                                          Text(
-                                              "Available balance",
-                                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: fadedTextColor)
+                                          Expanded(
+                                            child: Text(
+                                                "Balance",
+                                                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: fadedTextColor)
+                                            ),
                                           )
                                         ],
                                       ),

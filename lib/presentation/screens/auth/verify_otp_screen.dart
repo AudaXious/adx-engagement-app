@@ -1,6 +1,7 @@
 import 'package:audaxious/core/utils/theme/dark_theme.dart';
 import 'package:audaxious/domain/enums/button_state.dart';
 import 'package:audaxious/domain/enums/view_state.dart';
+import 'package:audaxious/presentation/screens/main/bottom_bar.dart';
 import 'package:audaxious/presentation/viewmodels/auth/verify_otp_viewmodel.dart';
 import 'package:audaxious/presentation/widgets/buttons/primary_text_button.dart';
 import 'package:auto_route/auto_route.dart';
@@ -111,7 +112,10 @@ class VerifyOTPScreen extends HookConsumerWidget {
                   if (user.username == null) {
                     context.router.navigate(CreateUsernameRoute());
                   }else {
-                    context.router.replaceAll([const BottomBarRoute()]);
+                    await context.router.pushAndPopUntil(
+                      const BottomBarRoute(),
+                      predicate: (_) => false,
+                    );
                   }
                 }
               }

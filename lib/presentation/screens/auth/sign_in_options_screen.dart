@@ -299,8 +299,10 @@ class _AppLifecycleObserver extends WidgetsBindingObserver {
           context.router.navigate(CreateUsernameRoute());
         }else {
           if (!context.mounted) return;
-          context.router.replaceAll([const BottomBarRoute()]);
-        }
+          await context.router.pushAndPopUntil(
+            const BottomBarRoute(),
+            predicate: (_) => false,
+          );        }
       }
 
     }else {

@@ -56,6 +56,7 @@ dependencies:
   loader_overlay: ^4.0.0
   liquid_pull_to_refresh: ^3.0.1
   flutter_native_splash: ^2.4.0
+  connectivity_plus: ^6.0.3
 #  just_the_tooltip: ^0.0.12
 
 dev_dependencies:

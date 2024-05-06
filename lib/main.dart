@@ -10,7 +10,7 @@ import 'core/routes/app_router.dart';
 void main() async{
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  await Future.delayed(const Duration(seconds: 1));
+  await Future.delayed(const Duration(milliseconds: 500));
   FlutterNativeSplash.remove();
   runApp(ProviderScope(child: MyApp()));
 }

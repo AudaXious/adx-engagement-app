@@ -16,6 +16,7 @@ import '../../../core/utils/view_utils.dart';
 import '../../../domain/models/campaign.dart';
 import '../../widgets/cards/campaign_card.dart';
 import '../../widgets/alerts/empty_result_found_illustration.dart';
+import '../../widgets/progressBars/custom_loader.dart';
 
 @RoutePage()
 class HomeScreen extends HookConsumerWidget {
@@ -159,7 +160,7 @@ class HomeScreen extends HookConsumerWidget {
             const Gap(20),
             Expanded(
               child: notifier.viewState.isLoading
-                  ? Center(child: CircularProgressBar())
+                  ? Center(child: CustomLoader(size: 30))
                   : notifier.viewState.isError
                   ? Center(
                   child: Container(

@@ -52,12 +52,6 @@ abstract class _$AppRouter extends RootStackRouter {
         child: CreateUsernameScreen(key: args.key),
       );
     },
-    FirstRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const FirstScreen(),
-      );
-    },
     HomeRoute.name: (routeData) {
       final args =
           routeData.argsAs<HomeRouteArgs>(orElse: () => const HomeRouteArgs());

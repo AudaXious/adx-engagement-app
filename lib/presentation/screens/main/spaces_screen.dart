@@ -16,6 +16,7 @@ import '../../../core/utils/theme/dark_theme.dart';
 import '../../../domain/models/space.dart';
 import '../../widgets/alerts/empty_result_found_illustration.dart';
 import '../../widgets/alerts/sign_in_dialog.dart';
+import '../../widgets/progressBars/custom_loader.dart';
 
 @RoutePage()
 class SpacesScreen extends HookConsumerWidget {
@@ -175,7 +176,7 @@ class SpacesScreen extends HookConsumerWidget {
             const Gap(20),
             Expanded(
                 child: notifier.spaceViewState.isLoading
-                    ? const Center(child: CircularProgressIndicator(strokeWidth: 3))
+                    ? Center(child: CustomLoader(size: 30))
                     : notifier.spaceViewState.isError
                     ? Center(
                     child: Container(

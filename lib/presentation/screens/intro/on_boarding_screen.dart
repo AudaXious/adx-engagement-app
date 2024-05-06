@@ -1,6 +1,7 @@
 import 'package:audaxious/core/routes/app_router.dart';
 import 'package:audaxious/core/utils/app_layout.dart';
 import 'package:audaxious/core/utils/theme/dark_theme.dart';
+import 'package:audaxious/presentation/widgets/progressBars/circular_progress_bar.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -19,6 +20,8 @@ class OnBoardingScreen extends StatefulWidget {
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   late PageController _pageController;
   int _pageIndex = 0;
+  bool _loginChecked = false;
+
 
   @override
   void initState() {
@@ -36,9 +39,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   Future<void> _checkLoginStatus() async {
     final isLoggedIn = await SharedPreferencesServices.getIsLoggedIn();
     if (isLoggedIn) {
-      if (!context.mounted) return;
       context.router.replaceAll([const BottomBarRoute()]);
     }
+
+    setState(() {
+      _loginChecked = true;
+    });
   }
 
   @override
@@ -46,7 +52,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
-          child: Column(
+          child: _loginChecked
+              ? Column(
             children: [
               const Gap(35),
               Image.asset("assets/images/audaxious_name_logo.png", width: 100, height: 16),
@@ -97,6 +104,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               const Gap(50),
             ],
           )
+              : Center(child: CircularProgressBar())
       ),
     );
   }

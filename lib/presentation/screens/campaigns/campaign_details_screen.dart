@@ -27,6 +27,7 @@ import '../../../core/utils/constants.dart';
 import '../../../domain/enums/task_button_state.dart';
 import '../../widgets/alerts/sign_in_dialog.dart';
 import '../../widgets/alerts/verify_twitter_dialog.dart';
+import '../../widgets/progressBars/custom_loader.dart';
 
 
 @RoutePage()
@@ -123,7 +124,7 @@ class CampaignDetailsScreen extends HookConsumerWidget {
         backgroundColor: const Color(0xFF060B12),
       ),
       body: notifier.viewState.isLoading
-          ? const Center(child: CircularProgressIndicator(strokeWidth: 3))
+          ? Center(child: CustomLoader(size: 30))
           : notifier.viewState.isError ? Center(child: Text(notifier.error),)
           : LiquidPullToRefresh(
               onRefresh: callAPIs,

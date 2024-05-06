@@ -27,6 +27,7 @@ import '../../widgets/alerts/un_follow_dialog.dart';
 import '../../widgets/buttons/join_and_leave_space_button.dart';
 import '../../widgets/cards/campaign_card.dart';
 import '../../widgets/leader_board_item.dart';
+import '../../widgets/progressBars/custom_loader.dart';
 import '../../widgets/space_tag.dart';
 import '../../widgets/vertical_bar.dart';
 
@@ -86,7 +87,7 @@ class SpaceDetailScreen extends HookConsumerWidget {
               ),
             ),
             body: notifier.spaceInfoViewState.isLoading
-                ? const Center(child: CircularProgressIndicator(strokeWidth: 3))
+                ? Center(child: CustomLoader(size: 30))
                 : notifier.spaceInfoViewState.isError ? Center(child: Text(notifier.error),)
                 : LiquidPullToRefresh(
                     onRefresh: callAPIs,
@@ -315,7 +316,7 @@ class SpaceDetailScreen extends HookConsumerWidget {
                           activeTab.value == "campaigns"
                               ? Container(
                               child: notifier.spaceCampaignsViewState.isLoading
-                                  ? Center(child: CircularProgressBar(size: 20))
+                                  ? Center(child: CustomLoader(size: 20))
                                   : notifier.spaceCampaignsViewState.isError
                                   ? Center(child: Text(notifier.error))
                                   : (notifier.campaigns == null || notifier.campaigns!.isEmpty)
@@ -404,7 +405,7 @@ class SpaceDetailScreen extends HookConsumerWidget {
                                       Container(
                                         margin: const EdgeInsets.symmetric(horizontal: 20),
                                         child: notifier.spaceLeaderboardViewState.isLoading
-                                            ? Center(child: CircularProgressBar(size: 20))
+                                            ? Center(child: CustomLoader(size: 20))
                                             : notifier.spaceLeaderboardViewState.isError
                                             ? Center(child: Text(notifier.error))
                                             : (notifier.leaderBoard == null || notifier.leaderBoard!.isEmpty)

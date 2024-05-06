@@ -15,7 +15,8 @@ class DioClient {
 
   //GET METHOD
   Future<dynamic> get(
-      String path, {
+      String path,
+      {
         Map<String, dynamic>? queryParameters,
         Options? options,
         CancelToken? cancelToken,

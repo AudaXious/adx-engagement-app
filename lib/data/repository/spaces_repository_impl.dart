@@ -1,12 +1,24 @@
 import 'package:audaxious/domain/repository/spaces_repository.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/services/internet_services/dio_client.dart';
 import '../../core/services/internet_services/dio_exception.dart';
 import '../../core/services/internet_services/endpoints.dart';
+import '../../core/services/internet_services/network_connectivity.dart';
+import '../../core/services/internet_services/retry_interceptor.dart';
 
 class SpacesRepositoryImpl extends SpacesRepository {
+  final RetryOnConnectionChangeInterceptor _interceptor;
+
+  SpacesRepositoryImpl() : _interceptor = RetryOnConnectionChangeInterceptor(
+      requestRetrier: NetworkConnectivityRequestRetrier(
+          dio: DioClient.instance.dioInstance,
+          connectivity: Connectivity())) {
+    DioClient.instance.dioInstance.interceptors.add(_interceptor);
+  }
+
   @override
   Future<dynamic> getSpaces(bool requiresAuthorization) async {
     try {

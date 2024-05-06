@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 
-class NetworkConnectivity {
+class NetworkConnectivityRequestRetrier {
   final Dio dio;
   final Connectivity connectivity;
 
-  NetworkConnectivity({
+  NetworkConnectivityRequestRetrier({
     required this.dio,
     required this.connectivity,
   });
@@ -29,7 +29,6 @@ class NetworkConnectivity {
                     onReceiveProgress: requestOptions.onReceiveProgress,
                     onSendProgress: requestOptions.onSendProgress,
                     queryParameters: requestOptions.queryParameters,
-                    // options: requestOptions
                   ),
               );
             }

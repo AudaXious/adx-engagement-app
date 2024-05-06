@@ -1,3 +1,4 @@
+import 'package:audaxious/core/services/internet_services/retry_interceptor.dart';
 import 'package:dio/dio.dart';
 import '../shared_preferences_services.dart';
 import 'endpoints.dart';
@@ -12,6 +13,12 @@ class DioClient {
     receiveTimeout: const Duration(seconds: 30),
     responseType: ResponseType.json,
   ));
+
+  DioClient.withInterceptor({required RetryOnConnectionChangeInterceptor interceptor}) {
+    _dio.interceptors.add(interceptor);
+  }
+
+  Dio get dioInstance => _dio;
 
   //GET METHOD
   Future<dynamic> get(

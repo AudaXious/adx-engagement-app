@@ -2,14 +2,26 @@ import 'dart:convert';
 
 import 'package:audaxious/domain/models/tasks.dart';
 import 'package:audaxious/domain/repository/campaigns_repository.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/services/internet_services/dio_client.dart';
 import '../../core/services/internet_services/dio_exception.dart';
 import '../../core/services/internet_services/endpoints.dart';
+import '../../core/services/internet_services/network_connectivity.dart';
+import '../../core/services/internet_services/retry_interceptor.dart';
 
 class CampaignsRepositoryImpl extends CampaignsRepository {
+  final RetryOnConnectionChangeInterceptor _interceptor;
+
+  CampaignsRepositoryImpl() : _interceptor = RetryOnConnectionChangeInterceptor(
+      requestRetrier: NetworkConnectivityRequestRetrier(
+          dio: DioClient.instance.dioInstance,
+          connectivity: Connectivity())) {
+    DioClient.instance.dioInstance.interceptors.add(_interceptor);
+  }
+
   @override
   Future<dynamic> getCampaigns() async {
     try {

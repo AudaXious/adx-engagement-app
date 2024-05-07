@@ -12,14 +12,14 @@ import '../../core/services/shared_preferences_services.dart';
 import '../../domain/models/user.dart';
 
 class AccountRepositoryImpl implements AccountRepository {
-  final RetryOnConnectionChangeInterceptor _interceptor;
-
-  AccountRepositoryImpl() : _interceptor = RetryOnConnectionChangeInterceptor(
-      requestRetrier: NetworkConnectivityRequestRetrier(
-          dio: DioClient.instance.dioInstance,
-          connectivity: Connectivity())) {
-    DioClient.instance.dioInstance.interceptors.add(_interceptor);
-  }
+  // final RetryOnConnectionChangeInterceptor _interceptor;
+  //
+  // AccountRepositoryImpl() : _interceptor = RetryOnConnectionChangeInterceptor(
+  //     requestRetrier: NetworkConnectivityRequestRetrier(
+  //         dio: DioClient.instance.dioInstance,
+  //         connectivity: Connectivity())) {
+  //   DioClient.instance.dioInstance.interceptors.add(_interceptor);
+  // }
 
   @override
   Future<User?> getCurrentSavedUserProfile() async {

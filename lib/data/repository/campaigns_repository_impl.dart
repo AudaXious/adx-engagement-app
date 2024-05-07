@@ -13,14 +13,14 @@ import '../../core/services/internet_services/network_connectivity.dart';
 import '../../core/services/internet_services/retry_interceptor.dart';
 
 class CampaignsRepositoryImpl extends CampaignsRepository {
-  final RetryOnConnectionChangeInterceptor _interceptor;
-
-  CampaignsRepositoryImpl() : _interceptor = RetryOnConnectionChangeInterceptor(
-      requestRetrier: NetworkConnectivityRequestRetrier(
-          dio: DioClient.instance.dioInstance,
-          connectivity: Connectivity())) {
-    DioClient.instance.dioInstance.interceptors.add(_interceptor);
-  }
+  // final RetryOnConnectionChangeInterceptor _interceptor;
+  //
+  // CampaignsRepositoryImpl() : _interceptor = RetryOnConnectionChangeInterceptor(
+  //     requestRetrier: NetworkConnectivityRequestRetrier(
+  //         dio: DioClient.instance.dioInstance,
+  //         connectivity: Connectivity())) {
+  //   DioClient.instance.dioInstance.interceptors.add(_interceptor);
+  // }
 
   @override
   Future<dynamic> getCampaigns() async {

@@ -14,11 +14,11 @@ class DioClient {
     responseType: ResponseType.json,
   ));
 
-  DioClient.withInterceptor({required RetryOnConnectionChangeInterceptor interceptor}) {
-    _dio.interceptors.add(interceptor);
-  }
-
-  Dio get dioInstance => _dio;
+  // DioClient.withInterceptor({required RetryOnConnectionChangeInterceptor interceptor}) {
+  //   _dio.interceptors.add(interceptor);
+  // }
+  //
+  // Dio get dioInstance => _dio;
 
   //GET METHOD
   Future<dynamic> get(

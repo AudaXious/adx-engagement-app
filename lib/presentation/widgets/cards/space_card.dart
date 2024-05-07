@@ -24,7 +24,7 @@ class SpaceCard extends HookConsumerWidget {
   Space space;
   SpaceCard({super.key, required this.space});
 
-  late Space clickedSpace;
+  // late Space clickedSpace;
   bool isMember = false;
 
   @override
@@ -40,22 +40,23 @@ class SpaceCard extends HookConsumerWidget {
     return GestureDetector(
       onTap: () {
         print("The new fucking memem $isMember");
-        clickedSpace = Space(
-            title: space.title,
-            description: space.description,
-            creatorUUID: space.creatorUUID,
-            tags: space.tags,
-            links: space.links,
-            profileURL: space.profileURL,
-            coverURL: space.coverURL,
-            spaceMembersCount: space.spaceMembersCount,
-            campaignsCount: space.campaignsCount,
-            isVerified: space.isVerified,
-            isMember: isMember,
-            createdAt: space.createdAt,
-            updatedAt: space.updatedAt
-        );
-        context.router.navigate(SpaceDetailRoute(spaceId: space.uuid ?? "", space: clickedSpace));
+        // clickedSpace = Space(
+        //     title: space.title,
+        //     description: space.description,
+        //     creatorUUID: space.creatorUUID,
+        //     tags: space.tags,
+        //     links: space.links,
+        //     uuid: space.uuid,
+        //     profileURL: space.profileURL,
+        //     coverURL: space.coverURL,
+        //     spaceMembersCount: space.spaceMembersCount,
+        //     campaignsCount: space.campaignsCount,
+        //     isVerified: space.isVerified,
+        //     isMember: isMember,
+        //     createdAt: space.createdAt,
+        //     updatedAt: space.updatedAt
+        // );
+        context.router.navigate(SpaceDetailRoute(spaceId: space.uuid ?? "", space: space));
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 15),
@@ -122,21 +123,22 @@ class SpaceCard extends HookConsumerWidget {
                                 if (isLoggedIn) {
                                   isMember = true;
                                   buttonState.value = JoinSpaceButtonState.joined;
-                                  clickedSpace = Space(
-                                      title: space.title,
-                                      description: space.description,
-                                      creatorUUID: space.creatorUUID,
-                                      tags: space.tags,
-                                      links: space.links,
-                                      profileURL: space.profileURL,
-                                      coverURL: space.coverURL,
-                                      spaceMembersCount: space.spaceMembersCount,
-                                      campaignsCount: space.campaignsCount,
-                                      isVerified: space.isVerified,
-                                      isMember: isMember,
-                                      createdAt: space.createdAt,
-                                      updatedAt: space.updatedAt
-                                  );
+                                  // clickedSpace = Space(
+                                  //     title: space.title,
+                                  //     description: space.description,
+                                  //     creatorUUID: space.creatorUUID,
+                                  //     tags: space.tags,
+                                  //     links: space.links,
+                                  //     uuid: space.uuid,
+                                  //     profileURL: space.profileURL,
+                                  //     coverURL: space.coverURL,
+                                  //     spaceMembersCount: space.spaceMembersCount,
+                                  //     campaignsCount: space.campaignsCount,
+                                  //     isVerified: space.isVerified,
+                                  //     isMember: isMember,
+                                  //     createdAt: space.createdAt,
+                                  //     updatedAt: space.updatedAt
+                                  // );
                                  await reader.joinSpace(space.uuid ?? "", context);
                                 }else {
                                   if (!context.mounted) return;

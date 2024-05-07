@@ -2,6 +2,7 @@ import 'package:audaxious/core/routes/app_router.dart';
 import 'package:audaxious/core/utils/app_layout.dart';
 import 'package:audaxious/core/utils/theme/dark_theme.dart';
 import 'package:audaxious/presentation/widgets/progressBars/circular_progress_bar.dart';
+import 'package:audaxious/presentation/widgets/progressBars/custom_loader.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -104,7 +105,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               const Gap(50),
             ],
           )
-              : Center(child: CircularProgressBar())
+              : Center(child: CustomLoader())
       ),
     );
   }

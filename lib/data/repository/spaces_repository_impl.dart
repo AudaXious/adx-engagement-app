@@ -10,14 +10,14 @@ import '../../core/services/internet_services/network_connectivity.dart';
 import '../../core/services/internet_services/retry_interceptor.dart';
 
 class SpacesRepositoryImpl extends SpacesRepository {
-  final RetryOnConnectionChangeInterceptor _interceptor;
-
-  SpacesRepositoryImpl() : _interceptor = RetryOnConnectionChangeInterceptor(
-      requestRetrier: NetworkConnectivityRequestRetrier(
-          dio: DioClient.instance.dioInstance,
-          connectivity: Connectivity())) {
-    DioClient.instance.dioInstance.interceptors.add(_interceptor);
-  }
+  // final RetryOnConnectionChangeInterceptor _interceptor;
+  //
+  // SpacesRepositoryImpl() : _interceptor = RetryOnConnectionChangeInterceptor(
+  //     requestRetrier: NetworkConnectivityRequestRetrier(
+  //         dio: DioClient.instance.dioInstance,
+  //         connectivity: Connectivity())) {
+  //   DioClient.instance.dioInstance.interceptors.add(_interceptor);
+  // }
 
   @override
   Future<dynamic> getSpaces(bool requiresAuthorization) async {

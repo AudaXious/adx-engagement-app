@@ -45,15 +45,14 @@ class SpacesViewModel extends StateNotifier<SpacesState> {
       final requiresAuthorization = await SharedPreferencesServices.getIsLoggedIn();
       final response = await spacesUseCase.getSpaces(requiresAuthorization);
       final data = response['data'];
+      print("spacea ${data}");
 
       if (data != null && data is List) {
         final List dataList = data.cast<dynamic>();
 
         final spaces = dataList.map((spacesData) => Space.fromJson(spacesData)).toList();
         state = state.update(spaces: spaces);
-        for (int i = 0; i < spaces.length; i++) {
-          print(spaces[i].isMember);
-        }
+
       }else {
         print('Unexpected data format. Expected a list of spaces.');
         state = state.update(spaceViewState: ViewState.error);
@@ -169,12 +168,12 @@ class SpacesViewModel extends StateNotifier<SpacesState> {
     } catch (e) {
       state = state.update(error: e.toString());
       state = state.update(joinSpaceViewState: ViewState.error);
-      // CustomToast.show(
-      //   context: context,
-      //   title: "Error",
-      //   description: e.toString(),
-      //   type: ToastificationType.error,
-      // );
+      CustomToast.show(
+        context: context,
+        title: "Error",
+        description: e.toString(),
+        type: ToastificationType.error,
+      );
       print("View model error: ${e.toString()}");
       return false;
     }

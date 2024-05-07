@@ -59,6 +59,7 @@ class SpacesDetailsViewModel extends StateNotifier<SpaceDetailState> {
     try {
       final response = await campaignsBySpaceIdUseCase.getCampaignsBySpaceId(spaceId);
       final data = response['data'];
+
       if (data != null && data is List) {
         final List dataList = data.cast<dynamic>();
 
@@ -125,12 +126,12 @@ class SpacesDetailsViewModel extends StateNotifier<SpaceDetailState> {
     } catch (e) {
       state = state.update(error: e.toString());
       state = state.update(joinSpaceViewState: ViewState.error);
-      // CustomToast.show(
-      //   context: context,
-      //   title: "Error",
-      //   description: e.toString(),
-      //   type: ToastificationType.error,
-      // );
+      CustomToast.show(
+        context: context,
+        title: "Error",
+        description: e.toString(),
+        type: ToastificationType.error,
+      );
       print("View model error: ${e.toString()}");
       return false;
     }

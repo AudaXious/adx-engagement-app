@@ -302,7 +302,8 @@ class _AppLifecycleObserver extends WidgetsBindingObserver {
           await context.router.pushAndPopUntil(
             const BottomBarRoute(),
             predicate: (_) => false,
-          );        }
+          );
+        }
       }
 
     }else {

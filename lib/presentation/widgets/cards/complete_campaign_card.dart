@@ -40,7 +40,7 @@ class CompleteCampaignCard extends StatelessWidget {
                       Image.asset("assets/images/task.png", width: 12, height: 12, color: taskChipBorderColor.withOpacity(0.6)),
                       const Gap(3),
                       Text(
-                        "Tasks | 0/${campaign.taskCount}",
+                        "Tasks | ${campaign.taskCount}",
                         style: Theme.of(context).textTheme.bodyMedium?.
                         copyWith(color: taskChipBorderColor.withOpacity(0.7)),
                       ),

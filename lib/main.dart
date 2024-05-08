@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:web3modal_flutter/theme/w3m_theme_widget.dart';
 import 'core/routes/app_router.dart';
+import 'package:flutter/services.dart';
 
 void main() async{
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +23,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
     return GlobalLoaderOverlay(
       overlayColor: backgroundColor,
       useDefaultLoading: false,

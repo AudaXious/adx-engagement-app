@@ -8,7 +8,7 @@ import 'package:web3modal_flutter/theme/w3m_theme_widget.dart';
 import 'core/routes/app_router.dart';
 import 'package:flutter/services.dart';
 
-void main() async{
+void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Future.delayed(const Duration(milliseconds: 500));

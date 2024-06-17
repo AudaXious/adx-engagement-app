@@ -34,11 +34,11 @@ class CustomDioException implements Exception {
   }
 
   String _handleBadResponse(Response? response) {
-    if (response == null) {
-      return 'Unexpected error occurred';
+    if (response?.data.containsKey('error')) {
+      return response?.data['error'];
     }
 
-    switch (response.statusCode) {
+    switch (response?.statusCode) {
       case 500:
       case 503:
         return "Oops. Something went wrong. It's not your fault.";
@@ -51,8 +51,8 @@ class CustomDioException implements Exception {
       case 404:
         return "Resource not found";
       default:
-        if (response.data != null && response.data.containsKey('error')) {
-          return response.data['error'];
+        if (response?.data.containsKey('error')) {
+          return response?.data['error'];
         }
         return 'Unexpected error occurred';
     }

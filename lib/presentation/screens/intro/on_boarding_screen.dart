@@ -23,7 +23,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   int _pageIndex = 0;
   bool _loginChecked = false;
 
-
   @override
   void initState() {
     _pageController = PageController(initialPage: 0);
